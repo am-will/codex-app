@@ -15,15 +15,28 @@ npm install
 npm run start
 ```
 
-## To install with Agent
+## Install with Agent
 
-If you want to run this manually from source (instead of using a prebuilt Debian package), use these steps:
+```text
+You are an AI coding agent operating in a terminal.
+Install and run codex-app from source (do not use prebuilt .deb packages).
 
-1. Clone the repo to your machine: `git clone https://github.com/am-will/codex-app.git`
-2. Go into the project folder: `cd codex-app/desktop`
-3. Install dependencies: `npm install`
-4. Start the app in development mode: `npm run start`
-5. If you want Linux install files later, build them with: `npm run make:linux`
+Required steps:
+1. Clone the repository:
+   git clone https://github.com/am-will/codex-app.git
+2. Enter the desktop project:
+   cd codex-app/desktop
+3. Install dependencies:
+   npm install
+4. Start the app in development mode:
+   npm run start
+5. If Linux installers are needed, build them:
+   npm run make:linux
+
+Constraints:
+- Do not commit build outputs.
+- Report the final command outputs for install and startup.
+```
 
 GitHub release artifacts:
 - Tag a release like `v26.311.21342` and push the tag.
