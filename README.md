@@ -5,7 +5,6 @@ This repository is the working reconstruction and Linux-port starting point for 
 ## Layout
 
 - `desktop/`: runnable Electron Forge + Vite + TypeScript starter app that will become the canonical source workspace in this repo
-- `plan.md`: dependency-aware Ubuntu port plan
 - `Codex-extracted-26.306.996.0/`: local-only extracted Windows reference artifact, intentionally excluded from git
 
 ## Getting Started
@@ -16,19 +15,15 @@ npm install
 npm run start
 ```
 
-## Linux Builds
+## To install with Agent
 
-Build Linux installers locally:
+If you want to run this manually from source (instead of using a prebuilt Debian package), use these steps:
 
-```bash
-cd desktop
-npm install
-npm run make:linux
-```
-
-Expected outputs:
-- `desktop/out/make/deb/*/*.deb`
-- `desktop/out/make/**/Codex-*.AppImage`
+1. Clone the repo to your machine: `git clone https://github.com/am-will/codex-app.git`
+2. Go into the project folder: `cd codex-app/desktop`
+3. Install dependencies: `npm install`
+4. Start the app in development mode: `npm run start`
+5. If you want Linux install files later, build them with: `npm run make:linux`
 
 GitHub release artifacts:
 - Tag a release like `v26.311.21342` and push the tag.
