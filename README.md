@@ -1,5 +1,7 @@
 # codex-app
 
+![Codex app screenshot](docs/images/codex-app-screenshot.png)
+
 Codex desktop app packaging and release repository.
 
 This repo tracks the Linux packaging pipeline for Codex and publishes installable release artifacts.
