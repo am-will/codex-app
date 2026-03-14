@@ -1,0 +1,2 @@
+import{o as e}from"./chunk-CFjPhJqf.js";import{t}from"./react-DEh3VhWB.js";var n=e(t(),1);const r=(0,n.createContext)(void 0),i=(0,n.createContext)(null);function a(){let e=(0,n.useContext)(r);if(!e)throw Error(`useAuth must be used within AuthProvider`);return e}function o(){let e=(0,n.useContext)(i);if(!e)throw Error(`useUpdateAuthNonce must be used within AuthStateNonceProvider`);return e}export{r as i,o as n,i as r,a as t};
+//# sourceMappingURL=use-auth-CyuMiMN7.js.map

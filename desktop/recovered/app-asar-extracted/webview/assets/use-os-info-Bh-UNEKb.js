@@ -1,0 +1,2 @@
+import{t as e}from"./compiler-runtime-DWxh9F-l.js";import{y as t}from"./links-DTyoi4an.js";var n=e();function r(){let e=(0,n.c)(3),r=t(`os-info`),i;return e[0]!==r.data||e[1]!==r.isLoading?(i={data:r.data,isLoading:r.isLoading},e[0]=r.data,e[1]=r.isLoading,e[2]=i):i=e[2],i}export{r as t};
+//# sourceMappingURL=use-os-info-Bh-UNEKb.js.map

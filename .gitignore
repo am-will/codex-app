@@ -1,0 +1,32 @@
+# Local reference artifact, not suitable for first GitHub history
+Codex-extracted-*/
+
+# Node / Electron build outputs
+node_modules/
+desktop/node_modules/
+desktop/out/
+desktop/dist/
+desktop/.vite/
+desktop/.webpack/
+desktop/.git/
+desktop/tmp/
+desktop/.tmp-tests/
+docs/linux/parity-captures/
+codex-3-12/
+/bootstrap*.js
+/main-*.js
+/preload.js
+/worker.js
+/remote-connections-settings-*.js
+
+# Logs and env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.env
+.env.*
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
