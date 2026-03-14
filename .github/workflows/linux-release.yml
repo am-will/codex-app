@@ -48,20 +48,21 @@ jobs:
       - name: Normalize public artifact names and include release note
         run: |
           set -euo pipefail
-          VERSION="${GITHUB_REF_NAME#v}"
+          CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          LEGACY_VERSION="3.12"
           mkdir -p desktop/out/release-assets
           CURRENT_APPIMAGE_SOURCE="$(find desktop/out/make-current -type f -name '*.AppImage' | head -n 1)"
           CURRENT_DEB_SOURCE="$(find desktop/out/make-current -type f -name '*.deb' | head -n 1)"
           LEGACY_APPIMAGE_SOURCE="$(find desktop/out/make -type f -name '*.AppImage' | head -n 1)"
           LEGACY_DEB_SOURCE="$(find desktop/out/make -type f -name '*.deb' | head -n 1)"
-          cp "$CURRENT_APPIMAGE_SOURCE" "desktop/out/release-assets/codex-app-linux-${VERSION}-x64.AppImage"
-          cp "$CURRENT_DEB_SOURCE" "desktop/out/release-assets/codex-app-linux_${VERSION}_amd64.deb"
-          cp "$LEGACY_APPIMAGE_SOURCE" "desktop/out/release-assets/codex-app-linux-${VERSION}-legacy-3-12-x64.AppImage"
-          cp "$LEGACY_DEB_SOURCE" "desktop/out/release-assets/codex-app-linux_${VERSION}_legacy-3-12_amd64.deb"
+          cp "$CURRENT_APPIMAGE_SOURCE" "desktop/out/release-assets/codex-current-v${CURRENT_VERSION}.AppImage"
+          cp "$CURRENT_DEB_SOURCE" "desktop/out/release-assets/codex-current-v${CURRENT_VERSION}.deb"
+          cp "$LEGACY_APPIMAGE_SOURCE" "desktop/out/release-assets/codex-legacy-v${LEGACY_VERSION}.AppImage"
+          cp "$LEGACY_DEB_SOURCE" "desktop/out/release-assets/codex-legacy-v${LEGACY_VERSION}.deb"
           cat > "desktop/out/release-assets/RELEASE_NOTES_LINUX.txt" <<'EOF'
           Linux installers in this release:
-          - current: codex-app-linux-<version>-x64.AppImage and codex-app-linux_<version>_amd64.deb
-          - legacy-3-12: codex-app-linux-<version>-legacy-3-12-x64.AppImage and codex-app-linux_<version>_legacy-3-12_amd64.deb
+          - current: codex-current-v<current-version>.AppImage and codex-current-v<current-version>.deb
+          - legacy-3-12: codex-legacy-v3.12.AppImage and codex-legacy-v3.12.deb
 
           Note: the newer version was lagging for some workspaces, so both versions are published.
           EOF
