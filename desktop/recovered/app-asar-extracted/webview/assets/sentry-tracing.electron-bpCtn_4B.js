@@ -1,0 +1,2 @@
+import{n as e,r as t}from"./trace-BQZGuJVA.js";function n(t,n){return e({op:t.op,name:t.name,attributes:t.attributes},n)}function r(e){t({op:e.op,name:e.name,startTime:new Date(e.startTimeMs),attributes:e.attributes},t=>{t.end(new Date(e.endTimeMs))})}export{n,r as t};
+//# sourceMappingURL=sentry-tracing.electron-bpCtn_4B.js.map

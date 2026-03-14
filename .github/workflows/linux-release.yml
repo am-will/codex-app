@@ -1,0 +1,50 @@
+name: Linux Release Artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: desktop
+        run: npm ci
+
+      - name: Build Linux installers (.deb + AppImage)
+        working-directory: desktop
+        run: npm run make:linux
+
+      - name: Upload Linux build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-linux-installers
+          path: |
+            desktop/out/make/**/*.AppImage
+            desktop/out/make/**/*.deb
+          if-no-files-found: error
+
+      - name: Publish GitHub release assets (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            desktop/out/make/**/*.AppImage
+            desktop/out/make/**/*.deb
