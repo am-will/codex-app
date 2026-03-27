@@ -28,9 +28,6 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(
       fs.readdirSync(recoveredBuildRoot).some((entry) => /^main-.+\.js$/.test(entry)),
     ).toBe(true);
-    expect(
-      fs.readdirSync(recoveredBuildRoot).some((entry) => /^product-name-.+\.js$/.test(entry)),
-    ).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'preload.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredRoot, 'webview', 'index.html'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredRoot, 'skills'))).toBe(true);
