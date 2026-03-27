@@ -14,9 +14,22 @@ import {
   ensureRecoveredWebviewDevServer,
 } from './dev/recovered-webview-dev-server';
 
+const linuxIconRoot = path.resolve(__dirname, 'assets/icons');
+const linuxPackagerIcon = path.join(linuxIconRoot, 'codex-logo-512.png');
+const linuxAppImageIconSet = {
+  default: '512x512',
+  strict: true,
+  '32x32': path.join(linuxIconRoot, 'codex-logo-32.png'),
+  '64x64': path.join(linuxIconRoot, 'codex-logo-64.png'),
+  '128x128': path.join(linuxIconRoot, 'codex-logo-128.png'),
+  '256x256': path.join(linuxIconRoot, 'codex-logo-256.png'),
+  '512x512': path.join(linuxIconRoot, 'codex-logo-512.png'),
+};
+
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    icon: linuxPackagerIcon,
     extraResource: [
       path.resolve(__dirname, 'resources/bin/linux-x64/codex'),
       path.resolve(__dirname, 'resources/bin/linux-x64/rg'),
@@ -75,6 +88,7 @@ const config: ForgeConfig = {
         options: {
           bin: 'Codex',
           categories: ['Development', 'Utility'],
+          icon: linuxPackagerIcon,
         },
       },
       ['linux'],
@@ -86,6 +100,7 @@ const config: ForgeConfig = {
         options: {
           bin: 'Codex',
           categories: ['Development', 'Utility'],
+          icon: linuxAppImageIconSet,
         },
       },
     },

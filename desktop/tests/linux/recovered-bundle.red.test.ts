@@ -85,9 +85,20 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(forgeConfig).toContain('/recovered');
     expect(forgeConfig).toContain('/recovered/app-asar-extracted/node_modules');
     expect(forgeConfig).toContain('/node_modules/node-pty/prebuilds');
+    expect(forgeConfig).toContain("icon: linuxPackagerIcon");
+    expect(forgeConfig).toContain("icon: linuxAppImageIconSet");
     expect(forgeConfig).toContain('new AutoUnpackNativesPlugin');
     expect(forgeConfig).toContain('new MakerDeb');
     expect(forgeConfig).toContain("name: '@reforged/maker-appimage'");
+  });
+
+  test('linux branding assets are vendored for package metadata and recovered UI chrome', () => {
+    expect(fs.existsSync(path.join(desktopRoot, 'assets', 'icons', 'codex-logo-32.png'))).toBe(true);
+    expect(fs.existsSync(path.join(desktopRoot, 'assets', 'icons', 'codex-logo-64.png'))).toBe(true);
+    expect(fs.existsSync(path.join(desktopRoot, 'assets', 'icons', 'codex-logo-128.png'))).toBe(true);
+    expect(fs.existsSync(path.join(desktopRoot, 'assets', 'icons', 'codex-logo-256.png'))).toBe(true);
+    expect(fs.existsSync(path.join(desktopRoot, 'assets', 'icons', 'codex-logo-512.png'))).toBe(true);
+    expect(fs.existsSync(path.join(recoveredRoot, 'webview', 'assets', 'app-D0g8sCle.png'))).toBe(true);
   });
 
   test('dev startup wires a local recovered webview server on the renderer port', () => {
