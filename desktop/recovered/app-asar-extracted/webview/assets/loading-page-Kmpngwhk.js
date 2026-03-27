@@ -1,2 +1,0 @@
-import{t as e}from"./compiler-runtime-DWxh9F-l.js";import{vt as t}from"./src-DgMZw_eC.js";import{t as n}from"./jsx-runtime-O3jQaKZd.js";var r=e(),i=n();function a(e){let n=(0,r.c)(3),{overlay:a}=e,o=a!==void 0&&a?`absolute inset-0 z-10 flex items-center justify-center bg-token-bg-primary/70`:`flex size-full items-center justify-center`,s;n[0]===Symbol.for(`react.memo_cache_sentinel`)?(s=(0,i.jsx)(t,{}),n[0]=s):s=n[0];let c;return n[1]===o?c=n[2]:(c=(0,i.jsx)(`div`,{className:o,children:s}),n[1]=o,n[2]=c),c}export{a as t};
-//# sourceMappingURL=loading-page-Kmpngwhk.js.map

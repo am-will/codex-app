@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop2="http://schemas.microsoft.com/appx/manifest/desktop/windows10/2" IgnorableNamespaces="uap uap3 desktop2" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
+  <Identity Name="OpenAI.Codex" ProcessorArchitecture="x64" Version="26.325.2171.0" Publisher="CN=50BDFD77-8903-4850-9FFE-6E8522F64D5B" />
+  <Properties>
+    <DisplayName>Codex</DisplayName>
+    <PublisherDisplayName>OpenAI</PublisherDisplayName>
+    <Logo>assets\icon.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.19041.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="en-US" />
+  </Resources>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+    <Capability Name="internetClient" />
+  </Capabilities>
+  <Applications>
+    <Application Id="App" Executable="app\Codex.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="Codex" Description="Codex" Square44x44Logo="assets\Square44x44Logo.png" Square150x150Logo="assets\Square150x150Logo.png" BackgroundColor="#3143FF"></uap:VisualElements>
+    </Application>
+  </Applications>
+  <mp:PhoneIdentity PhoneProductId="53bf120e-f20a-474e-892d-d87c803a0e39" PhonePublisherId="7d1e4745-d434-4fde-a9ef-c9c97f199413" />
+</Package>

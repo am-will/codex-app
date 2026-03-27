@@ -27,10 +27,12 @@ describe('Automation run archive regression gate (RED)', () => {
   test('worktree automations derive starting state from the active branch and fall back to HEAD', () => {
     const mainSource = readRecoveredMainBundle();
 
-    expect(mainSource).toContain('async function se(t,n,r){let i=(await n.getWorktreeRepository(t,r))?.root;');
-    expect(mainSource).toContain('branchName:(await e.K(i,r))?.branch??`HEAD`');
+    expect(mainSource).toContain(
+      'async function be(t,n,r){let i=(await n.getWorktreeRepository(t,r))?.root;',
+    );
+    expect(mainSource).toContain('branchName:(await e.Q(i,r))?.branch??`HEAD`');
     expect(mainSource).toContain('{type:`branch`,branchName:`HEAD`}');
     expect(mainSource).toContain('g=t.executionEnvironment===`worktree`');
-    expect(mainSource).toContain('startingState:await se(s,r,a)');
+    expect(mainSource).toContain('startingState:await be(c,r,a)');
   });
 });

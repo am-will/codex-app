@@ -2,14 +2,16 @@
 
 ## Scope
 
-This runbook defines the verified Ubuntu build flow for the refreshed `desktop/` wrapper that now vendors the `codex-3-12` upstream package.
+This runbook defines the verified Ubuntu build flow for the refreshed `desktop/` wrapper that now vendors the `codex` upstream package.
 
-- Reference input: `codex-3-12/`
+- Reference input: `codex/`
 - Active app workspace: `desktop/`
 - Package manager: `npm`
+- Version policy: Linux artifact names track embedded app version `26.325.21211`; imported Windows package manifest version remains `26.325.2171.0`; build number is `1255`.
 - Primary Linux artifacts:
   - unpacked app: `desktop/out/Codex-linux-x64/`
-  - Debian package: `desktop/out/make/deb/x64/codex-desktop_26.309.31024_amd64.deb`
+  - Debian package: `desktop/out/make/deb/x64/codex-desktop_26.325.21211_amd64.deb`
+  - AppImage: `desktop/out/make/AppImage/x64/Codex-26.325.21211-x64.AppImage`
 
 ## Supported Ubuntu Builders
 
@@ -73,7 +75,7 @@ npm run make
 
 Expected `.deb` output:
 
-- `desktop/out/make/deb/x64/codex-desktop_26.309.31024_amd64.deb`
+- `desktop/out/make/deb/x64/codex-desktop_26.325.21211_amd64.deb`
 
 ## Packaging Verification
 
@@ -108,13 +110,19 @@ cd /home/willr/Applications/codex-app/desktop
 
 The packaged Linux app was validated in this refresh by:
 
-- successful packaged startup logs under `~/.local/state/codex/logs/...`
+- successful Electron/CDP attachment to the built app window
+- packaged plugins, skills, and settings surfaces rendering from the built output
 - successful app-server stdio transport spawn using packaged `resources/codex`
-- successful `thread/list`, `account/read`, `config/read`, and `skills/list` traffic during packaged execution
+- Debian payload inspection confirming `chrome-sandbox` is packaged with mode `4755`
+
+Local caveat for unpacked smoke runs:
+
+- `desktop/out/Codex-linux-x64/Codex` aborts on a plain launch if `chrome-sandbox` is not running with the expected setuid-root permissions.
+- For local unpacked verification, either preserve the sandbox permissions or run with `--no-sandbox`.
 
 ## Current Status
 
 - `npm run test:linux` passes
 - `npm run package` passes
 - `npm run make` passes
-- unpacked and packaged artifacts use the refreshed `26.309.31024` / build `962` bundle
+- unpacked and packaged artifacts use the refreshed embedded app version `26.325.21211`, Windows package manifest `26.325.2171.0`, and build `1255`

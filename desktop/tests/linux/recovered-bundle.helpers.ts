@@ -62,3 +62,14 @@ export function readRecoveredRendererEntry(): string {
 
   return fs.readFileSync(path.join(recoveredWebviewAssetsRoot, match[1]), 'utf8');
 }
+
+export function getRecoveredRendererEntryFileName(): string {
+  const indexHtml = readRecoveredWebviewIndex();
+  const match = indexHtml.match(/<script type="module" crossorigin src="\.\/*assets\/([^"]+)">/);
+
+  if (!match?.[1]) {
+    throw new Error('Could not resolve the recovered renderer entry from webview/index.html.');
+  }
+
+  return match[1];
+}
