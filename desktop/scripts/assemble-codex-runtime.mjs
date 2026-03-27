@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const desktopRoot = path.resolve(__dirname, '..');
 const repoRoot = path.resolve(desktopRoot, '..');
+const gitLfsPointerPrefix = 'version https://git-lfs.github.com/spec/v1';
 
 const codexResourcesRoot = path.join(repoRoot, 'codex', 'app', 'resources');
 const defaultAssembleOutputRoot = path.join(desktopRoot, 'tmp', 'codex-runtime');
@@ -69,7 +70,11 @@ const appServerTurnCompletedPatchTarget =
 const appServerTurnCompletedPatchReplacement =
   'if(!this.conversations.get(r))break;let a=null,o=null,s=null;';
 
-function applyStringPatch(source, target, replacement, label, sourcePath) {
+function buildMissingPatchTargetError(label, sourcePath) {
+  return new Error(`${label} patch target not found in ${sourcePath}`);
+}
+
+export function applyStringPatch(source, target, replacement, label, sourcePath) {
   if (source.includes(replacement)) {
     return {
       patched: false,
@@ -79,11 +84,7 @@ function applyStringPatch(source, target, replacement, label, sourcePath) {
   }
 
   if (!source.includes(target)) {
-    return {
-      patched: false,
-      skipped: true,
-      reason: `${label} patch target not found in ${sourcePath}`,
-    };
+    throw buildMissingPatchTargetError(label, sourcePath);
   }
 
   return {
@@ -93,7 +94,7 @@ function applyStringPatch(source, target, replacement, label, sourcePath) {
   };
 }
 
-function applyRegexPatch(source, pattern, replacement, label, sourcePath, marker) {
+export function applyRegexPatch(source, pattern, replacement, label, sourcePath, marker) {
   if (marker && source.includes(marker)) {
     return {
       patched: false,
@@ -104,11 +105,7 @@ function applyRegexPatch(source, pattern, replacement, label, sourcePath, marker
 
   pattern.lastIndex = 0;
   if (!pattern.test(source)) {
-    return {
-      patched: false,
-      skipped: true,
-      reason: `${label} patch target not found in ${sourcePath}`,
-    };
+    throw buildMissingPatchTargetError(label, sourcePath);
   }
 
   pattern.lastIndex = 0;
@@ -139,8 +136,85 @@ function assertExists(targetPath, label) {
   }
 }
 
-function copyRequired(sourcePath, destinationPath) {
-  assertExists(sourcePath, `Required codex asset`);
+export function isGitLfsPointerText(source) {
+  return source.startsWith(gitLfsPointerPrefix);
+}
+
+export function isGitLfsPointerFile(filePath) {
+  const fileDescriptor = fs.openSync(filePath, 'r');
+
+  try {
+    const buffer = Buffer.alloc(256);
+    const bytesRead = fs.readSync(fileDescriptor, buffer, 0, buffer.length, 0);
+    return isGitLfsPointerText(buffer.subarray(0, bytesRead).toString('utf8'));
+  } finally {
+    fs.closeSync(fileDescriptor);
+  }
+}
+
+function getRepoRelativePath(filePath) {
+  const relativePath = path.relative(repoRoot, filePath);
+  if (
+    relativePath === '' ||
+    relativePath.startsWith('..') ||
+    path.isAbsolute(relativePath)
+  ) {
+    return null;
+  }
+
+  return relativePath.split(path.sep).join('/');
+}
+
+function tryHydrateGitLfsPath(filePath) {
+  const repoRelativePath = getRepoRelativePath(filePath);
+  if (!repoRelativePath) {
+    return;
+  }
+
+  const commands = [
+    ['lfs', 'checkout', '--', repoRelativePath],
+    ['lfs', 'pull', '--include', repoRelativePath, '--exclude', ''],
+  ];
+
+  for (const args of commands) {
+    if (!isGitLfsPointerFile(filePath)) {
+      return;
+    }
+
+    try {
+      childProcess.execFileSync('git', args, {
+        cwd: repoRoot,
+        stdio: 'pipe',
+      });
+    } catch {
+      // Keep the original pointer-detection failure as the actionable error below.
+    }
+  }
+}
+
+export function ensureHydratedFile(filePath, label, options = {}) {
+  assertExists(filePath, label);
+
+  if (!isGitLfsPointerFile(filePath)) {
+    return;
+  }
+
+  const hydrate = options.hydrate ?? tryHydrateGitLfsPath;
+  hydrate(filePath);
+
+  if (!isGitLfsPointerFile(filePath)) {
+    return;
+  }
+
+  const repoRelativePath = getRepoRelativePath(filePath);
+  const lfsHint = repoRelativePath
+    ? ` Run "git lfs pull --include=\\"${repoRelativePath}\\"" before packaging.`
+    : '';
+  throw new Error(`${label} is still a Git LFS pointer: ${filePath}.${lfsHint}`);
+}
+
+function copyRequired(sourcePath, destinationPath, label = 'Required codex asset') {
+  ensureHydratedFile(sourcePath, label);
   fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
   fs.copyFileSync(sourcePath, destinationPath);
   fs.chmodSync(destinationPath, fs.statSync(sourcePath).mode);
@@ -189,7 +263,7 @@ function runAsar(args) {
   });
 }
 
-function applyPatchesToFile(filePath, patches) {
+export function applyPatchesToFile(filePath, patches) {
   assertExists(filePath, 'Patched extracted asset');
 
   let source = fs.readFileSync(filePath, 'utf8');
@@ -489,6 +563,7 @@ export function assembleCodexRuntime({ outputRoot }) {
     copyRequired(
       path.join(codexResourcesRoot, resourceName),
       path.join(resourcesRoot, resourceName),
+      `Required codex resource "${resourceName}"`,
     );
   }
 

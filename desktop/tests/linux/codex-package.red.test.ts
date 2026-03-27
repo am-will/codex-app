@@ -149,4 +149,15 @@ describe('Codex package staging RED contract', () => {
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'codex'))).toBe(true);
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'rg'))).toBe(true);
   });
+
+  test('linux release workflow hydrates lfs assets and writes concrete release note filenames', () => {
+    const workflowSource = readDesktopFile('../.github/workflows/linux-release.yml');
+
+    expect(workflowSource).toContain('lfs: true');
+    expect(workflowSource).toContain('CURRENT_APPIMAGE_NAME=');
+    expect(workflowSource).toContain('CURRENT_DEB_NAME=');
+    expect(workflowSource).toContain('- ${CURRENT_APPIMAGE_NAME}');
+    expect(workflowSource).toContain('- ${CURRENT_DEB_NAME}');
+    expect(workflowSource).not.toContain('<current-version>');
+  });
 });
