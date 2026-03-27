@@ -24,12 +24,12 @@ import {
 describe('Recovered Codex bundle RED contract', () => {
   test('desktop vendors the extracted compiled Codex bundle', () => {
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'bootstrap.js'))).toBe(true);
-    expect(
-      fs.readdirSync(recoveredBuildRoot).some((entry) => /^bootstrap-.+\.js$/.test(entry)),
-    ).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'worker.js'))).toBe(true);
     expect(
       fs.readdirSync(recoveredBuildRoot).some((entry) => /^main-.+\.js$/.test(entry)),
+    ).toBe(true);
+    expect(
+      fs.readdirSync(recoveredBuildRoot).some((entry) => /^product-name-.+\.js$/.test(entry)),
     ).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'preload.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredRoot, 'webview', 'index.html'))).toBe(true);
@@ -46,21 +46,10 @@ describe('Recovered Codex bundle RED contract', () => {
       scripts?: Record<string, string>;
     };
     const bootstrapSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    const hashedBootstrapPath = fs
-      .readdirSync(recoveredBuildRoot)
-      .find((entry) => /^bootstrap-.+\.js$/.test(entry));
-
-    if (!hashedBootstrapPath) {
-      throw new Error(`Missing hashed bootstrap asset in ${recoveredBuildRoot}`);
-    }
-
-    const hashedBootstrapSource = readDesktopFile(
-      `recovered/app-asar-extracted/.vite/build/${hashedBootstrapPath}`,
-    );
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.311.21342');
-    expect(packageJson.codexBuildNumber).toBe('993');
+    expect(packageJson.version).toBe('26.325.21211');
+    expect(packageJson.codexBuildNumber).toBe('1255');
     expect(packageJson.devDependencies?.electron).toBe('40.0.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -71,8 +60,9 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(packageJson.scripts?.package).toContain('npm run rebuild:natives');
     expect(packageJson.scripts?.make).toContain('npm run rebuild:natives');
     expect(packageJson.scripts?.['make:linux']).toContain('electron-forge make --platform linux');
-    expect(bootstrapSource).toContain('require("./bootstrap-');
-    expect(hashedBootstrapSource).toContain('Desktop bootstrap failed to start the main app');
+    expect(bootstrapSource).toContain('Desktop bootstrap failed to start the main app');
+    expect(bootstrapSource).toContain('runMainAppStartup');
+    expect(bootstrapSource).toContain('console.error(');
   });
 
   test('webview index resolves the active renderer entry instead of pinning a full-app bundle name', () => {
@@ -80,15 +70,15 @@ describe('Recovered Codex bundle RED contract', () => {
     const rendererEntry = readRecoveredRendererEntry();
 
     expect(webviewIndex).toContain('<script type="module" crossorigin src="./assets/index-');
-    expect(rendererEntry).toContain('no active turn to steer');
+    expect(rendererEntry).toContain('persisted_selection_reconciled');
   });
 
   test('remote connection selection does not thrash when persisted state is undefined and the resolved selection is null', () => {
     const rendererEntry = readRecoveredRendererEntry();
 
-    expect(rendererEntry).toContain('let p=i??null;');
-    expect(rendererEntry).toContain('t!=null&&p!==s&&(');
-    expect(rendererEntry).toContain('R.info(`${eae} persisted_selection_reconciled`,{safe:{availableConnectionCount:c.length,selectedConnectionState:u==null?`cleared`:`selected`},sensitive:{persistedSelectedRemoteHostId:i,selectedRemoteHostId:s}})');
+    expect(rendererEntry).toContain('t==null?i??null:');
+    expect(rendererEntry).toContain('t!=null&&i!==s&&(');
+    expect(rendererEntry).toContain('persisted_selection_reconciled');
     expect(rendererEntry).toContain('a(s??void 0)');
   });
 
@@ -142,9 +132,11 @@ describe('Recovered Codex bundle RED contract', () => {
     const appServerHooks = readRecoveredAsset('app-server-manager-hooks-');
 
     expect(appServerHooks).toContain(
-      'function $d(e){return e instanceof Error?e.name===Yd||e.message.includes(Yd):String(e).includes(Yd)}',
+      'function dh(e){return e instanceof Error?e.name===sh||e.message.includes(sh):ye(e).includes(sh)}',
     );
-    expect(appServerHooks).toContain('if(e.removePendingSteer(t,c.id),$d(n))return await Td(e,t,{input:n.input,attachments:n.attachments??[]});');
+    expect(appServerHooks).toContain(
+      'if(e.removePendingSteer(t,c.id),dh(r))return await mm(e,t,{input:n.input,attachments:n.attachments??[]});',
+    );
     expect(appServerHooks).toContain('await e.sendRequest(`turn/steer`');
     expect(appServerHooks).toContain('await e.sendRequest(`turn/start`');
   });
@@ -152,10 +144,11 @@ describe('Recovered Codex bundle RED contract', () => {
   test('background events for unknown conversations are ignored without error-log churn', () => {
     const appServerHooks = readRecoveredAsset('app-server-manager-hooks-');
 
-    expect(appServerHooks).toContain('if(!this.conversations.get(i))break;this.markConversationStreaming(i)');
-    expect(appServerHooks).toContain('if(!this.conversations.get(r))break;let i=null;');
+    expect(appServerHooks).toContain('if(!this.conversations.has(a))break;n.method===`hook/started`');
+    expect(appServerHooks).toContain('if(!this.conversations.get(a))break;this.markConversationStreaming(a)');
+    expect(appServerHooks).toContain('if(!this.conversations.get(r))break;let a=null,o=null,s=null;');
     expect(appServerHooks).toContain(
-      'if(!this.conversations.get(i))break;this.updateConversationState(i,t=>{',
+      'if(!this.conversations.get(a))break;this.updateConversationState(a,t=>{',
     );
     expect(appServerHooks).not.toContain('breakthis.updateConversationState');
     expect(appServerHooks).not.toContain('Received item/started for unknown conversation');
@@ -167,53 +160,50 @@ describe('Recovered Codex bundle RED contract', () => {
     const mainSource = readRecoveredBuildFile(findRecoveredBuildFile('main-'));
 
     expect(mainSource).toContain(
-      'd=(o&&o.length>0?o:u??[]).filter(m=>{try{return!!m&&k.existsSync(m)}catch{return!1}})',
+      'd=(o&&o.length>0?o:(u??[]).map(t=>e.$n(t))).filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}})',
     );
     expect(mainSource).toContain(
-      'h=Array.from(new Set([...d,...p])).filter(m=>{try{return!!m&&k.existsSync(m)}catch{return!1}});return{origins:(await Ed(h,this.gitManager,i)).map(',
+      'params:{dirs:d,hostConfig:i,windowHostId:this.hostConfig.id}});',
     );
-    expect(mainSource).not.toContain('d=o&&o.length>0?o:u??[]');
-    expect(mainSource).not.toContain(
-      'h=Array.from(new Set([...d,...p]));return{origins:(await Ed(h,this.gitManager,i)).map(',
-    );
+    expect(mainSource).not.toContain('d=o&&o.length>0?o:(u??[]).map(t=>e.$n(t))');
   });
 
   test('git repo watchers only start for live git queries, not metadata fanout', () => {
     const workerSource = readRecoveredBuildFile('worker.js');
 
     expect(workerSource).toContain(
-      't.method!=="stable-metadata"&&this.shouldWatchForMethod(t.method)&&await this.ensureWatchingForRequest(t.params,r);switch(t.method)',
+      'e.method!==`stable-metadata`&&this.shouldWatchForMethod(e.method)&&await this.ensureWatchingForRequest(e.params,r);switch(e.method)',
     );
     expect(workerSource).toContain(
-      'async handleResolveStableMetadata(t,{hostConfig:n}){const r=await this.gitManager.getStableMetadata(t.cwd,n);if(!r)return bi("Not a git repository");const s={commonDir:r.commonDir,root:r.root};return he(s)}',
+      'async handleResolveStableMetadata(e,{appServerClient:t}){let n=await this.gitManager.getStableMetadata(e.cwd,t);if(!n)return HL(`Not a git repository`);let r={commonDir:n.commonDir,root:n.root};return Y(r)}',
     );
     expect(workerSource).toContain(
-      'shouldWatchForMethod(t){switch(t){case"current-branch":case"upstream-branch":case"branch-ahead-count":case"default-branch":case"base-branch":case"recent-branches":case"branch-changes":case"status-summary":case"staged-and-unstaged-changes":case"untracked-changes":case"synced-branch":case"synced-branch-state":case"tracked-uncommitted-changes":case"submodule-paths":case"index-info":return!0;default:return!1}}async ensureWatchingForRequest(t,n){const r=typeof t.cwd=="string"?await this.gitManager.getStableMetadata(t.cwd,n):typeof t.root=="string"?await this.gitManager.getStableMetadata(t.root,n):null;if(!r)return;await this.ensureWatching({commonDir:r.commonDir,root:r.root},n)}',
+      'shouldWatchForMethod(e){switch(e){case`current-branch`:case`upstream-branch`:case`branch-ahead-count`:case`default-branch`:case`base-branch`:case`recent-branches`:case`branch-changes`:case`status-summary`:case`staged-and-unstaged-changes`:case`untracked-changes`:case`synced-branch`:case`synced-branch-state`:case`tracked-uncommitted-changes`:case`submodule-paths`:case`index-info`:return!0;default:return!1}}async ensureWatchingForRequest(e,t){let n=typeof e.cwd==`string`?await this.gitManager.getStableMetadata(e.cwd,t):typeof e.root==`string`?await this.gitManager.getStableMetadata(e.root,t):null;if(!n)return;await this.ensureWatching({commonDir:n.commonDir,root:n.root},t)}',
     );
-    expect(workerSource).not.toContain('return await this.ensureWatching(s,n),he(s)');
+    expect(workerSource).not.toContain('return await this.ensureWatching(r,t),Y(r)');
   });
 
-  test('desktop exposes a dedicated 3-12 staging script that reuses the Linux shell', () => {
+  test('desktop exposes a dedicated codex staging script that reuses the Linux shell', () => {
     const packageJson = JSON.parse(readDesktopFile('package.json')) as {
       scripts?: Record<string, string>;
     };
-    const stagingScript = readDesktopFile('scripts/stage-codex-3-12-package.mjs');
+    const stagingScript = readDesktopFile('scripts/stage-codex-package.mjs');
 
-    expect(packageJson.scripts?.['stage:3-12-package']).toBe(
-      'node ./scripts/stage-codex-3-12-package.mjs',
+    expect(packageJson.scripts?.['stage:codex-package']).toBe(
+      'node ./scripts/stage-codex-package.mjs',
     );
-    expect(packageJson.scripts?.['build:legacy-3-12:linux']).toBe(
-      'node ./scripts/build-legacy-3-12-linux.mjs',
+    expect(packageJson.scripts?.['build:codex:linux']).toBe(
+      'node ./scripts/build-codex-linux-runtime.mjs',
     );
     expect(stagingScript).toContain(
-      "import { buildLegacyLinuxRuntime } from './build-legacy-3-12-linux.mjs';",
+      "import { buildCodexLinuxRuntime } from './build-codex-linux-runtime.mjs';",
     );
     expect(stagingScript).toContain(
       "shellRoot: path.join(desktopRoot, 'out', 'Codex-linux-x64'),",
     );
     expect(stagingScript).toContain(
-      "legacyShellRoot: path.resolve(desktopRoot, '..', 'codex-3-12', 'app'),",
+      "codexShellRoot: path.resolve(desktopRoot, '..', 'codex', 'app'),",
     );
-    expect(stagingScript).toContain('buildLegacyLinuxRuntime({');
+    expect(stagingScript).toContain('buildCodexLinuxRuntime({');
   });
 });

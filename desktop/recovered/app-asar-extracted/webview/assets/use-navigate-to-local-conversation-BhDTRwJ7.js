@@ -1,2 +1,0 @@
-import{d as e}from"./chunk-OIYGIGL5-DvcTeqDb.js";import{t}from"./compiler-runtime-DWxh9F-l.js";import{S as n}from"./src-DgMZw_eC.js";import{n as r}from"./message-bus-NQka-uRz.js";import{t as i}from"./initial-route-atom-CH2dYnYX.js";var a=t();function o(){let t=(0,a.c)(2),o=e(),s;return t[0]===o?s=t[1]:(s=e=>{let t=`/local/${n(e)}`;i?r.dispatchMessage(`navigate-in-new-editor-tab`,{path:t}):o(t)},t[0]=o,t[1]=s),s}export{o as t};
-//# sourceMappingURL=use-navigate-to-local-conversation-BhDTRwJ7.js.map

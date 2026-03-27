@@ -9,12 +9,12 @@ This repo tracks the Linux packaging pipeline for Codex and publishes installabl
 ## Layout
 
 - `desktop/`: Electron Forge workspace used to build Linux release packages
-- `codex-3-12/`: legacy 3-12 payload used for legacy package variants
+- `codex/`: canonical current upstream payload root used for the active Linux refresh line
 
 GitHub release artifacts:
 - Install from GitHub Releases using packaged artifacts (`.AppImage` / `.deb`).
-- Release tags like `v26.311.21342` trigger `.github/workflows/linux-release.yml`.
-- The workflow publishes both current and `legacy-3-12` Linux installer variants.
+- Current Linux artifact versioning follows the embedded Electron app version `26.325.21211`; the imported Windows package manifest remains `26.325.2171.0` and the embedded build number is `1255`.
+- Release tags like `v26.325.21211` trigger `.github/workflows/linux-release.yml`.
 
 ## Notes
 

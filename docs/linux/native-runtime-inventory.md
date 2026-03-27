@@ -2,11 +2,11 @@
 
 ## Scope
 
-This document records the verified Linux-native runtime boundary for the refreshed `desktop/` wrapper after importing the `codex-3-12` upstream package.
+This document records the verified Linux-native runtime boundary for the refreshed `desktop/` wrapper after importing the `codex` upstream package.
 
 Canonical upstream source:
 
-- `codex-3-12/app/resources/`
+- `codex/`
 
 Canonical Linux wrapper/runtime:
 
@@ -16,18 +16,19 @@ Canonical Linux wrapper/runtime:
 
 ## Verified Upstream Inputs
 
-- Upstream packaged app version: `26.309.31024`
-- Upstream build number: `962`
+- Windows package manifest version: `26.325.2171.0`
+- Upstream packaged app version: `26.325.21211`
+- Upstream build number: `1255`
 - Recovered Electron entrypoint: `.vite/build/bootstrap.js`
-- Recovered hashed main bundle: `.vite/build/main-*.js`
+- Recovered hashed main bundle: `.vite/build/main-I2_kj945.js`
 - Bundled Linux helpers in upstream resources:
-  - `codex-3-12/app/resources/codex`
-  - `codex-3-12/app/resources/rg`
+  - `codex/ -> app/resources/codex`
+  - `codex/ -> app/resources/rg`
 - Windows-only upstream helpers that remain excluded from Linux packaging:
-  - `codex-3-12/app/resources/codex.exe`
-  - `codex-3-12/app/resources/rg.exe`
-  - `codex-3-12/app/resources/codex-command-runner.exe`
-  - `codex-3-12/app/resources/codex-windows-sandbox-setup.exe`
+  - `codex/ -> app/resources/codex.exe`
+  - `codex/ -> app/resources/rg.exe`
+  - `codex/ -> app/resources/codex-command-runner.exe`
+  - `codex/ -> app/resources/codex-windows-sandbox-setup.exe`
 
 ## Runtime Boundary
 
@@ -67,13 +68,14 @@ The Linux app now ships with one canonical native/runtime split:
 Upstream helper inventory:
 
 ```bash
+CURRENT_PAYLOAD_ROOT=/home/willr/Applications/codex-app/codex
 file \
-  /home/willr/Applications/codex-app/codex-3-12/app/resources/codex \
-  /home/willr/Applications/codex-app/codex-3-12/app/resources/rg \
-  /home/willr/Applications/codex-app/codex-3-12/app/resources/codex.exe \
-  /home/willr/Applications/codex-app/codex-3-12/app/resources/rg.exe \
-  /home/willr/Applications/codex-app/codex-3-12/app/resources/codex-command-runner.exe \
-  /home/willr/Applications/codex-app/codex-3-12/app/resources/codex-windows-sandbox-setup.exe
+  "$CURRENT_PAYLOAD_ROOT/app/resources/codex" \
+  "$CURRENT_PAYLOAD_ROOT/app/resources/rg" \
+  "$CURRENT_PAYLOAD_ROOT/app/resources/codex.exe" \
+  "$CURRENT_PAYLOAD_ROOT/app/resources/rg.exe" \
+  "$CURRENT_PAYLOAD_ROOT/app/resources/codex-command-runner.exe" \
+  "$CURRENT_PAYLOAD_ROOT/app/resources/codex-windows-sandbox-setup.exe"
 ```
 
 Linux regression suite:
@@ -128,7 +130,8 @@ cd /home/willr/Applications/codex-app/desktop
 
 - `npm run test:linux` passes against the refreshed recovered bundle.
 - `npm run package` succeeds.
-- `npm run make` succeeds and emits artifacts under `desktop/out/make/`.
+- `npm run make` succeeds and emits `desktop/out/make/AppImage/x64/Codex-26.325.21211-x64.AppImage` and `desktop/out/make/deb/x64/codex-desktop_26.325.21211_amd64.deb`.
 - Packaged `resources/codex` and `resources/rg` are executable Linux ELF binaries.
 - Packaged `better_sqlite3.node` and `node-pty` payloads are Linux ELF shared objects.
 - Packaged output no longer ships `node-pty` Windows or macOS prebuild baggage.
+- The Debian artifact packages `chrome-sandbox` with mode `4755`, while plain unpacked local launches still need preserved permissions or `--no-sandbox`.

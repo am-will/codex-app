@@ -2,23 +2,24 @@
 
 ## Purpose
 
-This document is the canonical contract for reconstructing the packaged Codex Electron bundle in `codex-3-12/` into the Linux `desktop/` workspace. It converts the shipped `win32` and `darwin` branches in the recovered main-process bundle into one explicit Linux decision surface so downstream implementation work can remove scattered `process.platform` checks.
+This document is the canonical contract for reconstructing the packaged Codex Electron bundle from the current `codex/` payload into the Linux `desktop/` workspace. It converts the shipped `win32` and `darwin` branches in the recovered main-process bundle into one explicit Linux decision surface so downstream implementation work can remove scattered `process.platform` checks.
 
 ## Provenance
 
 Primary evidence came from:
 
-- `codex-3-12/app/resources/app.asar`
+- the `app.asar` payload inside `codex/`
 - `desktop/recovered/app-asar-extracted/.vite/build/bootstrap.js`
-- `desktop/recovered/app-asar-extracted/.vite/build/main-CfPlqsSZ.js`
+- `desktop/recovered/app-asar-extracted/.vite/build/main-I2_kj945.js`
 - `desktop/recovered/app-asar-extracted/package.json`
-- `codex-3-12/app/resources/`
+- `codex/`
 - `desktop/recovered/app-asar-extracted/webview/assets/*`
 
 Observed extracted behaviors that drive this contract:
 
 - packaged entrypoint is `.vite/build/bootstrap.js`
 - bundled helpers include both `codex` and `rg` plus Windows-only `codex.exe`, `rg.exe`, `codex-command-runner.exe`, and `codex-windows-sandbox-setup.exe`
+- current payload identity is `26.325.2171.0`, while the embedded Electron app version is `26.325.21211` with build `1255`
 - the main bundle contains explicit `win32`, `darwin`, and limited `linux` branches for:
   - executable lookup
   - WSL routing

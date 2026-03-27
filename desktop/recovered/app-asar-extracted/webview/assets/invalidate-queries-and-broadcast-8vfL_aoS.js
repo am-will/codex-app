@@ -1,0 +1,2 @@
+import{n as e,o as t}from"./message-bus-DcBNa_PD.js";import{yn as n}from"./vscode-api-BtEtzXmw.js";var r=t();async function i(e,t,n){await e.invalidateQueries({queryKey:t}),await n(t)}function a(){let e=(0,r.c)(2),t=n(),a;return e[0]===t?a=e[1]:(a=async e=>{await i(t,e,o)},e[0]=t,e[1]=a),a}function o(t){e.dispatchMessage(`query-cache-invalidate`,{queryKey:[...t]})}export{a as t};
+//# sourceMappingURL=invalidate-queries-and-broadcast-8vfL_aoS.js.map

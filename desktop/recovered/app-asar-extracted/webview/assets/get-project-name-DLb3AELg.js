@@ -1,0 +1,2 @@
+function e(e,n){if(n&&n.trim().length>0)return t(n);if(!e)return null;let r=e.trim();if(!r)return null;let i=r.split(/[/\\]+/).filter(Boolean);return t(i[i.length-1]??r)}function t(e){let t=e.trim(),n=t.split(/\s+/).filter(Boolean);return n.length<=3?t:n.slice(0,3).join(` `)}export{e as t};
+//# sourceMappingURL=get-project-name-DLb3AELg.js.map

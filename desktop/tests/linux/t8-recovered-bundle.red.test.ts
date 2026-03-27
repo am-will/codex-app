@@ -42,6 +42,7 @@ describe('T8 RED contract: recovered compiled bundle integration', () => {
     }
 
     expect(fs.existsSync(requireRecoveredBuildAsset(/^main-.*\.js$/))).toBe(true);
+    expect(fs.existsSync(requireRecoveredBuildAsset(/^product-name-.*\.js$/))).toBe(true);
   });
 
   test('desktop entrypoint is wired to recovered bootstrap and preload runtime', () => {
@@ -58,8 +59,9 @@ describe('T8 RED contract: recovered compiled bundle integration', () => {
     );
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(recoveredBootstrapSource).toContain('require(`./main-');
-    expect(recoveredBootstrapSource).toContain('t.app.whenReady().then(async()=>');
+    expect(recoveredBootstrapSource).toContain('Desktop bootstrap failed to start the main app');
+    expect(recoveredBootstrapSource).toContain('app.whenReady().then');
+    expect(recoveredBootstrapSource).toContain('console.error(');
     expect(recoveredPreloadSource).toContain('codex_desktop:message-from-view');
     expect(recoveredPreloadSource).toContain('codex_desktop:get-sentry-init-options');
   });

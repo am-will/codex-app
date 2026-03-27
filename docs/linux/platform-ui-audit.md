@@ -4,7 +4,7 @@
 
 - Workspace: `/home/willr/Applications/codex-app/desktop`
 - Recovered bundle: `/home/willr/Applications/codex-app/desktop/recovered/app-asar-extracted`
-- Validation date: 2026-03-12
+- Validation date: 2026-03-27
 
 ## What is now wired
 
@@ -18,12 +18,14 @@
 
 - `npm run test:linux` passes with the recovered bundle tests enabled.
 - `npm run package` succeeds after Electron 40 native rebuilds.
-- `npm run make` succeeds and emits `desktop/out/make/deb/x64/codex-desktop_26.309.31024_amd64.deb`.
-- The packaged Linux app boots under Xvfb from `desktop/out/Codex-linux-x64/Codex`.
-- CDP target enumeration during packaged boot reports:
+- `npm run make` succeeds and emits `desktop/out/make/deb/x64/codex-desktop_26.325.21211_amd64.deb` and `desktop/out/make/AppImage/x64/Codex-26.325.21211-x64.AppImage`.
+- The packaged Linux app was inspected over CDP from the built output.
+- CDP target enumeration during packaged runtime reports:
   - title: `Codex`
-  - url: `app://-/index.html?hostId=local&startupComplete=false`
-- During packaged boot, the recovered app-server transport connects successfully to the bundled Linux helper at `resources/codex`.
+  - url: `app://-/index.html?hostId=local`
+- During packaged runtime, the recovered app-server transport connects successfully to the bundled Linux helper at `resources/codex`.
+- The packaged plugins, skills, and settings surfaces render from the refreshed app bundle.
+- Plain unpacked local launches still require preserved `chrome-sandbox` setuid permissions or `--no-sandbox` for smoke validation.
 
 ## Reverse-engineered bridge/runtime findings now exercised on Linux
 
@@ -34,6 +36,5 @@
 
 ## Remaining parity work
 
-- Manual visual QA is still required for Linux-specific settings labels, startup wording, updater wording, and any Windows-only affordances that may still be visible in the recovered renderer.
-- The Linux updater/distribution path is still separate work under T9.
-- Full packaged parity sweeps on Ubuntu 22.04 and 24.04 remain open under T11/T11b.
+- Wider manual UX coverage for updater wording and remote-connection flows still benefits from a dedicated follow-up pass with a configured remote target.
+- Full packaged parity sweeps on Ubuntu 22.04 and 24.04 remain useful follow-up validation beyond this refresh.
