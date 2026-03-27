@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,15 +42,17 @@ jobs:
         run: |
           set -euo pipefail
           CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          CURRENT_APPIMAGE_NAME="codex-app-linux-v${CURRENT_VERSION}.AppImage"
+          CURRENT_DEB_NAME="codex-app-linux-v${CURRENT_VERSION}.deb"
           mkdir -p desktop/out/release-assets
           CURRENT_APPIMAGE_SOURCE="$(find desktop/out/make -type f -name '*.AppImage' | head -n 1)"
           CURRENT_DEB_SOURCE="$(find desktop/out/make -type f -name '*.deb' | head -n 1)"
-          cp "$CURRENT_APPIMAGE_SOURCE" "desktop/out/release-assets/codex-app-linux-v${CURRENT_VERSION}.AppImage"
-          cp "$CURRENT_DEB_SOURCE" "desktop/out/release-assets/codex-app-linux-v${CURRENT_VERSION}.deb"
-          cat > "desktop/out/release-assets/RELEASE_NOTES_LINUX.txt" <<'EOF'
+          cp "$CURRENT_APPIMAGE_SOURCE" "desktop/out/release-assets/${CURRENT_APPIMAGE_NAME}"
+          cp "$CURRENT_DEB_SOURCE" "desktop/out/release-assets/${CURRENT_DEB_NAME}"
+          cat > "desktop/out/release-assets/RELEASE_NOTES_LINUX.txt" <<EOF
           Linux installers in this release:
-          - codex-app-linux-v<current-version>.AppImage
-          - codex-app-linux-v<current-version>.deb
+          - ${CURRENT_APPIMAGE_NAME}
+          - ${CURRENT_DEB_NAME}
           EOF
 
       - name: Upload Linux build artifacts
