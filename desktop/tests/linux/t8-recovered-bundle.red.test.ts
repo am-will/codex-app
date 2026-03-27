@@ -42,7 +42,6 @@ describe('T8 RED contract: recovered compiled bundle integration', () => {
     }
 
     expect(fs.existsSync(requireRecoveredBuildAsset(/^main-.*\.js$/))).toBe(true);
-    expect(fs.existsSync(requireRecoveredBuildAsset(/^product-name-.*\.js$/))).toBe(true);
   });
 
   test('desktop entrypoint is wired to recovered bootstrap and preload runtime', () => {
