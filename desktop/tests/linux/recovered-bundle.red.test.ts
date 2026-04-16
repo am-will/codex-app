@@ -116,6 +116,18 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(rendererEntry).toContain('asyncThreadStartingState:{type:i?`branch`:`working-tree`,branchName:i??`main`}');
   });
 
+  test('renderer entry keeps the browser pane enabled for Linux desktop flows', () => {
+    const rendererEntry = readRecoveredRendererEntry();
+    const zeroArgBrowserPaneGateCalls = rendererEntry.match(/\bBf\(\)/g) ?? [];
+
+    expect(rendererEntry).toContain('function vhe(){let e=(0,Q.c)(4),t=He(Cm),n=!0,r,i;return');
+    expect(rendererEntry).toContain('toggleBrowserPanel');
+    expect(rendererEntry).toContain('p=!0,m=rf(mr)');
+    expect(rendererEntry).toContain('function dY(e){let t=(0,Q.c)(16),{showReviewTab:n}=e,r=He(Cm),i=!0,a=Ae(no),o=Ae(To.activeTab$),s=Ae(Oc),c;');
+    expect(rendererEntry).toContain('function __e(){let e=He(j),t=ea(),n=me(),r=vf(),i=!0,a=Og(),o=cN(),[,s]=se(`diff_comments`),[c]=se(`remote_connections`),[l]=se(`remote_control_connections`)');
+    expect(zeroArgBrowserPaneGateCalls).toHaveLength(0);
+  });
+
   test('model settings fall back from broken workspace cwd and write directly to config.toml', () => {
     const modelSettingsSource = readRecoveredAsset('use-model-settings-');
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
