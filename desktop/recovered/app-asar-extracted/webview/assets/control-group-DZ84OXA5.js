@@ -1,0 +1,2 @@
+import{o as e}from"./logger-BJWlfVIC.js";import{t}from"./jsx-runtime-ebkFq_df.js";import{t as n}from"./clsx-DQfH8mAl.js";var r=e(),i=t();function a(e){let t=(0,r.c)(5),{children:a,className:o}=e,s;t[0]===o?s=t[1]:(s=n(`flex items-center gap-2`,o),t[0]=o,t[1]=s);let c;return t[2]!==a||t[3]!==s?(c=(0,i.jsx)(`div`,{className:s,children:a}),t[2]=a,t[3]=s,t[4]=c):c=t[4],c}export{a as t};
+//# sourceMappingURL=control-group-DZ84OXA5.js.map

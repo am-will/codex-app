@@ -143,13 +143,20 @@ function copyRuntimeResources({ shellRoot, assembledRoot, outputRoot }) {
   }
 
   const assembledUnpackedPath = path.join(assembledResourcesRoot, 'app.asar.unpacked');
-  if (fs.existsSync(assembledUnpackedPath)) {
-    copyTree(assembledUnpackedPath, outputUnpackedPath);
-  }
+  assertExists(assembledUnpackedPath, 'Assembled codex app.asar.unpacked');
 
   const shellUnpackedPath = path.join(shellResourcesRoot, 'app.asar.unpacked');
-  assertExists(shellUnpackedPath, 'Linux shell app.asar.unpacked');
-  copyTree(shellUnpackedPath, outputUnpackedPath);
+  const copiedUnpackedSources = [];
+  if (fs.existsSync(shellUnpackedPath)) {
+    copyTree(shellUnpackedPath, outputUnpackedPath);
+    copiedUnpackedSources.push(shellUnpackedPath);
+  }
+  copyTree(assembledUnpackedPath, outputUnpackedPath);
+  copiedUnpackedSources.push(assembledUnpackedPath);
+
+  return {
+    copiedUnpackedSources,
+  };
 }
 
 function ensureNoResourceBackups(outputRoot) {
@@ -170,7 +177,7 @@ function ensureExecutable(outputRoot) {
   assertExists(codexBinaryPath, 'Codex output binary');
 }
 
-export function buildCodexLinuxRuntime({
+export async function buildCodexLinuxRuntime({
   outputRoot,
   shellRoot,
   assembledRoot,
@@ -190,7 +197,7 @@ export function buildCodexLinuxRuntime({
 
   let assembledSummary = null;
   if (!fs.existsSync(assembledRoot)) {
-    assembledSummary = assembleCodexRuntime({ outputRoot: assembledRoot });
+    assembledSummary = await assembleCodexRuntime({ outputRoot: assembledRoot });
   } else {
     assertExists(path.join(assembledRoot, 'resources', 'app.asar'), 'Assembled codex app.asar');
     assertExists(path.join(assembledRoot, 'resources', 'codex'), 'Assembled codex helper');
@@ -204,7 +211,7 @@ export function buildCodexLinuxRuntime({
         codexShellRoot,
       })
     : [];
-  copyRuntimeResources({ shellRoot, assembledRoot, outputRoot });
+  const runtimeResourceSummary = copyRuntimeResources({ shellRoot, assembledRoot, outputRoot });
   ensureNoResourceBackups(outputRoot);
   ensureExecutable(outputRoot);
 
@@ -215,18 +222,19 @@ export function buildCodexLinuxRuntime({
     outputRoot,
     codexBinary: path.join(outputRoot, 'Codex'),
     resourcesRoot: path.join(outputRoot, 'resources'),
+    runtimeResourceSummary,
     overlayCodexShellAssets,
     copiedCodexShellAssets,
     assembledSummary,
   };
 }
 
-function main() {
+async function main() {
   const parsed = parseCli(process.argv.slice(2));
-  const summary = buildCodexLinuxRuntime(parsed);
+  const summary = await buildCodexLinuxRuntime(parsed);
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
-  main();
+  await main();
 }

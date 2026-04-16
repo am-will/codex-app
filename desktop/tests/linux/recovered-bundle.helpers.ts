@@ -15,6 +15,20 @@ export function readRecoveredBuildFile(fileName: string): string {
   return fs.readFileSync(path.join(recoveredBuildRoot, fileName), 'utf8');
 }
 
+export function readRecoveredBinary(relativePath: string): Buffer {
+  return fs.readFileSync(path.join(recoveredRoot, relativePath));
+}
+
+export function findRecoveredBuildFileMatching(pattern: RegExp): string {
+  const matches = fs.readdirSync(recoveredBuildRoot).filter((entry) => pattern.test(entry)).sort();
+
+  if (matches.length === 0) {
+    throw new Error(`Missing recovered build file matching ${pattern}.`);
+  }
+
+  return matches[0];
+}
+
 export function findRecoveredBuildFile(prefix: string): string {
   const matches = fs
     .readdirSync(recoveredBuildRoot)
@@ -28,8 +42,29 @@ export function findRecoveredBuildFile(prefix: string): string {
   return matches[0];
 }
 
+export function findRecoveredMainBuildFile(): string {
+  return findRecoveredBuildFileMatching(/^main-.*\.js$/);
+}
+
+export function readRecoveredMainBuildFile(): string {
+  return readRecoveredBuildFile(findRecoveredMainBuildFile());
+}
+
 export function readRecoveredWebviewIndex(): string {
   return fs.readFileSync(path.join(recoveredWebviewRoot, 'index.html'), 'utf8');
+}
+
+export function findRecoveredAssetMatching(pattern: RegExp): string {
+  const matches = fs
+    .readdirSync(recoveredWebviewAssetsRoot)
+    .filter((entry) => pattern.test(entry))
+    .sort();
+
+  if (matches.length === 0) {
+    throw new Error(`Missing recovered asset matching ${pattern}.`);
+  }
+
+  return matches[0];
 }
 
 export function findRecoveredAsset(prefix: string, extension = '.js'): string {

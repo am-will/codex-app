@@ -57,6 +57,7 @@ const config: ForgeConfig = {
         '/node_modules',
         '/node_modules/node-pty',
         '/node_modules/better-sqlite3',
+        '/scripts/linux-browser-launch.js',
         '/resources',
       ].some((allowedPath) => file.startsWith(allowedPath));
     },

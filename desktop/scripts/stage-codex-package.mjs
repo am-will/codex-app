@@ -22,9 +22,9 @@ function parseOutputRoot(argv) {
   return path.resolve(process.cwd(), nextValue);
 }
 
-function main() {
+async function main() {
   const outputRoot = parseOutputRoot(process.argv.slice(2));
-  const summary = buildCodexLinuxRuntime({
+  const summary = await buildCodexLinuxRuntime({
     outputRoot,
     shellRoot: path.join(desktopRoot, 'out', 'Codex-linux-x64'),
     assembledRoot: path.join(desktopRoot, 'tmp', `codex-runtime-stage`),
@@ -33,4 +33,4 @@ function main() {
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 }
 
-main();
+await main();
