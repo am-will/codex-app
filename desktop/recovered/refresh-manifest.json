@@ -1,0 +1,138 @@
+{
+  "dmgPath": null,
+  "dmgSha256": null,
+  "appAsarPath": "/home/amwill/Applications/codex-app/Codex-darwin-arm64-26.415.20818/Codex.app/Contents/Resources/app.asar",
+  "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
+  "version": "26.415.20818",
+  "buildNumber": null,
+  "electron": "41.2.0",
+  "main": ".vite/build/bootstrap.js",
+  "patchSummary": {
+    "linuxBrowserLauncher": {
+      "patched": true,
+      "results": [
+        {
+          "label": "linux browser session helper",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
+    "preload": {
+      "patched": true,
+      "results": [
+        {
+          "label": "preload ipc retry guard",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
+    "bootstrap": {
+      "patched": true,
+      "results": [
+        {
+          "label": "bootstrap startup stack logging",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
+    "mainProcess": {
+      "patched": true,
+      "results": [
+        {
+          "label": "git origins existing-path filter",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux auth browser session handoff",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux opaque primary window background",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
+    "startupShell": {
+      "patched": true,
+      "results": [
+        {
+          "label": "startup shell opaque background",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "startup shell light theme colors",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "startup shell no logo fade",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "startup shell no shimmer animation",
+          "patched": false,
+          "skipped": true,
+          "reason": "startup shell no shimmer animation replacement already present"
+        },
+        {
+          "label": "startup shell remove keyframes",
+          "patched": false,
+          "skipped": true,
+          "reason": "startup shell remove keyframes replacement already present"
+        }
+      ]
+    },
+    "authWebview": {
+      "login": {
+        "patched": true,
+        "results": [
+          {
+            "label": "chatgpt login requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          }
+        ]
+      },
+      "remoteConnections": {
+        "patched": true,
+        "results": [
+          {
+            "label": "remote chatgpt login requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          }
+        ]
+      }
+    }
+  },
+  "nativeModuleSummary": {
+    "sourceNodeModulesRoot": "/home/amwill/Applications/codex-app/desktop/node_modules",
+    "copiedFiles": [
+      "better-sqlite3/build/Release/better_sqlite3.node",
+      "node-pty/build/Release/pty.node",
+      "node-pty/build/Release/obj.target/pty.node",
+      "node-pty/bin/linux-x64-143/node-pty.node",
+      "node-pty/bin/linux-x64-145/node-pty.node"
+    ]
+  },
+  "tempRoot": null
+}

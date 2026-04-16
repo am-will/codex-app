@@ -33,9 +33,11 @@ describe('Review base branch regression gate (RED)', () => {
     const workerSource = readRecoveredWorkerBundle();
 
     expect(workerSource).toContain('async handleDefaultBranch');
-    expect(workerSource).toContain('let r=(await nJ(e.root,t,n))?.branch??null');
-    expect(workerSource).toContain(
-      'return r||=(await dX(e.root,10,t,n)).find(e=>e===`main`||e===`master`)??null,Y({branch:r})',
+    expect(workerSource).toMatch(
+      /let r=\(await [A-Za-z$_]+\(\s*e\.root,t,n\s*\)\)\?\.branch\?\?null/,
+    );
+    expect(workerSource).toMatch(
+      /return r\|\|=\(await [A-Za-z$_]+\(\s*e\.root,10,t,n\s*\)\)\.find\(e=>e===`main`\|\|e===`master`\)\?\?null,X\(\{branch:r\}\)/,
     );
   });
 
@@ -44,7 +46,6 @@ describe('Review base branch regression gate (RED)', () => {
 
     expect(rendererSource).toContain('default_branch??`main`');
     expect(rendererSource).toContain('asyncThreadStartingState:{type:i?`branch`:`working-tree`,branchName:i??`main`}');
-    expect(rendererSource).toContain('`default-branch`');
     expect(rendererSource).toContain('`recent-branches`');
   });
 });

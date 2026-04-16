@@ -1,2 +1,0 @@
-import{t as e}from"./chunk-CFjPhJqf.js";import{Un as t}from"./vscode-api-BtEtzXmw.js";var n=e(((e,n)=>{var r=t();n.exports=function(){try{var e=r(Object,`defineProperty`);return e({},``,{}),e}catch{}}()}));export{n as t};
-//# sourceMappingURL=_defineProperty-DBsTLTl4.js.map

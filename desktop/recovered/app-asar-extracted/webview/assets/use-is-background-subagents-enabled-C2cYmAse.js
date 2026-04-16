@@ -1,0 +1,2 @@
+import{o as e}from"./logger-BJWlfVIC.js";import{i as t}from"./statsig-axnzwuK0.js";var n=e();function r(){let e=(0,n.c)(1),r;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(r=`1221508807`,e[0]=r):r=e[0],t(r)}export{r as t};
+//# sourceMappingURL=use-is-background-subagents-enabled-C2cYmAse.js.map
