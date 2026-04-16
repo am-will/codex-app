@@ -148,6 +148,7 @@ function copyRuntimeResources({ shellRoot, assembledRoot, outputRoot }) {
   const shellUnpackedPath = path.join(shellResourcesRoot, 'app.asar.unpacked');
   const copiedUnpackedSources = [];
   if (fs.existsSync(shellUnpackedPath)) {
+    // Preserve Linux shell app.asar.unpacked before overlaying rebuilt runtime content.
     copyTree(shellUnpackedPath, outputUnpackedPath);
     copiedUnpackedSources.push(shellUnpackedPath);
   }

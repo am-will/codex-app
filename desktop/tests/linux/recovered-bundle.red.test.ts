@@ -183,9 +183,15 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
+    const linuxTargetMatches = mainSource.match(/platforms:\{linux:\{/g) ?? [];
 
     expect(mainSource).toContain('r.useExternalBrowser===!0');
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
+    expect(mainSource).toContain('function linuxResolveEditorTarget(');
+    expect(mainSource).toContain('id:`cursor`,platforms:{linux:{label:`Cursor`');
+    expect(mainSource).toContain('id:`fileManager`,platforms:{linux:{label:`File Manager`');
+    expect(mainSource).toContain('linuxFileManagerDetect(){return G(`xdg-open`)');
+    expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
       /d=\(o&&o\.length>0\?o:u\.filter\(e=>e!==`~`\)\.map\(t=>e\.[A-Za-z$_]+\(\w+\)\)\)\.filter\(t=>\{try\{return!!t&&a\.existsSync\(t\)\}catch\{return!1\}\}\)/,
     );
