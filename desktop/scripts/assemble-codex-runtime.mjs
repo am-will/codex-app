@@ -161,6 +161,41 @@ const remoteChatGptLoginPatchAlternatives = [
   },
 ];
 const remoteChatGptLoginPatchMarker = 'useExternalBrowser:!0';
+const rendererBrowserPaneAvailabilityPatches = [
+  {
+    target: 'function lY(e){let t=(0,Q.c)(19),n=He(Cm),r=ea(),i=Bf(),a=Ae(As),o=`thread-${e.threadType}`,s;',
+    replacement:
+      'function lY(e){let t=(0,Q.c)(19),n=He(Cm),r=ea(),i=!0,a=Ae(As),o=`thread-${e.threadType}`,s;',
+  },
+  {
+    target: 'function dY(e){let t=(0,Q.c)(16),{showReviewTab:n}=e,r=He(Cm),i=Bf(),a=Ae(no),o=Ae(To.activeTab$),s=Ae(Oc),c;',
+    replacement:
+      'function dY(e){let t=(0,Q.c)(16),{showReviewTab:n}=e,r=He(Cm),i=!0,a=Ae(no),o=Ae(To.activeTab$),s=Ae(Oc),c;',
+  },
+  {
+    target: 'let N=M,P=Bf(),F=Ae(As),I=Ae(Vc),L;',
+    replacement: 'let N=M,P=!0,F=Ae(As),I=Ae(Vc),L;',
+  },
+  {
+    target: 'function vhe(){let e=(0,Q.c)(4),t=He(Cm),n=Bf(),r,i;return',
+    replacement: 'function vhe(){let e=(0,Q.c)(4),t=He(Cm),n=!0,r,i;return',
+  },
+  {
+    target: 'function Bhe(e){let t=(0,Q.c)(84),{close:n,inputRef:r,search:i,setOpen:a,setSearch:o}=e,s=He(j),c=ea(),l=Og(),u=ln(sM),d=Ae(SY),f=rf(vm),p=Bf(),m=rf(mr),h=rf(oi),g=rf(Xn),_;',
+    replacement:
+      'function Bhe(e){let t=(0,Q.c)(84),{close:n,inputRef:r,search:i,setOpen:a,setSearch:o}=e,s=He(j),c=ea(),l=Og(),u=ln(sM),d=Ae(SY),f=rf(vm),p=!0,m=rf(mr),h=rf(oi),g=rf(Xn),_;',
+  },
+  {
+    target: 'function __e(){let e=He(j),t=ea(),n=me(),r=vf(),i=Bf(),a=Og(),o=cN(),[,s]=se(`diff_comments`),[c]=se(`remote_connections`),[l]=se(`remote_control_connections`),',
+    replacement:
+      'function __e(){let e=He(j),t=ea(),n=me(),r=vf(),i=!0,a=Og(),o=cN(),[,s]=se(`diff_comments`),[c]=se(`remote_connections`),[l]=se(`remote_control_connections`),',
+  },
+  {
+    target: 'function q9(){let e=(0,Q.c)(17),t=rf(vm),n;e[0]===Symbol.for(`react.memo_cache_sentinel`)?(n=`2425897452`,e[0]=n):n=e[0];let r=rf(n),i;e[1]===Symbol.for(`react.memo_cache_sentinel`)?(i=`3903742690`,e[1]=i):i=e[1];let a=rf(i),o=Bf(),s;',
+    replacement:
+      'function q9(){let e=(0,Q.c)(17),t=rf(vm),n;e[0]===Symbol.for(`react.memo_cache_sentinel`)?(n=`2425897452`,e[0]=n):n=e[0];let r=rf(n),i;e[1]===Symbol.for(`react.memo_cache_sentinel`)?(i=`3903742690`,e[1]=i):i=e[1];let a=rf(i),o=!0,s;',
+  },
+];
 const modelSettingsSavedConfigPatchTarget =
   'queryFn:async()=>{try{return await zt(r,e)}catch{return null}},queryKey:[...Ss,t,e],staleTime:W.FIVE_MINUTES';
 const modelSettingsSavedConfigPatchReplacement =
@@ -637,6 +672,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
           alternatives: webviewChatGptLoginPatchAlternatives,
           marker: webviewChatGptLoginPatchMarker,
         },
+        ...rendererBrowserPaneAvailabilityPatches.map((patch, index) => ({
+          label: `linux browser pane availability ${index + 1}`,
+          target: patch.target,
+          replacement: patch.replacement,
+        })),
       ]),
     ),
     remoteConnections: summarizePatchResults(
