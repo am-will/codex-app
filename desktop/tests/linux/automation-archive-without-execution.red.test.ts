@@ -28,11 +28,11 @@ describe('Automation run archive regression gate (RED)', () => {
     const mainSource = readRecoveredMainBundle();
 
     expect(mainSource).toContain(
-      'async function be(t,n,r){let i=(await n.getWorktreeRepository(t,r))?.root;',
+      'async function zt(t,n,r){let i=(await n.getWorktreeRepository(t,r))?.root;',
     );
-    expect(mainSource).toContain('branchName:(await e.Q(i,r))?.branch??`HEAD`');
+    expect(mainSource).toContain('branchName:(await e.St(i,r))?.branch??`HEAD`');
     expect(mainSource).toContain('{type:`branch`,branchName:`HEAD`}');
-    expect(mainSource).toContain('g=t.executionEnvironment===`worktree`');
-    expect(mainSource).toContain('startingState:await be(c,r,a)');
+    expect(mainSource).toContain('E=t.executionEnvironment===`worktree`&&!g&&(await a.getWorktreeRepository(_,c))?.root!=null');
+    expect(mainSource).toContain('let n=await zt(_,a,c),r=await e.bt({gitManager:a,workspaceRoot:_,startingState:n,localEnvironmentConfigPath:t.localEnvironmentConfigPath,appServerClient:c});');
   });
 });
