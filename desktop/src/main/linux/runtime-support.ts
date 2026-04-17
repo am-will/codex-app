@@ -118,6 +118,14 @@ export function resolveDefaultLinuxShell(
   return '/bin/sh';
 }
 
+function resolveProbeLinuxShell(): string {
+  if (fs.existsSync('/bin/bash')) {
+    return '/bin/bash';
+  }
+
+  return '/bin/sh';
+}
+
 export function validateLinuxHelperExecutable(
   helperPath: string,
 ): HelperValidationResult {
@@ -209,7 +217,7 @@ export function inspectLinuxSandboxSupport(
 export function runLinuxPtyLifecycleProbe(options: {
   shell?: string;
 } = {}): Promise<PtyLifecycleProbeResult> {
-  const shell = options.shell ?? resolveDefaultLinuxShell();
+  const shell = options.shell ?? resolveProbeLinuxShell();
 
   return new Promise((resolve, reject) => {
     const result: PtyLifecycleProbeResult = {

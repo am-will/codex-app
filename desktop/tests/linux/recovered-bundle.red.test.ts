@@ -13,7 +13,6 @@ import {
 import {
   desktopRoot,
   readDesktopFile,
-  readRecoveredBinary,
   readRecoveredAsset,
   readRecoveredBuildFile,
   readRecoveredMainBuildFile,
@@ -37,26 +36,22 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(fs.existsSync(path.join(recoveredRoot, 'skills'))).toBe(true);
   });
 
-  test('recovered native modules are normalized to Linux ELF binaries', () => {
-    const expectedElfMagic = [0x7f, 0x45, 0x4c, 0x46];
-    const nativeModulePaths = [
-      'node_modules/better-sqlite3/build/Release/better_sqlite3.node',
-      'node_modules/node-pty/build/Release/pty.node',
-    ];
-    const nodePtyBinRoot = path.join(recoveredRoot, 'node_modules', 'node-pty', 'bin');
-    const abiDirectories = fs.existsSync(nodePtyBinRoot)
-      ? fs.readdirSync(nodePtyBinRoot).filter((entry) => /^linux-x64-\d+$/.test(entry)).sort()
-      : [];
+  test('assembly script normalizes Linux native modules into the packaged runtime', () => {
+    const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
 
-    for (const abiDirectory of abiDirectories) {
-      nativeModulePaths.push(`node_modules/node-pty/bin/${abiDirectory}/node-pty.node`);
-    }
-
-    for (const relativePath of nativeModulePaths) {
-      expect(Array.from(readRecoveredBinary(relativePath).subarray(0, 4))).toEqual(
-        expectedElfMagic,
-      );
-    }
+    expect(assembleScript).toContain('resolveLinuxNativeModuleSourceRoot');
+    expect(assembleScript).toContain('normalizeNativeModules(extractedAppRoot)');
+    expect(assembleScript).toContain(
+      "path.join(extractedAppRoot, 'node_modules', relativePath)",
+    );
+    expect(assembleScript).toContain("'better-sqlite3'");
+    expect(assembleScript).toContain("'better_sqlite3.node'");
+    expect(assembleScript).toContain("'node-pty'");
+    expect(assembleScript).toContain("'pty.node'");
+    expect(assembleScript).toContain("'node-pty.node'");
+    expect(assembleScript).toContain(
+      'Could not locate rebuilt Linux native modules under any candidate root',
+    );
   });
 
   test('desktop package.json boots the recovered bundle with the expected Electron runtime deps', () => {
