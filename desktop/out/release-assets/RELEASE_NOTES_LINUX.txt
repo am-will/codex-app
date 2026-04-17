@@ -1,0 +1,3 @@
+Linux installers in this release:
+- codex-app-linux-v26.415.20818.AppImage
+- codex-app-linux-v26.415.20818.deb
