@@ -41,8 +41,14 @@ const preloadPatchMarker = ';try{await e.ipcRenderer.invoke(';
 const bootstrapPatchPattern =
   /([\w$]+)\.captureException\(([\w$]+),\{tags:\{phase:`bootstrap-import-main`\}\}\),await ([\w$]+)\(\2\)/;
 const bootstrapPatchReplacement =
-  'console.error($2?.stack??$2),$1.captureException($2,{tags:{phase:`bootstrap-import-main`}}),await $3($2)';
-const bootstrapPatchMarker = 'console.error(';
+  '(()=>{try{process.stderr?.writable&&console.error($2?.stack??$2)}catch{}})(),$1.captureException($2,{tags:{phase:`bootstrap-import-main`}}),await $3($2)';
+const bootstrapPatchMarker = '(()=>{try{process.stderr?.writable&&console.error(';
+const bootstrapLinuxGitWrapperTarget =
+  'require(`node:crypto`);let r=require(`node:child_process`);var i=`desktop.intelLaunchWarning.message`,';
+const bootstrapLinuxGitWrapperReplacement =
+  'require(`node:crypto`);let r=require(`node:child_process`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var i=`desktop.intelLaunchWarning.message`,';
+const bootstrapLinuxGitWrapperMarker =
+  'process.platform===`linux`&&typeof process.resourcesPath==`string`';
 const workerHandleRequestPatchTarget =
   'let a;try{switch(e.method){case`stable-metadata`:a=await this.handleResolveStableMetadata(e.params,{appServerClient:r});break;';
 const workerHandleRequestPatchReplacement =
@@ -55,6 +61,30 @@ const workerWatchMethodsPatchTarget =
   'return a.success?Y({worktreeGitRoot:a.worktreeGitRoot,worktreeWorkspaceRoot:a.worktreeWorkspaceRoot}):HL(a.error.message)}getWatchKey(e,t){';
 const workerWatchMethodsPatchReplacement =
   'return a.success?Y({worktreeGitRoot:a.worktreeGitRoot,worktreeWorkspaceRoot:a.worktreeWorkspaceRoot}):HL(a.error.message)}shouldWatchForMethod(e){switch(e){case`current-branch`:case`upstream-branch`:case`branch-ahead-count`:case`default-branch`:case`base-branch`:case`recent-branches`:case`branch-changes`:case`status-summary`:case`staged-and-unstaged-changes`:case`untracked-changes`:case`synced-branch`:case`synced-branch-state`:case`tracked-uncommitted-changes`:case`submodule-paths`:case`index-info`:return!0;default:return!1}}async ensureWatchingForRequest(e,t){let n=typeof e.cwd==`string`?await this.gitManager.getStableMetadata(e.cwd,t):typeof e.root==`string`?await this.gitManager.getStableMetadata(e.root,t):null;if(!n)return;await this.ensureWatching({commonDir:n.commonDir,root:n.root},t)}getWatchKey(e,t){';
+const workerApplyPatchNormalizeHeadersTarget =
+  'function QX(e){let t=new Set,n=/^diff --git a\\/(.*?) b\\/(.*)$/gm,r;for(;(r=n.exec(e))!=null;){let[e,n,i]=r;n&&n!==`/dev/null`&&t.add(n),i&&i!==`/dev/null`&&t.add(i)}return Array.from(t)}async function $X(';
+const workerApplyPatchNormalizeHeadersReplacement =
+  'function QX(e){let t=new Set,n=/^diff --git a\\/(.*?) b\\/(.*)$/gm,r;for(;(r=n.exec(e))!=null;){let[e,n,i]=r;n&&n!==`/dev/null`&&t.add(n),i&&i!==`/dev/null`&&t.add(i)}return Array.from(t)}function normalizeApplyPatchDiffPaths(e,t){let n=e=>{let n=KX(t,t,e);if(n!==e)return n;if(!e.startsWith(`/`)){let n=`/${e}`,r=KX(t,t,n);if(r!==n)return r}return GX(e)},r=e=>{if(e===`/dev/null`)return e;let t=e.startsWith(`a/`)?`a/`:e.startsWith(`b/`)?`b/`:``;return`${t}${n(t?e.slice(2):e)}`};return e.replace(/^diff --git a\\/(.*?) b\\/(.*?)$/gm,(e,t,n)=>`diff --git ${r(`a/${t}`)} ${r(`b/${n}`)}`).replace(/^(---) (?!\\/dev\\/null$)(.+)$/gm,(e,t,n)=>`${t} ${r(n)}`).replace(/^(\\+\\+\\+) (?!\\/dev\\/null$)(.+)$/gm,(e,t,n)=>`${t} ${r(n)}`)}async function $X(';
+const workerApplyPatchNormalizeBeforeWriteTarget =
+  'let g=h?.root;if(!g)return{status:`error`,appliedPaths:[],skippedPaths:[],conflictedPaths:[],errorCode:`not-git-repo`};if(o?.aborted)return{status:`error`,appliedPaths:[],skippedPaths:[],conflictedPaths:[]};let _=await nZ({appServerClient:n,signal:o}),v=(await n.platformPath()).join(_,`patch.diff`);await rZ(v,l,{appServerClient:n,signal:o}),r&&i&&(v=i(v));';
+const workerApplyPatchNormalizeBeforeWriteReplacement =
+  'let g=h?.root;if(!g)return{status:`error`,appliedPaths:[],skippedPaths:[],conflictedPaths:[],errorCode:`not-git-repo`};let P=normalizeApplyPatchDiffPaths(l,g);if(o?.aborted)return{status:`error`,appliedPaths:[],skippedPaths:[],conflictedPaths:[]};let _=await nZ({appServerClient:n,signal:o}),v=(await n.platformPath()).join(_,`patch.diff`);await rZ(v,P,{appServerClient:n,signal:o}),r&&i&&(v=i(v));';
+const workerApplyPatchNormalizeIndexTarget =
+  'e={...c,GIT_INDEX_FILE:s},await eZ(g,l,n,{preferWslPaths:r,convertWslPathToWindowsPath:a,env:{...c,GIT_INDEX_FILE:s},signal:o})';
+const workerApplyPatchNormalizeIndexReplacement =
+  'e={...c,GIT_INDEX_FILE:s},await eZ(g,P,n,{preferWslPaths:r,convertWslPathToWindowsPath:a,env:{...c,GIT_INDEX_FILE:s},signal:o})';
+const workerApplyPatchForceIgnoredAddTarget =
+  'return o.length===0?{success:!0,command:`git add`,stdout:``,stderr:``}:$(e,[`add`,`--`,...o],n,{env:i,signal:r})}async function o$(';
+const workerApplyPatchForceIgnoredAddReplacement =
+  'return o.length===0?{success:!0,command:`git add`,stdout:``,stderr:``}:$(e,[`add`,`-f`,`--`,...o],n,{env:i,signal:r})}async function o$(';
+const workerSnapshotForceIgnoredAddTarget =
+  'for(let n of kQ(s.paths))if(!(await $(e,[`add`,`--`,...n],i,{env:t,signal:r})).success)return $(e,[`add`,`-A`,...o],i,{env:t,signal:r});return u}async function OQ(';
+const workerSnapshotForceIgnoredAddReplacement =
+  'for(let n of kQ(s.paths))if(!(await $(e,[`add`,`-f`,`--`,...n],i,{env:t,signal:r})).success)return $(e,[`add`,`-A`,...o],i,{env:t,signal:r});return u}async function OQ(';
+const workerApplyPatchStageExistingPathsTarget =
+  'if(await Promise.all(s.map(async t=>{let a=KX(e,e,t),s=u.join(e,a);r&&i&&(s=i(s)),await aZ(s,{appServerClient:n,signal:o})&&c.push(a)})),c.length!==0){if(o?.aborted)throw Error(`Apply patch canceled`);await $(e,[`add`,`--`,...c],n,{env:a,signal:o})}}async function tZ(';
+const workerApplyPatchStageExistingPathsReplacement =
+  'if(await Promise.all(s.map(async t=>{let a=KX(e,e,t),s=u.join(e,a);r&&i&&(s=i(s)),await aZ(s,{appServerClient:n,signal:o})&&c.push(a)})),c.length!==0){if(o?.aborted)throw Error(`Apply patch canceled`);await $(e,[`add`,`-f`,`--`,...c],n,{env:a,signal:o})}}async function tZ(';
 const mainGitOriginsPatchAlternatives = [
   {
     target:
@@ -196,6 +226,10 @@ const rendererBrowserPaneAvailabilityPatches = [
       'function q9(){let e=(0,Q.c)(17),t=rf(vm),n;e[0]===Symbol.for(`react.memo_cache_sentinel`)?(n=`2425897452`,e[0]=n):n=e[0];let r=rf(n),i;e[1]===Symbol.for(`react.memo_cache_sentinel`)?(i=`3903742690`,e[1]=i):i=e[1];let a=rf(i),o=!0,s;',
   },
 ];
+const rendererUndoUnifiedDiffPreferencePatchTarget =
+  'v=e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=xi(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??(e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:[])';
+const rendererUndoUnifiedDiffPreferencePatchReplacement =
+  'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=xi(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??[]';
 const modelSettingsSavedConfigPatchTarget =
   'queryFn:async()=>{try{return await zt(r,e)}catch{return null}},queryKey:[...Ss,t,e],staleTime:W.FIVE_MINUTES';
 const modelSettingsSavedConfigPatchReplacement =
@@ -550,6 +584,12 @@ function patchCodexBootstrap(extractedAppRoot) {
   return summarizePatchResults(
     applyPatchesToFile(bootstrapPath, [
       {
+        label: 'bootstrap linux git wrapper path',
+        target: bootstrapLinuxGitWrapperTarget,
+        replacement: bootstrapLinuxGitWrapperReplacement,
+        marker: bootstrapLinuxGitWrapperMarker,
+      },
+      {
         type: 'regex',
         pattern: bootstrapPatchPattern,
         replacement: bootstrapPatchReplacement,
@@ -578,6 +618,36 @@ function patchCodexGitWorker(extractedAppRoot) {
         label: 'git worker watch helpers',
         target: workerWatchMethodsPatchTarget,
         replacement: workerWatchMethodsPatchReplacement,
+      },
+      {
+        label: 'git worker normalize absolute patch headers',
+        target: workerApplyPatchNormalizeHeadersTarget,
+        replacement: workerApplyPatchNormalizeHeadersReplacement,
+      },
+      {
+        label: 'git worker normalize diff before apply',
+        target: workerApplyPatchNormalizeBeforeWriteTarget,
+        replacement: workerApplyPatchNormalizeBeforeWriteReplacement,
+      },
+      {
+        label: 'git worker normalize diff for temp index',
+        target: workerApplyPatchNormalizeIndexTarget,
+        replacement: workerApplyPatchNormalizeIndexReplacement,
+      },
+      {
+        label: 'git worker force-add ignored diff paths in temp index',
+        target: workerApplyPatchForceIgnoredAddTarget,
+        replacement: workerApplyPatchForceIgnoredAddReplacement,
+      },
+      {
+        label: 'git worker force-add ignored snapshot paths',
+        target: workerSnapshotForceIgnoredAddTarget,
+        replacement: workerSnapshotForceIgnoredAddReplacement,
+      },
+      {
+        label: 'git worker force-add ignored existing apply-patch paths',
+        target: workerApplyPatchStageExistingPathsTarget,
+        replacement: workerApplyPatchStageExistingPathsReplacement,
       },
     ]),
   );
@@ -677,6 +747,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
           target: patch.target,
           replacement: patch.replacement,
         })),
+        {
+          label: 'single-batch undo prefers unified diff',
+          target: rendererUndoUnifiedDiffPreferencePatchTarget,
+          replacement: rendererUndoUnifiedDiffPreferencePatchReplacement,
+        },
       ]),
     ),
     remoteConnections: summarizePatchResults(
@@ -896,7 +971,7 @@ export async function assembleCodexRuntime({ outputRoot }) {
     unpack: '*.node',
   });
 
-  const requiredResources = ['codex', 'rg'];
+  const requiredResources = ['codex', 'git', 'rg'];
   for (const resourceName of requiredResources) {
     copyRequired(
       path.join(linuxHelperResourcesRoot, resourceName),
