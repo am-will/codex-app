@@ -13,8 +13,9 @@ This repo tracks the Linux packaging pipeline for Codex and publishes installabl
 
 GitHub release artifacts:
 - Install from GitHub Releases using packaged artifacts (`.AppImage` / `.deb`).
-- Current Linux artifact versioning follows the embedded Electron app version `26.325.21211`; the imported Windows package manifest remains `26.325.2171.0` and the embedded build number is `1255`.
-- Release tags like `v26.325.21211` trigger `.github/workflows/linux-release.yml`.
+- Built Linux installers are release-only outputs and are not tracked in git.
+- Current Linux artifact versioning follows the embedded Electron app version `26.415.20818`; the embedded build number is `1727`.
+- Release tags like `v26.415.20818` trigger `.github/workflows/linux-release.yml`.
 
 ## Notes
 
