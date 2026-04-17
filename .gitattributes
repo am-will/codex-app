@@ -2,5 +2,3 @@ desktop/resources/bin/linux-x64/codex filter=lfs diff=lfs merge=lfs -text
 codex/app/Codex.exe filter=lfs diff=lfs merge=lfs -text
 codex/app/resources/codex filter=lfs diff=lfs merge=lfs -text
 codex/app/resources/codex.exe filter=lfs diff=lfs merge=lfs -text
-desktop/out/release-assets/*.AppImage filter=lfs diff=lfs merge=lfs -text
-desktop/out/release-assets/*.deb filter=lfs diff=lfs merge=lfs -text
