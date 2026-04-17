@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+self_path="$(readlink -f "${BASH_SOURCE[0]}")"
+wrapper_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+sanitize_path() {
+  local original_path="${1:-}"
+  local sanitized_parts=()
+  local part
+  IFS=':' read -r -a path_parts <<< "$original_path"
+  for part in "${path_parts[@]}"; do
+    if [[ -n "$part" && "$part" != "$wrapper_dir" ]]; then
+      sanitized_parts+=("$part")
+    fi
+  done
+
+  local sanitized_path=''
+  local index
+  for index in "${!sanitized_parts[@]}"; do
+    if [[ -n "$sanitized_path" ]]; then
+      sanitized_path+=':'
+    fi
+    sanitized_path+="${sanitized_parts[$index]}"
+  done
+  printf '%s' "$sanitized_path"
+}
+
+real_git=''
+sanitized_path="$(sanitize_path "${PATH:-}")"
+if [[ -n "$sanitized_path" ]]; then
+  real_git="$(PATH="$sanitized_path" command -v git || true)"
+fi
+if [[ -z "$real_git" && -x /usr/bin/git ]]; then
+  real_git='/usr/bin/git'
+fi
+if [[ -z "$real_git" ]]; then
+  printf 'codex git wrapper: failed to locate the real git binary\n' >&2
+  exit 127
+fi
+if [[ "$(readlink -f "$real_git")" == "$self_path" ]]; then
+  printf 'codex git wrapper: resolved git binary points back to wrapper\n' >&2
+  exit 127
+fi
+
+maybe_retry_ignored_add() {
+  if [[ "$#" -lt 3 || "$1" != 'add' || "$2" != '--' ]]; then
+    return 1
+  fi
+
+  local stdout_file stderr_file exit_code=0
+  stdout_file="$(mktemp)"
+  stderr_file="$(mktemp)"
+  trap 'rm -f "$stdout_file" "$stderr_file"' RETURN
+
+  if "$real_git" "$@" >"$stdout_file" 2>"$stderr_file"; then
+    cat "$stdout_file"
+    cat "$stderr_file" >&2
+    return 0
+  fi
+
+  exit_code=$?
+  if ! grep -q 'Use -f if you really want to add them\.' "$stderr_file"; then
+    cat "$stdout_file"
+    cat "$stderr_file" >&2
+    return "$exit_code"
+  fi
+
+  "$real_git" add -f -- "${@:3}"
+}
+
+if maybe_retry_ignored_add "$@"; then
+  exit 0
+fi
+
+exec "$real_git" "$@"

@@ -4,6 +4,7 @@ import { describe, expect, test } from '@jest/globals';
 
 import {
   RECOVERED_CODEX_CLI_PATH,
+  RECOVERED_GIT_EXECUTABLE_PATH,
   RECOVERED_RG_EXECUTABLE_PATH,
   RECOVERED_WEBVIEW_DEV_SERVER_PORT,
   RECOVERED_WEBVIEW_DEV_SERVER_URL,
@@ -85,7 +86,12 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(packageJson.scripts?.['make:linux']).toContain('electron-forge make --platform linux');
     expect(bootstrapSource).toContain('Desktop bootstrap failed to start the main app');
     expect(bootstrapSource).toContain('runMainAppStartup');
-    expect(bootstrapSource).toContain('console.error(');
+    expect(bootstrapSource).toContain(
+      'process.platform===`linux`&&typeof process.resourcesPath==`string`',
+    );
+    expect(bootstrapSource).toContain(
+      '(()=>{try{process.stderr?.writable&&console.error(',
+    );
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
   });
@@ -123,6 +129,9 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(rendererEntry).toContain('p=!0,m=rf(mr)');
     expect(rendererEntry).toContain('function dY(e){let t=(0,Q.c)(16),{showReviewTab:n}=e,r=He(Cm),i=!0,a=Ae(no),o=Ae(To.activeTab$),s=Ae(Oc),c;');
     expect(rendererEntry).toContain('function __e(){let e=He(j),t=ea(),n=me(),r=vf(),i=!0,a=Og(),o=cN(),[,s]=se(`diff_comments`),[c]=se(`remote_connections`),[l]=se(`remote_control_connections`)');
+    expect(rendererEntry).toContain(
+      'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(',
+    );
     expect(zeroArgBrowserPaneGateCalls).toHaveLength(0);
   });
 
@@ -176,6 +185,9 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(RECOVERED_CODEX_CLI_PATH).toBe(
       path.join(desktopRoot, 'resources', 'bin', 'linux-x64', 'codex'),
     );
+    expect(RECOVERED_GIT_EXECUTABLE_PATH).toBe(
+      path.join(desktopRoot, 'resources', 'bin', 'linux-x64', 'git'),
+    );
     expect(RECOVERED_RG_EXECUTABLE_PATH).toBe(
       path.join(desktopRoot, 'resources', 'bin', 'linux-x64', 'rg'),
     );
@@ -184,6 +196,7 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(fs.existsSync(path.join(RECOVERED_WEBVIEW_ROOT, 'index.html'))).toBe(true);
     expect(fs.existsSync(RECOVERED_CODEX_CLI_PATH)).toBe(true);
+    expect(fs.existsSync(RECOVERED_GIT_EXECUTABLE_PATH)).toBe(true);
     expect(fs.existsSync(RECOVERED_RG_EXECUTABLE_PATH)).toBe(true);
     expect(forgeConfig).toContain('preStart');
     expect(forgeConfig).toContain('applyRecoveredLinuxHelperEnv');
@@ -217,6 +230,13 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(workerSource).toContain('`platform-family`');
     expect(workerSource).toContain('`fs-watch`');
     expect(workerSource).toContain('`worker-exit`');
+    expect(workerSource).toContain('function normalizeApplyPatchDiffPaths(');
+    expect(workerSource).toContain('let P=normalizeApplyPatchDiffPaths(l,g);');
+    expect(workerSource).toContain('await rZ(v,P,{appServerClient:n,signal:o})');
+    expect(workerSource).toContain('await eZ(g,P,n,{preferWslPaths:r');
+    expect(workerSource).toContain('$(e,[`add`,`-f`,`--`,...o],n,{env:i,signal:r})');
+    expect(workerSource).toContain('$(e,[`add`,`-f`,`--`,...n],i,{env:t,signal:r})');
+    expect(workerSource).toContain('$(e,[`add`,`-f`,`--`,...c],n,{env:a,signal:o})');
   });
 
   test('desktop exposes a dedicated codex staging script that reuses the Linux shell', () => {
