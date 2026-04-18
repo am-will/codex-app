@@ -150,10 +150,14 @@ describe('Codex package staging RED contract', () => {
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'rg'))).toBe(true);
   });
 
-  test('linux release workflow hydrates lfs assets and writes concrete release note filenames', () => {
+  test('linux release workflow restores the Linux helper from releases and writes concrete release note filenames', () => {
     const workflowSource = readDesktopFile('../.github/workflows/linux-release.yml');
 
-    expect(workflowSource).toContain('lfs: true');
+    expect(workflowSource).not.toContain('lfs: true');
+    expect(workflowSource).toContain('Restore Linux codex helper from published AppImage');
+    expect(workflowSource).toContain('RELEASE_APPIMAGE_URL=');
+    expect(workflowSource).toContain('--appimage-extract');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex');
     expect(workflowSource).toContain('CURRENT_APPIMAGE_NAME=');
     expect(workflowSource).toContain('CURRENT_DEB_NAME=');
     expect(workflowSource).toContain('- ${CURRENT_APPIMAGE_NAME}');
