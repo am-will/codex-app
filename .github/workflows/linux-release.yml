@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -25,6 +23,24 @@ jobs:
           node-version: "22"
           cache: npm
           cache-dependency-path: desktop/package-lock.json
+
+      - name: Restore Linux codex helper from published AppImage
+        run: |
+          set -euo pipefail
+          CURRENT_VERSION="$(node -p "require('./desktop/package.json').version")"
+          RELEASE_APPIMAGE_NAME="codex-app-linux-v${CURRENT_VERSION}.AppImage"
+          RELEASE_APPIMAGE_URL="https://github.com/am-will/codex-app/releases/download/v${CURRENT_VERSION}/${RELEASE_APPIMAGE_NAME}"
+          TMPDIR="$(mktemp -d)"
+          trap 'rm -rf "$TMPDIR"' EXIT
+          curl -L --fail --output "${TMPDIR}/${RELEASE_APPIMAGE_NAME}" "$RELEASE_APPIMAGE_URL"
+          chmod +x "${TMPDIR}/${RELEASE_APPIMAGE_NAME}"
+          (
+            cd "$TMPDIR"
+            "./${RELEASE_APPIMAGE_NAME}" --appimage-extract >/dev/null
+          )
+          install -D -m 755 \
+            "${TMPDIR}/squashfs-root/usr/lib/codex-desktop/resources/codex" \
+            "desktop/resources/bin/linux-x64/codex"
 
       - name: Install dependencies
         working-directory: desktop
