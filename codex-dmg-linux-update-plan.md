@@ -75,9 +75,19 @@ T2b ─────────────────────────�
 - **location**: active Codex install path, `~/.local/share/applications`, `~/.config/autostart`, `~/.config/mimeapps.list`, Codex user-data directory
 - **description**: Create a rollback snapshot of the current live app path, launcher entries, autostart entries, protocol association, and user-data location before any live replacement. Avoid copying secrets into repo paths; keep snapshots in a local temp/backup location outside git.
 - **validation**: Backup paths exist; restore commands are documented; current `xdg-mime` association and launcher `Exec=` values can be restored exactly.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **reason_not_testable**: Rollback/environment snapshot; no deterministic unit or integration behavior to test. Validation is by exact static/manual checks against copied backup state and captured restore values.
+- **manual/static checks**:
+  - Backup directory -> `/home/amwill/.local/state/codex-app-update-backups/20260423-012433-MDT`
+  - Snapshot contents -> active install backup, wrapper backup, launcher backup, autostart backup, `mimeapps.list` backup, current-target metadata, xdg-mime metadata, and user-data path/stat metadata all exist.
+  - `du -sh /home/amwill/.local/state/codex-app-update-backups/20260423-012433-MDT` -> `596M`
+  - `find /home/amwill/.local/state/codex-app-update-backups/20260423-012433-MDT -type f | wc -l` -> `98`
+  - Backed-up launcher `Exec=` -> `/home/amwill/.local/bin/codex-desktop`; backed-up autostart `Exec=` -> `/home/amwill/.local/bin/codex-desktop`
+  - Backed-up current target -> `/home/amwill/.local/opt/codex-desktop/26.415.20818-undo-fix-v8`
+  - Backed-up `xdg-mime query default x-scheme-handler/codex` output -> empty, matching the current no-default-handler state.
+  - `cmp -s` checks -> wrapper, launcher, autostart, and `mimeapps.list` backups match the current live files captured at snapshot time.
+- **log**: 2026-04-23: Created an out-of-repo rollback snapshot at `/home/amwill/.local/state/codex-app-update-backups/20260423-012433-MDT` using `cp -a --reflink=auto` for the active install and state files. Did not copy `/home/amwill/.config/Codex`; recorded user-data path/stat metadata only. Documented restore commands and exact launcher/protocol restore values in `docs/linux/rollback-snapshot.md`.
+- **files edited/created**: `docs/linux/rollback-snapshot.md`, `codex-dmg-linux-update-plan.md`
 
 ### T3: Extract and Diff New DMG Payload
 
