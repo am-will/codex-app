@@ -95,9 +95,20 @@ T2b ─────────────────────────�
 - **location**: `Codex.dmg`, `/tmp/codex-dmg-refresh-*`, `desktop/recovered/refresh-manifest.json`
 - **description**: Compute the DMG SHA before extraction, then extract the new DMG to an isolated temp directory. Capture `Info.plist`, `package.json`, `app.asar`, build asset names, native resources, and a structured diff against the current recovered bundle.
 - **validation**: DMG SHA is recorded; new payload metadata confirms `26.417.41555` / build `1858`; diff output lists changed `.vite/build` files and webview assets; no repo files are modified by extraction.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **reason_not_testable**: Artifact inspection and structured diff only; no runtime behavior changes. Validation is static/manual via hashes, plist/package metadata, file inventories, native binary type checks, refresh-script failure reproduction, and worktree status checks.
+- **static/manual checks**:
+  - `sha256sum Codex.dmg` -> `65d3114117f1f03157e2968358e7c1bbaca48f3fe4a9bc9b71fc6f719e9702eb`.
+  - `7z x -y Codex.dmg -o/tmp/codex-dmg-refresh-7xio6x` -> extracted `/tmp/codex-dmg-refresh-7xio6x/Codex Installer/Codex.app`.
+  - `plistutil -i .../Contents/Info.plist -f json | jq ...` -> `CFBundleShortVersionString=26.417.41555`, `CFBundleVersion=1858`, `CFBundleIdentifier=com.openai.codex`, `CFBundleURLSchemes=[codex]`.
+  - `sha256sum .../Contents/Resources/app.asar` -> `9ac28b09fdd98e065cb9fd807919a52d0d13139659ed9c68c881f06689cd4df9`; size `111169011` bytes.
+  - `.vite/build` diff -> new `main-C8I_nqq_.js`, `workspace-root-drop-handler-B6CbYVqW.js`; removed current `main-BnI_RVTn.js`, `product-name-BA584x_m.js`; shared `bootstrap.js`, `browser-sidebar-comment-preload.js`, `preload.js`, `worker.js`.
+  - `webview` inventory diff -> `214` new-only names, `214` current-only names, `630` shared names; `webview/assets` count remains `817` on both sides.
+  - `file` checks -> new DMG native binaries/modules are Mach-O arm64; current Linux baseline modules/helpers are ELF x86-64 where applicable.
+  - `node desktop/scripts/refresh-recovered-from-dmg.mjs --dmg Codex.dmg --output /tmp/codex-dmg-refresh-script-output-BM7cVy/app-asar-extracted --keep-temp` -> exits `1` at `git origins existing-path filter patch target not found ... main-C8I_nqq_.js`.
+  - `git status --short` -> clean immediately after direct DMG extraction; after an accidental untracked asar CLI inspection artifact was moved to trash, clean again before report/plan edits; extraction did not modify tracked repo files.
+- **log**: 2026-04-23: Extracted the ignored new DMG to `/tmp/codex-dmg-refresh-7xio6x`, captured new app metadata and `app.asar` hash/size, compared build/webview/native resource inventories against `desktop/recovered/app-asar-extracted`, reproduced the known refresh-script patch drift under `/tmp`, and documented the results for follow-on porting tasks.
+- **files edited/created**: `docs/linux/new-dmg-payload-diff.md`, `codex-dmg-linux-update-plan.md`
 
 ### T4: Inventory Existing Linux Patch Contract
 
