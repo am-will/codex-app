@@ -135,9 +135,19 @@ T2b ─────────────────────────�
 - **location**: `desktop/scripts/assemble-codex-runtime.mjs`, `desktop/scripts/refresh-recovered-from-dmg.mjs`, `desktop/tests/linux/recovered-bundle.red.test.ts`, `desktop/tests/linux/browser-session-launch.test.js`
 - **description**: Update the canonical patch implementation for the new `main-C8I_nqq_.js` and refreshed webview asset names. Replace brittle one-off string assumptions where possible with narrow reusable matchers that fail fast with patch labels and bundle file paths.
 - **validation**: `node desktop/scripts/refresh-recovered-from-dmg.mjs --dmg Codex.dmg --output /tmp/<fresh-output>` completes and emits a patch summary where all required Linux patches are either applied or intentionally skipped because upstream already contains equivalent behavior.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **RED evidence**:
+  - `npm test -- --runInBand --runTestsByPath ./tests/linux/recovered-bundle.red.test.ts` from `desktop` -> failed as expected after adding the new-DMG refresh contract: refresh exited `1` for `Codex.dmg`.
+  - Direct refresh before implementation -> `git origins existing-path filter patch target not found in .../main-C8I_nqq_.js`.
+- **GREEN validation**:
+  - `npm test -- --runInBand --runTestsByPath ./tests/linux/recovered-bundle.red.test.ts ./tests/linux/browser-session-launch.test.js` from `desktop` -> `2 passed`, `17 passed`.
+  - `node scripts/assemble-codex-runtime.mjs --output /tmp/codex-t5-assemble-5y3ZEZ/runtime` from `desktop` -> completed; existing recovered-bundle patches skipped as already present and Linux helper/native resources were copied.
+  - `node desktop/scripts/refresh-recovered-from-dmg.mjs --dmg Codex.dmg --output /tmp/codex-t5-refresh-RcoCf8/app-asar-extracted` -> completed for `26.417.41555`, Electron `41.2.0`; required main/auth/model patches applied, startup shimmer/keyframe patches intentionally skipped because replacements were already present upstream.
+  - `node --check desktop/scripts/assemble-codex-runtime.mjs && node --check desktop/scripts/refresh-recovered-from-dmg.mjs` -> passed.
+  - `git diff --check` -> no whitespace errors.
+- **log**: 2026-04-23: Added a temp-output RED integration test for the ignored local `Codex.dmg`; ported the canonical patcher to the new `main-C8I_nqq_.js`, refreshed renderer entry, remote-connections, and model-settings bundle shapes; made alternative patch matching idempotent by recognizing per-alternative replacements; preserved old recovered-bundle behavior without refreshing `desktop/recovered`.
+- **gotchas**: New renderer bundle has five browser-pane gate call sites instead of the old seven, so the patcher selects the old or new gate matrix from the active bundle contents and still fails fast by label/path if neither shape is present. T8 still owns plugin callback completion/deep-link behavior.
+- **files edited/created**: `desktop/scripts/assemble-codex-runtime.mjs`, `desktop/tests/linux/recovered-bundle.red.test.ts`, `codex-dmg-linux-update-plan.md`
 
 ### T6: Design First-Class Linux Protocol Registration
 

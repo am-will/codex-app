@@ -98,6 +98,12 @@ const mainGitOriginsPatchAlternatives = [
     replacement:
       'let i=(r!=null&&r!==this.hostConfig.id?this.getAppServerClientForHostIdOrThrow(r):this.appServerClient).hostConfig,a=e.lr(i),o=C(t??[],a).map(t=>e.Qr(t)),s=y((0,n.homedir)(),a),c=B(this.globalState),l=z(this.globalState),u=c.length>0?c:l??[],d=(o&&o.length>0?o:u.filter(e=>e!==`~`).map(t=>e.Qr(t))).filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:i,windowHostId:this.hostConfig.id}});',
   },
+  {
+    target:
+      'let i=(r!=null&&r!==this.hostConfig.id?this.getAppServerClientForHostIdOrThrow(r):this.appServerClient).hostConfig,a=e.wr(i),o=C(t??[],a).map(t=>e.mi(t)),s=y((0,n.homedir)(),a),c=e.o(this.globalState),l=e.r(this.globalState),u=c.length>0?c:l??[],d=o&&o.length>0?o:u.filter(e=>e!==`~`).map(t=>e.mi(t)),{origins:f}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:i,windowHostId:this.hostConfig.id}});',
+    replacement:
+      'let i=(r!=null&&r!==this.hostConfig.id?this.getAppServerClientForHostIdOrThrow(r):this.appServerClient).hostConfig,a=e.wr(i),o=C(t??[],a).map(t=>e.mi(t)),s=y((0,n.homedir)(),a),c=e.o(this.globalState),l=e.r(this.globalState),u=c.length>0?c:l??[],d=(o&&o.length>0?o:u.filter(e=>e!==`~`).map(t=>e.mi(t))).filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:i,windowHostId:this.hostConfig.id}});',
+  },
 ];
 const mainGitOriginsPatchMarker =
   '.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}';
@@ -114,6 +120,12 @@ const mainOpenInBrowserPatchAlternatives = [
     replacement:
       'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&_i(e))try{if(process.platform===`linux`){let r=require(`../../../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&Y().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Rp(e))try{if(gi({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
   },
+  {
+    target:
+      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&li(e))try{await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&im(e))try{if(ci({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(V,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+    replacement:
+      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&li(e))try{if(process.platform===`linux`){let r=require(`../../../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&im(e))try{if(ci({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(V,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+  },
 ];
 const mainOpenInBrowserPatchMarker = 'openUrlWithLinuxBrowserSession';
 const mainLinuxOpaqueWindowPatchAlternatives = [
@@ -128,6 +140,12 @@ const mainLinuxOpaqueWindowPatchAlternatives = [
       'function _y({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){return e===`win32`&&!my(t)?n?{backgroundColor:r?Xv:Zv,backgroundMaterial:`none`}:{backgroundColor:Yv,backgroundMaterial:`mica`}:{backgroundColor:Yv,backgroundMaterial:null}}',
     replacement:
       'function _y({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){if(e===`win32`&&!my(t))return n?{backgroundColor:r?Xv:Zv,backgroundMaterial:`none`}:{backgroundColor:Yv,backgroundMaterial:`mica`};if(e===`linux`&&!my(t))return{backgroundColor:r?Xv:Zv,backgroundMaterial:null};return{backgroundColor:Yv,backgroundMaterial:null}}',
+  },
+  {
+    target:
+      'function Wy({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){return e===`win32`&&!Vy(t)?n?{backgroundColor:r?Cy:wy,backgroundMaterial:`none`}:{backgroundColor:Sy,backgroundMaterial:`mica`}:{backgroundColor:Sy,backgroundMaterial:null}}',
+    replacement:
+      'function Wy({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){if(e===`win32`&&!Vy(t))return n?{backgroundColor:r?Cy:wy,backgroundMaterial:`none`}:{backgroundColor:Sy,backgroundMaterial:`mica`};if(e===`linux`&&!Vy(t))return{backgroundColor:r?Cy:wy,backgroundMaterial:null};return{backgroundColor:Sy,backgroundMaterial:null}}',
   },
 ];
 const mainLinuxOpaqueWindowPatchMarker = 'backgroundMaterial:`mica`};if(e===`linux`&&';
@@ -173,6 +191,12 @@ const webviewChatGptLoginPatchAlternatives = [
       'a(t=>t?.abortController===e?{...t,verificationUrl:r,userCode:i}:t),E.dispatchMessage(`open-in-browser`,{url:r});let s=await o;',
     replacement:
       'a(t=>t?.abortController===e?{...t,verificationUrl:r,userCode:i}:t),E.dispatchMessage(`open-in-browser`,{url:r,useExternalBrowser:!0});let s=await o;',
+  },
+  {
+    target:
+      'let{authUrl:r,completion:i}=await pi(`login-with-chatgpt`,{abortController:e});r&&E.dispatchMessage(`open-in-browser`,{url:r});let a=await i;',
+    replacement:
+      'let{authUrl:r,completion:i}=await pi(`login-with-chatgpt`,{abortController:e});r&&E.dispatchMessage(`open-in-browser`,{url:r,useExternalBrowser:!0});let a=await i;',
   },
 ];
 const webviewChatGptLoginPatchMarker = 'useExternalBrowser:!0';
@@ -226,26 +250,100 @@ const rendererBrowserPaneAvailabilityPatches = [
       'function q9(){let e=(0,Q.c)(17),t=rf(vm),n;e[0]===Symbol.for(`react.memo_cache_sentinel`)?(n=`2425897452`,e[0]=n):n=e[0];let r=rf(n),i;e[1]===Symbol.for(`react.memo_cache_sentinel`)?(i=`3903742690`,e[1]=i):i=e[1];let a=rf(i),o=!0,s;',
   },
 ];
+const rendererBrowserPaneAvailabilityNewBundlePatches = [
+  {
+    target:
+      'let z=i_(),B=Ot(VS),V=Ot($y),U=Sm(),W=Vv(),G=_g(),K=Bf(),ee=hf(`2251025435`),te=ee&&!W,',
+    replacement:
+      'let z=i_(),B=Ot(VS),V=Ot($y),U=Sm(),W=Vv(),G=_g(),K=!0,ee=hf(`2251025435`),te=ee&&!W,',
+  },
+  {
+    target:
+      'f=N_(),p=c?f:f.filter(II),m=je(k),h=Vv(),g=Bf(),_=hf(`2251025435`),v=n!==void 0,y=_&&!h,',
+    replacement:
+      'f=N_(),p=c?f:f.filter(II),m=je(k),h=Vv(),g=!0,_=hf(`2251025435`),v=n!==void 0,y=_&&!h,',
+  },
+  {
+    target:
+      'function Eme(){let e=(0,Q.c)(2);if(!Bf()){let t;return',
+    replacement:
+      'function Eme(){let e=(0,Q.c)(2);if(!1){let t;return',
+  },
+  {
+    target:
+      'function oge(e){let t=(0,Q.c)(24),n=e===void 0?null:e,r=Fs(),i=wf(),{isLoading:a,platform:o}=gp(),s=Vv(),c=Bf(),',
+    replacement:
+      'function oge(e){let t=(0,Q.c)(24),n=e===void 0?null:e,r=Fs(),i=wf(),{isLoading:a,platform:o}=gp(),s=Vv(),c=!0,',
+  },
+  {
+    target:
+      'function ibe(){let e=je(k),t=pa(),n=Vv(),r=Bf(),{remoteConnections:i,selectedRemoteHostId:a}=Ho(),',
+    replacement:
+      'function ibe(){let e=je(k),t=pa(),n=Vv(),r=!0,{remoteConnections:i,selectedRemoteHostId:a}=Ho(),',
+  },
+];
 const rendererUndoUnifiedDiffPreferencePatchTarget =
   'v=e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=xi(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??(e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:[])';
 const rendererUndoUnifiedDiffPreferencePatchReplacement =
   'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=xi(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??[]';
+const rendererUndoUnifiedDiffPreferencePatchAlternatives = [
+  {
+    target: rendererUndoUnifiedDiffPreferencePatchTarget,
+    replacement: rendererUndoUnifiedDiffPreferencePatchReplacement,
+  },
+  {
+    target:
+      'v=e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=Yn(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??(e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:[])',
+    replacement:
+      'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=Yn(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??[]',
+  },
+];
 const modelSettingsSavedConfigPatchTarget =
   'queryFn:async()=>{try{return await zt(r,e)}catch{return null}},queryKey:[...Ss,t,e],staleTime:W.FIVE_MINUTES';
 const modelSettingsSavedConfigPatchReplacement =
   'queryFn:async()=>{try{return await zt(r,e)}catch{try{return await zt(r,null)}catch{return null}}},queryKey:[...Ss,t,e],staleTime:W.FIVE_MINUTES';
+const modelSettingsSavedConfigPatchAlternatives = [
+  {
+    target: modelSettingsSavedConfigPatchTarget,
+    replacement: modelSettingsSavedConfigPatchReplacement,
+  },
+  {
+    target:
+      'queryFn:async()=>{try{return await Ye(r,e)}catch{return null}},queryKey:[...xs,t,e],staleTime:W.FIVE_MINUTES',
+    replacement:
+      'queryFn:async()=>{try{return await Ye(r,e)}catch{try{return await Ye(r,null)}catch{return null}}},queryKey:[...xs,t,e],staleTime:W.FIVE_MINUTES',
+  },
+];
+const modelSettingsSavedConfigPatchMarker =
+  'r,null)}catch{return null}}},queryKey:';
 const modelSettingsPersistPatchTarget =
   'await on(`set-default-model-config-for-host`,{hostId:a,model:e,reasoningEffort:t,profile:d.profile}),await E()';
 const modelSettingsPersistPatchReplacement =
   'let E=QCe(T),M=Y9(a).configPath,D;t[18]!==S||t[19]!==d.profile||t[20]!==a||t[21]!==c||t[22]!==o||t[23]!==b||t[24]!==E||t[25]!==r?(D=async(e,t)=>{try{if(await S(e,t),b){zn(r,`copilot-default-model`,e);return}if(h.info(`Setting default model and reasoning effort`,{safe:{newModel:e,newEffort:t,profile:d.profile}}),!o)return;let n=M,r=d.profile?`profiles.${d.profile}.`:`` ,i=[{keyPath:`${r}model`,value:e,mergeStrategy:`upsert`},{keyPath:`${r}model_reasoning_effort`,value:t,mergeStrategy:`upsert`}];await on(`batch-write-config-value`,{hostId:a,edits:i,filePath:n??null,expectedVersion:null}),await E()}catch(e){let t=e;h.error(`Failed to update model and reasoning effort`,{safe:{},sensitive:{error:t}});let n=r.get(bo),i=$Ce(c,t);Q9(t)?n.danger(i,{id:`composer.modelSettings.updateError`,description:(0,K.createElement)(`div`,{className:`mt-4`},(0,K.createElement)(RCe))}):n.danger(i,{id:`composer.modelSettings.updateError`})}},t[18]=S,t[19]=d.profile,t[20]=a,t[21]=c,t[22]=o,t[23]=b,t[24]=E,t[25]=r,t[26]=D):D=t[26]';
 const modelSettingsPersistPatchMarker =
-  'let E=QCe(T),M=Y9(a).configPath,D;';
+  'M=Y9(a).configPath,D;';
 const modelSettingsPersistPatchedTarget =
   'let E=QCe(T),D;t[18]!==S||t[19]!==d.profile||t[20]!==a||t[21]!==c||t[22]!==o||t[23]!==b||t[24]!==E||t[25]!==r?(D=async(e,t)=>{try{if(await S(e,t),b){zn(r,`copilot-default-model`,e);return}if(h.info(`Setting default model and reasoning effort`,{safe:{newModel:e,newEffort:t,profile:d.profile}}),!o)return;let n=Y9(a).configPath,r=d.profile?`profiles.${d.profile}.`:`` ,i=[{keyPath:`${r}model`,value:e,mergeStrategy:`upsert`},{keyPath:`${r}model_reasoning_effort`,value:t,mergeStrategy:`upsert`}];await on(`batch-write-config-value`,{hostId:a,edits:i,filePath:n??null,expectedVersion:null}),await E()}catch(e){let t=e;h.error(`Failed to update model and reasoning effort`,{safe:{},sensitive:{error:t}});let n=r.get(bo),i=$Ce(c,t);Q9(t)?n.danger(i,{id:`composer.modelSettings.updateError`,description:(0,K.createElement)(`div`,{className:`mt-4`},(0,K.createElement)(RCe))}):n.danger(i,{id:`composer.modelSettings.updateError`})}},t[18]=S,t[19]=d.profile,t[20]=a,t[21]=c,t[22]=o,t[23]=b,t[24]=E,t[25]=r,t[26]=D):D=t[26]';
+const modelSettingsPersistNewBundleTarget =
+  'let E=jwe(T),D;t[18]!==S||t[19]!==d.profile||t[20]!==a||t[21]!==c||t[22]!==o||t[23]!==b||t[24]!==E||t[25]!==r?(D=async(e,t)=>{try{if(await S(e,t),b){Un(r,`copilot-default-model`,e);return}if(h.info(`Setting default model and reasoning effort`,{safe:{newModel:e,newEffort:t,profile:d.profile}}),!o)return;await en(`set-default-model-config-for-host`,{hostId:a,model:e,reasoningEffort:t,profile:d.profile}),await E()}catch(e){let t=e;h.error(`Failed to update model and reasoning effort`,{safe:{},sensitive:{error:t}});let n=r.get(Eo),i=Mwe(c,t);Q9(t)?n.danger(i,{id:`composer.modelSettings.updateError`,description:(0,K.createElement)(`div`,{className:`mt-4`},(0,K.createElement)(_we))}):n.danger(i,{id:`composer.modelSettings.updateError`})}},t[18]=S,t[19]=d.profile,t[20]=a,t[21]=c,t[22]=o,t[23]=b,t[24]=E,t[25]=r,t[26]=D):D=t[26]';
+const modelSettingsPersistNewBundleReplacement =
+  'let E=jwe(T),M=Y9(a).configPath,D;t[18]!==S||t[19]!==d.profile||t[20]!==a||t[21]!==c||t[22]!==o||t[23]!==b||t[24]!==E||t[25]!==r?(D=async(e,t)=>{try{if(await S(e,t),b){Un(r,`copilot-default-model`,e);return}if(h.info(`Setting default model and reasoning effort`,{safe:{newModel:e,newEffort:t,profile:d.profile}}),!o)return;let n=M,r=d.profile?`profiles.${d.profile}.`:`` ,i=[{keyPath:`${r}model`,value:e,mergeStrategy:`upsert`},{keyPath:`${r}model_reasoning_effort`,value:t,mergeStrategy:`upsert`}];await en(`batch-write-config-value`,{hostId:a,edits:i,filePath:n??null,expectedVersion:null}),await E()}catch(e){let t=e;h.error(`Failed to update model and reasoning effort`,{safe:{},sensitive:{error:t}});let n=r.get(Eo),i=Mwe(c,t);Q9(t)?n.danger(i,{id:`composer.modelSettings.updateError`,description:(0,K.createElement)(`div`,{className:`mt-4`},(0,K.createElement)(_we))}):n.danger(i,{id:`composer.modelSettings.updateError`})}},t[18]=S,t[19]=d.profile,t[20]=a,t[21]=c,t[22]=o,t[23]=b,t[24]=E,t[25]=r,t[26]=D):D=t[26]';
 const mainLinuxOpenTargetsPatchTarget =
   'async function jc(e,t,n){let r=Zs(t,n),i=Ac(e)??kc();if(i){if(await ho(`open`,[`-a`,i,t]),!n)return;let e=G(`zed`);if(e)try{await ho(e,r)}catch{}return}await ho(e,r)}var Mc=[uc,fc,cc,ms,Go,Qs,Ec,hc,Uo,Es,tc,vs,qo,Cs,fs,_c,Os,Ss,mc,xc,Ps,Fs,Is,Ls,Rs,zs,Bs,Vs,ic],Nc=e.mr(`open-in-targets`);';
 const mainLinuxOpenTargetsPatchReplacement =
   'async function jc(e,t,n){let r=Zs(t,n),i=Ac(e)??kc();if(i){if(await ho(`open`,[`-a`,i,t]),!n)return;let e=G(`zed`);if(e)try{await ho(e,r)}catch{}return}await ho(e,r)}function linuxResolveAbsoluteCommand(e){let t=K(e);return t&&(0,a.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,n.homedir)();return[(0,r.join)(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,n.homedir)();return[(0,r.join)(e,`Applications`),(0,r.join)(e,`Downloads`),`/opt`]}function linuxResolveDesktopExec(e){let t=ss(e);if(!t)return null;let n=t.args[0];if(!n)return null;return linuxResolveAbsoluteCommand(n)??(()=>{let e=G(n);return e?K(e):null})()}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,a.readdirSync)(e)}catch{continue}for(let i of n){let o=i.toLowerCase();if(!o.endsWith(`.desktop`)||!t.some(e=>o.includes(e)))continue;let s=(0,r.join)(e,i),c=null;try{c=(0,a.readFileSync)(s,`utf8`)}catch{continue}let l=c.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!l)continue;let u=linuxResolveDesktopExec(l.replace(/%.?/g,``).trim());if(u)return u}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,a.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let i of n){if(!i.isFile())continue;let n=i.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let o=linuxResolveAbsoluteCommand((0,r.join)(e,i.name));if(o)return o}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=G(t);if(e){let t=K(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let i=n.length>0?linuxFindDesktopEntryExec(n):null;return i??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return G(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:Ho,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:Ho,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:Ho,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:Ho,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:Zs}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>bs(e)}}};var Mc=[uc,linuxVscode,fc,linuxVscodeInsiders,cc,ms,linuxCursor,Go,Qs,Ec,linuxZed,hc,linuxWindsurf,Uo,Es,tc,vs,linuxFileManager,qo,Cs,fs,_c,Os,Ss,mc,xc,Ps,Fs,Is,Ls,Rs,zs,Bs,Vs,ic],Nc=e.mr(`open-in-targets`);';
+const mainLinuxOpenTargetsPatchAlternatives = [
+  {
+    target: mainLinuxOpenTargetsPatchTarget,
+    replacement: mainLinuxOpenTargetsPatchReplacement,
+  },
+  {
+    target:
+      'async function Ic(e,t,n){let r=nc(t,n),i=Fc(e)??Pc();if(i){if(await bo(`open`,[`-a`,i,t]),!n)return;let e=H(`zed`);if(e)try{await bo(e,r)}catch{}return}await bo(e,r)}var Lc=[hc,_c,pc,ys,Xo,rc,jc,bc,Jo,js,oc,Cs,Qo,Os,_s,Sc,Ns,Ds,yc,Ec,zs,Bs,Vs,Hs,Us,Ws,Gs,Ks,lc],Rc=e.kr(`open-in-targets`);',
+    replacement:
+      'async function Ic(e,t,n){let r=nc(t,n),i=Fc(e)??Pc();if(i){if(await bo(`open`,[`-a`,i,t]),!n)return;let e=H(`zed`);if(e)try{await bo(e,r)}catch{}return}await bo(e,r)}function linuxResolveAbsoluteCommand(e){let t=U(e);return t&&(0,a.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,n.homedir)();return[(0,r.join)(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,n.homedir)();return[(0,r.join)(e,`Applications`),(0,r.join)(e,`Downloads`),`/opt`]}function linuxResolveDesktopExec(e){let t=fs(e);if(!t)return null;let n=t.args[0];if(!n)return null;return linuxResolveAbsoluteCommand(n)??(()=>{let e=H(n);return e?U(e):null})()}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,a.readdirSync)(e)}catch{continue}for(let i of n){let o=i.toLowerCase();if(!o.endsWith(`.desktop`)||!t.some(e=>o.includes(e)))continue;let s=(0,r.join)(e,i),c=null;try{c=(0,a.readFileSync)(s,`utf8`)}catch{continue}let l=c.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!l)continue;let u=linuxResolveDesktopExec(l.replace(/%.?/g,``).trim());if(u)return u}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,a.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let i of n){if(!i.isFile())continue;let n=i.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let o=linuxResolveAbsoluteCommand((0,r.join)(e,i.name));if(o)return o}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=H(t);if(e){let t=U(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let i=n.length>0?linuxFindDesktopEntryExec(n):null;return i??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return H(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:bs,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:bs,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:bs,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:bs,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:nc}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>cc(e)}}};var Lc=[hc,linuxVscode,_c,linuxVscodeInsiders,pc,ys,linuxCursor,Xo,rc,jc,linuxZed,bc,linuxWindsurf,Jo,js,oc,Cs,linuxFileManager,Qo,Os,_s,Sc,Ns,Ds,yc,Ec,zs,Bs,Vs,Hs,Us,Ws,Gs,Ks,lc],Rc=e.kr(`open-in-targets`);',
+  },
+];
 const mainLinuxOpenTargetsPatchMarker = 'function linuxResolveEditorTarget(';
 const startupBackgroundPatchTarget = '--startup-background: transparent;';
 const startupBackgroundPatchReplacement = '--startup-background: #121212;';
@@ -297,6 +395,14 @@ export function applyAlternativeStringPatch(
   marker,
 ) {
   if (marker && source.includes(marker)) {
+    return {
+      patched: false,
+      skipped: true,
+      reason: `${label} replacement already present`,
+    };
+  }
+
+  if (alternatives.some(({ replacement }) => source.includes(replacement))) {
     return {
       patched: false,
       skipped: true,
@@ -564,6 +670,23 @@ function summarizePatchResults(results) {
   };
 }
 
+function selectBrowserPaneAvailabilityPatches(source, sourcePath) {
+  const hasPatchShape = (patches) =>
+    patches.some(
+      (patch) => source.includes(patch.target) || source.includes(patch.replacement),
+    );
+
+  if (hasPatchShape(rendererBrowserPaneAvailabilityPatches)) {
+    return rendererBrowserPaneAvailabilityPatches;
+  }
+
+  if (hasPatchShape(rendererBrowserPaneAvailabilityNewBundlePatches)) {
+    return rendererBrowserPaneAvailabilityNewBundlePatches;
+  }
+
+  throw buildMissingPatchTargetError('linux browser pane availability', sourcePath);
+}
+
 function patchCodexPreload(extractedAppRoot) {
   const preloadPath = path.join(extractedAppRoot, '.vite', 'build', 'preload.js');
   return summarizePatchResults(
@@ -685,8 +808,7 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
       },
       {
         label: 'linux open-in target registry',
-        target: mainLinuxOpenTargetsPatchTarget,
-        replacement: mainLinuxOpenTargetsPatchReplacement,
+        alternatives: mainLinuxOpenTargetsPatchAlternatives,
         marker: mainLinuxOpenTargetsPatchMarker,
       },
     ]),
@@ -733,6 +855,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
     extractedAppRoot,
     'remote-connections-settings-',
   );
+  const loginBundleSource = fs.readFileSync(loginBundlePath, 'utf8');
+  const browserPaneAvailabilityPatches = selectBrowserPaneAvailabilityPatches(
+    loginBundleSource,
+    loginBundlePath,
+  );
 
   return {
     login: summarizePatchResults(
@@ -742,15 +869,14 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
           alternatives: webviewChatGptLoginPatchAlternatives,
           marker: webviewChatGptLoginPatchMarker,
         },
-        ...rendererBrowserPaneAvailabilityPatches.map((patch, index) => ({
+        ...browserPaneAvailabilityPatches.map((patch, index) => ({
           label: `linux browser pane availability ${index + 1}`,
           target: patch.target,
           replacement: patch.replacement,
         })),
         {
           label: 'single-batch undo prefers unified diff',
-          target: rendererUndoUnifiedDiffPreferencePatchTarget,
-          replacement: rendererUndoUnifiedDiffPreferencePatchReplacement,
+          alternatives: rendererUndoUnifiedDiffPreferencePatchAlternatives,
         },
       ]),
     ),
@@ -773,8 +899,8 @@ function patchCodexModelSettingsBundle(extractedAppRoot) {
     applyPatchesToFile(modelSettingsPath, [
       {
         label: 'model settings saved-config cwd fallback',
-        target: modelSettingsSavedConfigPatchTarget,
-        replacement: modelSettingsSavedConfigPatchReplacement,
+        alternatives: modelSettingsSavedConfigPatchAlternatives,
+        marker: modelSettingsSavedConfigPatchMarker,
       },
       {
         label: 'model settings direct user config write',
@@ -786,6 +912,10 @@ function patchCodexModelSettingsBundle(extractedAppRoot) {
           {
             target: modelSettingsPersistPatchedTarget,
             replacement: modelSettingsPersistPatchReplacement,
+          },
+          {
+            target: modelSettingsPersistNewBundleTarget,
+            replacement: modelSettingsPersistNewBundleReplacement,
           },
         ],
         marker: modelSettingsPersistPatchMarker,

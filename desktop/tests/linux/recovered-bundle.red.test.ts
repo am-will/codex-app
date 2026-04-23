@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import childProcess from 'node:child_process';
+import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
 
@@ -25,6 +27,92 @@ import {
 } from './recovered-bundle.helpers';
 
 describe('Recovered Codex bundle RED contract', () => {
+  const newDmgPath = path.resolve(desktopRoot, '..', 'Codex.dmg');
+  const testWithLocalDmg = fs.existsSync(newDmgPath) ? test : test.skip;
+
+  testWithLocalDmg(
+    'canonical refresh script patches the new local DMG into a temp recovered bundle',
+    () => {
+      const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-refresh-test-'));
+      const outputRoot = path.join(tempRoot, 'app-asar-extracted');
+
+      const result = childProcess.spawnSync(
+        process.execPath,
+        [
+          'scripts/refresh-recovered-from-dmg.mjs',
+          '--dmg',
+          newDmgPath,
+          '--output',
+          outputRoot,
+        ],
+        {
+          cwd: desktopRoot,
+          encoding: 'utf8',
+          maxBuffer: 20 * 1024 * 1024,
+          timeout: 180_000,
+        },
+      );
+
+      expect(result.status).toBe(0);
+      expect(result.stderr).toBe('');
+
+      const summary = JSON.parse(result.stdout) as {
+        outputRoot: string;
+        version: string;
+        patchSummary: Record<string, { results: Array<{ label: string; patched: boolean; skipped: boolean }> }>;
+      };
+      const mainBundle = fs.readFileSync(
+        path.join(
+          outputRoot,
+          '.vite',
+          'build',
+          fs.readdirSync(path.join(outputRoot, '.vite', 'build')).find((entry) =>
+            /^main-.+\.js$/.test(entry),
+          ) ?? '',
+        ),
+        'utf8',
+      );
+      const outputAssetsRoot = path.join(outputRoot, 'webview', 'assets');
+      const rendererEntry = fs.readFileSync(
+        path.join(
+          outputAssetsRoot,
+          fs
+            .readdirSync(outputAssetsRoot)
+            .find((entry) => entry.startsWith('index-') && entry.endsWith('.js')) ?? '',
+        ),
+        'utf8',
+      );
+      const modelSettingsBundle = fs.readFileSync(
+        path.join(
+          outputRoot,
+          'webview',
+          'assets',
+          fs.readdirSync(outputAssetsRoot).find((entry) =>
+            entry.startsWith('use-model-settings-') && entry.endsWith('.js'),
+          ) ?? '',
+        ),
+        'utf8',
+      );
+
+      expect(summary.outputRoot).toBe(outputRoot);
+      expect(summary.version).toBe('26.417.41555');
+      expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
+      expect(mainBundle).toContain('function linuxResolveEditorTarget(');
+      expect(mainBundle).toContain('.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}})');
+      expect(rendererEntry).toContain('useExternalBrowser:!0');
+      expect(modelSettingsBundle).toContain('batch-write-config-value');
+      expect(summary.patchSummary.mainProcess.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ label: 'git origins existing-path filter' }),
+          expect.objectContaining({ label: 'linux auth browser session handoff' }),
+          expect.objectContaining({ label: 'linux opaque primary window background' }),
+          expect.objectContaining({ label: 'linux open-in target registry' }),
+        ]),
+      );
+    },
+    180_000,
+  );
+
   test('desktop vendors the extracted compiled Codex bundle', () => {
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'bootstrap.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'worker.js'))).toBe(true);
