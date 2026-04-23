@@ -155,9 +155,14 @@ T2b ─────────────────────────�
 - **location**: new extracted webview/main assets, `desktop/recovered/app-asar-extracted`, login/plugin UI bundle, app-server request handlers
 - **description**: Locate the exact plugin connection flow behind the "connecting plugin" screen, identify the callback URL shape, state token validation, and renderer/main process event that should complete authentication after the browser allow button. Treat this as a decision gate: if the real plugin callback is not `codex://`, T8 must target the discovered mechanism instead of assuming a deep-link-only fix.
 - **validation**: A written flow map identifies the browser URL opened, expected callback mechanism, receiving process path, state validation point, and final renderer/app-server event that clears the loading state.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **reason_not_testable**: Reverse-engineering and flow tracing only; no runtime code or package artifact changed. Validation is static inspection of the extracted new DMG bundle and current recovered bundle.
+- **static checks**:
+  - `rg -n -i "app-connect-oauth-callback-url|codex://connector/oauth_callback|queueProcessArgs|second-instance|registerProtocolClient" /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/.vite/build/main-C8I_nqq_.js desktop/recovered/app-asar-extracted/.vite/build/main-BnI_RVTn.js` -> confirmed the native callback URL is `codex://connector/oauth_callback` and main registers/processes deep links.
+  - `rg -n -i "redirect_url|callback_url|post_auth_url|/aip/connectors/links/oauth|/aip/connectors/links/oauth/callback|full_redirect_url" /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/webview/assets/use-model-settings-ldiRRtPt.js /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/webview/assets/plugins-cards-grid-BoqJwPPb.js` -> confirmed OAuth startup posts `callback_url`, receives browser `redirect_url`, and completion posts `full_redirect_url`.
+  - `rg -n -i "markAppConnectOAuthPending|claimAppConnectOAuthCallback|isAppConnectPending|clearPendingAppConnect|fullRedirectUrl|connector-oauth-callback|/connector/oauth_callback" /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/webview/assets/index-CxBol07n.js /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/webview/assets/plugins-cards-grid-BoqJwPPb.js /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/webview/assets/plugins-page-D-DgM3v5.js` -> confirmed state-token tracking, renderer route `/connector/oauth_callback`, and pending-state clearing.
+- **log**: 2026-04-23: Traced the plugin/app connector OAuth flow end to end. The real callback is `codex://connector/oauth_callback`; main converts the deep link to a renderer `connector-oauth-callback` event and route state, and the renderer completes via `/aip/connectors/links/oauth/callback` before clearing pending app-connect state. T8 should implement a Linux deep-link registration/dispatch fix, not a browser-session-only or backend callback workaround.
+- **files edited/created**: `docs/linux/plugin-login-callback-flow.md`, `codex-dmg-linux-update-plan.md`
 
 ### T8: Implement Plugin Auth Return Fix in Canonical Path
 
