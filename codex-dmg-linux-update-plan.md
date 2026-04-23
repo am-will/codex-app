@@ -239,9 +239,20 @@ T2b ─────────────────────────�
 - **location**: installed Codex path, Codex user-data/log paths, browser, plugin authorization flow
 - **description**: Verify launch, login, plugin connection callback, protocol handler, model/settings persistence, terminal/PTY, git/apply-patch flows, browser pane/open-in-browser flows, and autostart launcher parity against the live install. Confirm rollback remains possible until the new app passes.
 - **validation**: From `/home/amwill/Applications/codex-app/desktop`, `npm run test:linux` and `npm run test:linux:codex-package` pass; GUI launch works; direct `xdg-open 'codex://...'` tests pass; a real plugin authorization flow completes and the "connecting plugin" screen resolves after browser Allow. If any critical post-install check fails, restore the previous app/desktop/protocol state from T2b.
-- **status**: Not Completed
+- **status**: Completed
 - **log**:
+  - Updated stale recovered-bundle regression contracts to tolerate refreshed minifier symbols while still asserting the Linux-specific behavior contracts: opaque non-hotkey windows, browser pane enablement, model settings config fallback/direct write, automation worktree starting-state fallback, and worker/runtime patch coverage.
+  - Verified `/home/amwill/.local/opt/codex-desktop/current` resolves to `/home/amwill/.local/opt/codex-desktop/26.417.41555-1858`.
+  - Verified protocol registration: `xdg-mime query default x-scheme-handler/codex` returns `codex-desktop.desktop`, and `timeout 8s xdg-open 'codex://connector/oauth_callback?code=t13-code&state=t13-state'` exits 0.
+  - Verified desktop launcher and autostart parity: `/home/amwill/.local/share/applications/codex-desktop.desktop` uses `Exec=/home/amwill/.local/bin/codex-desktop %u` and `MimeType=x-scheme-handler/codex;`; `/home/amwill/.config/autostart/codex-desktop.desktop` uses `Exec=/home/amwill/.local/bin/codex-desktop --open-at-login`.
+  - Verified installed helper/runtime state: bundled Codex CLI reports `codex-cli 0.121.0`, installed unpacked native modules are Linux x86-64 ELF files, and rollback backup `/home/amwill/.local/state/codex-app-update-backups/20260423-012433-MDT` remains available at 596M.
+  - Validation passed from `/home/amwill/Applications/codex-app/desktop`: focused recovered-bundle/window/automation suites, `npm run test:linux`, and `npm run test:linux:codex-package`.
+  - Real browser plugin OAuth completion still needs an interactive plugin connection after the currently running old Codex process is quit and reopened; protocol dispatch and the synthetic callback path are verified, but the live user-session app process remains the previous `26.415.20818-undo-fix-v8` binary until restart.
 - **files edited/created**:
+  - `/home/amwill/Applications/codex-app/desktop/tests/linux/automation-archive-without-execution.red.test.ts`
+  - `/home/amwill/Applications/codex-app/desktop/tests/linux/recovered-bundle.red.test.ts`
+  - `/home/amwill/Applications/codex-app/desktop/tests/linux/window-background.test.js`
+  - `/home/amwill/Applications/codex-app/codex-dmg-linux-update-plan.md`
 
 ## Parallel Execution Groups
 

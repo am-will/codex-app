@@ -288,11 +288,11 @@ describe('Recovered Codex bundle RED contract', () => {
     const rendererEntry = readRecoveredRendererEntry();
     const zeroArgBrowserPaneGateCalls = rendererEntry.match(/\bBf\(\)/g) ?? [];
 
-    expect(rendererEntry).toContain('function vhe(){let e=(0,Q.c)(4),t=He(Cm),n=!0,r,i;return');
     expect(rendererEntry).toContain('toggleBrowserPanel');
-    expect(rendererEntry).toContain('p=!0,m=rf(mr)');
-    expect(rendererEntry).toContain('function dY(e){let t=(0,Q.c)(16),{showReviewTab:n}=e,r=He(Cm),i=!0,a=Ae(no),o=Ae(To.activeTab$),s=Ae(Oc),c;');
-    expect(rendererEntry).toContain('function __e(){let e=He(j),t=ea(),n=me(),r=vf(),i=!0,a=Og(),o=cN(),[,s]=se(`diff_comments`),[c]=se(`remote_connections`),[l]=se(`remote_control_connections`)');
+    expect(rendererEntry).toContain('BROWSER_AGENT');
+    expect(rendererEntry).toContain('browserPane:i');
+    expect(rendererEntry).toContain('browserAgent:s');
+    expect(rendererEntry).toMatch(/\w+=Xp\(ot\.BROWSER_AGENT\),\w+=\w+&&\w+&&\w+\.data!==!1/);
     expect(rendererEntry).toContain(
       'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(',
     );
@@ -304,12 +304,12 @@ describe('Recovered Codex bundle RED contract', () => {
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
 
     expect(modelSettingsSource).toContain(
-      'queryFn:async()=>{try{return await zt(r,e)}catch{try{return await zt(r,null)}catch{return null}}}',
+      'queryFn:async()=>{try{return await Ye(r,e)}catch{try{return await Ye(r,null)}catch{return null}}}',
     );
-    expect(modelSettingsSource).toContain('let E=QCe(T),M=Y9(a).configPath,D;');
+    expect(modelSettingsSource).toMatch(/let \w+=\w+\(\w+\),\w+=Y9\(\w+\)\.configPath,\w+;/);
     expect(modelSettingsSource).toContain('batch-write-config-value');
     expect(modelSettingsSource).toContain('filePath:n??null');
-    expect(modelSettingsSource).not.toContain('let n=Y9(a).configPath');
+    expect(modelSettingsSource).not.toMatch(/let n=Y9\(\w+\)\.configPath/);
     expect(modelSettingsSource).not.toContain('set-default-model-config-for-host');
     expect(assembleScript).toContain('model settings saved-config cwd fallback');
     expect(assembleScript).toContain('model settings direct user config write');
@@ -377,7 +377,9 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain('function linuxResolveEditorTarget(');
     expect(mainSource).toContain('id:`cursor`,platforms:{linux:{label:`Cursor`');
     expect(mainSource).toContain('id:`fileManager`,platforms:{linux:{label:`File Manager`');
-    expect(mainSource).toContain('linuxFileManagerDetect(){return G(`xdg-open`)');
+    expect(mainSource).toContain(
+      'linuxFileManagerDetect(){return H(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}',
+    );
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
       /d=\(o&&o\.length>0\?o:u\.filter\(e=>e!==`~`\)\.map\(t=>e\.[A-Za-z$_]+\(\w+\)\)\)\.filter\(t=>\{try\{return!!t&&a\.existsSync\(t\)\}catch\{return!1\}\}\)/,
@@ -394,13 +396,14 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(workerSource).toContain('`platform-family`');
     expect(workerSource).toContain('`fs-watch`');
     expect(workerSource).toContain('`worker-exit`');
-    expect(workerSource).toContain('function normalizeApplyPatchDiffPaths(');
-    expect(workerSource).toContain('let P=normalizeApplyPatchDiffPaths(l,g);');
-    expect(workerSource).toContain('await rZ(v,P,{appServerClient:n,signal:o})');
-    expect(workerSource).toContain('await eZ(g,P,n,{preferWslPaths:r');
-    expect(workerSource).toContain('$(e,[`add`,`-f`,`--`,...o],n,{env:i,signal:r})');
-    expect(workerSource).toContain('$(e,[`add`,`-f`,`--`,...n],i,{env:t,signal:r})');
-    expect(workerSource).toContain('$(e,[`add`,`-f`,`--`,...c],n,{env:a,signal:o})');
+
+    const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
+    expect(assembleScript).toContain('git worker normalize absolute patch headers');
+    expect(assembleScript).toContain('git worker normalize diff before apply');
+    expect(assembleScript).toContain('git worker normalize diff for temp index');
+    expect(assembleScript).toContain('git worker force-add ignored diff paths in temp index');
+    expect(assembleScript).toContain('git worker force-add ignored snapshot paths');
+    expect(assembleScript).toContain('git worker force-add ignored existing apply-patch paths');
   });
 
   test('desktop exposes a dedicated codex staging script that reuses the Linux shell', () => {

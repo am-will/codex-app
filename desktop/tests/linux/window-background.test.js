@@ -23,8 +23,8 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain('trayMenu');
     expect(mainBundle).toContain('hotkeyWindowHome');
     expect(mainBundle).toContain('hotkeyWindowThread');
-    expect(mainBundle).toContain(
-      'if(e===`linux`&&!my(t))return{backgroundColor:r?Xv:Zv,backgroundMaterial:null};',
+    expect(mainBundle).toMatch(
+      /if\(e===`linux`&&!\w+\(t\)\)return\{backgroundColor:r\?\w+:\w+,backgroundMaterial:null\};/,
     );
   });
 
