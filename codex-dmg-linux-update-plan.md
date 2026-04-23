@@ -57,9 +57,17 @@ T2b ─────────────────────────�
 - **location**: `/home/amwill/Applications/codex-app`, `~/.local/share/applications`, `~/.config/autostart`, active Codex launcher target
 - **description**: Identify the actual installed app, active `.desktop` launcher, autostart entry, executable path, current package version, user-data path, protocol handler state, and any running Codex process before changing anything. Also record `git status --short` so unrelated local edits are not swept into the implementation.
 - **validation**: Record exact paths and versions; `xdg-mime query default x-scheme-handler/codex`, launcher `Exec=`, running process command line, and dirty-worktree status are captured.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **reason_not_testable**: Environment discovery; no deterministic unit/integration behavior to test.
+- **manual/static checks**:
+  - `git status --short` -> task-start status was ` M .gitignore` while parallel T1 was in progress; after T1 committed and before T2 edits, status was clean.
+  - `xdg-mime query default x-scheme-handler/codex` -> no output; no `codex://` default handler is registered.
+  - `sed -n '/^\(Name\|Exec\|Icon\|Path\|MimeType\|StartupWMClass\|Type\)=/p' ~/.local/share/applications/codex-desktop.desktop ~/.config/autostart/codex-desktop.desktop` -> both entries use `Exec=/home/amwill/.local/bin/codex-desktop`; neither declares `MimeType=x-scheme-handler/codex;` or `%u`.
+  - `readlink -f ~/.local/opt/codex-desktop/current` -> `/home/amwill/.local/opt/codex-desktop/26.415.20818-undo-fix-v8`.
+  - `asar extract-file .../resources/app.asar package.json` + `jq` -> `openai-codex-electron` / `Codex` / `26.415.20818` / build `1727`.
+  - `ps -eo pid=,ppid=,stat=,etime=,args=` -> desktop process `/home/amwill/.local/opt/codex-desktop/current/Codex`, app-server `/home/amwill/.local/opt/codex-desktop/26.415.20818-undo-fix-v8/resources/codex app-server --analytics-default-enabled`, and user-data path `/home/amwill/.config/Codex`.
+- **log**: 2026-04-23: Captured current live Codex desktop install baseline, including launcher/autostart paths, wrapper target, package version/build, user-data directory, missing protocol registration, running Codex process command lines, and worktree state.
+- **files edited/created**: `docs/linux/current-install-baseline.md`, `codex-dmg-linux-update-plan.md`
 
 ### T2b: Snapshot Rollback State
 
