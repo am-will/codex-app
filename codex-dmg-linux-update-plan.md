@@ -116,9 +116,18 @@ T2b ─────────────────────────�
 - **location**: `desktop/scripts/assemble-codex-runtime.mjs`, `desktop/scripts/linux-browser-launch.js`, `desktop/src/main/linux/*`, `desktop/tests/linux/*`
 - **description**: Convert the existing patch set into a named compatibility matrix: startup stack logging, preload IPC retry, Linux PATH injection, git-watch fixes, ignored-path apply-patch fixes, external browser handoff, browser pane enablement, startup opacity, model-settings persistence, native module normalization, editor/open-target detection, and Linux helper packaging.
 - **validation**: Every current patch marker has an owner, expected behavior, old bundle target, and test coverage entry before any patch is ported.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **reason_not_testable**: Documentation/contract inventory only; no runtime implementation, recovered assets, package behavior, or tests changed. Validation is by static checks over patch labels, markers, old/new bundle targets, coverage references, and diff hygiene.
+- **static checks**:
+  - `rg -n "label:|Marker|patchCodex|stageLinuxBrowserLauncher|normalizeNativeModules|copyRequired\\(|requiredResources|linuxHelperResourcesRoot|resolveLinuxNativeModuleSourceRoot" desktop/scripts/assemble-codex-runtime.mjs` -> listed active patch labels/markers plus the dormant `patchCodexAppServerHooks` block.
+  - `find desktop/recovered/app-asar-extracted/.vite/build -maxdepth 1 -type f -printf '%f\n' | sort` -> old bundle targets include `bootstrap.js`, `main-BnI_RVTn.js`, `preload.js`, and `worker.js`.
+  - `find desktop/recovered/app-asar-extracted/webview/assets -maxdepth 1 -type f -printf '%f\n' | rg '^(index-|remote-connections-settings-|use-model-settings-|app-server-manager-hooks-)' | sort` -> old webview targets include `index-1LJShyXg.js`, `remote-connections-settings-CaBYO19U.js`, `use-model-settings-BXpE6yHZ.js`, and `app-server-manager-hooks-BhqlgFjc.js`.
+  - `find /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/.vite/build -maxdepth 1 -type f -printf '%f\n' | sort` -> new DMG build targets include `main-C8I_nqq_.js`.
+  - `find /tmp/codex-dmg-refresh-7xio6x/app-asar-extracted/webview/assets -maxdepth 1 -type f -printf '%f\n' | rg '^(index-|remote-connections-settings-|use-model-settings-|app-server-manager-hooks-)' | sort` -> new DMG webview targets include `index-CxBol07n.js`, `remote-connections-settings-B_gvkKeE.js`, `use-model-settings-ldiRRtPt.js`, and `app-server-manager-hooks-otoIIVsF.js`.
+  - `rg -n "Linux browser|native external browser|preload|startup stack|git worker|browser pane|model settings|opaque|startup shell|normalize Linux native|codex helper|open-in target|existing-path|force-add ignored|unified diff|PATH|codexBuildNumber" desktop/tests/linux` -> confirmed static coverage references for the matrix entries.
+  - `git diff --check` -> no whitespace errors.
+- **log**: 2026-04-23: Created `docs/linux/linux-patch-contract.md` as the T4 compatibility matrix. The report maps current active Linux patch contracts to owners, markers/targets, expected behavior, old bundle targets, test coverage, and new-DMG porting notes; records the known T3 `git origins existing-path filter` drift in `main-C8I_nqq_.js`; and calls out dormant app-server hook patch definitions separately from active runtime behavior.
+- **files edited/created**: `docs/linux/linux-patch-contract.md`, `codex-dmg-linux-update-plan.md`
 
 ### T5: Port Refresh Script to New Minified Bundle
 
