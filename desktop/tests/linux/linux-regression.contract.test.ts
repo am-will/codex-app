@@ -209,6 +209,52 @@ describe('Linux Ubuntu port regression gates (T4a)', () => {
     );
   });
 
+  test('plugin OAuth callbacks: malformed callback URLs are rejected before renderer completion', () => {
+    const linuxModule = requireExistingModule<{
+      createLinuxPlatformCapabilities: (options?: {
+        appName?: string;
+        execPath?: string;
+        xdgConfigHome?: string;
+      }) => {
+        deeplink: {
+          dispatchArgv: (argv: string[], options?: { routedToExistingWindow?: boolean }) => {
+            accepted: boolean;
+            routedToExistingWindow: boolean;
+            url: string | null;
+            parsedPath: string | null;
+          };
+        };
+      };
+    }>(capabilityModuleCandidates);
+
+    const capabilities = linuxModule.createLinuxPlatformCapabilities();
+    const missingState = capabilities.deeplink.dispatchArgv([
+      'Codex',
+      'codex://connector/oauth_callback?code=abc123',
+    ]);
+    const wrongScheme = capabilities.deeplink.dispatchArgv([
+      'Codex',
+      'https://chatgpt.com/connector/oauth_callback?code=abc123&state=plugin-login-state',
+    ]);
+
+    expect(missingState).toEqual(
+      expect.objectContaining({
+        accepted: false,
+        routedToExistingWindow: false,
+        url: 'codex://connector/oauth_callback?code=abc123',
+        parsedPath: '/connector/oauth_callback',
+      }),
+    );
+    expect(wrongScheme).toEqual(
+      expect.objectContaining({
+        accepted: false,
+        routedToExistingWindow: false,
+        url: null,
+        parsedPath: null,
+      }),
+    );
+  });
+
   test('protocol registration: packaged Linux desktop entry advertises codex scheme and keeps %u URL delivery', () => {
     const protocolModule = requireExistingModule<{
       CODEX_PROTOCOL_MIME_TYPE: string;

@@ -93,6 +93,24 @@ describe('Recovered Codex bundle RED contract', () => {
         ),
         'utf8',
       );
+      const pluginsPageBundle = fs.readFileSync(
+        path.join(
+          outputAssetsRoot,
+          fs.readdirSync(outputAssetsRoot).find((entry) =>
+            entry.startsWith('plugins-page-') && entry.endsWith('.js'),
+          ) ?? '',
+        ),
+        'utf8',
+      );
+      const pluginsCardsBundle = fs.readFileSync(
+        path.join(
+          outputAssetsRoot,
+          fs.readdirSync(outputAssetsRoot).find((entry) =>
+            entry.startsWith('plugins-cards-grid-') && entry.endsWith('.js'),
+          ) ?? '',
+        ),
+        'utf8',
+      );
 
       expect(summary.outputRoot).toBe(outputRoot);
       expect(summary.version).toBe('26.417.41555');
@@ -101,6 +119,27 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}})');
       expect(rendererEntry).toContain('useExternalBrowser:!0');
       expect(modelSettingsBundle).toContain('batch-write-config-value');
+      expect(pluginsPageBundle).toMatch(
+        /function [A-Za-z_$][\w$]*\(e\)\{s\.dispatchMessage\(`open-in-browser`,\{url:e,useExternalBrowser:!0\}\)\}/,
+      );
+      expect(pluginsCardsBundle).toContain(
+        'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
+      );
+      expect(pluginsCardsBundle).toContain('/aip/connectors/links/oauth/callback');
+      expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            label: 'apps page app connect requests native external browser',
+          }),
+        ]),
+      );
+      expect(summary.patchSummary.authWebview.pluginsCards.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            label: 'plugin install app connect requests native external browser',
+          }),
+        ]),
+      );
       expect(summary.patchSummary.mainProcess.results).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ label: 'git origins existing-path filter' }),

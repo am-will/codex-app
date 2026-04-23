@@ -215,6 +215,40 @@ const remoteChatGptLoginPatchAlternatives = [
   },
 ];
 const remoteChatGptLoginPatchMarker = 'useExternalBrowser:!0';
+const pluginsPageAppConnectPatchAlternatives = [
+  {
+    target: 'function qo(e){s.dispatchMessage(`open-in-browser`,{url:e})}',
+    replacement:
+      'function qo(e){s.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
+  },
+  {
+    target: 'function Xo(e){s.dispatchMessage(`open-in-browser`,{url:e})}',
+    replacement:
+      'function Xo(e){s.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
+  },
+  {
+    target: 's.dispatchMessage(`open-in-browser`,{url:o}),i&&k(!1)',
+    replacement:
+      's.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0}),i&&k(!1)',
+  },
+  {
+    target: 's.dispatchMessage(`open-in-browser`,{url:e}),o(!1)',
+    replacement:
+      's.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0}),o(!1)',
+  },
+];
+const pluginCardsAppConnectPatchAlternatives = [
+  {
+    target: 'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e})}',
+    replacement:
+      'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
+  },
+  {
+    target: 'if(!m&&o){i.dispatchMessage(`open-in-browser`,{url:o});return}',
+    replacement:
+      'if(!m&&o){i.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0});return}',
+  },
+];
 const rendererBrowserPaneAvailabilityPatches = [
   {
     target: 'function lY(e){let t=(0,Q.c)(19),n=He(Cm),r=ea(),i=Bf(),a=Ae(As),o=`thread-${e.threadType}`,s;',
@@ -855,6 +889,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
     extractedAppRoot,
     'remote-connections-settings-',
   );
+  const pluginsPagePath = findExtractedWebviewAsset(extractedAppRoot, 'plugins-page-');
+  const pluginsCardsPath = findExtractedWebviewAsset(
+    extractedAppRoot,
+    'plugins-cards-grid-',
+  );
   const loginBundleSource = fs.readFileSync(loginBundlePath, 'utf8');
   const browserPaneAvailabilityPatches = selectBrowserPaneAvailabilityPatches(
     loginBundleSource,
@@ -886,6 +925,22 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
           label: 'remote chatgpt login requests native external browser',
           alternatives: remoteChatGptLoginPatchAlternatives,
           marker: remoteChatGptLoginPatchMarker,
+        },
+      ]),
+    ),
+    pluginsPage: summarizePatchResults(
+      applyPatchesToFile(pluginsPagePath, [
+        {
+          label: 'apps page app connect requests native external browser',
+          alternatives: pluginsPageAppConnectPatchAlternatives,
+        },
+      ]),
+    ),
+    pluginsCards: summarizePatchResults(
+      applyPatchesToFile(pluginsCardsPath, [
+        {
+          label: 'plugin install app connect requests native external browser',
+          alternatives: pluginCardsAppConnectPatchAlternatives,
         },
       ]),
     ),

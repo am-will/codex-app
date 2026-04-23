@@ -189,9 +189,9 @@ T2b ─────────────────────────�
 - **location**: `desktop/scripts/assemble-codex-runtime.mjs`, `desktop/src/main/linux/platform-capabilities.ts`, any canonical test/support modules discovered in T7
 - **description**: Apply the minimum durable fix so plugin OAuth callbacks return to the running Linux app. Prefer a first-class deep-link registration/dispatch path over adding an ad-hoc shim. Preserve external-browser session handoff for auth URLs, but route `codex://` return URLs through the main process into the existing plugin completion handler.
 - **validation**: A synthetic `codex://...` callback delivered through `dispatchArgv`/`second-instance` reaches the plugin completion path in tests; invalid schemes or malformed callbacks are rejected.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **log**: 2026-04-23: Added RED coverage for malformed plugin OAuth callbacks and for the refreshed DMG bundles to require native external-browser launch on plugin/app-connect flows. Hardened Linux deep-link dispatch so `codex://connector/oauth_callback` is only accepted when a non-empty `state` is present, while preserving the canonical callback route. Extended the DMG refresh patcher to rewrite `plugins-page-*` and `plugins-cards-grid-*` app-connect launchers to set `useExternalBrowser:!0`, matching the already-patched ChatGPT login flows. GREEN: `npm test -- --runInBand tests/linux/linux-regression.contract.test.ts -t "malformed callback URLs are rejected before renderer completion"`; `npm test -- --runInBand tests/linux/recovered-bundle.red.test.ts -t "canonical refresh script patches the new local DMG into a temp recovered bundle"`; `node scripts/refresh-recovered-from-dmg.mjs --dmg ../Codex.dmg --output <tmpdir>/app-asar-extracted`.
+- **files edited/created**: `desktop/scripts/assemble-codex-runtime.mjs`; `desktop/src/main/linux/platform-capabilities.ts`; `desktop/tests/linux/linux-regression.contract.test.ts`; `desktop/tests/linux/recovered-bundle.red.test.ts`
 
 ### T9: Refresh Recovered Bundle and Package Metadata
 

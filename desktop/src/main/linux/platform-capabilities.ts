@@ -88,16 +88,30 @@ function parseCodexDeepLinkPath(urlValue: string): string | null {
   }
 }
 
+function isValidConnectorOAuthCallback(urlValue: string): boolean {
+  try {
+    const parsed = new URL(urlValue);
+    const state = parsed.searchParams.get('state')?.trim();
+    return Boolean(state);
+  } catch {
+    return false;
+  }
+}
+
 function dispatchCodexDeepLink(
   argv: string[],
   routedToExistingWindow = false,
 ): DeepLinkDispatchResult {
   const url = extractCodexDeepLink(argv);
   const parsedPath = url ? parseCodexDeepLinkPath(url) : null;
+  const accepted =
+    Boolean(url && parsedPath) &&
+    (parsedPath !== '/connector/oauth_callback' ||
+      isValidConnectorOAuthCallback(url));
 
   return {
-    accepted: Boolean(url && parsedPath),
-    routedToExistingWindow: Boolean(url && parsedPath && routedToExistingWindow),
+    accepted,
+    routedToExistingWindow: Boolean(accepted && routedToExistingWindow),
     url,
     parsedPath,
   };
