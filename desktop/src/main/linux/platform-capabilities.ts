@@ -15,8 +15,15 @@ import {
   resolveLinuxExecutablePaths,
   runLinuxPtyLifecycleProbe,
 } from './runtime-support';
+import {
+  CODEX_LINUX_DESKTOP_ID,
+  CODEX_PROTOCOL_MIME_TYPE,
+  CODEX_PROTOCOL_SCHEME,
+  createLinuxProtocolRegistrationPlan,
+  renderLinuxAutostartDesktopEntry,
+  renderLinuxProtocolDesktopEntry,
+} from './protocol-registration';
 
-const DEEP_LINK_SCHEME = 'codex';
 const DEFAULT_APP_NAME = 'Codex Desktop';
 const DEFAULT_EXECUTABLE_PATH = '/opt/codex/Codex Desktop';
 
@@ -32,31 +39,31 @@ function getLinuxConfigHome(xdgConfigHome?: string): string {
   return path.join(os.homedir(), '.config');
 }
 
+function getLinuxDataHome(xdgDataHome?: string): string {
+  if (xdgDataHome && xdgDataHome.length > 0) {
+    return xdgDataHome;
+  }
+
+  if (process.env.XDG_DATA_HOME && process.env.XDG_DATA_HOME.length > 0) {
+    return process.env.XDG_DATA_HOME;
+  }
+
+  return path.join(os.homedir(), '.local', 'share');
+}
+
 function toDesktopEntryName(appName: string): string {
   const normalized = appName.trim().replace(/\s+/g, ' ');
   return `${normalized || DEFAULT_APP_NAME}.desktop`;
-}
-
-function quoteDesktopExec(execPath: string): string {
-  return `"${execPath.replace(/"/g, '\\"')}"`;
-}
-
-function renderDesktopEntry(appName: string, execPath: string): string {
-  return [
-    '[Desktop Entry]',
-    'Type=Application',
-    `Name=${appName}`,
-    `Exec=${quoteDesktopExec(execPath)} --open-at-login`,
-    'Terminal=false',
-    'X-GNOME-Autostart-enabled=true',
-  ].join('\n');
 }
 
 function extractCodexDeepLink(argv: string[]): string | null {
   for (let index = argv.length - 1; index >= 0; index -= 1) {
     const value = argv[index];
 
-    if (typeof value === 'string' && value.startsWith(`${DEEP_LINK_SCHEME}://`)) {
+    if (
+      typeof value === 'string' &&
+      value.startsWith(`${CODEX_PROTOCOL_SCHEME}://`)
+    ) {
       return value;
     }
   }
@@ -67,7 +74,7 @@ function extractCodexDeepLink(argv: string[]): string | null {
 function parseCodexDeepLinkPath(urlValue: string): string | null {
   try {
     const parsed = new URL(urlValue);
-    if (parsed.protocol !== `${DEEP_LINK_SCHEME}:`) {
+    if (parsed.protocol !== `${CODEX_PROTOCOL_SCHEME}:`) {
       return null;
     }
 
@@ -100,12 +107,48 @@ function registerCodexProtocolClient(
   context: DeepLinkRegistrationContext,
 ): boolean {
   if (context.defaultApp && context.argv.length >= 2) {
-    return context.app.setAsDefaultProtocolClient(DEEP_LINK_SCHEME, context.execPath, [
-      path.resolve(context.argv[1]),
-    ]);
+    return context.app.setAsDefaultProtocolClient(
+      CODEX_PROTOCOL_SCHEME,
+      context.execPath,
+      [path.resolve(context.argv[1])],
+    );
   }
 
-  return context.app.setAsDefaultProtocolClient(DEEP_LINK_SCHEME);
+  return context.app.setAsDefaultProtocolClient(CODEX_PROTOCOL_SCHEME);
+}
+
+function createProtocolRegistration(
+  appName: string,
+  execPath: string,
+  options: PlatformCapabilityOptions,
+): PlatformCapabilities['protocolRegistration'] {
+  const desktopId = options.desktopId ?? CODEX_LINUX_DESKTOP_ID;
+  const applicationsDirectory = path.join(
+    getLinuxDataHome(options.xdgDataHome),
+    'applications',
+  );
+  const desktopEntryPath = path.join(applicationsDirectory, desktopId);
+
+  return {
+    kind: 'xdg-mime',
+    scheme: CODEX_PROTOCOL_SCHEME,
+    mimeType: CODEX_PROTOCOL_MIME_TYPE,
+    desktopId,
+    desktopEntryPath,
+    renderDesktopEntry: () =>
+      `${renderLinuxProtocolDesktopEntry({
+        appName,
+        execPath,
+        iconPath: options.iconPath,
+        startupWMClass: options.startupWMClass,
+      })}\n`,
+    createInstallPlan: () =>
+      createLinuxProtocolRegistrationPlan({
+        desktopEntryPath,
+        applicationsDirectory,
+        desktopId,
+      }),
+  };
 }
 
 function createStartupRegistration(
@@ -130,7 +173,7 @@ function createStartupRegistration(
     ensureAutostartDirectory();
     fs.writeFileSync(
       desktopEntryPath,
-      `${renderDesktopEntry(appName, execPath)}\n`,
+      `${renderLinuxAutostartDesktopEntry({ appName, execPath })}\n`,
       'utf8',
     );
 
@@ -205,12 +248,13 @@ export function createLinuxPlatformCapabilities(
       probeLifecycle: runLinuxPtyLifecycleProbe,
     },
     deeplink: {
-      scheme: DEEP_LINK_SCHEME,
+      scheme: CODEX_PROTOCOL_SCHEME,
       extractFromArgv: extractCodexDeepLink,
       dispatchArgv: (argv, dispatchOptions) =>
         dispatchCodexDeepLink(argv, dispatchOptions?.routedToExistingWindow),
       registerProtocolClient: registerCodexProtocolClient,
     },
+    protocolRegistration: createProtocolRegistration(appName, execPath, options),
     startupRegistration: createStartupRegistration(
       appName,
       execPath,

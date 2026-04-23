@@ -13,9 +13,19 @@ import {
   closeRecoveredWebviewDevServer,
   ensureRecoveredWebviewDevServer,
 } from './dev/recovered-webview-dev-server';
+import { CODEX_PROTOCOL_MIME_TYPE } from './src/main/linux/protocol-registration';
 
 const linuxIconRoot = path.resolve(__dirname, 'assets/icons');
 const linuxPackagerIcon = path.join(linuxIconRoot, 'codex-logo-512.png');
+const linuxDesktopEntryRoot = path.resolve(__dirname, 'assets/linux');
+const linuxDebDesktopTemplate = path.join(
+  linuxDesktopEntryRoot,
+  'codex-deb.desktop.ejs',
+);
+const linuxAppImageDesktopFile = path.join(
+  linuxDesktopEntryRoot,
+  'codex-appimage.desktop',
+);
 const linuxAppImageIconSet = {
   default: '512x512',
   strict: true,
@@ -85,10 +95,11 @@ const config: ForgeConfig = {
     new MakerZIP({}, ['darwin']),
     new MakerDeb(
       {
-        mimeType: ['x-scheme-handler/codex'],
+        mimeType: [CODEX_PROTOCOL_MIME_TYPE],
         options: {
           bin: 'Codex',
-          categories: ['Development', 'Utility'],
+          categories: ['Development'],
+          desktopTemplate: linuxDebDesktopTemplate,
           icon: linuxPackagerIcon,
         },
       },
@@ -100,8 +111,10 @@ const config: ForgeConfig = {
       config: {
         options: {
           bin: 'Codex',
-          categories: ['Development', 'Utility'],
+          categories: ['Development'],
+          desktopFile: linuxAppImageDesktopFile,
           icon: linuxAppImageIconSet,
+          mimeType: [CODEX_PROTOCOL_MIME_TYPE],
         },
       },
     },

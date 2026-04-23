@@ -22,10 +22,28 @@ export type StartupRegistrationResult = {
   disabled?: boolean;
 };
 
+export type LinuxProtocolRegistrationCommand = {
+  command: string;
+  args: string[];
+  optional: boolean;
+};
+
+export type LinuxProtocolRegistrationPlan = {
+  desktopId: string;
+  desktopEntryPath: string;
+  applicationsDirectory: string;
+  mimeType: string;
+  commands: LinuxProtocolRegistrationCommand[];
+};
+
 export type PlatformCapabilityOptions = {
   appName?: string;
   execPath?: string;
+  desktopId?: string;
+  iconPath?: string;
+  startupWMClass?: string;
   xdgConfigHome?: string;
+  xdgDataHome?: string;
 };
 
 export type PlatformCapabilities = {
@@ -61,6 +79,15 @@ export type PlatformCapabilities = {
       options?: { routedToExistingWindow?: boolean },
     ): DeepLinkDispatchResult;
     registerProtocolClient(context: DeepLinkRegistrationContext): boolean;
+  };
+  protocolRegistration: {
+    kind: 'unsupported' | 'xdg-mime';
+    scheme: string;
+    mimeType: string;
+    desktopId: string;
+    desktopEntryPath: string;
+    renderDesktopEntry(): string;
+    createInstallPlan(): LinuxProtocolRegistrationPlan;
   };
   startupRegistration: {
     kind: 'unsupported' | 'xdg-autostart';

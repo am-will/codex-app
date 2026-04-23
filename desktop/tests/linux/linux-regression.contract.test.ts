@@ -22,6 +22,12 @@ const runtimeModuleCandidates = [
   'src/linux/runtime-support.ts',
 ];
 
+const protocolModuleCandidates = [
+  'src/main/linux/protocol-registration.ts',
+  'src/main/linux/protocol-registration/index.ts',
+  'src/linux/protocol-registration.ts',
+];
+
 function findExistingCandidate(relativePaths: string[]): string | null {
   for (const relativePath of relativePaths) {
     if (fs.existsSync(path.join(desktopRoot, relativePath))) {
@@ -156,6 +162,158 @@ describe('Linux Ubuntu port regression gates (T4a)', () => {
     expect(event.routedToExistingWindow).toBe(true);
     expect(event.url).toBe('codex://thread/123?source=test');
     expect(event.parsedPath).toBe('/thread/123');
+  });
+
+  test('plugin OAuth callbacks: cold-start argv and second-instance argv preserve the full codex callback URL', () => {
+    const linuxModule = requireExistingModule<{
+      createLinuxPlatformCapabilities: (options?: {
+        appName?: string;
+        execPath?: string;
+        xdgConfigHome?: string;
+      }) => {
+        deeplink: {
+          dispatchArgv: (argv: string[], options?: { routedToExistingWindow?: boolean }) => {
+            accepted: boolean;
+            routedToExistingWindow: boolean;
+            url: string | null;
+            parsedPath: string | null;
+          };
+        };
+      };
+    }>(capabilityModuleCandidates);
+
+    const capabilities = linuxModule.createLinuxPlatformCapabilities();
+    const callbackUrl =
+      'codex://connector/oauth_callback?code=abc123&state=plugin-login-state';
+    const coldStart = capabilities.deeplink.dispatchArgv(['Codex', callbackUrl]);
+    const alreadyRunning = capabilities.deeplink.dispatchArgv(
+      ['Codex', '--some-electron-flag', callbackUrl],
+      { routedToExistingWindow: true },
+    );
+
+    expect(coldStart).toEqual(
+      expect.objectContaining({
+        accepted: true,
+        routedToExistingWindow: false,
+        url: callbackUrl,
+        parsedPath: '/connector/oauth_callback',
+      }),
+    );
+    expect(alreadyRunning).toEqual(
+      expect.objectContaining({
+        accepted: true,
+        routedToExistingWindow: true,
+        url: callbackUrl,
+        parsedPath: '/connector/oauth_callback',
+      }),
+    );
+  });
+
+  test('protocol registration: packaged Linux desktop entry advertises codex scheme and keeps %u URL delivery', () => {
+    const protocolModule = requireExistingModule<{
+      CODEX_PROTOCOL_MIME_TYPE: string;
+      CODEX_PROTOCOL_URL_ARG: string;
+      renderLinuxProtocolDesktopEntry: (options: {
+        appName: string;
+        execPath: string;
+        iconPath: string;
+        startupWMClass: string;
+      }) => string;
+    }>(protocolModuleCandidates);
+
+    const desktopEntry = protocolModule.renderLinuxProtocolDesktopEntry({
+      appName: 'Codex',
+      execPath: '/home/amwill/.local/bin/codex-desktop',
+      iconPath: '/home/amwill/.local/share/icons/hicolor/512x512/apps/codex-desktop.png',
+      startupWMClass: 'Codex',
+    });
+
+    expect(protocolModule.CODEX_PROTOCOL_MIME_TYPE).toBe('x-scheme-handler/codex');
+    expect(protocolModule.CODEX_PROTOCOL_URL_ARG).toBe('%u');
+    expect(desktopEntry).toContain('MimeType=x-scheme-handler/codex;');
+    expect(desktopEntry).toContain(
+      'Exec="/home/amwill/.local/bin/codex-desktop" %u',
+    );
+    expect(desktopEntry).toContain('StartupWMClass=Codex');
+  });
+
+  test('protocol registration: install plan validates, refreshes desktop cache, and sets the xdg-mime default', () => {
+    const protocolModule = requireExistingModule<{
+      CODEX_LINUX_DESKTOP_ID: string;
+      createLinuxProtocolRegistrationPlan: (options: {
+        desktopEntryPath: string;
+        applicationsDirectory: string;
+      }) => {
+        desktopId: string;
+        mimeType: string;
+        commands: Array<{
+          command: string;
+          args: string[];
+          optional: boolean;
+        }>;
+      };
+    }>(protocolModuleCandidates);
+
+    const plan = protocolModule.createLinuxProtocolRegistrationPlan({
+      desktopEntryPath:
+        '/home/amwill/.local/share/applications/codex-desktop.desktop',
+      applicationsDirectory: '/home/amwill/.local/share/applications',
+    });
+
+    expect(plan.desktopId).toBe(protocolModule.CODEX_LINUX_DESKTOP_ID);
+    expect(plan.mimeType).toBe('x-scheme-handler/codex');
+    expect(plan.commands).toEqual([
+      {
+        command: 'desktop-file-validate',
+        args: ['/home/amwill/.local/share/applications/codex-desktop.desktop'],
+        optional: true,
+      },
+      {
+        command: 'update-desktop-database',
+        args: ['/home/amwill/.local/share/applications'],
+        optional: true,
+      },
+      {
+        command: 'xdg-mime',
+        args: ['default', 'codex-desktop.desktop', 'x-scheme-handler/codex'],
+        optional: false,
+      },
+    ]);
+  });
+
+  test('forge Linux makers use the same codex scheme contract in generated desktop entries', () => {
+    const protocolModule = requireExistingModule<{
+      CODEX_PROTOCOL_MIME_TYPE: string;
+      CODEX_PROTOCOL_URL_ARG: string;
+    }>(protocolModuleCandidates);
+    const forgeConfig = fs.readFileSync(
+      path.join(desktopRoot, 'forge.config.ts'),
+      'utf8',
+    );
+    const debTemplatePath = path.join(
+      desktopRoot,
+      'assets',
+      'linux',
+      'codex-deb.desktop.ejs',
+    );
+    const appImageDesktopPath = path.join(
+      desktopRoot,
+      'assets',
+      'linux',
+      'codex-appimage.desktop',
+    );
+    const debTemplate = fs.readFileSync(debTemplatePath, 'utf8');
+    const appImageDesktop = fs.readFileSync(appImageDesktopPath, 'utf8');
+
+    expect(forgeConfig).toContain('CODEX_PROTOCOL_MIME_TYPE');
+    expect(forgeConfig).toContain('codex-deb.desktop.ejs');
+    expect(forgeConfig).toContain('codex-appimage.desktop');
+    expect(debTemplate).toContain('Exec=<%= name %> %u');
+    expect(debTemplate).toContain('MimeType=<%= mimeType.join(\';\') %>;');
+    expect(appImageDesktop).toContain(`Exec=Codex ${protocolModule.CODEX_PROTOCOL_URL_ARG}`);
+    expect(appImageDesktop).toContain(
+      `MimeType=${protocolModule.CODEX_PROTOCOL_MIME_TYPE};`,
+    );
   });
 
   test('startup registration: enables and disables autostart through Linux desktop integration', () => {

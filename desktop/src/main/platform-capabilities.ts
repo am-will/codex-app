@@ -47,6 +47,21 @@ function createUnsupportedCapabilities(
       }),
       registerProtocolClient: () => false,
     },
+    protocolRegistration: {
+      kind: 'unsupported',
+      scheme: 'codex',
+      mimeType: '',
+      desktopId: '',
+      desktopEntryPath: '',
+      renderDesktopEntry: () => '',
+      createInstallPlan: () => ({
+        desktopId: '',
+        desktopEntryPath: '',
+        applicationsDirectory: '',
+        mimeType: '',
+        commands: [],
+      }),
+    },
     startupRegistration: {
       kind: 'unsupported',
       desktopEntryPath: '',
