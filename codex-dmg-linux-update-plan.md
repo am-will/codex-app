@@ -219,9 +219,9 @@ T2b ─────────────────────────�
 - **location**: `desktop/out/Codex-linux-x64-*`, `desktop/scripts/build-codex-linux-runtime.mjs`, `desktop/scripts/stage-codex-package.mjs`, current live install target from T2
 - **description**: Build a new Linux package output without overwriting old outputs, stage it beside the current install, and run it as a canary with a temporary user-data directory so preflight cannot mutate the user's real auth/session state.
 - **validation**: New output has `Codex`, `resources/app.asar`, Linux `codex`, `git`, `rg`, `app.asar.unpacked`, and no `.bak` or stale resource artifacts. Canary launch reaches a usable window or clear startup log success using temporary user data.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **log**: 2026-04-23: Built a new staged package at `desktop/out/Codex-linux-x64-codex-26.417.41555-canary` from the T10 assembled runtime and the existing Linux shell without overwriting earlier outputs. Verified the staged output has an executable `Codex`, `resources/app.asar`, executable Linux `codex`, `git`, and `rg`, `resources/app.asar.unpacked`, and no `.bak`/`.old` artifacts in resources. Launched the canary with `CODEX_ELECTRON_USER_DATA_PATH=/tmp/codex-canary-userdata-nx0pGO` and captured `/tmp/codex-canary-launch-W4Ll77.log`; the app reached `window ready-to-show`, connected the local app-server transport, initialized `codex-cli 0.121.0`, and mounted routes before the intentional 18-second timeout. The only canary caveat was expected at this stage: packaged protocol registration reported failure before live desktop-entry installation.
+- **files edited/created**: `desktop/out/Codex-linux-x64-codex-26.417.41555-canary` generated locally; `/tmp/codex-canary-userdata-nx0pGO`; `/tmp/codex-canary-launch-W4Ll77.log`; `codex-dmg-linux-update-plan.md`
 
 ### T12: Live Install and Protocol Registration
 
