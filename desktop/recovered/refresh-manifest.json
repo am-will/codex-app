@@ -1,11 +1,11 @@
 {
-  "dmgPath": null,
-  "dmgSha256": null,
-  "appAsarPath": "/home/amwill/Applications/codex-app/Codex-darwin-arm64-26.415.20818/Codex.app/Contents/Resources/app.asar",
+  "dmgPath": "/home/amwill/Applications/codex-app/Codex.dmg",
+  "dmgSha256": "65d3114117f1f03157e2968358e7c1bbaca48f3fe4a9bc9b71fc6f719e9702eb",
+  "appAsarPath": "/tmp/codex-dmg-refresh-jy1jUH/Codex Installer/Codex.app/Contents/Resources/app.asar",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.415.20818",
-  "buildNumber": null,
-  "electron": "41.2.0",
+  "version": "26.417.41555",
+  "buildNumber": "1858",
+  "electronVersion": "41.2.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
     "linuxBrowserLauncher": {
@@ -34,6 +34,12 @@
       "patched": true,
       "results": [
         {
+          "label": "bootstrap linux git wrapper path",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
           "label": "bootstrap startup stack logging",
           "patched": true,
           "skipped": false,
@@ -58,6 +64,12 @@
         },
         {
           "label": "linux opaque primary window background",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux open-in target registry",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -108,6 +120,42 @@
             "patched": true,
             "skipped": false,
             "reason": null
+          },
+          {
+            "label": "linux browser pane availability 1",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "linux browser pane availability 2",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "linux browser pane availability 3",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "linux browser pane availability 4",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "linux browser pane availability 5",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "single-batch undo prefers unified diff",
+            "patched": true,
+            "skipped": false,
+            "reason": null
           }
         ]
       },
@@ -121,7 +169,46 @@
             "reason": null
           }
         ]
+      },
+      "pluginsPage": {
+        "patched": true,
+        "results": [
+          {
+            "label": "apps page app connect requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          }
+        ]
+      },
+      "pluginsCards": {
+        "patched": true,
+        "results": [
+          {
+            "label": "plugin install app connect requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          }
+        ]
       }
+    },
+    "modelSettings": {
+      "patched": true,
+      "results": [
+        {
+          "label": "model settings saved-config cwd fallback",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "model settings direct user config write",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
     }
   },
   "nativeModuleSummary": {

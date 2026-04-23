@@ -199,9 +199,9 @@ T2b ─────────────────────────�
 - **location**: `desktop/recovered/app-asar-extracted`, `desktop/recovered/refresh-manifest.json`, `desktop/package.json`, `desktop/package-lock.json`
 - **description**: Run the fixed refresh against `Codex.dmg` only after all canonical patch changes, including the plugin callback handling from T8, are in place. Update the recovered bundle and manifest, then update desktop package version/build metadata to `26.417.41555` / `1858` without pulling macOS-only package scripts into the Linux wrapper.
 - **validation**: Manifest records the new DMG SHA, version, build, Electron version, and patch summary; desktop package metadata matches the new app while retaining Linux scripts; generated recovered bundle contains the auth/deep-link patch markers.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **log**: 2026-04-23: Refreshed `desktop/recovered/app-asar-extracted` directly from `Codex.dmg` after the T8 callback fix, which pulled the new `26.417.41555` asset set and regenerated `desktop/recovered/refresh-manifest.json` with DMG SHA `65d3114117f1f03157e2968358e7c1bbaca48f3fe4a9bc9b71fc6f719e9702eb`, build `1858`, Electron `41.2.0`, and the plugin app-connect patch summary. Updated `desktop/package.json` and `desktop/package-lock.json` to the same version/build baseline while preserving the Linux rebuild/package scripts. GREEN: `node scripts/refresh-recovered-from-dmg.mjs --dmg ../Codex.dmg --output ./recovered/app-asar-extracted`; `npm test -- --runInBand tests/linux/recovered-bundle.red.test.ts -t "canonical refresh script patches the new local DMG into a temp recovered bundle"`; `npm test -- --runInBand tests/linux/recovered-bundle.red.test.ts -t "desktop package.json boots the recovered bundle with the expected Electron runtime deps"`; `npm test -- --runInBand tests/linux/recovered-bundle.red.test.ts -t "tracked refresh manifest records the DMG metadata for the current recovered bundle"`.
+- **files edited/created**: `desktop/recovered/app-asar-extracted`; `desktop/recovered/refresh-manifest.json`; `desktop/package.json`; `desktop/package-lock.json`; `desktop/scripts/refresh-recovered-from-dmg.mjs`; `desktop/tests/linux/recovered-bundle.red.test.ts`
 
 ### T10: Rebuild Linux Native Runtime
 

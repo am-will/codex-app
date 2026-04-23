@@ -2,14 +2,14 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.415.20818",
+  "version": "26.417.41555",
   "description": "Codex",
   "main": ".vite/build/bootstrap.js",
   "scripts": {
     "compile": "pnpm exec tsgo -b",
     "tsc": "pnpm exec tsgo --noEmit",
-    "dev": "pnpm run rebuild:sqlite && pnpm --dir .. run generate:third-party-notices && cross-env NODE_ENV=development electron-forge start",
-    "owl": "pnpm --dir .. run generate:third-party-notices && cross-env NODE_ENV=development node ./scripts/owl-shell.mjs run",
+    "dev": "pnpm run rebuild:sqlite && pnpm exec node ./scripts/build-launch-services-helper.mjs && pnpm --dir .. run generate:third-party-notices && cross-env NODE_ENV=development electron-forge start",
+    "owl": "pnpm exec node ./scripts/build-launch-services-helper.mjs && pnpm --dir .. run generate:third-party-notices && cross-env NODE_ENV=development node ./scripts/owl-shell.mjs run",
     "build": "rm -rf out && PNPM_YES=true pnpm run forge:make",
     "build:owl": "cross-env PNPM_YES=true node ./scripts/owl-shell.mjs package",
     "forge:package": "pnpm run rebuild:sqlite && pnpm run rebuild:forge-natives && electron-forge package",
@@ -44,6 +44,7 @@
     "@electron-forge/shared-types": "^7.11.1",
     "@electron/fuses": "^1.8.0",
     "@electron/notarize": "^3.1.1",
+    "@electron/osx-sign": "^1.3.3",
     "@sentry/cli": "^3.1.0",
     "@types/electron-squirrel-startup": "^1.0.2",
     "@types/lodash": "^4.17.20",
@@ -96,7 +97,7 @@
     "zod": "^4.1.13"
   },
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "1727",
+  "codexBuildNumber": "1858",
   "codexSparkleFeedUrl": "https://persistent.oaistatic.com/codex-app-prod/appcast.xml",
   "codexSparklePublicKey": "rhcBvttuqDFriyNqwTQJR3L4UT1WjIK4QxtwtwusVic="
 }

@@ -1,0 +1,2 @@
+var e=(...e)=>t=>{if(t==null){e.forEach(e=>{if(typeof e==`function`)e(null);else if(e){let t=e;t.current=null}});return}let n=[];if(e.forEach(e=>{if(typeof e==`function`){let r=e(t);typeof r==`function`?n.push(r):n.push(()=>e(null))}else if(e){let r=e;r.current=t,n.push(()=>{r.current=null})}}),n.length!==0)return()=>{n.forEach(e=>e())}};export{e as t};
+//# sourceMappingURL=use-merged-ref-D5VFuQNE.js.map

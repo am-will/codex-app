@@ -1,0 +1,2 @@
+import{o as e}from"./logger-BJWlfVIC.js";import{t}from"./use-remote-connection-states-BeKQZvPN.js";var n=e();function r(e){let r=(0,n.c)(5),i=t(e),a;if(r[0]!==i||r[1]!==e){let t;r[3]===i?t=r[4]:(t=e=>i[e.hostId]===`connected`,r[3]=i,r[4]=t),a=e.filter(t),r[0]=i,r[1]=e,r[2]=a}else a=r[2];return a}export{r as t};
+//# sourceMappingURL=use-connected-remote-connections-D-7wMbk1.js.map

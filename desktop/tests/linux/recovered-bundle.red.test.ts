@@ -59,6 +59,9 @@ describe('Recovered Codex bundle RED contract', () => {
       const summary = JSON.parse(result.stdout) as {
         outputRoot: string;
         version: string;
+        buildNumber: string | null;
+        electronVersion: string | null;
+        dmgSha256: string | null;
         patchSummary: Record<string, { results: Array<{ label: string; patched: boolean; skipped: boolean }> }>;
       };
       const mainBundle = fs.readFileSync(
@@ -114,6 +117,9 @@ describe('Recovered Codex bundle RED contract', () => {
 
       expect(summary.outputRoot).toBe(outputRoot);
       expect(summary.version).toBe('26.417.41555');
+      expect(summary.buildNumber).toBe('1858');
+      expect(summary.electronVersion).toBe('41.2.0');
+      expect(summary.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
       expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
       expect(mainBundle).toContain('.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}})');
@@ -194,8 +200,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.415.20818');
-    expect(packageJson.codexBuildNumber).toBe('1727');
+    expect(packageJson.version).toBe('26.417.41555');
+    expect(packageJson.codexBuildNumber).toBe('1858');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -216,6 +222,42 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
+  });
+
+  test('tracked refresh manifest records the DMG metadata for the current recovered bundle', () => {
+    const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
+      dmgPath?: string | null;
+      dmgSha256?: string | null;
+      version?: string | null;
+      buildNumber?: string | null;
+      electronVersion?: string | null;
+      patchSummary?: {
+        authWebview?: {
+          pluginsPage?: { results: Array<{ label: string }> };
+          pluginsCards?: { results: Array<{ label: string }> };
+        };
+      };
+    };
+
+    expect(manifest.dmgPath).toContain('/Codex.dmg');
+    expect(manifest.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(manifest.version).toBe('26.417.41555');
+    expect(manifest.buildNumber).toBe('1858');
+    expect(manifest.electronVersion).toBe('41.2.0');
+    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          label: 'apps page app connect requests native external browser',
+        }),
+      ]),
+    );
+    expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          label: 'plugin install app connect requests native external browser',
+        }),
+      ]),
+    );
   });
 
   test('webview index resolves the active renderer entry instead of pinning a full-app bundle name', () => {
