@@ -1,0 +1,1 @@
+import{t as e}from"./shellscript-DxBmMFUX.js";export{e as default};

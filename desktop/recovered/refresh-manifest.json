@@ -1,10 +1,12 @@
 {
-  "dmgPath": "/home/amwill/Applications/codex-app/Codex.dmg",
-  "dmgSha256": "65d3114117f1f03157e2968358e7c1bbaca48f3fe4a9bc9b71fc6f719e9702eb",
-  "appAsarPath": "/tmp/codex-dmg-refresh-jy1jUH/Codex Installer/Codex.app/Contents/Resources/app.asar",
+  "sourceType": "app-asar",
+  "dmgPath": null,
+  "dmgSha256": null,
+  "appAsarPath": "/home/amwill/Applications/codex-app/codex-dmg/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "b1a196053e7568e5e1903108394761a76332f675315d75be64e6c3bcd3f100c7",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.417.41555",
-  "buildNumber": "1858",
+  "version": "26.422.20832",
+  "buildNumber": "2025",
   "electronVersion": "41.2.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -122,36 +124,6 @@
             "reason": null
           },
           {
-            "label": "linux browser pane availability 1",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "linux browser pane availability 2",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "linux browser pane availability 3",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "linux browser pane availability 4",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "linux browser pane availability 5",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
             "label": "single-batch undo prefers unified diff",
             "patched": true,
             "skipped": false,
@@ -194,21 +166,8 @@
       }
     },
     "modelSettings": {
-      "patched": true,
-      "results": [
-        {
-          "label": "model settings saved-config cwd fallback",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        },
-        {
-          "label": "model settings direct user config write",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        }
-      ]
+      "patched": false,
+      "results": []
     }
   },
   "nativeModuleSummary": {

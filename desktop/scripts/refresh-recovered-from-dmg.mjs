@@ -32,13 +32,25 @@ function parseArgValue(argv, name) {
 }
 
 function parseCli(argv) {
+  const defaultAppAsarPath = path.join(
+    repoRoot,
+    'codex-dmg',
+    'Codex.app',
+    'Contents',
+    'Resources',
+    'app.asar',
+  );
   const defaultDmgPath = fs.existsSync(path.join(repoRoot, 'Codex_new.dmg'))
     ? path.join(repoRoot, 'Codex_new.dmg')
     : path.join(repoRoot, 'Codex.dmg');
-  const dmgPath = parseArgValue(argv, '--dmg') ?? defaultDmgPath;
-  const appAsarPath = parseArgValue(argv, '--app-asar');
+  const explicitDmgPath = parseArgValue(argv, '--dmg');
+  const explicitAppAsarPath = parseArgValue(argv, '--app-asar');
   const outputRoot = parseArgValue(argv, '--output') ?? defaultRecoveredRoot;
   const keepTemp = argv.includes('--keep-temp');
+  const appAsarPath =
+    explicitAppAsarPath ??
+    (!explicitDmgPath && fs.existsSync(defaultAppAsarPath) ? defaultAppAsarPath : null);
+  const dmgPath = appAsarPath ? null : explicitDmgPath ?? defaultDmgPath;
 
   return {
     dmgPath: appAsarPath ? null : path.resolve(process.cwd(), dmgPath),
@@ -137,9 +149,11 @@ async function main() {
     syncExactDirectory(extractedAppRoot, outputRoot);
 
     const summary = {
+      sourceType: dmgPath ? 'dmg' : 'app-asar',
       dmgPath,
       dmgSha256: dmgPath ? sha256(dmgPath) : null,
       appAsarPath: resolvedAppAsarPath,
+      appAsarSha256: sha256(resolvedAppAsarPath),
       outputRoot,
       version: upstreamPackage.version,
       buildNumber: upstreamPackage.buildNumber ?? upstreamPackage.codexBuildNumber ?? null,

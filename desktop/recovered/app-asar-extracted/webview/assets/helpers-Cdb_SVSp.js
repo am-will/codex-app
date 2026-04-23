@@ -1,0 +1,2 @@
+function e(e){return typeof e==`string`}function t(e){return typeof e==`number`}function n(e){return typeof e==`function`}function r(e){return e!=null}function i(e){return Object.prototype.toString.call(e).slice(8,-1).toLowerCase()===`object`}export{e as a,i,n,t as r,r as t};
+//# sourceMappingURL=helpers-Cdb_SVSp.js.map

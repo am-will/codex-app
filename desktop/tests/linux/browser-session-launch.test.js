@@ -50,7 +50,7 @@ describe('Linux browser-session auth handoff', () => {
 
     expect(mainBundle).toContain('process.platform===`linux`');
     expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainBundle).toContain('r.useExternalBrowser===!0');
+    expect(mainBundle).toContain('useExternalBrowser===!0');
     expect(rendererEntry).toContain('loginWithChatGpt');
     expect(rendererEntry).toContain('open-in-browser');
     expect(rendererEntry).toContain('useExternalBrowser:!0');

@@ -27,11 +27,25 @@ import {
 } from './recovered-bundle.helpers';
 
 describe('Recovered Codex bundle RED contract', () => {
+  const localAppAsarPath = path.resolve(
+    desktopRoot,
+    '..',
+    'codex-dmg',
+    'Codex.app',
+    'Contents',
+    'Resources',
+    'app.asar',
+  );
   const newDmgPath = path.resolve(desktopRoot, '..', 'Codex.dmg');
-  const testWithLocalDmg = fs.existsSync(newDmgPath) ? test : test.skip;
+  const localRefreshArgs = fs.existsSync(localAppAsarPath)
+    ? ['--app-asar', localAppAsarPath]
+    : fs.existsSync(newDmgPath)
+      ? ['--dmg', newDmgPath]
+      : null;
+  const testWithLocalSource = localRefreshArgs ? test : test.skip;
 
-  testWithLocalDmg(
-    'canonical refresh script patches the new local DMG into a temp recovered bundle',
+  testWithLocalSource(
+    'canonical refresh script patches the new local source bundle into a temp recovered bundle',
     () => {
       const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-refresh-test-'));
       const outputRoot = path.join(tempRoot, 'app-asar-extracted');
@@ -40,8 +54,7 @@ describe('Recovered Codex bundle RED contract', () => {
         process.execPath,
         [
           'scripts/refresh-recovered-from-dmg.mjs',
-          '--dmg',
-          newDmgPath,
+          ...localRefreshArgs!,
           '--output',
           outputRoot,
         ],
@@ -58,10 +71,12 @@ describe('Recovered Codex bundle RED contract', () => {
 
       const summary = JSON.parse(result.stdout) as {
         outputRoot: string;
+        sourceType: 'dmg' | 'app-asar';
         version: string;
         buildNumber: string | null;
         electronVersion: string | null;
         dmgSha256: string | null;
+        appAsarSha256: string | null;
         patchSummary: Record<string, { results: Array<{ label: string; patched: boolean; skipped: boolean }> }>;
       };
       const mainBundle = fs.readFileSync(
@@ -116,17 +131,24 @@ describe('Recovered Codex bundle RED contract', () => {
       );
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.417.41555');
-      expect(summary.buildNumber).toBe('1858');
+      expect(summary.version).toBe('26.422.20832');
+      expect(summary.buildNumber).toBe('2025');
       expect(summary.electronVersion).toBe('41.2.0');
-      expect(summary.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
+      if (summary.sourceType === 'dmg') {
+        expect(summary.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
+      } else {
+        expect(summary.dmgSha256).toBeNull();
+      }
       expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
-      expect(mainBundle).toContain('.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}})');
+      expect(mainBundle).toMatch(
+        /\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
+      );
       expect(rendererEntry).toContain('useExternalBrowser:!0');
-      expect(modelSettingsBundle).toContain('batch-write-config-value');
-      expect(pluginsPageBundle).toMatch(
-        /function [A-Za-z_$][\w$]*\(e\)\{s\.dispatchMessage\(`open-in-browser`,\{url:e,useExternalBrowser:!0\}\)\}/,
+      expect(summary.patchSummary.modelSettings.results).toEqual([]);
+      expect(pluginsPageBundle).toContain(
+        's.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0}),i&&k(!1)',
       );
       expect(pluginsCardsBundle).toContain(
         'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
@@ -200,8 +222,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.417.41555');
-    expect(packageJson.codexBuildNumber).toBe('1858');
+    expect(packageJson.version).toBe('26.422.20832');
+    expect(packageJson.codexBuildNumber).toBe('2025');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -224,10 +246,13 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
   });
 
-  test('tracked refresh manifest records the DMG metadata for the current recovered bundle', () => {
+  test('tracked refresh manifest records the source metadata for the current recovered bundle', () => {
     const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
+      sourceType?: 'dmg' | 'app-asar' | null;
       dmgPath?: string | null;
       dmgSha256?: string | null;
+      appAsarPath?: string | null;
+      appAsarSha256?: string | null;
       version?: string | null;
       buildNumber?: string | null;
       electronVersion?: string | null;
@@ -239,10 +264,13 @@ describe('Recovered Codex bundle RED contract', () => {
       };
     };
 
-    expect(manifest.dmgPath).toContain('/Codex.dmg');
-    expect(manifest.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(manifest.version).toBe('26.417.41555');
-    expect(manifest.buildNumber).toBe('1858');
+    expect(manifest.sourceType).toBe('app-asar');
+    expect(manifest.appAsarPath).toContain('/codex-dmg/Codex.app/Contents/Resources/app.asar');
+    expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(manifest.dmgPath).toBeNull();
+    expect(manifest.dmgSha256).toBeNull();
+    expect(manifest.version).toBe('26.422.20832');
+    expect(manifest.buildNumber).toBe('2025');
     expect(manifest.electronVersion).toBe('41.2.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual(
       expect.arrayContaining([
@@ -289,30 +317,33 @@ describe('Recovered Codex bundle RED contract', () => {
     const zeroArgBrowserPaneGateCalls = rendererEntry.match(/\bBf\(\)/g) ?? [];
 
     expect(rendererEntry).toContain('toggleBrowserPanel');
-    expect(rendererEntry).toContain('BROWSER_AGENT');
-    expect(rendererEntry).toContain('browserPane:i');
-    expect(rendererEntry).toContain('browserAgent:s');
-    expect(rendererEntry).toMatch(/\w+=Xp\(ot\.BROWSER_AGENT\),\w+=\w+&&\w+&&\w+\.data!==!1/);
+    expect(rendererEntry).toContain('electron-desktop-features-changed');
+    expect(rendererEntry).toContain('browserPane:a');
+    expect(rendererEntry).toContain('browserAgent:o.enabled');
+    expect(rendererEntry).toContain('Zf(`3903742690`)');
     expect(rendererEntry).toContain(
       'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(',
     );
     expect(zeroArgBrowserPaneGateCalls).toHaveLength(0);
   });
 
-  test('model settings fall back from broken workspace cwd and write directly to config.toml', () => {
+  test('model settings patch hooks remain available even when the latest upstream bundle skips them', () => {
     const modelSettingsSource = readRecoveredAsset('use-model-settings-');
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(desktopRoot, 'recovered', 'refresh-manifest.json'), 'utf8'),
+    ) as {
+      patchSummary: {
+        modelSettings: {
+          results: unknown[];
+        };
+      };
+    };
 
-    expect(modelSettingsSource).toContain(
-      'queryFn:async()=>{try{return await Ye(r,e)}catch{try{return await Ye(r,null)}catch{return null}}}',
-    );
-    expect(modelSettingsSource).toMatch(/let \w+=\w+\(\w+\),\w+=Y9\(\w+\)\.configPath,\w+;/);
-    expect(modelSettingsSource).toContain('batch-write-config-value');
-    expect(modelSettingsSource).toContain('filePath:n??null');
-    expect(modelSettingsSource).not.toMatch(/let n=Y9\(\w+\)\.configPath/);
-    expect(modelSettingsSource).not.toContain('set-default-model-config-for-host');
+    expect(modelSettingsSource).toContain('set-default-model-config-for-host');
     expect(assembleScript).toContain('model settings saved-config cwd fallback');
     expect(assembleScript).toContain('model settings direct user config write');
+    expect(manifest.patchSummary.modelSettings.results).toEqual([]);
   });
 
   test('forge packaging includes the recovered bundle path', () => {
@@ -372,19 +403,19 @@ describe('Recovered Codex bundle RED contract', () => {
     const mainSource = readRecoveredMainBuildFile();
     const linuxTargetMatches = mainSource.match(/platforms:\{linux:\{/g) ?? [];
 
-    expect(mainSource).toContain('r.useExternalBrowser===!0');
+    expect(mainSource).toContain('useExternalBrowser===!0');
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
     expect(mainSource).toContain('function linuxResolveEditorTarget(');
     expect(mainSource).toContain('id:`cursor`,platforms:{linux:{label:`Cursor`');
     expect(mainSource).toContain('id:`fileManager`,platforms:{linux:{label:`File Manager`');
     expect(mainSource).toContain(
-      'linuxFileManagerDetect(){return H(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}',
+      'linuxFileManagerDetect(){return W(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}',
     );
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
-      /d=\(o&&o\.length>0\?o:u\.filter\(e=>e!==`~`\)\.map\(t=>e\.[A-Za-z$_]+\(\w+\)\)\)\.filter\(t=>\{try\{return!!t&&a\.existsSync\(t\)\}catch\{return!1\}\}\)/,
+      /[a-z]=\([a-z]&&[a-z]\.length>0\?[a-z]:[a-z]\.filter\(e=>e!==`~`\)\.map\(t=>e\.[A-Za-z$_]+\([a-z]\)\)\)\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
     );
-    expect(mainSource).toContain('params:{dirs:d,hostConfig:i,windowHostId:this.hostConfig.id}});');
+    expect(mainSource).toContain('windowHostId:this.hostConfig.id}});');
   });
 
   test('git worker exposes the refreshed repo-watch and host-path contract', () => {

@@ -1,0 +1,50 @@
+<svg width="182" height="106" viewBox="0 0 182 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_7206_8485)">
+<rect width="182" height="106" rx="8" fill="#0D0D0D" fill-opacity="0.8"/>
+<g opacity="0.06">
+<rect x="8" y="12" width="3" height="3" rx="1.5" fill="white"/>
+<rect x="13" y="12" width="19" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="18" width="3" height="3" rx="1.5" fill="white"/>
+<rect x="13" y="18" width="19" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="24" width="3" height="3" rx="1.5" fill="white"/>
+<rect x="13" y="24" width="19" height="3" rx="1.5" fill="white"/>
+</g>
+<g opacity="0.06">
+<rect x="8" y="37" width="24" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="43" width="24" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="49" width="24" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="55" width="24" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="61" width="24" height="3" rx="1.5" fill="white"/>
+<rect x="8" y="67" width="24" height="3" rx="1.5" fill="white"/>
+</g>
+<g filter="url(#filter0_d_7206_8485)">
+<g clip-path="url(#clip1_7206_8485)">
+<path d="M40 1.4C40 -0.840209 40 -1.96032 40.436 -2.81596C40.8195 -3.56861 41.4314 -4.18053 42.184 -4.56403C43.0397 -5 44.1598 -5 46.4 -5H159.6C167.441 -5 171.361 -5 174.356 -3.47409C176.99 -2.13186 179.132 0.00986373 180.474 2.64413C182 5.6389 182 9.55926 182 17.4V88.6C182 96.4407 182 100.361 180.474 103.356C179.132 105.99 176.99 108.132 174.356 109.474C171.361 111 167.441 111 159.6 111H46.4C44.1598 111 43.0397 111 42.184 110.564C41.4314 110.181 40.8195 109.569 40.436 108.816C40 107.96 40 106.84 40 104.6V1.4Z" fill="#0D0D0D" shape-rendering="crispEdges"/>
+<rect x="127" y="5.5" width="43" height="5" rx="2.5" fill="#8F8F8F"/>
+<rect x="52" y="16" width="72" height="3" rx="1.5" fill="#0D0D0D" fill-opacity="0.8"/>
+<rect x="52" y="21" width="118" height="3" rx="1.5" fill="#0D0D0D" fill-opacity="0.8"/>
+<rect x="52" y="26" width="72" height="3" rx="1.5" fill="#0D0D0D" fill-opacity="0.8"/>
+</g>
+<path d="M159.6 -5.5C163.512 -5.5 166.476 -5.50041 168.836 -5.30762C171.201 -5.11435 173.003 -4.72477 174.583 -3.91992C177.311 -2.52976 179.53 -0.311358 180.92 2.41699C181.725 3.99659 182.114 5.79864 182.308 8.16406C182.5 10.5237 182.5 13.4883 182.5 17.4004V88.5996C182.5 92.5117 182.5 95.4763 182.308 97.8359C182.114 100.201 181.725 102.003 180.92 103.583C179.53 106.311 177.311 108.53 174.583 109.92C173.003 110.725 171.201 111.114 168.836 111.308C166.476 111.5 163.512 111.5 159.6 111.5H46.4004C45.2887 111.5 44.4245 111.5 43.7324 111.443C43.0345 111.386 42.4671 111.27 41.957 111.01C41.1103 110.578 40.4217 109.89 39.9902 109.043C39.7304 108.533 39.6137 107.965 39.5566 107.268C39.5001 106.576 39.5 105.711 39.5 104.6V1.40039C39.5 0.288689 39.5001 -0.575534 39.5566 -1.26758C39.6137 -1.96547 39.7304 -2.53293 39.9902 -3.04297C40.4217 -3.8897 41.1103 -4.57834 41.957 -5.00977C42.4671 -5.26962 43.0345 -5.38634 43.7324 -5.44336C44.4245 -5.49988 45.2887 -5.5 46.4004 -5.5H159.6Z" stroke="#0D0D0D" stroke-opacity="0.05" shape-rendering="crispEdges"/>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="181" height="105" rx="7.5" stroke="#0D0D0D" stroke-opacity="0.05"/>
+<defs>
+<filter id="filter0_d_7206_8485" x="35" y="-10" width="152" height="126" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7206_8485"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7206_8485" result="shape"/>
+</filter>
+<clipPath id="clip0_7206_8485">
+<rect width="182" height="106" rx="8" fill="white"/>
+</clipPath>
+<clipPath id="clip1_7206_8485">
+<path d="M40 1.4C40 -0.840209 40 -1.96032 40.436 -2.81596C40.8195 -3.56861 41.4314 -4.18053 42.184 -4.56403C43.0397 -5 44.1598 -5 46.4 -5H159.6C167.441 -5 171.361 -5 174.356 -3.47409C176.99 -2.13186 179.132 0.00986373 180.474 2.64413C182 5.6389 182 9.55926 182 17.4V88.6C182 96.4407 182 100.361 180.474 103.356C179.132 105.99 176.99 108.132 174.356 109.474C171.361 111 167.441 111 159.6 111H46.4C44.1598 111 43.0397 111 42.184 110.564C41.4314 110.181 40.8195 109.569 40.436 108.816C40 107.96 40 106.84 40 104.6V1.4Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>

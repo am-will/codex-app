@@ -1,0 +1,2 @@
+import{o as e}from"./logger-VlXfBBlQ.js";import{t}from"./jsx-runtime-ebkFq_df.js";import{n}from"./use-window-type-COloFNqY.js";var r=e(),i=t();function a(e){let t=(0,r.c)(2),{children:a,extension:o,electron:s}=e,c=o===void 0?!1:o,l=s===void 0?!1:s,u=n();if(!(c&&u===`extension`||l&&u===`electron`))return null;let d;return t[0]===a?d=t[1]:(d=(0,i.jsx)(i.Fragment,{children:a}),t[0]=a,t[1]=d),d}export{a as t};
+//# sourceMappingURL=with-window-Bx_ZNyt_.js.map

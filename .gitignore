@@ -1,5 +1,6 @@
 # Local reference artifact, not suitable for first GitHub history
 Codex.dmg
+codex-dmg/
 Codex-extracted-*/
 
 # Node / Electron build outputs

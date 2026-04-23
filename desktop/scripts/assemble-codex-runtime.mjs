@@ -43,10 +43,20 @@ const bootstrapPatchPattern =
 const bootstrapPatchReplacement =
   '(()=>{try{process.stderr?.writable&&console.error($2?.stack??$2)}catch{}})(),$1.captureException($2,{tags:{phase:`bootstrap-import-main`}}),await $3($2)';
 const bootstrapPatchMarker = '(()=>{try{process.stderr?.writable&&console.error(';
-const bootstrapLinuxGitWrapperTarget =
-  'require(`node:crypto`);let r=require(`node:child_process`);var i=`desktop.intelLaunchWarning.message`,';
-const bootstrapLinuxGitWrapperReplacement =
-  'require(`node:crypto`);let r=require(`node:child_process`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var i=`desktop.intelLaunchWarning.message`,';
+const bootstrapLinuxGitWrapperAlternatives = [
+  {
+    target:
+      'require(`node:crypto`);let r=require(`node:child_process`);var i=`desktop.intelLaunchWarning.message`,',
+    replacement:
+      'require(`node:crypto`);let r=require(`node:child_process`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var i=`desktop.intelLaunchWarning.message`,',
+  },
+  {
+    target:
+      'require(`node:crypto`);let i=require(`node:child_process`);var a=`desktop.intelLaunchWarning.message`,',
+    replacement:
+      'require(`node:crypto`);let i=require(`node:child_process`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var a=`desktop.intelLaunchWarning.message`,',
+  },
+];
 const bootstrapLinuxGitWrapperMarker =
   'process.platform===`linux`&&typeof process.resourcesPath==`string`';
 const workerHandleRequestPatchTarget =
@@ -104,6 +114,12 @@ const mainGitOriginsPatchAlternatives = [
     replacement:
       'let i=(r!=null&&r!==this.hostConfig.id?this.getAppServerClientForHostIdOrThrow(r):this.appServerClient).hostConfig,a=e.wr(i),o=C(t??[],a).map(t=>e.mi(t)),s=y((0,n.homedir)(),a),c=e.o(this.globalState),l=e.r(this.globalState),u=c.length>0?c:l??[],d=(o&&o.length>0?o:u.filter(e=>e!==`~`).map(t=>e.mi(t))).filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:i,windowHostId:this.hostConfig.id}});',
   },
+  {
+    target:
+      'let a=this.getRequestAppServerClient(i).hostConfig,o=t.wr(a),s=P(n??[],o).map(t=>e.kt(t)),c=A((0,r.homedir)(),o),l=t.o(this.globalState),u=t.r(this.globalState),d=l.length>0?l:u??[],f=s&&s.length>0?s:d.filter(e=>e!==`~`).map(t=>e.kt(t)),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:a,windowHostId:this.hostConfig.id}});',
+    replacement:
+      'let a=this.getRequestAppServerClient(i).hostConfig,o=t.wr(a),s=P(n??[],o).map(t=>e.kt(t)),c=A((0,r.homedir)(),o),l=t.o(this.globalState),u=t.r(this.globalState),d=l.length>0?l:u??[],f=(s&&s.length>0?s:d.filter(e=>e!==`~`).map(t=>e.kt(t))).filter(t=>{try{return!!t&&o.existsSync(t)}catch{return!1}}),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:a,windowHostId:this.hostConfig.id}});',
+  },
 ];
 const mainGitOriginsPatchMarker =
   '.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}';
@@ -126,6 +142,12 @@ const mainOpenInBrowserPatchAlternatives = [
     replacement:
       'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&li(e))try{if(process.platform===`linux`){let r=require(`../../../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&im(e))try{if(ci({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(V,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
   },
+  {
+    target:
+      'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Do(e))try{await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&K_(e))try{if(Eo({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(U,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+    replacement:
+      'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Do(e))try{if(process.platform===`linux`){let i=require(`../../../../scripts/linux-browser-launch.js`),a=await i.openUrlWithLinuxBrowserSession(e);if(!a.launched){a.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:a.code??null},sensitive:{error:a.error}}),await n.shell.openExternal(e)}}else await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&K_(e))try{if(Eo({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(U,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+  },
 ];
 const mainOpenInBrowserPatchMarker = 'openUrlWithLinuxBrowserSession';
 const mainLinuxOpaqueWindowPatchAlternatives = [
@@ -146,6 +168,12 @@ const mainLinuxOpaqueWindowPatchAlternatives = [
       'function Wy({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){return e===`win32`&&!Vy(t)?n?{backgroundColor:r?Cy:wy,backgroundMaterial:`none`}:{backgroundColor:Sy,backgroundMaterial:`mica`}:{backgroundColor:Sy,backgroundMaterial:null}}',
     replacement:
       'function Wy({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){if(e===`win32`&&!Vy(t))return n?{backgroundColor:r?Cy:wy,backgroundMaterial:`none`}:{backgroundColor:Sy,backgroundMaterial:`mica`};if(e===`linux`&&!Vy(t))return{backgroundColor:r?Cy:wy,backgroundMaterial:null};return{backgroundColor:Sy,backgroundMaterial:null}}',
+  },
+  {
+    target:
+      'function _w({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){return e===`win32`&&!mw(t)?n?{backgroundColor:r?YC:XC,backgroundMaterial:`none`}:{backgroundColor:JC,backgroundMaterial:`mica`}:{backgroundColor:JC,backgroundMaterial:null}}',
+    replacement:
+      'function _w({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){if(e===`win32`&&!mw(t))return n?{backgroundColor:r?YC:XC,backgroundMaterial:`none`}:{backgroundColor:JC,backgroundMaterial:`mica`};if(e===`linux`&&!mw(t))return{backgroundColor:r?YC:XC,backgroundMaterial:null};return{backgroundColor:JC,backgroundMaterial:null}}',
   },
 ];
 const mainLinuxOpaqueWindowPatchMarker = 'backgroundMaterial:`mica`};if(e===`linux`&&';
@@ -212,6 +240,12 @@ const remoteChatGptLoginPatchAlternatives = [
       'let{authUrl:n,completion:r}=await S(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n});let o=await r;',
     replacement:
       'let{authUrl:n,completion:r}=await S(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let o=await r;',
+  },
+  {
+    target:
+      'let{authUrl:n,completion:r}=await x(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n});let o=await r;',
+    replacement:
+      'let{authUrl:n,completion:r}=await x(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let o=await r;',
   },
 ];
 const remoteChatGptLoginPatchMarker = 'useExternalBrowser:!0';
@@ -331,6 +365,12 @@ const rendererUndoUnifiedDiffPreferencePatchAlternatives = [
     replacement:
       'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=Yn(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??[]',
   },
+  {
+    target:
+      'v=e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=xn(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??(e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:[])',
+    replacement:
+      'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(e=>{let t=e.cwd??r,n=d?.origins.find(e=>e.dir===t)?.root??null,i=xn(e.changes,t,n);return t==null||i.length===0?[]:[{cwd:t,diff:i}]})??[]',
+  },
 ];
 const modelSettingsSavedConfigPatchTarget =
   'queryFn:async()=>{try{return await zt(r,e)}catch{return null}},queryKey:[...Ss,t,e],staleTime:W.FIVE_MINUTES';
@@ -376,6 +416,12 @@ const mainLinuxOpenTargetsPatchAlternatives = [
       'async function Ic(e,t,n){let r=nc(t,n),i=Fc(e)??Pc();if(i){if(await bo(`open`,[`-a`,i,t]),!n)return;let e=H(`zed`);if(e)try{await bo(e,r)}catch{}return}await bo(e,r)}var Lc=[hc,_c,pc,ys,Xo,rc,jc,bc,Jo,js,oc,Cs,Qo,Os,_s,Sc,Ns,Ds,yc,Ec,zs,Bs,Vs,Hs,Us,Ws,Gs,Ks,lc],Rc=e.kr(`open-in-targets`);',
     replacement:
       'async function Ic(e,t,n){let r=nc(t,n),i=Fc(e)??Pc();if(i){if(await bo(`open`,[`-a`,i,t]),!n)return;let e=H(`zed`);if(e)try{await bo(e,r)}catch{}return}await bo(e,r)}function linuxResolveAbsoluteCommand(e){let t=U(e);return t&&(0,a.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,n.homedir)();return[(0,r.join)(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,n.homedir)();return[(0,r.join)(e,`Applications`),(0,r.join)(e,`Downloads`),`/opt`]}function linuxResolveDesktopExec(e){let t=fs(e);if(!t)return null;let n=t.args[0];if(!n)return null;return linuxResolveAbsoluteCommand(n)??(()=>{let e=H(n);return e?U(e):null})()}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,a.readdirSync)(e)}catch{continue}for(let i of n){let o=i.toLowerCase();if(!o.endsWith(`.desktop`)||!t.some(e=>o.includes(e)))continue;let s=(0,r.join)(e,i),c=null;try{c=(0,a.readFileSync)(s,`utf8`)}catch{continue}let l=c.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!l)continue;let u=linuxResolveDesktopExec(l.replace(/%.?/g,``).trim());if(u)return u}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,a.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let i of n){if(!i.isFile())continue;let n=i.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let o=linuxResolveAbsoluteCommand((0,r.join)(e,i.name));if(o)return o}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=H(t);if(e){let t=U(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let i=n.length>0?linuxFindDesktopEntryExec(n):null;return i??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return H(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:bs,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:bs,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:bs,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:bs,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:nc}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>cc(e)}}};var Lc=[hc,linuxVscode,_c,linuxVscodeInsiders,pc,ys,linuxCursor,Xo,rc,jc,linuxZed,bc,linuxWindsurf,Jo,js,oc,Cs,linuxFileManager,Qo,Os,_s,Sc,Ns,Ds,yc,Ec,zs,Bs,Vs,Hs,Us,Ws,Gs,Ks,lc],Rc=e.kr(`open-in-targets`);',
+  },
+  {
+    target:
+      'var _d={id:`zed`,platforms:{darwin:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:vd,args:Hu,open:async({command:e,path:t,location:n})=>{await Sd(e,t,n)}},win32:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:yd,args:Hu}}};function vd(){return W(`zed`)??Gc([`/Applications/Zed.app/Contents/MacOS/zed`,`/Applications/Zed Preview.app/Contents/MacOS/zed`,`/Applications/Zed Nightly.app/Contents/MacOS/zed`])??Kc(`Zed`,`zed`)}function yd(){let e=W(`zed.exe`)??W(`zed`);return e?ml(e):pl([[`Zed`,`Zed.exe`]])}function bd(){return qc(`Zed`)??Gc([`/Applications/Zed.app`,`/Applications/Zed Preview.app`,`/Applications/Zed Nightly.app`])}function xd(e){let t=e.indexOf(`.app/Contents/MacOS/`);return t===-1?null:e.slice(0,t+4)}async function Sd(e,t,n){let r=Hu(t,n),i=xd(e)??bd();if(i){if(await al(`open`,[`-a`,i,t]),!n)return;let e=W(`zed`);if(e)try{await al(e,r)}catch{}return}await al(e,r)}var Cd=[td,rd,$u,au,Il,Uu,_d,od,Pl,_u,Ku,lu,Rl,mu,ru,cd,yu,pu,ad,fd,Tu,Eu,Du,Ou,ku,Au,ju,Mu,Yu],wd=t.Or(`open-in-targets`);',
+    replacement:
+      'var _d={id:`zed`,platforms:{darwin:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:vd,args:Hu,open:async({command:e,path:t,location:n})=>{await Sd(e,t,n)}},win32:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:yd,args:Hu}}};function vd(){return W(`zed`)??Gc([`/Applications/Zed.app/Contents/MacOS/zed`,`/Applications/Zed Preview.app/Contents/MacOS/zed`,`/Applications/Zed Nightly.app/Contents/MacOS/zed`])??Kc(`Zed`,`zed`)}function yd(){let e=W(`zed.exe`)??W(`zed`);return e?ml(e):pl([[`Zed`,`Zed.exe`]])}function bd(){return qc(`Zed`)??Gc([`/Applications/Zed.app`,`/Applications/Zed Preview.app`,`/Applications/Zed Nightly.app`])}function xd(e){let t=e.indexOf(`.app/Contents/MacOS/`);return t===-1?null:e.slice(0,t+4)}async function Sd(e,t,n){let r=Hu(t,n),i=xd(e)??bd();if(i){if(await al(`open`,[`-a`,i,t]),!n)return;let e=W(`zed`);if(e)try{await al(e,r)}catch{}return}await al(e,r)}function linuxResolveAbsoluteCommand(e){let t=ml(e);return t&&(0,o.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,r.homedir)();return[(0,i.join)(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,r.homedir)();return[(0,i.join)(e,`Applications`),(0,i.join)(e,`Downloads`),`/opt`]}function linuxResolveDesktopExec(e){let t=Ql(e);if(!t)return null;let n=t.args[0];if(!n)return null;return linuxResolveAbsoluteCommand(n)??(()=>{let e=W(n);return e?ml(e):null})()}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,o.readdirSync)(e)}catch{continue}for(let r of n){let a=r.toLowerCase();if(!a.endsWith(`.desktop`)||!t.some(e=>a.includes(e)))continue;let s=(0,i.join)(e,r),c=null;try{c=(0,o.readFileSync)(s,`utf8`)}catch{continue}let l=c.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!l)continue;let u=linuxResolveDesktopExec(l.replace(/%.?/g,``).trim());if(u)return u}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,o.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let r of n){if(!r.isFile())continue;let n=r.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let a=linuxResolveAbsoluteCommand((0,i.join)(e,r.name));if(a)return a}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=W(t);if(e){let t=ml(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let r=n.length>0?linuxFindDesktopEntryExec(n):null;return r??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return W(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:Nl,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:Nl,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:Nl,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:Nl,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:Hu}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>du(e)}}};var Cd=[td,linuxVscode,rd,linuxVscodeInsiders,$u,au,linuxCursor,Il,Uu,_d,linuxZed,od,linuxWindsurf,Pl,_u,Ku,lu,linuxFileManager,Rl,mu,ru,cd,yu,pu,ad,fd,Tu,Eu,Du,Ou,ku,Au,ju,Mu,Yu],wd=t.Or(`open-in-targets`);',
   },
 ];
 const mainLinuxOpenTargetsPatchMarker = 'function linuxResolveEditorTarget(';
@@ -737,7 +783,7 @@ function selectBrowserPaneAvailabilityPatches(source, sourcePath) {
     return rendererBrowserPaneAvailabilityNewBundlePatches;
   }
 
-  throw buildMissingPatchTargetError('linux browser pane availability', sourcePath);
+  return [];
 }
 
 function patchCodexPreload(extractedAppRoot) {
@@ -761,8 +807,7 @@ function patchCodexBootstrap(extractedAppRoot) {
     applyPatchesToFile(bootstrapPath, [
       {
         label: 'bootstrap linux git wrapper path',
-        target: bootstrapLinuxGitWrapperTarget,
-        replacement: bootstrapLinuxGitWrapperReplacement,
+        alternatives: bootstrapLinuxGitWrapperAlternatives,
         marker: bootstrapLinuxGitWrapperMarker,
       },
       {
@@ -968,32 +1013,59 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
 
 function patchCodexModelSettingsBundle(extractedAppRoot) {
   const modelSettingsPath = findExtractedWebviewAsset(extractedAppRoot, 'use-model-settings-');
+  const modelSettingsSource = fs.readFileSync(modelSettingsPath, 'utf8');
+  const hasModelSettingsSavedConfigShape = [
+    ...modelSettingsSavedConfigPatchAlternatives.flatMap(({ target, replacement }) => [
+      target,
+      replacement,
+    ]),
+    modelSettingsSavedConfigPatchMarker,
+  ].some((snippet) => modelSettingsSource.includes(snippet));
+  const hasModelSettingsPersistShape = [
+    modelSettingsPersistPatchTarget,
+    modelSettingsPersistPatchedTarget,
+    modelSettingsPersistNewBundleTarget,
+    modelSettingsPersistPatchReplacement,
+    modelSettingsPersistNewBundleReplacement,
+  ].some((snippet) => modelSettingsSource.includes(snippet));
 
   return summarizePatchResults(
     applyPatchesToFile(modelSettingsPath, [
-      {
-        label: 'model settings saved-config cwd fallback',
-        alternatives: modelSettingsSavedConfigPatchAlternatives,
-        marker: modelSettingsSavedConfigPatchMarker,
-      },
-      {
-        label: 'model settings direct user config write',
-        alternatives: [
-          {
-            target: modelSettingsPersistPatchTarget,
-            replacement: modelSettingsPersistPatchReplacement,
-          },
-          {
-            target: modelSettingsPersistPatchedTarget,
-            replacement: modelSettingsPersistPatchReplacement,
-          },
-          {
-            target: modelSettingsPersistNewBundleTarget,
-            replacement: modelSettingsPersistNewBundleReplacement,
-          },
-        ],
-        marker: modelSettingsPersistPatchMarker,
-      },
+      ...(
+        hasModelSettingsSavedConfigShape
+          ? [
+              {
+                label: 'model settings saved-config cwd fallback',
+                alternatives: modelSettingsSavedConfigPatchAlternatives,
+                marker: modelSettingsSavedConfigPatchMarker,
+              },
+            ]
+          : []
+      ),
+      ...(
+        hasModelSettingsPersistShape
+          ? [
+              {
+                label: 'model settings direct user config write',
+                alternatives: [
+                  {
+                    target: modelSettingsPersistPatchTarget,
+                    replacement: modelSettingsPersistPatchReplacement,
+                  },
+                  {
+                    target: modelSettingsPersistPatchedTarget,
+                    replacement: modelSettingsPersistPatchReplacement,
+                  },
+                  {
+                    target: modelSettingsPersistNewBundleTarget,
+                    replacement: modelSettingsPersistNewBundleReplacement,
+                  },
+                ],
+                marker: modelSettingsPersistPatchMarker,
+              },
+            ]
+          : []
+      ),
     ]),
   );
 }
