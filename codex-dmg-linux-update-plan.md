@@ -43,9 +43,13 @@ T2b ─────────────────────────�
 - **location**: `/home/amwill/Applications/codex-app/.gitignore`
 - **description**: Add `Codex.dmg` as an ignored local reference artifact so the newer DMG cannot accidentally enter git history.
 - **validation**: `git check-ignore -v Codex.dmg` reports the root `.gitignore` rule, and `git status --short` no longer lists `?? Codex.dmg`.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **reason_not_testable**: Static gitignore/config change; no runtime behavior needs unit or integration testing.
+- **static_check**:
+  - `git check-ignore -v Codex.dmg` -> `.gitignore:2:Codex.dmg	Codex.dmg`
+  - `git status --short` -> no `?? Codex.dmg`; only `.gitignore` was modified at validation time.
+- **log**: 2026-04-23: Added root `.gitignore` coverage for the local `Codex.dmg` reference artifact and verified it is ignored.
+- **files edited/created**: `.gitignore`, `codex-dmg-linux-update-plan.md`
 
 ### T2: Baseline Current Install and Runtime State
 
