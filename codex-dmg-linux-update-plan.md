@@ -209,9 +209,9 @@ T2b ─────────────────────────�
 - **location**: `desktop/node_modules`, `desktop/resources/bin/linux-x64`, `desktop/tmp/codex-runtime-*`
 - **description**: Rebuild `better-sqlite3` and `node-pty` for Linux/Electron `41.2.0`, normalize native modules into the recovered app, and verify helper binaries keep execute bits.
 - **validation**: From `/home/amwill/Applications/codex-app/desktop`, `npm run rebuild:natives` and `npm run assemble:codex-runtime` pass; `file` reports ELF x86-64 for native `.node` files; `ldd` resolves expected libraries; helper binaries run smoke commands; no Mach-O/Darwin `.node` files are left in Linux packaged runtime paths.
-- **status**: Not Completed
-- **log**:
-- **files edited/created**:
+- **status**: Completed
+- **log**: 2026-04-23: Rebuilt `better-sqlite3` and `node-pty` for Electron `41.2.0`; the first canonical `npm run assemble:codex-runtime` attempt exposed that the default generated `desktop/tmp/codex-runtime` directory blocked repeat runs. Added a regression guard and changed the assembly script to clean only the default generated runtime root while still refusing arbitrary existing `--output` roots. Re-ran assembly successfully, verified all assembled `.node` files report ELF x86-64, `ldd` resolves expected system libraries, and `codex --version`, `git --version`, and `rg --version` all execute from the assembled runtime. GREEN: `npm run rebuild:natives`; `npm test -- --runInBand tests/linux/codex-runtime-assembly.test.js`; `npm run assemble:codex-runtime`; `find tmp/codex-runtime/resources/app.asar.unpacked -name '*.node' -exec file {} + | rg -v 'ELF 64-bit.*x86-64' || true` produced no non-ELF output.
+- **files edited/created**: `desktop/scripts/assemble-codex-runtime.mjs`; `desktop/tests/linux/codex-runtime-assembly.test.js`; `desktop/tmp/codex-runtime` generated locally
 
 ### T11: Build and Run Staged Linux Canary
 

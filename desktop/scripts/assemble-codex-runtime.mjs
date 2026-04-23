@@ -498,6 +498,25 @@ function assertExists(targetPath, label) {
   }
 }
 
+export function prepareAssemblyOutputRoot(
+  outputRoot,
+  { defaultOutputRoot = defaultAssembleOutputRoot } = {},
+) {
+  if (!fs.existsSync(outputRoot)) {
+    return;
+  }
+
+  if (path.resolve(outputRoot) === path.resolve(defaultOutputRoot)) {
+    fs.rmSync(outputRoot, { recursive: true, force: true });
+    return;
+  }
+
+  throw new Error(
+    `Refusing to overwrite existing assembled runtime root: ${outputRoot}\n` +
+    'Use a different --output path.',
+  );
+}
+
 export function isGitLfsPointerText(source) {
   return source.startsWith(gitLfsPointerPrefix);
 }
@@ -1134,13 +1153,7 @@ export async function assembleCodexRuntime({ outputRoot }) {
   assertExists(recoveredExtractedAppRoot, 'Recovered extracted app root');
   assertExists(codexResourcesRoot, 'Codex resources root');
   assertExists(linuxHelperResourcesRoot, 'Linux helper resources root');
-
-  if (fs.existsSync(outputRoot)) {
-    throw new Error(
-      `Refusing to overwrite existing assembled runtime root: ${outputRoot}\n` +
-      'Use a different --output path.',
-    );
-  }
+  prepareAssemblyOutputRoot(outputRoot);
 
   const resourcesRoot = path.join(outputRoot, 'resources');
   fs.mkdirSync(resourcesRoot, { recursive: true });

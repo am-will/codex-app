@@ -23,6 +23,44 @@ function runAssemblySnippet(snippet, tempRoot) {
 }
 
 describe('codex runtime assembly guards', () => {
+  test('reuses the default generated runtime root but still rejects other existing outputs', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-output-'));
+    const reusableRoot = path.join(tempRoot, 'codex-runtime');
+    const explicitRoot = path.join(tempRoot, 'custom-runtime');
+    fs.mkdirSync(reusableRoot, { recursive: true });
+    fs.writeFileSync(path.join(reusableRoot, 'stale.txt'), 'stale\n', 'utf8');
+    fs.mkdirSync(explicitRoot, { recursive: true });
+
+    const result = runAssemblySnippet(
+      `
+      import fs from 'node:fs';
+      import path from 'node:path';
+      runtime.prepareAssemblyOutputRoot(${JSON.stringify(reusableRoot)}, {
+        defaultOutputRoot: ${JSON.stringify(reusableRoot)},
+      });
+      let explicitError = null;
+      try {
+        runtime.prepareAssemblyOutputRoot(${JSON.stringify(explicitRoot)}, {
+          defaultOutputRoot: ${JSON.stringify(reusableRoot)},
+        });
+      } catch (error) {
+        explicitError = String(error?.message ?? error);
+      }
+      process.stdout.write(JSON.stringify({
+        reusableRootExists: fs.existsSync(${JSON.stringify(reusableRoot)}),
+        explicitError,
+      }));
+      `,
+      tempRoot,
+    );
+
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toEqual({
+      reusableRootExists: false,
+      explicitError: `Refusing to overwrite existing assembled runtime root: ${explicitRoot}\nUse a different --output path.`,
+    });
+  });
+
   test('throws when a patch target is missing and the replacement is not already present', () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-patch-'));
     const filePath = path.join(tempRoot, 'bundle.js');
