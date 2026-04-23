@@ -191,6 +191,22 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(fs.existsSync(path.join(recoveredRoot, 'skills'))).toBe(true);
   });
 
+  test('recovered bootstrap only requires sibling build chunks that are vendored in git', () => {
+    const bootstrapSource = readRecoveredBuildFile('bootstrap.js');
+    const requiredSiblings = [
+      ...bootstrapSource.matchAll(/require\((?:'|")\.\/([^'"]+)(?:'|")\)/g),
+      ...bootstrapSource.matchAll(/require\(`\.\/([^`]+)`\)/g),
+    ]
+      .map((match) => match[1])
+      .filter((entry) => entry.endsWith('.js'));
+
+    expect(requiredSiblings.length).toBeGreaterThan(0);
+
+    for (const sibling of new Set(requiredSiblings)) {
+      expect(fs.existsSync(path.join(recoveredBuildRoot, sibling))).toBe(true);
+    }
+  });
+
   test('assembly script normalizes Linux native modules into the packaged runtime', () => {
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
 

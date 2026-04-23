@@ -90,12 +90,7 @@ typings/
 !recovered/app-asar-extracted/.vite/
 recovered/app-asar-extracted/.vite/*
 !recovered/app-asar-extracted/.vite/build/
-recovered/app-asar-extracted/.vite/build/*
-!recovered/app-asar-extracted/.vite/build/bootstrap.js
-!recovered/app-asar-extracted/.vite/build/bootstrap-*.js
-!recovered/app-asar-extracted/.vite/build/main-*.js
-!recovered/app-asar-extracted/.vite/build/preload.js
-!recovered/app-asar-extracted/.vite/build/worker.js
+!recovered/app-asar-extracted/.vite/build/**
 
 # Electron-Forge
 out/
