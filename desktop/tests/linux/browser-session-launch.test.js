@@ -150,4 +150,45 @@ describe('Linux browser-session auth handoff', () => {
       },
     });
   });
+
+  test('falls back to the desktop default browser when no Chrome-like session is running', async () => {
+    const spawnCalls = [];
+    const result = await launcher.openUrlWithLinuxBrowserSession(
+      'https://chatgpt.com/auth/test',
+      {
+        procRoot: fs.mkdtempSync(path.join(os.tmpdir(), 'codex-proc-empty-')),
+        spawn: (command, args, options) => {
+          spawnCalls.push({ command, args, options });
+          return {
+            unref() {},
+          };
+        },
+        execFileSync: () => 'google-chrome.desktop\n',
+        env: {
+          PATH: '/usr/bin',
+          DISPLAY: ':0',
+        },
+      },
+    );
+
+    expect(result).toMatchObject({
+      launched: true,
+      code: 'XDG_OPEN_LAUNCHED',
+      executablePath: 'xdg-open',
+      args: ['https://chatgpt.com/auth/test'],
+    });
+    expect(spawnCalls).toHaveLength(1);
+    expect(spawnCalls[0]).toEqual({
+      command: 'xdg-open',
+      args: ['https://chatgpt.com/auth/test'],
+      options: {
+        detached: true,
+        env: {
+          PATH: '/usr/bin',
+          DISPLAY: ':0',
+        },
+        stdio: 'ignore',
+      },
+    });
+  });
 });

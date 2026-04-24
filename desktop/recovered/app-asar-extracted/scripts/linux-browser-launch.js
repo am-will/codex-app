@@ -108,28 +108,114 @@ function buildBrowserLaunchArgs(url, session = {}) {
   return args;
 }
 
+function findExecutableOnPath(command, env = process.env) {
+  if (command.includes(`/`)) {
+    return fs.existsSync(command) ? command : null;
+  }
+
+  const searchPath = env.PATH ?? process.env.PATH ?? ``;
+  for (const directory of searchPath.split(path.delimiter).filter(Boolean)) {
+    const candidate = path.join(directory, command);
+    try {
+      if (fs.existsSync(candidate)) {
+        return candidate;
+      }
+    } catch {
+      // Ignore unreadable PATH entries.
+    }
+  }
+
+  return null;
+}
+
+function getDefaultBrowserDesktop(env = process.env, execFileSync = childProcess.execFileSync) {
+  try {
+    const value = execFileSync(`xdg-settings`, [`get`, `default-web-browser`], {
+      encoding: `utf8`,
+      env,
+      stdio: [`ignore`, `pipe`, `ignore`],
+      timeout: 1_000,
+    }).trim();
+    return value.endsWith(`.desktop`) ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function buildDefaultBrowserLaunchCommands(url, options = {}) {
+  const env = options.env ?? process.env;
+  const execFileSync = options.execFileSync ?? childProcess.execFileSync;
+  const commands = [];
+
+  if (findExecutableOnPath(`xdg-open`, env)) {
+    commands.push({ command: `xdg-open`, args: [url], code: `XDG_OPEN_LAUNCHED` });
+  }
+  if (findExecutableOnPath(`gio`, env)) {
+    commands.push({ command: `gio`, args: [`open`, url], code: `GIO_OPEN_LAUNCHED` });
+  }
+
+  const defaultDesktop = getDefaultBrowserDesktop(env, execFileSync);
+  if (defaultDesktop && findExecutableOnPath(`gtk-launch`, env)) {
+    commands.push({
+      command: `gtk-launch`,
+      args: [defaultDesktop, url],
+      code: `GTK_LAUNCH_DEFAULT_BROWSER_LAUNCHED`,
+    });
+  }
+
+  return commands;
+}
+
+function spawnDetached(spawn, command, args, env) {
+  const child = spawn(command, args, {
+    detached: true,
+    env,
+    stdio: `ignore`,
+  });
+  if (typeof child.unref === `function`) {
+    child.unref();
+  }
+}
+
+async function openUrlWithDefaultBrowser(url, options = {}) {
+  const spawn = options.spawn ?? childProcess.spawn;
+  const env = options.env ?? process.env;
+  let lastError = null;
+
+  for (const candidate of buildDefaultBrowserLaunchCommands(url, options)) {
+    try {
+      spawnDetached(spawn, candidate.command, candidate.args, env);
+      return {
+        launched: true,
+        code: candidate.code,
+        error: null,
+        executablePath: candidate.command,
+        args: candidate.args,
+      };
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  return {
+    launched: false,
+    code: `NO_DEFAULT_BROWSER_LAUNCHER`,
+    error: lastError,
+  };
+}
+
 async function openUrlWithLinuxBrowserSession(url, options = {}) {
   const session = options.session ?? listRunningBrowserSessions(options)[0] ?? null;
   if (session == null || !session.executablePath) {
-    return {
-      launched: false,
-      code: `NO_RUNNING_BROWSER_SESSION`,
-      error: null,
-    };
+    return openUrlWithDefaultBrowser(url, options);
   }
 
   const spawn = options.spawn ?? childProcess.spawn;
+  const env = options.env ?? process.env;
   const args = buildBrowserLaunchArgs(url, session);
 
   try {
-    const child = spawn(session.executablePath, args, {
-      detached: true,
-      env: options.env ?? process.env,
-      stdio: `ignore`,
-    });
-    if (typeof child.unref === `function`) {
-      child.unref();
-    }
+    spawnDetached(spawn, session.executablePath, args, env);
     return {
       launched: true,
       code: `BROWSER_SESSION_LAUNCHED`,
@@ -150,6 +236,8 @@ async function openUrlWithLinuxBrowserSession(url, options = {}) {
 module.exports = {
   KNOWN_BROWSER_BASENAMES,
   buildBrowserLaunchArgs,
+  buildDefaultBrowserLaunchCommands,
   listRunningBrowserSessions,
+  openUrlWithDefaultBrowser,
   openUrlWithLinuxBrowserSession,
 };
