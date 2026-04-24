@@ -150,6 +150,30 @@
             "patched": true,
             "skipped": false,
             "reason": null
+          },
+          {
+            "label": "apps page openInBrowser callback requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "apps page install url requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "apps page resolved url requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "apps page browser fallback opens install url",
+            "patched": true,
+            "skipped": false,
+            "reason": null
           }
         ]
       },

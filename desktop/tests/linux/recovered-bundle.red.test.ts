@@ -141,6 +141,8 @@ describe('Recovered Codex bundle RED contract', () => {
         expect(summary.dmgSha256).toBeNull();
       }
       expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
+      expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
+      expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
       expect(mainBundle).toMatch(
         /\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
@@ -149,6 +151,18 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(summary.patchSummary.modelSettings.results).toEqual([]);
       expect(pluginsPageBundle).toContain(
         's.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0}),i&&k(!1)',
+      );
+      expect(pluginsPageBundle).toContain(
+        'function ls(e){let t=e?.trim();t&&s.dispatchMessage(`open-in-browser`,{url:t,useExternalBrowser:!0})}',
+      );
+      expect(pluginsPageBundle).toContain(
+        'function Ss(e){s.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
+      );
+      expect(pluginsPageBundle).toContain(
+        's.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0}),o(!1)',
+      );
+      expect(pluginsPageBundle).toContain(
+        'case`browser-fallback`:k(!1),n?.installUrl?.trim()&&s.dispatchMessage(`open-in-browser`,{url:n.installUrl.trim(),useExternalBrowser:!0});return;',
       );
       expect(pluginsCardsBundle).toContain(
         'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
@@ -164,6 +178,18 @@ describe('Recovered Codex bundle RED contract', () => {
         expect.arrayContaining([
           expect.objectContaining({
             label: 'apps page app connect requests native external browser',
+          }),
+          expect.objectContaining({
+            label: 'apps page openInBrowser callback requests native external browser',
+          }),
+          expect.objectContaining({
+            label: 'apps page install url requests native external browser',
+          }),
+          expect.objectContaining({
+            label: 'apps page resolved url requests native external browser',
+          }),
+          expect.objectContaining({
+            label: 'apps page browser fallback opens install url',
           }),
         ]),
       );
@@ -304,6 +330,18 @@ describe('Recovered Codex bundle RED contract', () => {
       expect.arrayContaining([
         expect.objectContaining({
           label: 'apps page app connect requests native external browser',
+        }),
+        expect.objectContaining({
+          label: 'apps page openInBrowser callback requests native external browser',
+        }),
+        expect.objectContaining({
+          label: 'apps page install url requests native external browser',
+        }),
+        expect.objectContaining({
+          label: 'apps page resolved url requests native external browser',
+        }),
+        expect.objectContaining({
+          label: 'apps page browser fallback opens install url',
         }),
       ]),
     );

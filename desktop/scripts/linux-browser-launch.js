@@ -142,10 +142,148 @@ function getDefaultBrowserDesktop(env = process.env, execFileSync = childProcess
   }
 }
 
+function getDesktopEntrySearchRoots(env = process.env) {
+  const home = env.HOME || process.env.HOME || ``;
+  const dataHome = env.XDG_DATA_HOME || (home ? path.join(home, `.local`, `share`) : null);
+  const dataDirs = (env.XDG_DATA_DIRS || `/usr/local/share:/usr/share`)
+    .split(`:`)
+    .filter(Boolean);
+  return [
+    ...(dataHome ? [path.join(dataHome, `applications`)] : []),
+    ...dataDirs.map((directory) => path.join(directory, `applications`)),
+    `/var/lib/flatpak/exports/share/applications`,
+  ];
+}
+
+function findDesktopEntryPath(desktopId, options = {}) {
+  if (!desktopId || desktopId.includes(`/`)) {
+    return null;
+  }
+
+  for (const root of options.desktopEntrySearchRoots ?? getDesktopEntrySearchRoots(options.env)) {
+    const candidate = path.join(root, desktopId);
+    try {
+      if (fs.existsSync(candidate)) {
+        return candidate;
+      }
+    } catch {
+      // Ignore unreadable desktop-entry roots.
+    }
+  }
+
+  return null;
+}
+
+function splitDesktopExec(execLine) {
+  const args = [];
+  let current = ``;
+  let quote = null;
+  let escaping = false;
+
+  for (const character of execLine) {
+    if (escaping) {
+      current += character;
+      escaping = false;
+      continue;
+    }
+    if (character === `\\`) {
+      escaping = true;
+      continue;
+    }
+    if (quote) {
+      if (character === quote) {
+        quote = null;
+      } else {
+        current += character;
+      }
+      continue;
+    }
+    if (character === `"` || character === `'`) {
+      quote = character;
+      continue;
+    }
+    if (/\s/.test(character)) {
+      if (current) {
+        args.push(current);
+        current = ``;
+      }
+      continue;
+    }
+    current += character;
+  }
+
+  if (current) {
+    args.push(current);
+  }
+  return args;
+}
+
+function expandDesktopExecArg(arg, url) {
+  if (arg === `%u` || arg === `%U` || arg === `%f` || arg === `%F`) {
+    return [url];
+  }
+  if ([`%i`, `%c`, `%k`].includes(arg)) {
+    return [];
+  }
+  const expanded = arg
+    .replace(/%%/g, `%`)
+    .replace(/%[uUfF]/g, url)
+    .replace(/%[iIcCkK]/g, ``);
+  return expanded ? [expanded] : [];
+}
+
+function buildDesktopEntryLaunchCommand(desktopId, url, options = {}) {
+  const desktopEntryPath = findDesktopEntryPath(desktopId, options);
+  if (!desktopEntryPath) {
+    return null;
+  }
+
+  let source;
+  try {
+    source = fs.readFileSync(desktopEntryPath, `utf8`);
+  } catch {
+    return null;
+  }
+
+  const execLine = source
+    .split(/\r?\n/)
+    .find((line) => line.startsWith(`Exec=`))
+    ?.slice(`Exec=`.length)
+    .trim();
+  if (!execLine) {
+    return null;
+  }
+
+  const [rawCommand, ...rawArgs] = splitDesktopExec(execLine);
+  const command = rawCommand ? findExecutableOnPath(rawCommand, options.env ?? process.env) : null;
+  if (!command) {
+    return null;
+  }
+
+  const args = rawArgs.flatMap((arg) => expandDesktopExecArg(arg, url));
+  if (!rawArgs.some((arg) => /%[uUfF]/.test(arg))) {
+    args.push(url);
+  }
+
+  return {
+    command,
+    args,
+    code: `DEFAULT_BROWSER_DESKTOP_ENTRY_LAUNCHED`,
+    desktopEntryPath,
+    desktopId,
+  };
+}
+
 function buildDefaultBrowserLaunchCommands(url, options = {}) {
   const env = options.env ?? process.env;
   const execFileSync = options.execFileSync ?? childProcess.execFileSync;
   const commands = [];
+  const defaultDesktop = getDefaultBrowserDesktop(env, execFileSync);
+  const desktopCommand = buildDesktopEntryLaunchCommand(defaultDesktop, url, options);
+
+  if (desktopCommand) {
+    commands.push(desktopCommand);
+  }
 
   if (findExecutableOnPath(`xdg-open`, env)) {
     commands.push({ command: `xdg-open`, args: [url], code: `XDG_OPEN_LAUNCHED` });
@@ -154,7 +292,6 @@ function buildDefaultBrowserLaunchCommands(url, options = {}) {
     commands.push({ command: `gio`, args: [`open`, url], code: `GIO_OPEN_LAUNCHED` });
   }
 
-  const defaultDesktop = getDefaultBrowserDesktop(env, execFileSync);
   if (defaultDesktop && findExecutableOnPath(`gtk-launch`, env)) {
     commands.push({
       command: `gtk-launch`,
@@ -237,6 +374,7 @@ module.exports = {
   KNOWN_BROWSER_BASENAMES,
   buildBrowserLaunchArgs,
   buildDefaultBrowserLaunchCommands,
+  buildDesktopEntryLaunchCommand,
   listRunningBrowserSessions,
   openUrlWithDefaultBrowser,
   openUrlWithLinuxBrowserSession,

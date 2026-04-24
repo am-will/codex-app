@@ -152,20 +152,33 @@ describe('Linux browser-session auth handoff', () => {
   });
 
   test('falls back to the desktop default browser when no Chrome-like session is running', async () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-browser-default-'));
+    const binRoot = path.join(tempRoot, 'bin');
+    const applicationsRoot = path.join(tempRoot, 'applications');
+    fs.mkdirSync(binRoot, { recursive: true });
+    fs.mkdirSync(applicationsRoot, { recursive: true });
+    fs.writeFileSync(path.join(binRoot, 'fake-browser'), '', 'utf8');
+    fs.writeFileSync(
+      path.join(applicationsRoot, 'fake-browser.desktop'),
+      '[Desktop Entry]\nName=Fake Browser\nExec=fake-browser --new-tab %U\nType=Application\n',
+      'utf8',
+    );
+
     const spawnCalls = [];
     const result = await launcher.openUrlWithLinuxBrowserSession(
       'https://chatgpt.com/auth/test',
       {
         procRoot: fs.mkdtempSync(path.join(os.tmpdir(), 'codex-proc-empty-')),
+        desktopEntrySearchRoots: [applicationsRoot],
         spawn: (command, args, options) => {
           spawnCalls.push({ command, args, options });
           return {
             unref() {},
           };
         },
-        execFileSync: () => 'google-chrome.desktop\n',
+        execFileSync: () => 'fake-browser.desktop\n',
         env: {
-          PATH: '/usr/bin',
+          PATH: `${binRoot}${path.delimiter}/usr/bin`,
           DISPLAY: ':0',
         },
       },
@@ -173,18 +186,18 @@ describe('Linux browser-session auth handoff', () => {
 
     expect(result).toMatchObject({
       launched: true,
-      code: 'XDG_OPEN_LAUNCHED',
-      executablePath: 'xdg-open',
-      args: ['https://chatgpt.com/auth/test'],
+      code: 'DEFAULT_BROWSER_DESKTOP_ENTRY_LAUNCHED',
+      executablePath: path.join(binRoot, 'fake-browser'),
+      args: ['--new-tab', 'https://chatgpt.com/auth/test'],
     });
     expect(spawnCalls).toHaveLength(1);
     expect(spawnCalls[0]).toEqual({
-      command: 'xdg-open',
-      args: ['https://chatgpt.com/auth/test'],
+      command: path.join(binRoot, 'fake-browser'),
+      args: ['--new-tab', 'https://chatgpt.com/auth/test'],
       options: {
         detached: true,
         env: {
-          PATH: '/usr/bin',
+          PATH: `${binRoot}${path.delimiter}/usr/bin`,
           DISPLAY: ':0',
         },
         stdio: 'ignore',

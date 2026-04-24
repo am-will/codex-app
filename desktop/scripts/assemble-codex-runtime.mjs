@@ -128,31 +128,31 @@ const mainOpenInBrowserPatchAlternatives = [
     target:
       'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&jr(e))try{await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Pu(e))try{if(Ar({browserPaneEnabled:te().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
     replacement:
-      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&jr(e))try{if(process.platform===`linux`){let r=require(`../../../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&Y().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Pu(e))try{if(Ar({browserPaneEnabled:te().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
+      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&jr(e))try{if(process.platform===`linux`){let r=require(`../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&Y().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Pu(e))try{if(Ar({browserPaneEnabled:te().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
   },
   {
     target:
       'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&_i(e))try{await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Rp(e))try{if(gi({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
     replacement:
-      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&_i(e))try{if(process.platform===`linux`){let r=require(`../../../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&Y().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Rp(e))try{if(gi({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
+      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&_i(e))try{if(process.platform===`linux`){let r=require(`../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&Y().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&Rp(e))try{if(gi({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(W,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){Y().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else Y().warning(`Open-in-browser received invalid url`);break}',
   },
   {
     target:
       'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&li(e))try{await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&im(e))try{if(ci({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(V,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
     replacement:
-      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&li(e))try{if(process.platform===`linux`){let r=require(`../../../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&im(e))try{if(ci({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(V,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+      'case`open-in-browser`:{let{url:e}=r;if(r.useExternalBrowser===!0){if(typeof e==`string`&&li(e))try{if(process.platform===`linux`){let r=require(`../../scripts/linux-browser-launch.js`),i=await r.openUrlWithLinuxBrowserSession(e);if(!i.launched){i.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:i.code??null},sensitive:{error:i.error}}),await t.shell.openExternal(e)}}else await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&im(e))try{if(ci({browserPaneEnabled:P().browserPane,link:{type:`url`,url:e}})){n.send(V,{open:!0,type:`toggle-browser-panel`,url:e});break}await t.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
   },
   {
     target:
       'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Do(e))try{await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&K_(e))try{if(Eo({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(U,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
     replacement:
-      'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Do(e))try{if(process.platform===`linux`){let i=require(`../../../../scripts/linux-browser-launch.js`),a=await i.openUrlWithLinuxBrowserSession(e);if(!a.launched){a.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:a.code??null},sensitive:{error:a.error}}),await n.shell.openExternal(e)}}else await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&K_(e))try{if(Eo({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(U,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+      'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Do(e))try{if(process.platform===`linux`){let i=require(`../../scripts/linux-browser-launch.js`),a=await i.openUrlWithLinuxBrowserSession(e);if(!a.launched){a.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:a.code??null},sensitive:{error:a.error}}),await n.shell.openExternal(e)}}else await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&K_(e))try{if(Eo({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(U,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
   },
   {
     target:
       'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Oo(e))try{await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&J_(e))try{if(Do({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(H,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
     replacement:
-      'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Oo(e))try{if(process.platform===`linux`){let i=require(`../../../../scripts/linux-browser-launch.js`),a=await i.openUrlWithLinuxBrowserSession(e);if(!a.launched){a.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:a.code??null},sensitive:{error:a.error}}),await n.shell.openExternal(e)}}else await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&J_(e))try{if(Do({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(H,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
+      'case`open-in-browser`:{let{url:e}=i;if(i.useExternalBrowser===!0){if(typeof e==`string`&&Oo(e))try{if(process.platform===`linux`){let i=require(`../../scripts/linux-browser-launch.js`),a=await i.openUrlWithLinuxBrowserSession(e);if(!a.launched){a.error&&J().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:a.code??null},sensitive:{error:a.error}}),await n.shell.openExternal(e)}}else await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&J_(e))try{if(Do({browserPaneEnabled:le().browserPane,link:{type:`url`,url:e}})){r.send(H,{open:!0,type:`toggle-browser-panel`,url:e});break}await n.shell.openExternal(e)}catch(e){J().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else J().warning(`Open-in-browser received invalid url`);break}',
   },
 ];
 const mainOpenInBrowserPatchMarker = 'openUrlWithLinuxBrowserSession';
@@ -273,14 +273,37 @@ const pluginsPageAppConnectPatchAlternatives = [
       'function Xo(e){s.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
   },
   {
+    target: 'function ls(e){let t=e?.trim();t&&s.dispatchMessage(`open-in-browser`,{url:t})}',
+    replacement:
+      'function ls(e){let t=e?.trim();t&&s.dispatchMessage(`open-in-browser`,{url:t,useExternalBrowser:!0})}',
+  },
+];
+const pluginsPageOpenInBrowserCallbackPatchAlternatives = [
+  {
+    target: 'function Ss(e){s.dispatchMessage(`open-in-browser`,{url:e})}',
+    replacement:
+      'function Ss(e){s.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
+  },
+];
+const pluginsPageInstallUrlPatchAlternatives = [
+  {
     target: 's.dispatchMessage(`open-in-browser`,{url:o}),i&&k(!1)',
     replacement:
       's.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0}),i&&k(!1)',
   },
+];
+const pluginsPageResolvedUrlPatchAlternatives = [
   {
     target: 's.dispatchMessage(`open-in-browser`,{url:e}),o(!1)',
     replacement:
       's.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0}),o(!1)',
+  },
+];
+const pluginsPageBrowserFallbackPatchAlternatives = [
+  {
+    target: 'case`browser-fallback`:k(!1);return;',
+    replacement:
+      'case`browser-fallback`:k(!1),n?.installUrl?.trim()&&s.dispatchMessage(`open-in-browser`,{url:n.installUrl.trim(),useExternalBrowser:!0});return;',
   },
 ];
 const pluginCardsAppConnectPatchAlternatives = [
@@ -1035,6 +1058,22 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
         {
           label: 'apps page app connect requests native external browser',
           alternatives: pluginsPageAppConnectPatchAlternatives,
+        },
+        {
+          label: 'apps page openInBrowser callback requests native external browser',
+          alternatives: pluginsPageOpenInBrowserCallbackPatchAlternatives,
+        },
+        {
+          label: 'apps page install url requests native external browser',
+          alternatives: pluginsPageInstallUrlPatchAlternatives,
+        },
+        {
+          label: 'apps page resolved url requests native external browser',
+          alternatives: pluginsPageResolvedUrlPatchAlternatives,
+        },
+        {
+          label: 'apps page browser fallback opens install url',
+          alternatives: pluginsPageBrowserFallbackPatchAlternatives,
         },
       ]),
     ),
