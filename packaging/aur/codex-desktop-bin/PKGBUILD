@@ -1,0 +1,63 @@
+# Maintainer: am-will <amwill@users.noreply.github.com>
+
+pkgname=codex-desktop-bin
+pkgver=26.422.21641
+pkgrel=1
+pkgdesc='OpenAI Codex desktop app for Linux (binary release)'
+arch=('x86_64')
+url='https://github.com/am-will/codex-app'
+license=('custom')
+depends=(
+  'alsa-lib'
+  'at-spi2-core'
+  'cairo'
+  'dbus'
+  'expat'
+  'gcc-libs'
+  'glib2'
+  'glibc'
+  'gtk3'
+  'libcups'
+  'libdrm'
+  'libsecret'
+  'libx11'
+  'libxcb'
+  'libxcomposite'
+  'libxdamage'
+  'libxext'
+  'libxfixes'
+  'libxkbcommon'
+  'libxrandr'
+  'mesa'
+  'nspr'
+  'nss'
+  'pango'
+  'xdg-utils'
+)
+makedepends=('libarchive')
+optdepends=(
+  'git: repository integration'
+  'gnome-keyring: Secret Service credential storage'
+  'org.freedesktop.secrets: Secret Service credential storage'
+)
+provides=('codex-desktop')
+conflicts=('codex-desktop')
+options=('!strip')
+source=("codex-app-linux-v${pkgver}.deb::${url}/releases/download/v${pkgver}/codex-app-linux-v${pkgver}.deb")
+sha256sums=('2fd92b58ee2a14df229bf75d8f4247115a55596cd6fbd222b74c981fa15d19ea')
+
+package() {
+  local data_tar
+  data_tar="$(printf '%s\n' "${srcdir}"/data.tar.* | head -n 1)"
+
+  if [[ ! -f "${data_tar}" ]]; then
+    echo 'Missing data archive extracted from the Debian package.' >&2
+    return 1
+  fi
+
+  bsdtar --no-same-owner -xf "${data_tar}" -C "${pkgdir}" ./usr
+
+  install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  ln -s "/usr/share/doc/codex-desktop/copyright" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/copyright"
+}

@@ -4,6 +4,7 @@ import path from 'node:path';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
 import { MakerDeb } from '@electron-forge/maker-deb';
+import { MakerRpm } from '@electron-forge/maker-rpm';
 import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
@@ -100,6 +101,17 @@ const config: ForgeConfig = {
           bin: 'Codex',
           categories: ['Development'],
           desktopTemplate: linuxDebDesktopTemplate,
+          icon: linuxPackagerIcon,
+        },
+      },
+      ['linux'],
+    ),
+    new MakerRpm(
+      {
+        mimeType: [CODEX_PROTOCOL_MIME_TYPE],
+        options: {
+          bin: 'Codex',
+          categories: ['Development'],
           icon: linuxPackagerIcon,
         },
       },

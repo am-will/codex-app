@@ -460,6 +460,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(forgeConfig).toContain("icon: linuxAppImageIconSet");
     expect(forgeConfig).toContain('new AutoUnpackNativesPlugin');
     expect(forgeConfig).toContain('new MakerDeb');
+    expect(forgeConfig).toContain('new MakerRpm');
     expect(forgeConfig).toContain("name: '@reforged/maker-appimage'");
   });
 

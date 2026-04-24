@@ -12,10 +12,15 @@ This repo tracks the Linux packaging pipeline for Codex and publishes installabl
 - `codex/`: canonical current upstream payload root used for the active Linux refresh line
 
 GitHub release artifacts:
-- Install from GitHub Releases using packaged artifacts (`.AppImage` / `.deb`).
+- Install from GitHub Releases using packaged artifacts (`.AppImage` / `.deb` / `.rpm`).
 - Built Linux installers are release-only outputs and are not tracked in git.
-- Current Linux artifact versioning follows the embedded Electron app version `26.415.20818`; the embedded build number is `1727`.
-- Release tags like `v26.415.20818` trigger `.github/workflows/linux-release.yml`.
+- Current Linux artifact versioning follows the embedded Electron app version `26.422.21641`; the embedded build number is `2056`.
+- Release tags like `v26.422.21641` trigger `.github/workflows/linux-release.yml`.
+
+Arch Linux / Yay:
+- AUR metadata lives in `packaging/aur/codex-desktop-bin`.
+- The AUR package is a `-bin` package that downloads the published GitHub `.deb`, verifies its SHA-256, and repackages it for pacman.
+- Do not commit generated AUR source downloads or `*.pkg.tar.*` package outputs.
 
 ## Notes
 

@@ -150,7 +150,7 @@ describe('Codex package staging RED contract', () => {
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'rg'))).toBe(true);
   });
 
-  test('linux release workflow uses committed Linux helpers and writes concrete release note filenames', () => {
+  test('linux release workflow hydrates helpers and writes concrete release note filenames', () => {
     const workflowSource = readDesktopFile('../.github/workflows/linux-release.yml');
 
     expect(workflowSource).not.toContain('lfs: true');
@@ -165,8 +165,34 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).not.toContain('--appimage-extract');
     expect(workflowSource).toContain('CURRENT_APPIMAGE_NAME=');
     expect(workflowSource).toContain('CURRENT_DEB_NAME=');
+    expect(workflowSource).toContain('CURRENT_RPM_NAME=');
+    expect(workflowSource).toContain("find desktop/out/make -type f -name '*.rpm'");
     expect(workflowSource).toContain('- ${CURRENT_APPIMAGE_NAME}');
     expect(workflowSource).toContain('- ${CURRENT_DEB_NAME}');
+    expect(workflowSource).toContain('- ${CURRENT_RPM_NAME}');
     expect(workflowSource).not.toContain('<current-version>');
+  });
+
+  test('aur package repackages the canonical GitHub deb release without committed binaries', () => {
+    const pkgbuildSource = readDesktopFile('../packaging/aur/codex-desktop-bin/PKGBUILD');
+    const srcInfoSource = readDesktopFile('../packaging/aur/codex-desktop-bin/.SRCINFO');
+
+    expect(pkgbuildSource).toContain('pkgname=codex-desktop-bin');
+    expect(pkgbuildSource).toContain('codex-app-linux-v${pkgver}.deb');
+    expect(pkgbuildSource).toContain('/releases/download/v${pkgver}/codex-app-linux-v${pkgver}.deb');
+    expect(pkgbuildSource).toContain('sha256sums=');
+    expect(pkgbuildSource).toContain('bsdtar --no-same-owner -xf "${data_tar}"');
+    expect(pkgbuildSource).toContain("provides=('codex-desktop')");
+    expect(pkgbuildSource).toContain("conflicts=('codex-desktop')");
+
+    expect(srcInfoSource).toContain('pkgbase = codex-desktop-bin');
+    expect(srcInfoSource).toContain('source = codex-app-linux-v26.422.21641.deb::https://github.com/am-will/codex-app/releases/download/v26.422.21641/codex-app-linux-v26.422.21641.deb');
+    expect(srcInfoSource).toContain('sha256sums = 2fd92b58ee2a14df229bf75d8f4247115a55596cd6fbd222b74c981fa15d19ea');
+
+    const aurDir = path.join(desktopRoot, '..', 'packaging', 'aur', 'codex-desktop-bin');
+    const aurFiles = fs.readdirSync(aurDir);
+    expect(aurFiles).not.toEqual(expect.arrayContaining([
+      expect.stringMatching(/\.(deb|rpm|AppImage|pkg\.tar\.zst)$/),
+    ]));
   });
 });
