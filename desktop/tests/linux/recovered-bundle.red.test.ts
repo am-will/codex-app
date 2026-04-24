@@ -143,6 +143,21 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
       expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
+      expect(mainBundle).toContain(
+        '(n===`win32`||n===`linux`)?{titleBarStyle:`hidden`,titleBarOverlay:ow()}',
+      );
+      expect(mainBundle).toContain(
+        'process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`',
+      );
+      expect(mainBundle).toContain(
+        'if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
+      );
+      expect(mainBundle).toContain(
+        '(process.platform===`win32`||process.platform===`linux`)?{autoHideMenuBar:!0}:{}',
+      );
+      expect(mainBundle).toContain(
+        '(process.platform===`win32`||process.platform===`linux`)&&k.removeMenu()',
+      );
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
       expect(mainBundle).toMatch(
         /\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
@@ -163,6 +178,9 @@ describe('Recovered Codex bundle RED contract', () => {
       );
       expect(pluginsPageBundle).toContain(
         'case`browser-fallback`:k(!1),n?.installUrl?.trim()&&s.dispatchMessage(`open-in-browser`,{url:n.installUrl.trim(),useExternalBrowser:!0});return;',
+      );
+      expect(pluginsPageBundle).toContain(
+        'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null',
       );
       expect(pluginsCardsBundle).toContain(
         'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
@@ -211,6 +229,13 @@ describe('Recovered Codex bundle RED contract', () => {
           expect.objectContaining({ label: 'git origins existing-path filter' }),
           expect.objectContaining({ label: 'linux auth browser session handoff' }),
           expect.objectContaining({ label: 'linux opaque primary window background' }),
+          expect.objectContaining({
+            label: 'linux title bar overlay uses high contrast controls',
+          }),
+          expect.objectContaining({
+            label: 'linux title bar overlay refreshes on theme changes',
+          }),
+          expect.objectContaining({ label: 'linux primary window uses custom title bar' }),
           expect.objectContaining({ label: 'linux open-in target registry' }),
         ]),
       );
@@ -276,7 +301,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.422.21637');
+    expect(packageJson.version).toBe('26.422.21638');
     expect(packageJson.codexBuildNumber).toBe('2056');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
@@ -394,6 +419,16 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(rendererEntry).toContain(
       'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(',
     );
+  });
+
+  test('plugins page enables the custom title menu on Linux', () => {
+    const pluginsPage = readRecoveredAsset('plugins-page-');
+
+    expect(pluginsPage).toContain(
+      'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null',
+    );
+    expect(pluginsPage).toContain('window.electronBridge?.showApplicationMenu');
+    expect(pluginsPage).toContain('windowsMenuBar.file');
   });
 
   test('model settings patch hooks remain available even when the latest upstream bundle skips them', () => {

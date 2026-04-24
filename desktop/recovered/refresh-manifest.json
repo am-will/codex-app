@@ -71,6 +71,42 @@
           "reason": null
         },
         {
+          "label": "linux title bar overlay uses high contrast controls",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux title bar overlay refreshes on theme changes",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux primary window uses custom title bar",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux hides native menu for custom title bar 1",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux hides native menu for custom title bar 2",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux hides native menu for custom title bar 3",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
           "label": "linux open-in target registry",
           "patched": true,
           "skipped": false,
@@ -171,6 +207,12 @@
           },
           {
             "label": "apps page browser fallback opens install url",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "apps page custom title menu is enabled on linux",
             "patched": true,
             "skipped": false,
             "reason": null

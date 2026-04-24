@@ -189,6 +189,51 @@ const mainLinuxOpaqueWindowPatchAlternatives = [
   },
 ];
 const mainLinuxOpaqueWindowPatchMarker = 'backgroundMaterial:`mica`};if(e===`linux`&&';
+const mainLinuxTitleBarOverlayColorPatchAlternatives = [
+  {
+    target:
+      'function ow(){return{color:XC,symbolColor:n.nativeTheme.shouldUseDarkColors?aw:iw,height:rw}}',
+    replacement:
+      'function ow(){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:rw}:{color:XC,symbolColor:n.nativeTheme.shouldUseDarkColors?aw:iw,height:rw}}',
+  },
+];
+const mainLinuxTitleBarOverlayColorPatchMarker =
+  'process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:rw}';
+const mainLinuxTitleBarOverlayUpdatePatchAlternatives = [
+  {
+    target:
+      'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
+    replacement:
+      'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
+  },
+];
+const mainLinuxTitleBarOverlayUpdatePatchMarker =
+  'if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;';
+const mainLinuxPrimaryTitleBarPatchAlternatives = [
+  {
+    target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
+    replacement:
+      '(n===`win32`||n===`linux`)?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
+  },
+];
+const mainLinuxPrimaryTitleBarPatchMarker =
+  '(n===`win32`||n===`linux`)?{titleBarStyle:`hidden`,titleBarOverlay:ow()}';
+const mainLinuxNativeMenuPatchAlternatives = [
+  {
+    target: 'process.platform===`win32`?{autoHideMenuBar:!0}:{}',
+    replacement: '(process.platform===`win32`||process.platform===`linux`)?{autoHideMenuBar:!0}:{}',
+  },
+  {
+    target: 'process.platform===`win32`&&k.removeMenu()',
+    replacement: '(process.platform===`win32`||process.platform===`linux`)&&k.removeMenu()',
+  },
+  {
+    target: 'process.platform===`win32`&&t.removeMenu()',
+    replacement: '(process.platform===`win32`||process.platform===`linux`)&&t.removeMenu()',
+  },
+];
+const mainLinuxNativeMenuPatchMarker =
+  '(process.platform===`win32`||process.platform===`linux`)?{autoHideMenuBar:!0}:{}';
 const appServerSteerPatchTarget =
   'try{let r=await hh(e,t);e.setPendingSteerTurnId(t,c.id,r);try{return await ph(e,t,n.input,r)}catch(r){let i=mh(r);if(i==null)throw r;return e.updateConversationState(t,e=>{let t=(0,$.default)(e.turns);t?.status===`inProgress`&&(t.turnId=i)}),e.setPendingSteerTurnId(t,c.id,i),await ph(e,t,n.input,i)}}catch(n){throw e.removePendingSteer(t,c.id),i.error(`Error submitting steering turn for conversation`,{safe:{conversationId:t},sensitive:{error:n}}),n}}';
 const appServerSteerPatchReplacement =
@@ -306,6 +351,16 @@ const pluginsPageBrowserFallbackPatchAlternatives = [
       'case`browser-fallback`:k(!1),n?.installUrl?.trim()&&s.dispatchMessage(`open-in-browser`,{url:n.installUrl.trim(),useExternalBrowser:!0});return;',
   },
 ];
+const pluginsPageLinuxWindowsMenuPatchAlternatives = [
+  {
+    target:
+      'function _a(){let{platform:e}=Ut();return e===`windows`&&window.electronBridge?.showApplicationMenu!=null}',
+    replacement:
+      'function _a(){let{platform:e}=Ut();return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null}',
+  },
+];
+const pluginsPageLinuxWindowsMenuPatchMarker =
+  'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null';
 const pluginCardsAppConnectPatchAlternatives = [
   {
     target: 'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e})}',
@@ -966,6 +1021,26 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxOpaqueWindowPatchMarker,
       },
       {
+        label: 'linux title bar overlay uses high contrast controls',
+        alternatives: mainLinuxTitleBarOverlayColorPatchAlternatives,
+        marker: mainLinuxTitleBarOverlayColorPatchMarker,
+      },
+      {
+        label: 'linux title bar overlay refreshes on theme changes',
+        alternatives: mainLinuxTitleBarOverlayUpdatePatchAlternatives,
+        marker: mainLinuxTitleBarOverlayUpdatePatchMarker,
+      },
+      {
+        label: 'linux primary window uses custom title bar',
+        alternatives: mainLinuxPrimaryTitleBarPatchAlternatives,
+        marker: mainLinuxPrimaryTitleBarPatchMarker,
+      },
+      ...mainLinuxNativeMenuPatchAlternatives.map((patch, index) => ({
+        label: `linux hides native menu for custom title bar ${index + 1}`,
+        target: patch.target,
+        replacement: patch.replacement,
+      })),
+      {
         label: 'linux open-in target registry',
         alternatives: mainLinuxOpenTargetsPatchAlternatives,
         marker: mainLinuxOpenTargetsPatchMarker,
@@ -1074,6 +1149,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
         {
           label: 'apps page browser fallback opens install url',
           alternatives: pluginsPageBrowserFallbackPatchAlternatives,
+        },
+        {
+          label: 'apps page custom title menu is enabled on linux',
+          alternatives: pluginsPageLinuxWindowsMenuPatchAlternatives,
+          marker: pluginsPageLinuxWindowsMenuPatchMarker,
         },
       ]),
     ),
