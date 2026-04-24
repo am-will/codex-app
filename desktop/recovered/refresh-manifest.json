@@ -3,10 +3,10 @@
   "dmgPath": null,
   "dmgSha256": null,
   "appAsarPath": "/home/amwill/Applications/codex-app/codex-dmg/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "b1a196053e7568e5e1903108394761a76332f675315d75be64e6c3bcd3f100c7",
+  "appAsarSha256": "a802d73d077494c8b7d7462042ff091badabcc038dadbfc1096e7d9dd9bc1ad5",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.422.20832",
-  "buildNumber": "2025",
+  "version": "26.422.21637",
+  "buildNumber": "2056",
   "electronVersion": "41.2.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {

@@ -2,7 +2,7 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.422.20832",
+  "version": "26.422.21637",
   "description": "Codex",
   "main": ".vite/build/bootstrap.js",
   "scripts": {
@@ -97,7 +97,7 @@
     "zod": "^4.1.13"
   },
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "2025",
+  "codexBuildNumber": "2056",
   "codexSparkleFeedUrl": "https://persistent.oaistatic.com/codex-app-prod/appcast.xml",
   "codexSparklePublicKey": "rhcBvttuqDFriyNqwTQJR3L4UT1WjIK4QxtwtwusVic="
 }

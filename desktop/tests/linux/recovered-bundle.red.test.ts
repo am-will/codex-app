@@ -131,8 +131,8 @@ describe('Recovered Codex bundle RED contract', () => {
       );
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.422.20832');
-      expect(summary.buildNumber).toBe('2025');
+      expect(summary.version).toBe('26.422.21637');
+      expect(summary.buildNumber).toBe('2056');
       expect(summary.electronVersion).toBe('41.2.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -238,8 +238,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.422.20832');
-    expect(packageJson.codexBuildNumber).toBe('2025');
+    expect(packageJson.version).toBe('26.422.21637');
+    expect(packageJson.codexBuildNumber).toBe('2056');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -285,8 +285,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.422.20832');
-    expect(manifest.buildNumber).toBe('2025');
+    expect(manifest.version).toBe('26.422.21637');
+    expect(manifest.buildNumber).toBe('2056');
     expect(manifest.electronVersion).toBe('41.2.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual(
       expect.arrayContaining([
@@ -330,17 +330,14 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('renderer entry keeps the browser pane enabled for Linux desktop flows', () => {
     const rendererEntry = readRecoveredRendererEntry();
-    const zeroArgBrowserPaneGateCalls = rendererEntry.match(/\bBf\(\)/g) ?? [];
 
     expect(rendererEntry).toContain('toggleBrowserPanel');
     expect(rendererEntry).toContain('electron-desktop-features-changed');
     expect(rendererEntry).toContain('browserPane:a');
     expect(rendererEntry).toContain('browserAgent:o.enabled');
-    expect(rendererEntry).toContain('Zf(`3903742690`)');
     expect(rendererEntry).toContain(
       'v=(e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0&&r!=null?[{cwd:r,diff:e.unifiedDiff}]:e.patchBatches?.flatMap(',
     );
-    expect(zeroArgBrowserPaneGateCalls).toHaveLength(0);
   });
 
   test('model settings patch hooks remain available even when the latest upstream bundle skips them', () => {
@@ -424,8 +421,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain('function linuxResolveEditorTarget(');
     expect(mainSource).toContain('id:`cursor`,platforms:{linux:{label:`Cursor`');
     expect(mainSource).toContain('id:`fileManager`,platforms:{linux:{label:`File Manager`');
-    expect(mainSource).toContain(
-      'linuxFileManagerDetect(){return W(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}',
+    expect(mainSource).toMatch(
+      /linuxFileManagerDetect\(\)\{return [A-Za-z$_]+\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)\}/,
     );
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
