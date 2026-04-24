@@ -153,7 +153,7 @@ describe('Codex package staging RED contract', () => {
   test('linux release workflow uses committed Linux helpers and writes concrete release note filenames', () => {
     const workflowSource = readDesktopFile('../.github/workflows/linux-release.yml');
 
-    expect(workflowSource).not.toContain('lfs: true');
+    expect(workflowSource).toContain('lfs: true');
     expect(workflowSource).toContain('Verify committed Linux codex helpers');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
