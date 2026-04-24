@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,7 +24,15 @@ jobs:
           cache: npm
           cache-dependency-path: desktop/package-lock.json
 
-      - name: Verify committed Linux codex helpers
+      - name: Hydrate Linux codex helpers
+        run: |
+          set -euo pipefail
+          npm install --prefix /tmp/codex-cli-package @openai/codex@0.124.0
+          CODEX_VENDOR_ROOT="/tmp/codex-cli-package/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl"
+          install -m 0755 "${CODEX_VENDOR_ROOT}/codex/codex" desktop/resources/bin/linux-x64/codex
+          install -m 0755 "${CODEX_VENDOR_ROOT}/path/rg" desktop/resources/bin/linux-x64/rg
+
+      - name: Verify Linux codex helpers
         run: |
           set -euo pipefail
           test -x desktop/resources/bin/linux-x64/codex
