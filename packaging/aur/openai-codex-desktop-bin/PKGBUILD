@@ -1,6 +1,6 @@
 # Maintainer: am-will <amwill@users.noreply.github.com>
 
-pkgname=codex-desktop-bin
+pkgname=openai-codex-desktop-bin
 pkgver=26.422.21641
 pkgrel=1
 pkgdesc='OpenAI Codex desktop app for Linux (binary release)'

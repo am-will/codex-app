@@ -18,7 +18,7 @@ GitHub release artifacts:
 - Release tags like `v26.422.21641` trigger `.github/workflows/linux-release.yml`.
 
 Arch Linux / Yay:
-- AUR metadata lives in `packaging/aur/codex-desktop-bin`.
+- AUR metadata lives in `packaging/aur/openai-codex-desktop-bin`.
 - The AUR package is a `-bin` package that downloads the published GitHub `.deb`, verifies its SHA-256, and repackages it for pacman.
 - Do not commit generated AUR source downloads or `*.pkg.tar.*` package outputs.
 

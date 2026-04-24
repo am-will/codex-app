@@ -1,4 +1,4 @@
-pkgbase = codex-desktop-bin
+pkgbase = openai-codex-desktop-bin
 	pkgdesc = OpenAI Codex desktop app for Linux (binary release)
 	pkgver = 26.422.21641
 	pkgrel = 1
@@ -40,4 +40,4 @@ pkgbase = codex-desktop-bin
 	source = codex-app-linux-v26.422.21641.deb::https://github.com/am-will/codex-app/releases/download/v26.422.21641/codex-app-linux-v26.422.21641.deb
 	sha256sums = 2fd92b58ee2a14df229bf75d8f4247115a55596cd6fbd222b74c981fa15d19ea
 
-pkgname = codex-desktop-bin
+pkgname = openai-codex-desktop-bin
