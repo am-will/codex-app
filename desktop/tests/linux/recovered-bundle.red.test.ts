@@ -153,6 +153,12 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(pluginsCardsBundle).toContain(
         'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
       );
+      expect(pluginsCardsBundle).toContain(
+        'i.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0});return',
+      );
+      expect(pluginsCardsBundle).toContain(
+        'case`browser-fallback`:x({appId:e.appId,status:`pending`}),e.installUrl&&i.dispatchMessage(`open-in-browser`,{url:e.installUrl,useExternalBrowser:!0});return;',
+      );
       expect(pluginsCardsBundle).toContain('/aip/connectors/links/oauth/callback');
       expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual(
         expect.arrayContaining([
@@ -165,6 +171,12 @@ describe('Recovered Codex bundle RED contract', () => {
         expect.arrayContaining([
           expect.objectContaining({
             label: 'plugin install app connect requests native external browser',
+          }),
+          expect.objectContaining({
+            label: 'plugin install direct install url requests native external browser',
+          }),
+          expect.objectContaining({
+            label: 'plugin install browser fallback opens install url',
           }),
         ]),
       );
@@ -299,6 +311,12 @@ describe('Recovered Codex bundle RED contract', () => {
       expect.arrayContaining([
         expect.objectContaining({
           label: 'plugin install app connect requests native external browser',
+        }),
+        expect.objectContaining({
+          label: 'plugin install direct install url requests native external browser',
+        }),
+        expect.objectContaining({
+          label: 'plugin install browser fallback opens install url',
         }),
       ]),
     );

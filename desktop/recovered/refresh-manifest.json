@@ -161,6 +161,18 @@
             "patched": true,
             "skipped": false,
             "reason": null
+          },
+          {
+            "label": "plugin install direct install url requests native external browser",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "plugin install browser fallback opens install url",
+            "patched": true,
+            "skipped": false,
+            "reason": null
           }
         ]
       }

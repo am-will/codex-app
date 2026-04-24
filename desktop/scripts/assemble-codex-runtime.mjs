@@ -289,10 +289,24 @@ const pluginCardsAppConnectPatchAlternatives = [
     replacement:
       'openInBrowser:e=>{i.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}',
   },
+];
+const pluginCardsInstallUrlOpenPatchAlternatives = [
   {
     target: 'if(!m&&o){i.dispatchMessage(`open-in-browser`,{url:o});return}',
     replacement:
       'if(!m&&o){i.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0});return}',
+  },
+  {
+    target: 'if(!f&&o){i.dispatchMessage(`open-in-browser`,{url:o});return}',
+    replacement:
+      'if(!f&&o){i.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0});return}',
+  },
+];
+const pluginCardsBrowserFallbackPatchAlternatives = [
+  {
+    target: 'case`browser-fallback`:x({appId:e.appId,status:`pending`});return;',
+    replacement:
+      'case`browser-fallback`:x({appId:e.appId,status:`pending`}),e.installUrl&&i.dispatchMessage(`open-in-browser`,{url:e.installUrl,useExternalBrowser:!0});return;',
   },
 ];
 const rendererBrowserPaneAvailabilityPatches = [
@@ -1029,6 +1043,14 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
         {
           label: 'plugin install app connect requests native external browser',
           alternatives: pluginCardsAppConnectPatchAlternatives,
+        },
+        {
+          label: 'plugin install direct install url requests native external browser',
+          alternatives: pluginCardsInstallUrlOpenPatchAlternatives,
+        },
+        {
+          label: 'plugin install browser fallback opens install url',
+          alternatives: pluginCardsBrowserFallbackPatchAlternatives,
         },
       ]),
     ),
