@@ -110,13 +110,21 @@ jobs:
         run: |
           set -euo pipefail
           npm install --prefix /tmp/codex-cli-package-arm64 --os=linux --cpu=arm64 @openai/codex@0.124.0
+          npm install --prefix /tmp/codex-cli-package-x64 --os=linux --cpu=x64 @openai/codex@0.124.0
           CODEX_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/codex/codex' -type f | head -n 1)"
           RG_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/path/rg' -type f | head -n 1)"
+          X64_CODEX_BINARY="$(find /tmp/codex-cli-package-x64/node_modules -path '*/vendor/*/codex/codex' -type f | head -n 1)"
+          X64_RG_BINARY="$(find /tmp/codex-cli-package-x64/node_modules -path '*/vendor/*/path/rg' -type f | head -n 1)"
           test -n "${CODEX_BINARY}"
           test -n "${RG_BINARY}"
+          test -n "${X64_CODEX_BINARY}"
+          test -n "${X64_RG_BINARY}"
           mkdir -p desktop/resources/bin/linux-arm64
+          mkdir -p desktop/resources/bin/linux-x64
           install -m 0755 "${CODEX_BINARY}" desktop/resources/bin/linux-arm64/codex
           install -m 0755 "${RG_BINARY}" desktop/resources/bin/linux-arm64/rg
+          install -m 0755 "${X64_CODEX_BINARY}" desktop/resources/bin/linux-x64/codex
+          install -m 0755 "${X64_RG_BINARY}" desktop/resources/bin/linux-x64/rg
           install -m 0755 desktop/resources/bin/linux-x64/git desktop/resources/bin/linux-arm64/git
 
       - name: Verify Linux arm64 codex helpers
@@ -125,6 +133,8 @@ jobs:
           test -x desktop/resources/bin/linux-arm64/codex
           test -x desktop/resources/bin/linux-arm64/rg
           test -x desktop/resources/bin/linux-arm64/git
+          test -x desktop/resources/bin/linux-x64/codex
+          test -x desktop/resources/bin/linux-x64/rg
           file desktop/resources/bin/linux-arm64/codex | grep -Eq 'aarch64|ARM aarch64|ARM64'
           file desktop/resources/bin/linux-arm64/rg | grep -Eq 'aarch64|ARM aarch64|ARM64'
           desktop/resources/bin/linux-arm64/codex --version
