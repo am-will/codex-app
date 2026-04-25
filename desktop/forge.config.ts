@@ -36,14 +36,35 @@ const linuxAppImageIconSet = {
   '256x256': path.join(linuxIconRoot, 'codex-logo-256.png'),
   '512x512': path.join(linuxIconRoot, 'codex-logo-512.png'),
 };
+const supportedLinuxHelperResourceDirs = new Set(['linux-x64', 'linux-arm64']);
+
+function resolveLinuxHelperResourceDir(): string {
+  const requested = process.env.CODEX_LINUX_HELPER_ARCH ?? 'linux-x64';
+
+  if (!supportedLinuxHelperResourceDirs.has(requested)) {
+    throw new Error(
+      `Unsupported CODEX_LINUX_HELPER_ARCH "${requested}". ` +
+        `Expected one of: ${Array.from(supportedLinuxHelperResourceDirs).join(', ')}`,
+    );
+  }
+
+  return requested;
+}
+
+const linuxHelperResourceRoot = path.resolve(
+  __dirname,
+  'resources',
+  'bin',
+  resolveLinuxHelperResourceDir(),
+);
 
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
     icon: linuxPackagerIcon,
     extraResource: [
-      path.resolve(__dirname, 'resources/bin/linux-x64/codex'),
-      path.resolve(__dirname, 'resources/bin/linux-x64/rg'),
+      path.join(linuxHelperResourceRoot, 'codex'),
+      path.join(linuxHelperResourceRoot, 'rg'),
     ],
     ignore: (file) => {
       if (!file) {

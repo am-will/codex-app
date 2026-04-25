@@ -29,6 +29,7 @@ describe('Codex package staging RED contract', () => {
       'assemble:codex-runtime',
       'build:codex:linux',
       'stage:codex-package',
+      'make:linux:arm64:deb',
     ];
     const scriptPaths = new Set<string>();
 
@@ -161,6 +162,15 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex --version');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg --version');
+    expect(workflowSource).toContain('build-linux-arm64-deb');
+    expect(workflowSource).toContain('runs-on: ubuntu-22.04-arm');
+    expect(workflowSource).toContain('--os=linux --cpu=arm64 @openai/codex@0.124.0');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/codex');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/rg');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/git');
+    expect(workflowSource).toContain('CODEX_LINUX_HELPER_ARCH: linux-arm64');
+    expect(workflowSource).toContain('npm run make:linux:arm64:deb');
+    expect(workflowSource).toContain('codex-app-linux-arm64-v${CURRENT_VERSION}.deb');
     expect(workflowSource).not.toContain('RELEASE_APPIMAGE_URL=');
     expect(workflowSource).not.toContain('--appimage-extract');
     expect(workflowSource).toContain('CURRENT_APPIMAGE_NAME=');

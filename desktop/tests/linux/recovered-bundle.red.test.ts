@@ -458,6 +458,10 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(forgeConfig).toContain('/node_modules/node-pty/prebuilds');
     expect(forgeConfig).toContain("icon: linuxPackagerIcon");
     expect(forgeConfig).toContain("icon: linuxAppImageIconSet");
+    expect(forgeConfig).toContain("CODEX_LINUX_HELPER_ARCH ?? 'linux-x64'");
+    expect(forgeConfig).toContain("'linux-arm64'");
+    expect(forgeConfig).toContain("path.join(linuxHelperResourceRoot, 'codex')");
+    expect(forgeConfig).toContain("path.join(linuxHelperResourceRoot, 'rg')");
     expect(forgeConfig).toContain('new AutoUnpackNativesPlugin');
     expect(forgeConfig).toContain('new MakerDeb');
     expect(forgeConfig).toContain('new MakerRpm');
@@ -553,6 +557,9 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(packageJson.scripts?.['build:codex:linux']).toBe(
       'node ./scripts/build-codex-linux-runtime.mjs',
+    );
+    expect(packageJson.scripts?.['make:linux:arm64:deb']).toBe(
+      'npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets @electron-forge/maker-deb',
     );
     expect(stagingScript).toContain(
       "import { buildCodexLinuxRuntime } from './build-codex-linux-runtime.mjs';",

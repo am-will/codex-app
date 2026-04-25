@@ -91,3 +91,83 @@ jobs:
           name: codex-app-linux ${{ github.ref_name }}
           files: |
             desktop/out/release-assets/*
+
+  build-linux-arm64-deb:
+    runs-on: ubuntu-22.04-arm
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+
+      - name: Hydrate Linux arm64 codex helpers
+        run: |
+          set -euo pipefail
+          npm install --prefix /tmp/codex-cli-package-arm64 --os=linux --cpu=arm64 @openai/codex@0.124.0
+          CODEX_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/codex/codex' -type f | head -n 1)"
+          RG_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/path/rg' -type f | head -n 1)"
+          test -n "${CODEX_BINARY}"
+          test -n "${RG_BINARY}"
+          mkdir -p desktop/resources/bin/linux-arm64
+          install -m 0755 "${CODEX_BINARY}" desktop/resources/bin/linux-arm64/codex
+          install -m 0755 "${RG_BINARY}" desktop/resources/bin/linux-arm64/rg
+          install -m 0755 desktop/resources/bin/linux-x64/git desktop/resources/bin/linux-arm64/git
+
+      - name: Verify Linux arm64 codex helpers
+        run: |
+          set -euo pipefail
+          test -x desktop/resources/bin/linux-arm64/codex
+          test -x desktop/resources/bin/linux-arm64/rg
+          test -x desktop/resources/bin/linux-arm64/git
+          file desktop/resources/bin/linux-arm64/codex | grep -Eq 'aarch64|ARM aarch64|ARM64'
+          file desktop/resources/bin/linux-arm64/rg | grep -Eq 'aarch64|ARM aarch64|ARM64'
+          desktop/resources/bin/linux-arm64/codex --version
+          desktop/resources/bin/linux-arm64/rg --version | head -n 1
+
+      - name: Install dependencies
+        working-directory: desktop
+        run: npm ci
+
+      - name: Build Linux arm64 deb
+        working-directory: desktop
+        env:
+          CODEX_LINUX_HELPER_ARCH: linux-arm64
+        run: |
+          set -euo pipefail
+          npm run test:linux
+          npm run make:linux:arm64:deb
+
+      - name: Normalize Linux arm64 deb name
+        run: |
+          set -euo pipefail
+          CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          CURRENT_ARM64_DEB_NAME="codex-app-linux-arm64-v${CURRENT_VERSION}.deb"
+          mkdir -p desktop/out/release-assets-arm64
+          CURRENT_ARM64_DEB_SOURCE="$(find desktop/out/make -type f -name '*.deb' | head -n 1)"
+          cp "$CURRENT_ARM64_DEB_SOURCE" "desktop/out/release-assets-arm64/${CURRENT_ARM64_DEB_NAME}"
+          cat > "desktop/out/release-assets-arm64/RELEASE_NOTES_LINUX_ARM64.txt" <<EOF
+          Linux arm64 installer in this release:
+          - ${CURRENT_ARM64_DEB_NAME}
+          EOF
+
+      - name: Upload Linux arm64 deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-app-linux-arm64-deb
+          path: |
+            desktop/out/release-assets-arm64/*
+          if-no-files-found: error
+
+      - name: Publish GitHub release arm64 deb asset (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: codex-app-linux ${{ github.ref_name }}
+          files: |
+            desktop/out/release-assets-arm64/*
