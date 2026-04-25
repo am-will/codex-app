@@ -59,9 +59,9 @@ jobs:
         run: |
           set -euo pipefail
           CURRENT_VERSION="${GITHUB_REF_NAME#v}"
-          CURRENT_APPIMAGE_NAME="codex-app-linux-v${CURRENT_VERSION}.AppImage"
-          CURRENT_DEB_NAME="codex-app-linux-v${CURRENT_VERSION}.deb"
-          CURRENT_RPM_NAME="codex-app-linux-v${CURRENT_VERSION}.rpm"
+          CURRENT_APPIMAGE_NAME="codex-app-linux-x64-v${CURRENT_VERSION}.AppImage"
+          CURRENT_DEB_NAME="codex-app-linux-x64-v${CURRENT_VERSION}.deb"
+          CURRENT_RPM_NAME="codex-app-linux-x64-v${CURRENT_VERSION}.rpm"
           mkdir -p desktop/out/release-assets
           CURRENT_APPIMAGE_SOURCE="$(find desktop/out/make -type f -name '*.AppImage' | head -n 1)"
           CURRENT_DEB_SOURCE="$(find desktop/out/make -type f -name '*.deb' | head -n 1)"
@@ -70,7 +70,7 @@ jobs:
           cp "$CURRENT_DEB_SOURCE" "desktop/out/release-assets/${CURRENT_DEB_NAME}"
           cp "$CURRENT_RPM_SOURCE" "desktop/out/release-assets/${CURRENT_RPM_NAME}"
           cat > "desktop/out/release-assets/RELEASE_NOTES_LINUX.txt" <<EOF
-          Linux installers in this release:
+          Linux x64 installers in this release:
           - ${CURRENT_APPIMAGE_NAME}
           - ${CURRENT_DEB_NAME}
           - ${CURRENT_RPM_NAME}
@@ -79,7 +79,7 @@ jobs:
       - name: Upload Linux build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: codex-app-linux-installers
+          name: codex-app-linux-x64-installers
           path: |
             desktop/out/release-assets/*
           if-no-files-found: error

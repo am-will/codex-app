@@ -301,7 +301,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.422.21645');
+    expect(packageJson.version).toBe('26.422.21646');
     expect(packageJson.codexBuildNumber).toBe('2056');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();

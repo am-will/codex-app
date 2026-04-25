@@ -181,6 +181,11 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('CURRENT_APPIMAGE_NAME=');
     expect(workflowSource).toContain('CURRENT_DEB_NAME=');
     expect(workflowSource).toContain('CURRENT_RPM_NAME=');
+    expect(workflowSource).toContain('codex-app-linux-x64-v${CURRENT_VERSION}.AppImage');
+    expect(workflowSource).toContain('codex-app-linux-x64-v${CURRENT_VERSION}.deb');
+    expect(workflowSource).toContain('codex-app-linux-x64-v${CURRENT_VERSION}.rpm');
+    expect(workflowSource).toContain('Linux x64 installers in this release:');
+    expect(workflowSource).toContain('codex-app-linux-x64-installers');
     expect(workflowSource).toContain("find desktop/out/make -type f -name '*.rpm'");
     expect(workflowSource).toContain('- ${CURRENT_APPIMAGE_NAME}');
     expect(workflowSource).toContain('- ${CURRENT_DEB_NAME}');
