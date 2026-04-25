@@ -164,7 +164,7 @@ jobs:
         working-directory: desktop
         env:
           CODEX_LINUX_HELPER_ARCH: linux-arm64
-        run: npx electron-forge make --platform linux --arch arm64 --targets @electron-forge/maker-deb --skip-package
+        run: npx electron-forge make --platform linux --arch arm64 --targets deb --skip-package
 
       - name: Normalize Linux arm64 deb name
         run: |

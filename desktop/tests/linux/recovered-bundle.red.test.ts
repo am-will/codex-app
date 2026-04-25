@@ -301,7 +301,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.422.21644');
+    expect(packageJson.version).toBe('26.422.21645');
     expect(packageJson.codexBuildNumber).toBe('2056');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
@@ -559,7 +559,7 @@ describe('Recovered Codex bundle RED contract', () => {
       'node ./scripts/build-codex-linux-runtime.mjs',
     );
     expect(packageJson.scripts?.['make:linux:arm64:deb']).toBe(
-      'npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets @electron-forge/maker-deb',
+      'npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets deb',
     );
     expect(stagingScript).toContain(
       "import { buildCodexLinuxRuntime } from './build-codex-linux-runtime.mjs';",

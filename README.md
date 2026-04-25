@@ -14,8 +14,8 @@ This repo tracks the Linux packaging pipeline for Codex and publishes installabl
 GitHub release artifacts:
 - Install from GitHub Releases using packaged artifacts (`.AppImage` / `.deb` / `.rpm`).
 - Built Linux installers are release-only outputs and are not tracked in git.
-- Current Linux artifact versioning follows the embedded Electron app version `26.422.21644`; the embedded build number is `2056`.
-- Release tags like `v26.422.21644` trigger `.github/workflows/linux-release.yml`.
+- Current Linux artifact versioning follows the embedded Electron app version `26.422.21645`; the embedded build number is `2056`.
+- Release tags like `v26.422.21645` trigger `.github/workflows/linux-release.yml`.
 
 Arch Linux / Yay:
 - AUR metadata lives in `packaging/aur/openai-codex-desktop-bin`.

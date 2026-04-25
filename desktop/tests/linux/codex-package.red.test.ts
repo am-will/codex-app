@@ -174,7 +174,7 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('Package Linux arm64 app');
     expect(workflowSource).toContain('Make Linux arm64 deb');
     expect(workflowSource).toContain('electron-forge package --platform linux --arch arm64');
-    expect(workflowSource).toContain('electron-forge make --platform linux --arch arm64 --targets @electron-forge/maker-deb --skip-package');
+    expect(workflowSource).toContain('electron-forge make --platform linux --arch arm64 --targets deb --skip-package');
     expect(workflowSource).toContain('codex-app-linux-arm64-v${CURRENT_VERSION}.deb');
     expect(workflowSource).not.toContain('RELEASE_APPIMAGE_URL=');
     expect(workflowSource).not.toContain('--appimage-extract');

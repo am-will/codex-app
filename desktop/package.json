@@ -1,7 +1,7 @@
 {
   "name": "codex-desktop",
   "productName": "Codex",
-  "version": "26.422.21644",
+  "version": "26.422.21645",
   "description": "Codex",
   "main": "recovered/app-asar-extracted/.vite/build/bootstrap.js",
   "private": true,
@@ -17,7 +17,7 @@
     "stage:codex-package": "node ./scripts/stage-codex-package.mjs",
     "make": "npm run rebuild:natives && electron-forge make",
     "make:linux": "npm run rebuild:natives && electron-forge make --platform linux",
-    "make:linux:arm64:deb": "npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets @electron-forge/maker-deb",
+    "make:linux:arm64:deb": "npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets deb",
     "publish": "npm run rebuild:natives && electron-forge publish",
     "lint": "eslint --ext .ts,.tsx .",
     "test": "node ./tests/linux/run-jest.cjs",
