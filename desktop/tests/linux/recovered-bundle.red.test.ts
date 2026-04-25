@@ -163,7 +163,18 @@ describe('Recovered Codex bundle RED contract', () => {
         /\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
       );
       expect(rendererEntry).toContain('useExternalBrowser:!0');
-      expect(summary.patchSummary.modelSettings.results).toEqual([]);
+      expect(summary.patchSummary.modelSettings.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            label: 'model settings saved-config cwd fallback',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'model settings direct user config write',
+            patched: true,
+          }),
+        ]),
+      );
       expect(pluginsPageBundle).toContain(
         's.dispatchMessage(`open-in-browser`,{url:o,useExternalBrowser:!0}),i&&k(!1)',
       );
@@ -301,7 +312,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.422.21646');
+    expect(packageJson.version).toBe('26.422.21647');
     expect(packageJson.codexBuildNumber).toBe('2056');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
@@ -444,9 +455,14 @@ describe('Recovered Codex bundle RED contract', () => {
       };
     };
 
-    expect(modelSettingsSource).toContain('set-default-model-config-for-host');
+    expect(modelSettingsSource).toContain('batch-write-config-value');
+    expect(modelSettingsSource).toContain('model_reasoning_effort');
+    expect(modelSettingsSource).toContain('M=Y9(r).configPath,y=(0,q.useCallback)');
+    expect(modelSettingsSource).not.toContain('let M=Y9(r).configPath');
+    expect(modelSettingsSource).not.toContain('set-default-model-config-for-host');
     expect(assembleScript).toContain('model settings saved-config cwd fallback');
     expect(assembleScript).toContain('model settings direct user config write');
+    expect(assembleScript).toContain('model settings config path hook position');
     expect(manifest.patchSummary.modelSettings.results).toEqual([]);
   });
 

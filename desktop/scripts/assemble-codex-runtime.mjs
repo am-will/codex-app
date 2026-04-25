@@ -497,6 +497,12 @@ const modelSettingsSavedConfigPatchAlternatives = [
     replacement:
       'queryFn:async()=>{try{return await Ye(r,e)}catch{try{return await Ye(r,null)}catch{return null}}},queryKey:[...xs,t,e],staleTime:W.FIVE_MINUTES',
   },
+  {
+    target:
+      'queryFn:async()=>{try{return await jt(r,e)}catch{return null}},queryKey:[...ys,t,e],staleTime:U.FIVE_MINUTES',
+    replacement:
+      'queryFn:async()=>{try{return await jt(r,e)}catch{try{return await jt(r,null)}catch{return null}}},queryKey:[...ys,t,e],staleTime:U.FIVE_MINUTES',
+  },
 ];
 const modelSettingsSavedConfigPatchMarker =
   'r,null)}catch{return null}}},queryKey:';
@@ -512,6 +518,12 @@ const modelSettingsPersistNewBundleTarget =
   'let E=jwe(T),D;t[18]!==S||t[19]!==d.profile||t[20]!==a||t[21]!==c||t[22]!==o||t[23]!==b||t[24]!==E||t[25]!==r?(D=async(e,t)=>{try{if(await S(e,t),b){Un(r,`copilot-default-model`,e);return}if(h.info(`Setting default model and reasoning effort`,{safe:{newModel:e,newEffort:t,profile:d.profile}}),!o)return;await en(`set-default-model-config-for-host`,{hostId:a,model:e,reasoningEffort:t,profile:d.profile}),await E()}catch(e){let t=e;h.error(`Failed to update model and reasoning effort`,{safe:{},sensitive:{error:t}});let n=r.get(Eo),i=Mwe(c,t);Q9(t)?n.danger(i,{id:`composer.modelSettings.updateError`,description:(0,K.createElement)(`div`,{className:`mt-4`},(0,K.createElement)(_we))}):n.danger(i,{id:`composer.modelSettings.updateError`})}},t[18]=S,t[19]=d.profile,t[20]=a,t[21]=c,t[22]=o,t[23]=b,t[24]=E,t[25]=r,t[26]=D):D=t[26]';
 const modelSettingsPersistNewBundleReplacement =
   'let E=jwe(T),M=Y9(a).configPath,D;t[18]!==S||t[19]!==d.profile||t[20]!==a||t[21]!==c||t[22]!==o||t[23]!==b||t[24]!==E||t[25]!==r?(D=async(e,t)=>{try{if(await S(e,t),b){Un(r,`copilot-default-model`,e);return}if(h.info(`Setting default model and reasoning effort`,{safe:{newModel:e,newEffort:t,profile:d.profile}}),!o)return;let n=M,r=d.profile?`profiles.${d.profile}.`:`` ,i=[{keyPath:`${r}model`,value:e,mergeStrategy:`upsert`},{keyPath:`${r}model_reasoning_effort`,value:t,mergeStrategy:`upsert`}];await en(`batch-write-config-value`,{hostId:a,edits:i,filePath:n??null,expectedVersion:null}),await E()}catch(e){let t=e;h.error(`Failed to update model and reasoning effort`,{safe:{},sensitive:{error:t}});let n=r.get(Eo),i=Mwe(c,t);Q9(t)?n.danger(i,{id:`composer.modelSettings.updateError`,description:(0,K.createElement)(`div`,{className:`mt-4`},(0,K.createElement)(_we))}):n.danger(i,{id:`composer.modelSettings.updateError`})}},t[18]=S,t[19]=d.profile,t[20]=a,t[21]=c,t[22]=o,t[23]=b,t[24]=E,t[25]=r,t[26]=D):D=t[26]';
+const modelSettingsPersistCurrentBundleTarget =
+  'await Wt(`set-default-model-config-for-host`,{hostId:r,model:e,reasoningEffort:n,profile:c.profile}),await v(),await t.query.fetch(bs,{hostId:r,cwd:s})';
+const modelSettingsPersistCurrentBundleReplacement =
+  'let P=c.profile?`profiles.${c.profile}.`:``;await Wt(`batch-write-config-value`,{hostId:r,edits:[{keyPath:`${P}model`,value:e,mergeStrategy:`upsert`},{keyPath:`${P}model_reasoning_effort`,value:n,mergeStrategy:`upsert`}],filePath:M??null,expectedVersion:null}),await v(),await t.query.fetch(bs,{hostId:r,cwd:s})';
+const modelSettingsCurrentBundleConfigPathTarget = 'v=Cwe({hostId:r,cwd:s}),y=';
+const modelSettingsCurrentBundleConfigPathReplacement = 'v=Cwe({hostId:r,cwd:s}),M=Y9(r).configPath,y=';
 const mainLinuxOpenTargetsPatchTarget =
   'async function jc(e,t,n){let r=Zs(t,n),i=Ac(e)??kc();if(i){if(await ho(`open`,[`-a`,i,t]),!n)return;let e=G(`zed`);if(e)try{await ho(e,r)}catch{}return}await ho(e,r)}var Mc=[uc,fc,cc,ms,Go,Qs,Ec,hc,Uo,Es,tc,vs,qo,Cs,fs,_c,Os,Ss,mc,xc,Ps,Fs,Is,Ls,Rs,zs,Bs,Vs,ic],Nc=e.mr(`open-in-targets`);';
 const mainLinuxOpenTargetsPatchReplacement =
@@ -1190,8 +1202,14 @@ function patchCodexModelSettingsBundle(extractedAppRoot) {
     modelSettingsPersistPatchTarget,
     modelSettingsPersistPatchedTarget,
     modelSettingsPersistNewBundleTarget,
+    modelSettingsPersistCurrentBundleTarget,
     modelSettingsPersistPatchReplacement,
     modelSettingsPersistNewBundleReplacement,
+    modelSettingsPersistCurrentBundleReplacement,
+  ].some((snippet) => modelSettingsSource.includes(snippet));
+  const hasModelSettingsCurrentBundleConfigPathShape = [
+    modelSettingsCurrentBundleConfigPathTarget,
+    modelSettingsCurrentBundleConfigPathReplacement,
   ].some((snippet) => modelSettingsSource.includes(snippet));
 
   return summarizePatchResults(
@@ -1225,8 +1243,23 @@ function patchCodexModelSettingsBundle(extractedAppRoot) {
                     target: modelSettingsPersistNewBundleTarget,
                     replacement: modelSettingsPersistNewBundleReplacement,
                   },
+                  {
+                    target: modelSettingsPersistCurrentBundleTarget,
+                    replacement: modelSettingsPersistCurrentBundleReplacement,
+                  },
                 ],
                 marker: modelSettingsPersistPatchMarker,
+              },
+            ]
+          : []
+      ),
+      ...(
+        hasModelSettingsCurrentBundleConfigPathShape
+          ? [
+              {
+                label: 'model settings config path hook position',
+                target: modelSettingsCurrentBundleConfigPathTarget,
+                replacement: modelSettingsCurrentBundleConfigPathReplacement,
               },
             ]
           : []
