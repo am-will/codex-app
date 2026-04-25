@@ -144,14 +144,27 @@ jobs:
         working-directory: desktop
         run: npm ci
 
-      - name: Build Linux arm64 deb
+      - name: Test Linux arm64 contracts
         working-directory: desktop
-        env:
-          CODEX_LINUX_HELPER_ARCH: linux-arm64
         run: |
           set -euo pipefail
           npm run test:linux
-          npm run make:linux:arm64:deb
+
+      - name: Rebuild Linux arm64 native modules
+        working-directory: desktop
+        run: npm run rebuild:natives
+
+      - name: Package Linux arm64 app
+        working-directory: desktop
+        env:
+          CODEX_LINUX_HELPER_ARCH: linux-arm64
+        run: npx electron-forge package --platform linux --arch arm64
+
+      - name: Make Linux arm64 deb
+        working-directory: desktop
+        env:
+          CODEX_LINUX_HELPER_ARCH: linux-arm64
+        run: npx electron-forge make --platform linux --arch arm64 --targets @electron-forge/maker-deb --skip-package
 
       - name: Normalize Linux arm64 deb name
         run: |
