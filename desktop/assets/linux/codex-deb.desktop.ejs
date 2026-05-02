@@ -6,6 +6,7 @@
 Icon=<%= name %>
 <% } %>Type=Application
 StartupNotify=true
+StartupWMClass=Codex
 <% if (categories && categories.length) { %>Categories=<%= categories.join(';') %>;
 <% } %><% if (mimeType && mimeType.length) { %>MimeType=<%= mimeType.join(';') %>;
 <% } %>

@@ -355,8 +355,10 @@ describe('Linux Ubuntu port regression gates (T4a)', () => {
     expect(forgeConfig).toContain('codex-deb.desktop.ejs');
     expect(forgeConfig).toContain('codex-appimage.desktop');
     expect(debTemplate).toContain('Exec=<%= name %> %u');
+    expect(debTemplate).toContain('StartupWMClass=Codex');
     expect(debTemplate).toContain('MimeType=<%= mimeType.join(\';\') %>;');
     expect(appImageDesktop).toContain(`Exec=Codex ${protocolModule.CODEX_PROTOCOL_URL_ARG}`);
+    expect(appImageDesktop).toContain('StartupWMClass=Codex');
     expect(appImageDesktop).toContain(
       `MimeType=${protocolModule.CODEX_PROTOCOL_MIME_TYPE};`,
     );
