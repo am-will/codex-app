@@ -96,6 +96,24 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain('P.current={startedOnMascot:!0');
   });
 
+  test('avatar overlay activity tray keeps the larger Linux bubble layout', () => {
+    const avatarOverlayBundle = fs.readFileSync(
+      requireRecoveredWebviewAsset(/^avatar-overlay-page-.*\.js$/),
+      'utf8',
+    );
+
+    expect(avatarOverlayBundle).toContain(
+      'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}',
+    );
+    expect(avatarOverlayBundle).toContain('px-5 py-3');
+    expect(avatarOverlayBundle).toContain(
+      'U?`whitespace-pre-wrap`:`whitespace-pre-wrap`',
+    );
+    expect(avatarOverlayBundle).toContain(
+      'mascot:{left:244,top:191,width:112,height:121}',
+    );
+  });
+
   test('startup shell keeps a solid background and disables base-logo motion', () => {
     const startupHtml = fs.readFileSync(
       path.join(recoveredRoot, 'webview', 'index.html'),

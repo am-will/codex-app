@@ -464,6 +464,24 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
 ];
 const avatarOverlayDirectMascotDragPatchMarker =
   'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return';
+const avatarOverlayLargeActivityTrayLayoutPatchTarget =
+  'Ze={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:80,top:56,width:276,height:131},viewport:{width:356,height:320}}';
+const avatarOverlayLargeActivityTrayLayoutPatchReplacement =
+  'Ze={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}';
+const avatarOverlayLargeActivityTrayLayoutPatchMarker =
+  'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}';
+const avatarOverlayLargeActivityTrayPaddingPatchTarget =
+  '`block w-full min-w-0 px-3 py-1.5 text-left focus-visible:outline-token-focus focus-visible:outline focus-visible:outline-offset-[-2px]`';
+const avatarOverlayLargeActivityTrayPaddingPatchReplacement =
+  '`block w-full min-w-0 px-5 py-3 text-left focus-visible:outline-token-focus focus-visible:outline focus-visible:outline-offset-[-2px]`';
+const avatarOverlayLargeActivityTrayPaddingPatchMarker =
+  '`block w-full min-w-0 px-5 py-3 text-left';
+const avatarOverlayLargeActivityTrayWrapPatchTarget =
+  'U?`whitespace-pre-wrap`:`line-clamp-2`';
+const avatarOverlayLargeActivityTrayWrapPatchReplacement =
+  'U?`whitespace-pre-wrap`:`whitespace-pre-wrap`';
+const avatarOverlayLargeActivityTrayWrapPatchMarker =
+  'U?`whitespace-pre-wrap`:`whitespace-pre-wrap`';
 const appServerSteerPatchTarget =
   'try{let r=await hh(e,t);e.setPendingSteerTurnId(t,c.id,r);try{return await ph(e,t,n.input,r)}catch(r){let i=mh(r);if(i==null)throw r;return e.updateConversationState(t,e=>{let t=(0,$.default)(e.turns);t?.status===`inProgress`&&(t.turnId=i)}),e.setPendingSteerTurnId(t,c.id,i),await ph(e,t,n.input,i)}}catch(n){throw e.removePendingSteer(t,c.id),i.error(`Error submitting steering turn for conversation`,{safe:{conversationId:t},sensitive:{error:n}}),n}}';
 const appServerSteerPatchReplacement =
@@ -1503,6 +1521,24 @@ function patchCodexAvatarOverlayRenderer(extractedAppRoot) {
         label: 'avatar overlay drag starts only on mascot',
         alternatives: avatarOverlayDirectMascotDragPatchAlternatives,
         marker: avatarOverlayDirectMascotDragPatchMarker,
+      },
+      {
+        label: 'avatar overlay activity tray uses larger default layout',
+        target: avatarOverlayLargeActivityTrayLayoutPatchTarget,
+        replacement: avatarOverlayLargeActivityTrayLayoutPatchReplacement,
+        marker: avatarOverlayLargeActivityTrayLayoutPatchMarker,
+      },
+      {
+        label: 'avatar overlay activity tray uses larger padding',
+        target: avatarOverlayLargeActivityTrayPaddingPatchTarget,
+        replacement: avatarOverlayLargeActivityTrayPaddingPatchReplacement,
+        marker: avatarOverlayLargeActivityTrayPaddingPatchMarker,
+      },
+      {
+        label: 'avatar overlay activity tray wraps compact messages',
+        target: avatarOverlayLargeActivityTrayWrapPatchTarget,
+        replacement: avatarOverlayLargeActivityTrayWrapPatchReplacement,
+        marker: avatarOverlayLargeActivityTrayWrapPatchMarker,
       },
     ]),
   );
