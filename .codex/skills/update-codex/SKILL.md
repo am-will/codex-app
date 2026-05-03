@@ -24,11 +24,13 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
     input can lose keyboard focus. On Linux the pet window must remain
     focusable and treat an active reply editor as keyboard-interactive, so
     keystrokes go to the pet instead of the previously focused app.
-  - Linux pet/avatar overlay hit testing: drag must start only from an inset
-    oval around `.codex-avatar-root`, not the whole
-    `[data-avatar-mascot="true"]` wrapper. Do not use Linux pointer passthrough
-    for the pet window; on this Electron/X11 path it prevents hover/click state
-    from reaching the pet, hiding reply controls and breaking drag.
+  - Linux pet/avatar overlay hit testing: drag must start only from a small
+    inset oval inside the `[data-avatar-mascot="true"]` wrapper. Do not measure
+    `.codex-avatar-root` for this; that sprite frame intentionally overflows
+    the wrapper and makes the drag target feel much larger than the visible
+    pet. Do not use Linux pointer passthrough for the pet window; on this
+    Electron/X11 path it prevents hover/click state from reaching the pet,
+    hiding reply controls and breaking drag.
 - Install the rebuilt runtime to `~/.local/opt/codex-desktop/<version>-<build>` and repoint `~/.local/opt/codex-desktop/current`.
 - If the user asks to ship/release, commit, push `main`, tag `v<version>`, and wait for `.github/workflows/linux-release.yml` to publish assets.
 

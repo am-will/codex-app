@@ -459,17 +459,23 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
     target:
       'J=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null))}',
     replacement:
-      'J=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;let t=e.target.closest(`[data-avatar-mascot="true"]`);if(t==null)return;let n=t.querySelector(`.codex-avatar-root`)??t,r=n.getBoundingClientRect(),i=e.clientX-(r.left+r.width/2),a=e.clientY-(r.top+r.height/2),o=r.width*.4,l=r.height*.45;if(o<=0||l<=0||i*i/(o*o)+a*a/(l*l)>1)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null)}',
+      'J=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;let t=e.target.closest(`[data-avatar-mascot="true"]`);if(t==null)return;let n=t.getBoundingClientRect(),r=e.clientX-(n.left+n.width/2),i=e.clientY-(n.top+n.height*.55),a=n.width*.32,o=n.height*.36;if(a<=0||o<=0||r*r/(a*a)+i*i/(o*o)>1)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null)}',
   },
   {
     target:
       'J=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null)}',
     replacement:
+      'J=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;let t=e.target.closest(`[data-avatar-mascot="true"]`);if(t==null)return;let n=t.getBoundingClientRect(),r=e.clientX-(n.left+n.width/2),i=e.clientY-(n.top+n.height*.55),a=n.width*.32,o=n.height*.36;if(a<=0||o<=0||r*r/(a*a)+i*i/(o*o)>1)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null)}',
+  },
+  {
+    target:
       'J=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;let t=e.target.closest(`[data-avatar-mascot="true"]`);if(t==null)return;let n=t.querySelector(`.codex-avatar-root`)??t,r=n.getBoundingClientRect(),i=e.clientX-(r.left+r.width/2),a=e.clientY-(r.top+r.height/2),o=r.width*.4,l=r.height*.45;if(o<=0||l<=0||i*i/(o*o)+a*a/(l*l)>1)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null)}',
+    replacement:
+      'J=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;let t=e.target.closest(`[data-avatar-mascot="true"]`);if(t==null)return;let n=t.getBoundingClientRect(),r=e.clientX-(n.left+n.width/2),i=e.clientY-(n.top+n.height*.55),a=n.width*.32,o=n.height*.36;if(a<=0||o<=0||r*r/(a*a)+i*i/(o*o)>1)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),P.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[V(e)],screenX:e.screenX,screenY:e.screenY},f.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),h(!0),s(null)}',
   },
 ];
 const avatarOverlayDirectMascotDragPatchMarker =
-  '.codex-avatar-root`)??t,r=n.getBoundingClientRect()';
+  'n=t.getBoundingClientRect(),r=e.clientX-(n.left+n.width/2)';
 const appServerSteerPatchTarget =
   'try{let r=await hh(e,t);e.setPendingSteerTurnId(t,c.id,r);try{return await ph(e,t,n.input,r)}catch(r){let i=mh(r);if(i==null)throw r;return e.updateConversationState(t,e=>{let t=(0,$.default)(e.turns);t?.status===`inProgress`&&(t.turnId=i)}),e.setPendingSteerTurnId(t,c.id,i),await ph(e,t,n.input,i)}}catch(n){throw e.removePendingSteer(t,c.id),i.error(`Error submitting steering turn for conversation`,{safe:{conversationId:t},sensitive:{error:n}}),n}}';
 const appServerSteerPatchReplacement =

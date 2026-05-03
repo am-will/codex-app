@@ -91,10 +91,10 @@ describe('Linux window background stability', () => {
     );
 
     expect(avatarOverlayBundle).toContain(
-      '.codex-avatar-root`)??t,r=n.getBoundingClientRect()',
+      'n=t.getBoundingClientRect(),r=e.clientX-(n.left+n.width/2)',
     );
     expect(avatarOverlayBundle).toContain(
-      'i*i/(o*o)+a*a/(l*l)>1',
+      'r*r/(a*a)+i*i/(o*o)>1',
     );
     expect(avatarOverlayBundle).toContain('P.current={startedOnMascot:!0');
   });
