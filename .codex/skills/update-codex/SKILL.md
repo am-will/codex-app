@@ -29,9 +29,10 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
     for the pet window; on this Electron/X11 path it prevents hover/click state
     from reaching the pet, hiding reply controls and breaking drag.
   - Linux pet/avatar activity bubble sizing: preserve the enlarged tray layout,
-    padding, and message wrapping in the current `avatar-overlay-page-*` bundle.
-    Do not merge or replay old one-off PR bundle edits over the current
-    recovered bundle; keep this as a first-class assembler patch.
+    padding, compact message wrapping, and taller compact body height in the
+    current `avatar-overlay-page-*` bundle. Do not merge or replay old one-off
+    PR bundle edits over the current recovered bundle; keep this as a
+    first-class assembler patch.
 - Install the rebuilt runtime to `~/.local/opt/codex-desktop/<version>-<build>` and repoint `~/.local/opt/codex-desktop/current`.
 - If the user asks to ship/release, commit, push `main`, tag `v<version>`, and wait for `.github/workflows/linux-release.yml` to publish assets.
 

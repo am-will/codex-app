@@ -112,6 +112,12 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain(
       'mascot:{left:244,top:191,width:112,height:121}',
     );
+    expect(avatarOverlayBundle).toContain(
+      'fe=2,$=2,pe=.035,me=80,he=512,ge=1',
+    );
+    expect(avatarOverlayBundle).toContain(
+      'invisible absolute inset-x-5 top-0 -z-10',
+    );
   });
 
   test('startup shell keeps a solid background and disables base-logo motion', () => {

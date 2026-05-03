@@ -482,6 +482,18 @@ const avatarOverlayLargeActivityTrayWrapPatchReplacement =
   'U?`whitespace-pre-wrap`:`whitespace-pre-wrap`';
 const avatarOverlayLargeActivityTrayWrapPatchMarker =
   'U?`whitespace-pre-wrap`:`whitespace-pre-wrap`';
+const avatarOverlayReadableActivityBodyHeightPatchTarget =
+  'fe=2,$=2,pe=.035,me=32,he=512,ge=1';
+const avatarOverlayReadableActivityBodyHeightPatchReplacement =
+  'fe=2,$=2,pe=.035,me=80,he=512,ge=1';
+const avatarOverlayReadableActivityBodyHeightPatchMarker =
+  'fe=2,$=2,pe=.035,me=80,he=512,ge=1';
+const avatarOverlayReadableActivityBodyMeasurementPatchTarget =
+  'className:`text-size-chat-sm pointer-events-none invisible absolute inset-x-3 top-0 -z-10 leading-4 whitespace-pre-wrap`';
+const avatarOverlayReadableActivityBodyMeasurementPatchReplacement =
+  'className:`text-size-chat-sm pointer-events-none invisible absolute inset-x-5 top-0 -z-10 leading-4 whitespace-pre-wrap`';
+const avatarOverlayReadableActivityBodyMeasurementPatchMarker =
+  'invisible absolute inset-x-5 top-0 -z-10';
 const appServerSteerPatchTarget =
   'try{let r=await hh(e,t);e.setPendingSteerTurnId(t,c.id,r);try{return await ph(e,t,n.input,r)}catch(r){let i=mh(r);if(i==null)throw r;return e.updateConversationState(t,e=>{let t=(0,$.default)(e.turns);t?.status===`inProgress`&&(t.turnId=i)}),e.setPendingSteerTurnId(t,c.id,i),await ph(e,t,n.input,i)}}catch(n){throw e.removePendingSteer(t,c.id),i.error(`Error submitting steering turn for conversation`,{safe:{conversationId:t},sensitive:{error:n}}),n}}';
 const appServerSteerPatchReplacement =
@@ -1539,6 +1551,18 @@ function patchCodexAvatarOverlayRenderer(extractedAppRoot) {
         target: avatarOverlayLargeActivityTrayWrapPatchTarget,
         replacement: avatarOverlayLargeActivityTrayWrapPatchReplacement,
         marker: avatarOverlayLargeActivityTrayWrapPatchMarker,
+      },
+      {
+        label: 'avatar overlay compact activity body can show more lines',
+        target: avatarOverlayReadableActivityBodyHeightPatchTarget,
+        replacement: avatarOverlayReadableActivityBodyHeightPatchReplacement,
+        marker: avatarOverlayReadableActivityBodyHeightPatchMarker,
+      },
+      {
+        label: 'avatar overlay activity body measurement matches larger padding',
+        target: avatarOverlayReadableActivityBodyMeasurementPatchTarget,
+        replacement: avatarOverlayReadableActivityBodyMeasurementPatchReplacement,
+        marker: avatarOverlayReadableActivityBodyMeasurementPatchMarker,
       },
     ]),
   );
