@@ -1,12 +1,12 @@
 {
   "sourceType": "dmg",
   "dmgPath": "/home/amwill/Applications/codex-app/Codex.dmg",
-  "dmgSha256": "b0c9ccab01491983c210d7252f4c66897b4156ce2d50bcdfe130b0a1e253b833",
-  "appAsarPath": "/tmp/codex-dmg-refresh-uKv1Qj/Codex Installer/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "00ed2c4baa639c8ce690507adfa5c9eb474703d07bb88f4eeea76c35aa888614",
+  "dmgSha256": "592b3688de0e8e4d0acb61651ac39cf026b265a1478a8f56b1ef986e91541366",
+  "appAsarPath": "/tmp/codex-dmg-refresh-Bw8ktw/Codex Installer/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "5da6b2e33c7b24ea8b07ea492b8e4d27a8f071e3809d76824e4a8bb99382676d",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.429.30905",
-  "buildNumber": "2345",
+  "version": "26.429.61741",
+  "buildNumber": "2429",
   "electronVersion": "41.2.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -101,6 +101,72 @@
           "reason": null
         },
         {
+          "label": "linux avatar overlay uses toolbar window type",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay uses stronger always-on-top level",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay refreshes always-on-top before show",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay tracks top enforcement timer",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay keeps pointer events interactive",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay exposes raise helper",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay stops top enforcement on close",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay re-raises after app window focus",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay remains focusable for reply input",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay steals focus for reply input",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux avatar overlay is available in main process",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
           "label": "linux open-in target registry",
           "patched": true,
           "skipped": false,
@@ -140,6 +206,47 @@
           "patched": false,
           "skipped": true,
           "reason": "startup shell remove keyframes replacement already present"
+        }
+      ]
+    },
+    "avatarOverlayRenderer": {
+      "patched": true,
+      "results": [
+        {
+          "label": "avatar overlay drag starts only on mascot",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "avatar overlay activity tray uses larger default layout",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "avatar overlay activity tray uses larger padding",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "avatar overlay activity tray wraps compact messages",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "avatar overlay compact activity body can show more lines",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "avatar overlay activity body measurement matches larger padding",
+          "patched": true,
+          "skipped": false,
+          "reason": null
         }
       ]
     },

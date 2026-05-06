@@ -9,9 +9,13 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
 
 ## Contract
 
-- Fetch the latest official upstream Mac artifact from `https://persistent.oaistatic.com/codex-app-prod/Codex.dmg`.
+- Fetch the latest official upstream Mac artifact from the newest enclosure in
+  `https://persistent.oaistatic.com/codex-app-prod/appcast.xml`; current feeds
+  may provide a versioned `Codex-darwin-arm64-<version>.zip` rather than a DMG.
 - Verify latest version/build against `https://persistent.oaistatic.com/codex-app-prod/appcast.xml`.
-- Refresh `desktop/recovered/app-asar-extracted` from `Codex.dmg`.
+- Refresh `desktop/recovered/app-asar-extracted` from the downloaded artifact's
+  `Contents/Resources/app.asar` using `--app-asar`, or from a DMG using
+  `--dmg` when the feed/source provides one.
 - Preserve Linux behavior patches in `desktop/scripts/assemble-codex-runtime.mjs`, especially:
   - Linux hidden titlebar/titlebar overlay path.
   - Linux native menu hide/remove behavior.
@@ -39,12 +43,16 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
 ## Workflow
 
 1. Download and verify:
-   - `curl -L --fail --output Codex.dmg https://persistent.oaistatic.com/codex-app-prod/Codex.dmg`
-   - Read `appcast.xml` and confirm the newest arm64 release version/build.
-   - Extract or inspect `Codex.dmg` enough to confirm `Info.plist` version/build and `app.asar` hash.
+   - Download `appcast.xml` and use the first item as the newest arm64 release.
+   - Download that item's full enclosure URL, usually a versioned
+     `Codex-darwin-arm64-<version>.zip`.
+   - Extract or inspect the artifact enough to confirm `Info.plist`
+     `CFBundleShortVersionString`/`CFBundleVersion` and `app.asar` hash.
 
 2. Refresh recovered bundle:
-   - Run `desktop/scripts/refresh-recovered-from-dmg.mjs --dmg ../Codex.dmg --output ./recovered/app-asar-extracted` from `desktop`.
+   - For current zip artifacts, extract `Codex.app/Contents/Resources/app.asar`
+     and run `desktop/scripts/refresh-recovered-from-dmg.mjs --app-asar <path-to-app.asar> --output ./recovered/app-asar-extracted` from `desktop`.
+   - For DMG artifacts, run `desktop/scripts/refresh-recovered-from-dmg.mjs --dmg ../Codex.dmg --output ./recovered/app-asar-extracted` from `desktop`.
    - Update `desktop/package.json`, `desktop/package-lock.json`, and tests that pin version/build metadata.
    - If minified bundle shapes drift, add new patch alternatives without removing older supported shapes.
 
@@ -89,5 +97,6 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
 ## Notes
 
 - The repo currently has no Arch-package release lane. Do not claim one shipped unless the workflow has been extended and verified.
-- `Codex.dmg`, `desktop/tmp`, and `desktop/out` are generated inputs/outputs; do not commit them unless the repo policy changes.
+- Downloaded upstream artifacts, `desktop/tmp`, and `desktop/out` are generated
+  inputs/outputs; do not commit them unless the repo policy changes.
 - If GitHub says `release not found` immediately after tag push, watch the workflow. The release is created by the tag-driven workflow after artifacts publish.
