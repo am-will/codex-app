@@ -827,6 +827,15 @@ const rendererDesktopGoalsFeaturePatchAlternatives = [
       'computerUse:c.available,computerUseNodeRepl:c.available&&l,control:u,goals:!0,multiWindow:d})',
   },
 ];
+const composerGoalsSlashCommandPatchMarker = 'id:`goals`,title:`Goals`';
+const composerGoalsSlashCommandPatchAlternatives = [
+  {
+    target:
+      'let e=lx(r,ux(a));c=o?.active?cx(e,o.query):e,',
+    replacement:
+      'let e=lx([...r,{id:`goals`,title:`Goals`,description:`Set a persistent goal for this thread`,requiresEmptyComposer:!1,Icon:PA,enabled:!0,onSelect:async()=>{n.setText(`Set this as my active goal: `),n.focus()}}],ux(a));c=o?.active?cx(e,o.query):e,',
+  },
+];
 const modelSettingsSavedConfigPatchTarget =
   'queryFn:async()=>{try{return await zt(r,e)}catch{return null}},queryKey:[...Ss,t,e],staleTime:W.FIVE_MINUTES';
 const modelSettingsSavedConfigPatchReplacement =
@@ -1609,6 +1618,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
       'patchBatches',
       'unifiedDiff',
     ]) ?? indexBundlePath;
+  const composerBundlePath =
+    findOptionalExtractedWebviewAssetContaining(extractedAppRoot, ['composer-'], [
+      'composer.slashCommands.noResults',
+      'requiresEmptyComposer',
+    ]) ?? indexBundlePath;
   const loginBundleSource = fs.readFileSync(indexBundlePath, 'utf8');
   const browserPaneAvailabilityPatches = selectBrowserPaneAvailabilityPatches(
     loginBundleSource,
@@ -1645,6 +1659,14 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
         {
           label: 'single-batch undo prefers unified diff',
           alternatives: rendererUndoUnifiedDiffPreferencePatchAlternatives,
+        },
+        ]),
+      ).concat(
+        applyPatchesToFile(composerBundlePath, [
+        {
+          label: 'composer shows goals slash command',
+          alternatives: composerGoalsSlashCommandPatchAlternatives,
+          marker: composerGoalsSlashCommandPatchMarker,
         },
         ]),
       ),

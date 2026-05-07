@@ -420,6 +420,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(rendererEntry).toContain('electron-desktop-features-changed');
     expect(rendererEntry).toContain('`tool_suggest`,`goals`,kr');
     expect(rendererEntry).toContain('control:u,goals:!0,multiWindow:d');
+    expect(composerBundle).toContain('id:`goals`,title:`Goals`');
     expect(composerBundle).toContain(
       'C=[];if((e.patchBatches==null||e.patchBatches.length===1)&&e.unifiedDiff.length>0',
     );
