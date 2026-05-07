@@ -27,7 +27,7 @@ jobs:
       - name: Hydrate Linux codex helpers
         run: |
           set -euo pipefail
-          npm install --prefix /tmp/codex-cli-package @openai/codex@0.124.0
+          npm install --prefix /tmp/codex-cli-package @openai/codex@0.128.0
           CODEX_BINARY="$(find /tmp/codex-cli-package/node_modules -path '*/vendor/*/codex/codex' -type f | head -n 1)"
           RG_BINARY="$(find /tmp/codex-cli-package/node_modules -path '*/vendor/*/path/rg' -type f | head -n 1)"
           test -n "${CODEX_BINARY}"
@@ -109,8 +109,8 @@ jobs:
       - name: Hydrate Linux arm64 codex helpers
         run: |
           set -euo pipefail
-          npm install --prefix /tmp/codex-cli-package-arm64 --os=linux --cpu=arm64 @openai/codex@0.124.0
-          npm install --prefix /tmp/codex-cli-package-x64 --os=linux --cpu=x64 @openai/codex@0.124.0
+          npm install --prefix /tmp/codex-cli-package-arm64 --os=linux --cpu=arm64 @openai/codex@0.128.0
+          npm install --prefix /tmp/codex-cli-package-x64 --os=linux --cpu=x64 @openai/codex@0.128.0
           CODEX_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/codex/codex' -type f | head -n 1)"
           RG_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/path/rg' -type f | head -n 1)"
           X64_CODEX_BINARY="$(find /tmp/codex-cli-package-x64/node_modules -path '*/vendor/*/codex/codex' -type f | head -n 1)"
