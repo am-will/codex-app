@@ -1,13 +1,13 @@
 {
-  "sourceType": "dmg",
-  "dmgPath": "/home/amwill/Applications/codex-app/Codex.dmg",
-  "dmgSha256": "592b3688de0e8e4d0acb61651ac39cf026b265a1478a8f56b1ef986e91541366",
-  "appAsarPath": "/tmp/codex-dmg-refresh-Bw8ktw/Codex Installer/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "5da6b2e33c7b24ea8b07ea492b8e4d27a8f071e3809d76824e4a8bb99382676d",
+  "sourceType": "app-asar",
+  "dmgPath": null,
+  "dmgSha256": null,
+  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/codex-upstream/26.519.22136/extracted/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "222f9153bc7148d095ce22f70228acbb0288bbe7a58ac101f862971b6ede7acc",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.429.61741",
-  "buildNumber": "2429",
-  "electronVersion": "41.2.0",
+  "version": "26.519.22136",
+  "buildNumber": "3003",
+  "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
     "linuxBrowserLauncher": {
@@ -244,9 +244,9 @@
         },
         {
           "label": "avatar overlay activity body measurement matches larger padding",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "avatar overlay activity body measurement matches larger padding replacement already present"
         }
       ]
     },
@@ -256,12 +256,6 @@
         "results": [
           {
             "label": "chatgpt login requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "single-batch undo prefers unified diff",
             "patched": true,
             "skipped": false,
             "reason": null
@@ -308,12 +302,6 @@
           },
           {
             "label": "apps page browser fallback opens install url",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "apps page custom title menu is enabled on linux",
             "patched": true,
             "skipped": false,
             "reason": null

@@ -1,2 +1,0 @@
-import{m as e,yr as t}from"./vscode-api-Cvzk5den.js";import{p as n}from"./app-server-manager-signals-DBUY-BE0.js";function r(){return e(t(n)).kind!==`local`}export{r as t};
-//# sourceMappingURL=use-is-remote-host-Dp2BSsiL.js.map

@@ -1,0 +1,2 @@
+import{s as e}from"./chunk-Bj-mKKzh.js";import{n as t,t as n}from"./jsx-runtime-CiQ1k8xo.js";e(t());var r=n(),i=e=>(0,r.jsx)(`svg`,{width:20,height:20,viewBox:`0 0 20 20`,fill:`none`,xmlns:`http://www.w3.org/2000/svg`,...e,children:(0,r.jsx)(`path`,{d:`M3.5 10.0002C3.5 9.63297 3.79777 9.33521 4.16504 9.33521H15.835C16.2022 9.33521 16.5 9.63297 16.5 10.0002C16.5 10.3675 16.2022 10.6652 15.835 10.6652H4.16504C3.79777 10.6652 3.5 10.3675 3.5 10.0002Z`,fill:`currentColor`})});export{i as t};
+//# sourceMappingURL=minus-D-AnULF0.js.map

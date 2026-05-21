@@ -1,2 +1,0 @@
-import{r as e,t}from"./src-G5NyKJat.js";import{b as n}from"./chunk-ABZYJK2D-Ce5RXZ9S.js";var r=e(e=>{let{securityLevel:r}=n(),i=t(`body`);return r===`sandbox`&&(i=t((t(`#i${e}`).node()?.contentDocument??document).body)),i.select(`#${e}`)},`selectSvgElement`);export{r as t};
-//# sourceMappingURL=chunk-EXTU4WIE-BsyzCNNf.js.map

@@ -1,0 +1,2 @@
+import{S as e,nt as t}from"./setting-storage-EK1Te68s.js";var n=t(e,{status:`idle`});function r(e,t){i(e,t).catch(()=>void 0)}async function i(e,t){e.set(n,{status:`importing`,startedAtMs:Date.now()});try{await t(),e.set(n,{status:`success`,completedAtMs:Date.now()})}catch(t){throw e.set(n,{status:`error`,completedAtMs:Date.now()}),t}}export{i as n,r,n as t};
+//# sourceMappingURL=external-agent-onboarding-import-status-BUwlR_is.js.map

@@ -1,0 +1,2 @@
+import{St as e}from"./app-server-manager-signals-Csopz8aM.js";import{J as t}from"./setting-storage-EK1Te68s.js";function n(n){return t(e,n)}export{n as t};
+//# sourceMappingURL=use-global-state-DjfvqpEA.js.map

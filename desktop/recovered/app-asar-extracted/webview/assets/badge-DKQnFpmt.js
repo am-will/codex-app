@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-CiQ1k8xo.js";import{t}from"./clsx-DDuZWq6Y.js";import{xt as n}from"./setting-storage-EK1Te68s.js";var r=n(),i=e();function a(e){let n=(0,r.c)(5),{children:a,className:o}=e,s;n[0]===o?s=n[1]:(s=t(`bg-token-badge-background text-token-badge-foreground inline-flex items-center rounded-sm px-2 py-1 text-sm leading-none`,o),n[0]=o,n[1]=s);let c;return n[2]!==a||n[3]!==s?(c=(0,i.jsx)(`span`,{className:s,children:a}),n[2]=a,n[3]=s,n[4]=c):c=n[4],c}export{a as t};
+//# sourceMappingURL=badge-DKQnFpmt.js.map

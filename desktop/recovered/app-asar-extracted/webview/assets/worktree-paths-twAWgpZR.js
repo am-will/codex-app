@@ -1,0 +1,2 @@
+import{Qi as e}from"./app-server-manager-signals-Csopz8aM.js";function t(t){if(!t)return null;let n=e(t).replace(/\/+$/,``),r=n.indexOf(`/.git/worktrees/`);return r===-1?n.endsWith(`/.git`)?n.slice(0,-5):null:n.slice(0,r)}function n(t,n){if(!t||!n)return null;let r=e(t).replace(/\/+$/,``),i=e(n).replace(/\/+$/,``),a=`${i}/`;if(!r.startsWith(a))return null;let o=r.slice(a.length).split(`/`).filter(Boolean);return o.length<2?null:`${i}/${o[0]}/${o[1]}`}export{t as n,n as t};
+//# sourceMappingURL=worktree-paths-twAWgpZR.js.map

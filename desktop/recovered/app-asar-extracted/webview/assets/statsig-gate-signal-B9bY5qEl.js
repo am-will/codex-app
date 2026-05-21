@@ -1,2 +1,0 @@
-import{Wr as e,_ as t,qr as n}from"./vscode-api-Cvzk5den.js";var r=n(t,null),i=n(t,[]),a=e(t,(e,{signal:t})=>t(!1,{onMount:(t,n)=>{let a=n.get(r);return a!=null&&t(a.checkGate(e)),n.set(i,t=>t.includes(e)?t:[...t,e]),()=>{n.set(i,t=>t.filter(t=>t!==e))}}}));function o(e,t){let n=()=>{for(let n of e.get(i)){let r=t.checkGate(n);e.set(e.get(a,n),r)}},o=()=>{n()};return e.set(r,t),n(),t.on(`values_updated`,o),()=>{t.off(`values_updated`,o)}}export{r as n,o as r,a as t};
-//# sourceMappingURL=statsig-gate-signal-B9bY5qEl.js.map

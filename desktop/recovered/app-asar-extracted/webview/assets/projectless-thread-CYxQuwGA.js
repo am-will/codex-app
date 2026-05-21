@@ -1,0 +1,2 @@
+import{l as e}from"./setting-storage-EK1Te68s.js";function t(e){return e.length===0||e.length===1&&e[0]===`~`}async function n(n,{directoryName:r,prompt:i}={}){if(!t(n))return{cwd:n[0]??null,projectlessOutputDirectory:null,workspaceRoots:n};let{cwd:a,outputDirectory:o,workspaceRoot:s}=await e(`projectless-thread-cwd`,{params:{...r==null?{}:{directoryName:r},prompt:i??null}});return{cwd:a,projectlessOutputDirectory:o,workspaceRoots:[s]}}export{t as n,n as t};
+//# sourceMappingURL=projectless-thread-CYxQuwGA.js.map

@@ -1,2 +1,0 @@
-import{ii as e}from"./use-model-settings-Cxjr9EBc.js";import{t}from"./compiler-runtime-DaX1MIGd.js";import{hr as n}from"./app-server-manager-signals-DBUY-BE0.js";var r=t();function i(){let t=(0,r.c)(3),[i,a]=n(e),o;return t[0]!==i||t[1]!==a?(o={enterBehavior:i,setEnterBehavior:a,isLoading:!1},t[0]=i,t[1]=a,t[2]=o):o=t[2],o}export{i as t};
-//# sourceMappingURL=use-enter-behavior-C2qmmZA4.js.map

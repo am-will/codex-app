@@ -1,2 +1,0 @@
-import{s as e}from"./chunk-Bj-mKKzh.js";import{t}from"./react-BE0_fAZJ.js";var n=e(t(),1),r=(0,n.createContext)(1);function i(){return(0,n.useContext)(r)}var a=`codex:dismiss-tooltips`;function o(){typeof window>`u`||window.dispatchEvent(new Event(a))}export{i,o as n,r,a as t};
-//# sourceMappingURL=tooltip-dismiss-Dv-H1M90.js.map

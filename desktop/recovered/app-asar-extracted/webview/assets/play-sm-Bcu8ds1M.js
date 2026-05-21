@@ -1,0 +1,2 @@
+import{s as e}from"./chunk-Bj-mKKzh.js";import{n as t,t as n}from"./jsx-runtime-CiQ1k8xo.js";e(t());var r=n(),i=e=>(0,r.jsx)(`svg`,{width:12,height:12,viewBox:`0 0 12 12`,fill:`none`,xmlns:`http://www.w3.org/2000/svg`,...e,children:(0,r.jsx)(`path`,{d:`M3.75 3.63838L3.75 8.36129C3.75 8.85447 4.29447 9.15336 4.71055 8.88858L8.42137 6.52713C8.80732 6.28153 8.80732 5.71815 8.42137 5.47255L4.71055 3.11113C4.29447 2.84631 3.75 3.14518 3.75 3.63838Z`,fill:`currentColor`})});export{i as t};
+//# sourceMappingURL=play-sm-Bcu8ds1M.js.map

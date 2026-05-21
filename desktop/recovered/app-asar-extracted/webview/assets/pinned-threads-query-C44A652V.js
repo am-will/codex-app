@@ -1,0 +1,2 @@
+import{S as e,_ as t,f as n}from"./setting-storage-EK1Te68s.js";var r=n(e,`list-pinned-threads`,{refetchOnWindowFocus:`always`,staleTime:t.FIVE_SECONDS});export{r as t};
+//# sourceMappingURL=pinned-threads-query-C44A652V.js.map

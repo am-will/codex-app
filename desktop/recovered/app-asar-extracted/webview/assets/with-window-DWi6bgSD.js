@@ -1,2 +1,0 @@
-import{t as e}from"./compiler-runtime-DaX1MIGd.js";import{t}from"./jsx-runtime-lEsnPbkx.js";import{n}from"./use-window-type-DtYfqBCs.js";var r=e(),i=t();function a(e){let t=(0,r.c)(2),{browser:a,children:o,extension:s,electron:c}=e,l=a===void 0?!1:a,u=s===void 0?!1:s,d=c===void 0?!1:c,f=n();if(!(l&&f===`browser`||u&&f===`extension`||d&&f===`electron`))return null;let p;return t[0]===o?p=t[1]:(p=(0,i.jsx)(i.Fragment,{children:o}),t[0]=o,t[1]=p),p}export{a as t};
-//# sourceMappingURL=with-window-DWi6bgSD.js.map

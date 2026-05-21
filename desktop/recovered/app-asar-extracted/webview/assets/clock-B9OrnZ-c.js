@@ -1,2 +1,0 @@
-import{s as e}from"./chunk-Bj-mKKzh.js";import{t}from"./react-BE0_fAZJ.js";import{t as n}from"./jsx-runtime-lEsnPbkx.js";e(t());var r=n(),i=e=>(0,r.jsx)(`svg`,{width:18,height:18,viewBox:`0 0 18 18`,fill:`none`,xmlns:`http://www.w3.org/2000/svg`,...e,children:(0,r.jsx)(`path`,{fill:`currentColor`,d:`M9 1.5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15Zm0 1.2a6.3 6.3 0 1 1 0 12.6A6.3 6.3 0 0 1 9 2.7ZM8.4 4.8c0-.331.269-.6.6-.6s.6.269.6.6v3.344l2.106 1.149a.6.6 0 0 1-.576 1.054l-2.478-1.35A.6.6 0 0 1 8.4 8.4V4.8Z`})});export{i as t};
-//# sourceMappingURL=clock-B9OrnZ-c.js.map

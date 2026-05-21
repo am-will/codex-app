@@ -1,2 +1,0 @@
-function e(e){let t=0,n=0;for(let r of e)t+=r.additions,n+=r.deletions;let r=e.length;return{fileCount:r,linesAdded:t,linesDeleted:n,hasChanges:!(r===0&&t===0&&n===0)}}export{e as t};
-//# sourceMappingURL=diff-summary-C5rxpkTr.js.map

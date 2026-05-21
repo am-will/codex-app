@@ -1,0 +1,2 @@
+var e=null,t=0,n=new Set;function r(e){return n.add(e),()=>{n.delete(e)}}function i(){return t>0}function a(){let e=!0;return t+=1,c(),()=>{e&&(e=!1,t=Math.max(0,t-1),c())}}function o(t){return e=t,()=>{e===t&&(e=null)}}function s(t){e?.(t)}function c(){for(let e of n)e()}export{r as a,o as i,a as n,s as r,i as t};
+//# sourceMappingURL=image-preview-shortcuts-KUvoZhoW.js.map

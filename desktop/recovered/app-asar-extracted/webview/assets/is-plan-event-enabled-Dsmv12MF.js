@@ -1,2 +1,0 @@
-function e(e,t){return typeof t?.enabled==`boolean`?t.enabled:e?.__default?.enabled??!0}export{e as t};
-//# sourceMappingURL=is-plan-event-enabled-Dsmv12MF.js.map

@@ -1,2 +1,0 @@
-import{s as e}from"./chunk-Bj-mKKzh.js";import{t}from"./react-BE0_fAZJ.js";import{t as n}from"./compiler-runtime-DaX1MIGd.js";var r=n(),i=e(t(),1),a=(0,i.createContext)(null);function o(e){let t=(0,r.c)(4),n=(0,i.useContext)(a),o,s;t[0]!==e||t[1]!==n?(o=()=>{if(n!=null)return n(e),()=>{n(null)}},s=[e,n],t[0]=e,t[1]=n,t[2]=o,t[3]=s):(o=t[2],s=t[3]),(0,i.useLayoutEffect)(o,s)}export{o as n,a as t};
-//# sourceMappingURL=use-hotkey-window-detail-layout-CVw2RVOE.js.map

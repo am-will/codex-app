@@ -1,2 +1,0 @@
-var e=``+new URL(`worker-BF8EmMYz.js`,import.meta.url).href;function t(){return new Worker(e,{type:`module`})}export{t as shikiWorkerFactoryVite};
-//# sourceMappingURL=shiki-worker-factory-vite-CteyybLv.js.map

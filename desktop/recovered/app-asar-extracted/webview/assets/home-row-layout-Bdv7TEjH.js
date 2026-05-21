@@ -1,0 +1,2 @@
+var e=`flex min-w-0 flex-1 items-center gap-1.5`,t=`icon-xs shrink-0`,n=`flex size-4 shrink-0 items-center justify-center`,r=`composer-footer__label--xs min-w-0 flex-1 truncate text-sm leading-[18px]`;export{r as i,t as n,n as r,e as t};
+//# sourceMappingURL=home-row-layout-Bdv7TEjH.js.map

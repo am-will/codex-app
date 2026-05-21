@@ -1,0 +1,2 @@
+import{gi as e}from"./src-DAzAmbVS.js";var t=e().url().refine(e=>e.startsWith(`https://`));function n(e,n){let r=t.safeParse(e.url);return r.success?r.data:n}export{n as t};
+//# sourceMappingURL=statsig-url-config-D9jm1nBX.js.map

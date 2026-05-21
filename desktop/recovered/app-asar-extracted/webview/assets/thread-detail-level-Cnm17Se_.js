@@ -1,2 +1,0 @@
-import{t as e}from"./compiler-runtime-DaX1MIGd.js";import{fr as t}from"./vscode-api-Cvzk5den.js";import{r as n}from"./use-configuration-Csj_9zbI.js";var r=e(),i=`STEPS_PROSE`,a=`STEPS_COMMANDS`;function o(e){return e===`STEPS_EXECUTION`?a:e??`STEPS_COMMANDS`}function s(){let e=(0,r.c)(2),{data:i}=n(t.CONVERSATION_DETAIL_MODE),a;return e[0]===i?a=e[1]:(a=o(i),e[0]=i,e[1]=a),a}export{s as i,i as n,o as r,a as t};
-//# sourceMappingURL=thread-detail-level-Cnm17Se_.js.map

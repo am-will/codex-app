@@ -1,2 +1,0 @@
-import{_ as e,p as t,y as n}from"./path-browserify-Chh2Zpai.js";var r=t({detail:n([e().transform(e=>({type:null,message:e})),t({type:e(),message:e()}),t({error_code:e().optional(),message:e(),type:e().optional()}).transform(({error_code:e,message:t,type:n})=>({type:n??e??null,message:t}))])});function i(e){try{let t=r.safeParse(JSON.parse(e.message));return t.success?t.data.detail:null}catch{return null}}export{i as t};
-//# sourceMappingURL=codex-api-error-4o9f-0pP.js.map

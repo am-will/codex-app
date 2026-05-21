@@ -1,0 +1,2 @@
+function e(e,t){let{navigator:n}=t?.target?.ownerDocument?.defaultView??window;return new Promise((t,r)=>{if(!n?.clipboard){r();return}try{if(typeof e!=`string`&&`write`in n.clipboard&&`supports`in ClipboardItem){let i=new ClipboardItem(Object.fromEntries(Object.entries(e).map(([e,t])=>[e,typeof t==`string`?new Blob([t],{type:e}):t])));n.clipboard.write([i]).then(()=>t(!0),()=>{r()})}else{let i=typeof e==`string`?e:e[`text/plain`]??``;n.clipboard.writeText(i).then(()=>t(!0),()=>{r()})}}catch{r()}})}export{e as t};
+//# sourceMappingURL=copy-to-clipboard-DUkEoARe.js.map

@@ -1,3 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./index.umd-Bhted2zO.js","./chunk-Bj-mKKzh.js"])))=>i.map(i=>d[i]);
-import{s as e}from"./chunk-Bj-mKKzh.js";import{t}from"./preload-helper-I1wKxk_B.js";import{i as n,n as r}from"./tslib.es6-CF-sRnr-.js";function i(i){return r(this,void 0,void 0,function(){var r;return n(this,function(n){switch(n.label){case 0:return[4,t(()=>import(`./index.umd-Bhted2zO.js`).then(t=>e(t.default)),__vite__mapDeps([0,1]),import.meta.url)];case 1:return r=n.sent(),i._plugins=r,[2]}})})}export{i as loadLegacyVideoPlugins};
-//# sourceMappingURL=legacy-video-plugins-Bt6bPm6w.js.map

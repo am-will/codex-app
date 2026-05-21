@@ -1,0 +1,2 @@
+import{S as e,X as t,_ as n,f as r,xt as i}from"./setting-storage-EK1Te68s.js";var a=r(e,`os-info`,{staleTime:n.INFINITE}),o=i();function s(){let e=(0,o.c)(3),n=t(a),r;return e[0]!==n.data||e[1]!==n.isLoading?(r={data:n.data,isLoading:n.isLoading},e[0]=n.data,e[1]=n.isLoading,e[2]=r):r=e[2],r}export{a as n,s as t};
+//# sourceMappingURL=use-os-info-DRsIehae.js.map

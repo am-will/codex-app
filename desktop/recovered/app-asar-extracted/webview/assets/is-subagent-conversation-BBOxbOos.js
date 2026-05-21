@@ -1,2 +1,0 @@
-import{fn as e}from"./app-server-manager-signals-DBUY-BE0.js";function t(t){return e(t?.source)?.parentThreadId!=null}function n(e,n){return!n&&t(e)}export{n,t};
-//# sourceMappingURL=is-subagent-conversation-BBOxbOos.js.map

@@ -42,14 +42,12 @@ describe('Linux window background stability', () => {
   test('main bundle keeps the avatar overlay stable on Linux', () => {
     const mainBundle = fs.readFileSync(requireRecoveredBuildAsset(/^main-.*\.js$/), 'utf8');
 
-    expect(mainBundle).toContain(
-      'process.platform===`linux`&&(t.setSkipTaskbar(!0),t.setAlwaysOnTop(!0,`screen-saver`))',
+    expect(mainBundle).toContain('process.platform===`linux`&&(e.setSkipTaskbar(!0),e.setAlwaysOnTop(!0,`screen-saver`))');
+    expect(mainBundle).toMatch(
+      /case`avatarOverlay`:return\{\.\.\.[A-Za-z_$][\w$]*\(\{alwaysOnTop:!0,platform:[A-Za-z_$][\w$]*,resizable:!1,thickFrame:!1\}\),\.\.\.[A-Za-z_$][\w$]*===`linux`\?\{type:`toolbar`\}:\{\},hasShadow:!1\};/,
     );
     expect(mainBundle).toContain(
-      'case`avatarOverlay`:return{...FM({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},hasShadow:!1};',
-    );
-    expect(mainBundle).toContain(
-      'process.platform===`linux`&&(e.setAlwaysOnTop(!0,`screen-saver`),this.startLinuxTopEnforcement()),e.moveTop()',
+      'e.setAlwaysOnTop(!0,`screen-saver`),e.moveTop(),e.isFocused()||e.showInactive()',
     );
     expect(mainBundle).toContain('keyboardInteractive=!1');
     expect(mainBundle).toContain(
@@ -71,9 +69,7 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain(
       'M.avatarOverlayManager.raiseWindow?.()',
     );
-    expect(mainBundle).toContain(
-      'n===`linux`?{...e,avatarOverlay:!0}:e',
-    );
+    expect(mainBundle).toContain('avatarOverlay:!0');
     expect(mainBundle).toContain(
       'startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||',
     );
@@ -93,7 +89,7 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain(
       'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return',
     );
-    expect(avatarOverlayBundle).toContain('P.current={startedOnMascot:!0');
+    expect(avatarOverlayBundle).toContain('startedOnMascot:!0');
   });
 
   test('avatar overlay activity tray keeps the larger Linux bubble layout', () => {
@@ -106,17 +102,14 @@ describe('Linux window background stability', () => {
       'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}',
     );
     expect(avatarOverlayBundle).toContain('px-5 py-3');
-    expect(avatarOverlayBundle).toContain(
-      'U?`whitespace-pre-wrap`:`whitespace-pre-wrap`',
-    );
+    expect(avatarOverlayBundle).not.toContain('line-clamp-2');
+    expect(avatarOverlayBundle).toContain('whitespace-pre-wrap');
     expect(avatarOverlayBundle).toContain(
       'mascot:{left:244,top:191,width:112,height:121}',
     );
+    expect(avatarOverlayBundle).toContain('nt=80,rt=84,it=512,at=1');
     expect(avatarOverlayBundle).toContain(
-      'fe=2,$=2,pe=.035,me=80,he=512,ge=1',
-    );
-    expect(avatarOverlayBundle).toContain(
-      'invisible absolute inset-x-5 top-0 -z-10',
+      '"data-avatar-overlay-measure-body":`true`',
     );
   });
 

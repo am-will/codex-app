@@ -1,0 +1,2 @@
+import{Ca as e,v as t}from"./app-server-manager-signals-Csopz8aM.js";import{X as n}from"./setting-storage-EK1Te68s.js";function r(){return e(n(t)).kind!==`local`}export{r as t};
+//# sourceMappingURL=use-is-remote-host-CaeHryrK.js.map

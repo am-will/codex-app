@@ -1,0 +1,2 @@
+function e(e){let t=e.toLowerCase(),n=Math.max(t.lastIndexOf(`/`),t.lastIndexOf(`\\`)),r=n>=0?t.slice(n+1):t,i=r.lastIndexOf(`.`);return i>0&&r.slice(i+1)===`pdb`}export{e as t};
+//# sourceMappingURL=file-kind-B2uMThlj.js.map

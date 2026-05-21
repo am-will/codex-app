@@ -1,2 +1,0 @@
-function e(e){return e?.approvalPolicy==null||e.approvalsReviewer==null||e.sandboxPolicy==null?null:{approvalPolicy:e.approvalPolicy,approvalsReviewer:e.approvalsReviewer,sandboxPolicy:e.sandboxPolicy}}export{e as t};
-//# sourceMappingURL=heartbeat-automation-permissions-CMWBfpbP.js.map

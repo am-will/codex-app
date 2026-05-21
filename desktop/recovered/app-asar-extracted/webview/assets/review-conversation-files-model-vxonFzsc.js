@@ -1,2 +1,0 @@
-import{qr as e}from"./vscode-api-Cvzk5den.js";import{t}from"./route-scope-DWZpvLod.js";import{a as n}from"./artifacts-Bcx1U0Rd.js";var r=e(t,[]);function i(e,t){e.set(r,t)}function a(e){return s(e,`editedFilePaths`)}function o(e){return s(e,`referencedFilePaths`)}function s(e,t){let r=[],i=new Set;for(let a of e)for(let e of n(a)[t])i.has(e)||(i.add(e),r.push(e));return r}export{o as n,i as r,a as t};
-//# sourceMappingURL=review-conversation-files-model-vxonFzsc.js.map

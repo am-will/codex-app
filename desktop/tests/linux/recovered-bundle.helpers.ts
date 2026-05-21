@@ -80,11 +80,26 @@ export function findRecoveredAsset(prefix: string, extension = '.js'): string {
   return matches[0];
 }
 
+export function findOptionalRecoveredAsset(prefix: string, extension = '.js'): string | null {
+  const matches = fs
+    .readdirSync(recoveredWebviewAssetsRoot)
+    .filter((entry) => entry.startsWith(prefix) && entry.endsWith(extension))
+    .sort();
+
+  return matches[0] ?? null;
+}
+
 export function readRecoveredAsset(prefix: string, extension = '.js'): string {
   return fs.readFileSync(
     path.join(recoveredWebviewAssetsRoot, findRecoveredAsset(prefix, extension)),
     'utf8',
   );
+}
+
+export function readOptionalRecoveredAsset(prefix: string, extension = '.js'): string | null {
+  const asset = findOptionalRecoveredAsset(prefix, extension);
+
+  return asset == null ? null : fs.readFileSync(path.join(recoveredWebviewAssetsRoot, asset), 'utf8');
 }
 
 export function readRecoveredRendererEntry(): string {

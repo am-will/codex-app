@@ -1,0 +1,2 @@
+function e(e){let t=5381;for(let n=0;n<e.length;n+=1)t=(t*33+e.charCodeAt(n))%4294967296;return t.toString(36)}function t(e){let t=14695981039346656037n;for(let n of e)t^=BigInt(n.codePointAt(0)??0),t=BigInt.asUintN(64,t*1099511628211n);return t.toString(16).padStart(16,`0`).slice(0,16)}export{t as n,e as t};
+//# sourceMappingURL=hash-code-B86OmoeT.js.map

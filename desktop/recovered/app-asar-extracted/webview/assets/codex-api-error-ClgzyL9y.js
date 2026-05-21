@@ -1,0 +1,2 @@
+import{_i as e,di as t,gi as n}from"./src-DAzAmbVS.js";var r=t({detail:e([n().transform(e=>({type:null,message:e})),t({type:n(),message:n()}),t({error_code:n().optional(),message:n(),type:n().optional()}).transform(({error_code:e,message:t,type:n})=>({type:n??e??null,message:t}))])});function i(e){try{let t=r.safeParse(JSON.parse(e.message));return t.success?t.data.detail:null}catch{return null}}export{i as t};
+//# sourceMappingURL=codex-api-error-ClgzyL9y.js.map

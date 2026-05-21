@@ -1,0 +1,2 @@
+import{ir as e}from"./src-DAzAmbVS.js";import{o as t}from"./statsig-CpJRDK88.js";import{t as n}from"./use-global-state-DjfvqpEA.js";function r(){let r=t(`2380644311`),{data:i}=n(e.REALTIME_VOICE_MODE_DEBUG_DISABLED);return r&&i!==!0}export{r as t};
+//# sourceMappingURL=use-is-thread-realtime-enabled-CIkhHWOc.js.map

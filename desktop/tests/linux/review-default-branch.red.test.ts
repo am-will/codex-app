@@ -33,20 +33,21 @@ describe('Review base branch regression gate (RED)', () => {
     const workerSource = readRecoveredWorkerBundle();
 
     expect(workerSource).toContain('async handleDefaultBranch');
+    expect(workerSource).toContain('getWorktreeRepositoryByRoot(e.root,t)');
+    expect(workerSource).toContain('getDefaultRemoteAndBranch())?.branch??null');
     expect(workerSource).toMatch(
-      /let r=\(await [A-Za-z$_][\w$]*\(\s*e\.root,t,n\s*\)\)\?\.branch\?\?null/,
-    );
-    expect(workerSource).toMatch(
-      /return r\|\|=\(await [A-Za-z$_][\w$]*\(\s*e\.root,10,t,n\s*\)\)\.find\(e=>e===`main`\|\|e===`master`\)\?\?null,X\(\{branch:r\}\)/,
+      /\.find\([A-Za-z_$][\w$]*=>[A-Za-z_$][\w$]*===`main`\|\|[A-Za-z_$][\w$]*===`master`\)\?\?null,[A-Za-z_$][\w$]*\(\{branch:[A-Za-z_$][\w$]*\}\)/,
     );
   });
 
   test('renderer branch defaults still fall back to main and seed branch starting state', () => {
     const rendererSource = readRecoveredAsset('composer-');
+    const composerStateSource = readRecoveredAsset('composer-view-state-');
 
-    expect(rendererSource).toContain('default_branch??`main`');
+    expect(rendererSource).toContain('default_branch');
+    expect(composerStateSource).toContain('default_branch??`main`');
     expect(rendererSource).toContain('asyncThreadStartingState');
     expect(rendererSource).toContain('`working-tree`');
-    expect(rendererSource).toContain('`recent-branches`');
+    expect(rendererSource).toContain('use-git-recent-branches-');
   });
 });

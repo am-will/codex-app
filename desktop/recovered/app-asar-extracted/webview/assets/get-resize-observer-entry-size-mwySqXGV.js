@@ -1,0 +1,2 @@
+function e(e){if(e.borderBoxSize){let t=Array.isArray(e.borderBoxSize)?e.borderBoxSize[0]:e.borderBoxSize;return{width:t.inlineSize,height:t.blockSize}}return{width:e.contentRect.width,height:e.contentRect.height}}export{e as t};
+//# sourceMappingURL=get-resize-observer-entry-size-mwySqXGV.js.map

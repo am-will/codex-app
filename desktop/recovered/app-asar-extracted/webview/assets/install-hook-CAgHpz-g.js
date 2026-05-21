@@ -1,0 +1,1 @@
+import{v as e}from"./dist-DKw7CFJp.js";export{e as init};

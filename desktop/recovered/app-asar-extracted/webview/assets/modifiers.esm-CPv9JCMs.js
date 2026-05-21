@@ -1,0 +1,2 @@
+var e=e=>{let{transform:t}=e;return{...t,y:0}};function t(e,t,n){let r={...e};return t.top+e.y<=n.top?r.y=n.top-t.top:t.bottom+e.y>=n.top+n.height&&(r.y=n.top+n.height-t.bottom),t.left+e.x<=n.left?r.x=n.left-t.left:t.right+e.x>=n.left+n.width&&(r.x=n.left+n.width-t.right),r}var n=e=>{let{draggingNodeRect:n,transform:r,scrollableAncestorRects:i}=e,a=i[0];return!n||!a?r:t(r,n,a)},r=e=>{let{transform:t}=e;return{...t,x:0}};export{e as n,r,n as t};
+//# sourceMappingURL=modifiers.esm-CPv9JCMs.js.map

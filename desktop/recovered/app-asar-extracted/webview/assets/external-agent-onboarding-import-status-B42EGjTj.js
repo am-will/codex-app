@@ -1,2 +1,0 @@
-import{_ as e,qr as t}from"./vscode-api-Cvzk5den.js";var n=t(e,{status:`idle`});function r(e,t){e.set(n,{status:`importing`,startedAtMs:Date.now()});let r;try{r=Promise.resolve(t())}catch{e.set(n,{status:`error`,completedAtMs:Date.now()});return}r.then(()=>{e.set(n,{status:`success`,completedAtMs:Date.now()})},()=>{e.set(n,{status:`error`,completedAtMs:Date.now()})})}export{r as n,n as t};
-//# sourceMappingURL=external-agent-onboarding-import-status-B42EGjTj.js.map

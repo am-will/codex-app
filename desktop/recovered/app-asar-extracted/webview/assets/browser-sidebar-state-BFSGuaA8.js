@@ -1,0 +1,2 @@
+import{Mt as e,Ti as t}from"./app-server-manager-signals-Csopz8aM.js";import{y as n}from"./setting-storage-EK1Te68s.js";var r={BROWSE:`browse`,COMMENT:`comment`},i=e(`browser-sidebar-bottom-reserve-collapsed-v1`,!1);function a({browserConversationId:e,fallbackBrowserConversationId:r,comments:i,onCommentsChange:a}){let o=e??r;return o==null||!i.some(t)?!1:(a([]),n.dispatchMessage(`browser-sidebar-command`,{conversationId:o,command:{type:`clear-comments`}}),!0)}export{i as n,a as r,r as t};
+//# sourceMappingURL=browser-sidebar-state-BFSGuaA8.js.map

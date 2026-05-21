@@ -1,0 +1,2 @@
+var e=`codex-check-git-index-for-changes`;function t(){let t=new CustomEvent(e);window.dispatchEvent(t)}function n(t){let n=()=>{t()};return window.addEventListener(e,n),()=>{window.removeEventListener(e,n)}}export{t as n,n as t};
+//# sourceMappingURL=check-git-index-for-changes-Cr4dfcAI.js.map
