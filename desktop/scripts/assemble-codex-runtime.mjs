@@ -1024,6 +1024,10 @@ const rendererDesktopGoalsFeaturePatchAlternatives = [
       'computerUse:c.available,computerUseNodeRepl:c.available&&l,control:u,goals:!0,multiWindow:d})',
   },
 ];
+export const fastModeModelServiceTiersPatchTarget =
+  'return e.serviceTiers.length>0||e.additionalSpeedTiers?.includes(u)===!0';
+export const fastModeModelServiceTiersPatchReplacement =
+  'return(e.serviceTiers?.length??0)>0||e.additionalSpeedTiers?.includes(u)===!0';
 const composerGoalsSlashCommandPatchMarker = 'id:`goals`,title:`Goals`';
 const composerGoalsSlashCommandPatchAlternatives = [
   {
@@ -2052,6 +2056,55 @@ function patchCodexModelSettingsBundle(extractedAppRoot) {
   );
 }
 
+export function patchFastModeServiceTiersGuard(filePath) {
+  assertExists(filePath, 'Patched extracted asset');
+
+  const source = fs.readFileSync(filePath, 'utf8');
+  if (source.includes(fastModeModelServiceTiersPatchTarget)) {
+    fs.writeFileSync(
+      filePath,
+      source
+        .split(fastModeModelServiceTiersPatchTarget)
+        .join(fastModeModelServiceTiersPatchReplacement),
+      'utf8',
+    );
+    return [
+      {
+        label: 'fast mode missing service tiers guard',
+        patched: true,
+        skipped: false,
+        reason: null,
+      },
+    ];
+  }
+
+  if (source.includes(fastModeModelServiceTiersPatchReplacement)) {
+    return [
+      {
+        label: 'fast mode missing service tiers guard',
+        patched: false,
+        skipped: true,
+        reason: 'fast mode missing service tiers guard replacement already present',
+      },
+    ];
+  }
+
+  throw buildMissingPatchTargetError('fast mode missing service tiers guard', filePath);
+}
+
+function patchCodexFastModeBundle(extractedAppRoot) {
+  const fastModePath = findOptionalExtractedWebviewAsset(
+    extractedAppRoot,
+    'use-is-fast-mode-enabled-',
+  );
+
+  if (fastModePath == null) {
+    return summarizePatchResults([]);
+  }
+
+  return summarizePatchResults(patchFastModeServiceTiersGuard(fastModePath));
+}
+
 function patchCodexAppServerHooks(extractedAppRoot) {
   const appServerHooksPath = findExtractedWebviewAsset(extractedAppRoot, 'app-server-manager-hooks-');
   return summarizePatchResults(
@@ -2121,6 +2174,7 @@ export function patchExtractedCodexApp(extractedAppRoot) {
     avatarOverlayRenderer: patchCodexAvatarOverlayRenderer(extractedAppRoot),
     authWebview: patchCodexAuthWebviewBundles(extractedAppRoot),
     modelSettings: patchCodexModelSettingsBundle(extractedAppRoot),
+    fastMode: patchCodexFastModeBundle(extractedAppRoot),
   };
 }
 

@@ -140,6 +140,7 @@ describe('Recovered Codex bundle RED contract', () => {
       const loginRouteBundle = readOutputAsset('login-route-');
       const composerBundle = readOutputAsset('composer-');
       const appShellBundle = readOutputAsset('app-shell-');
+      const fastModeBundle = readOutputAsset('use-is-fast-mode-enabled-');
       const pluginsPageBundle = fs.readFileSync(
         path.join(
           outputAssetsRoot,
@@ -195,7 +196,13 @@ describe('Recovered Codex bundle RED contract', () => {
       );
       expect(loginRouteBundle).toContain('useExternalBrowser:!0');
       expect(composerBundle).toContain('threadGoalObjective');
+      expect(fastModeBundle).toContain('serviceTiers?.length??0');
       expect(summary.patchSummary.modelSettings.results).toEqual([]);
+      expect(summary.patchSummary.fastMode.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ label: 'fast mode missing service tiers guard' }),
+        ]),
+      );
       expect(pluginsPageBundle).toContain('plugins');
       if (pluginInstallFlowBundle != null) {
         expect(pluginInstallFlowBundle).toContain('open-in-browser');
@@ -344,6 +351,7 @@ describe('Recovered Codex bundle RED contract', () => {
           pluginsPage?: { results: Array<{ label: string }> };
           pluginsCards?: { results: Array<{ label: string }> };
         };
+        fastMode?: { results: Array<{ label: string }> };
       };
     };
 
@@ -377,6 +385,11 @@ describe('Recovered Codex bundle RED contract', () => {
           label: 'plugin install direct install url requests native external browser',
         }),
         expect.objectContaining({ label: 'plugin install browser fallback opens install url' }),
+      ]),
+    );
+    expect(manifest.patchSummary?.fastMode?.results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ label: 'fast mode missing service tiers guard' }),
       ]),
     );
   });
@@ -414,6 +427,32 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(appMainBundle).toContain('tool_suggest');
     expect(composerBundle).toContain('threadGoalObjective');
     expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
+  });
+
+  test('fast mode eligibility tolerates older model schemas without service tiers', () => {
+    const fastModeBundle = readRecoveredAsset('use-is-fast-mode-enabled-');
+    const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
+    const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
+      patchSummary?: {
+        fastMode?: { results: Array<{ label: string }> };
+      };
+    };
+
+    expect(fastModeBundle).toContain('serviceTiers?.length??0');
+    expect(fastModeBundle).not.toContain('serviceTiers.length>0');
+    expect(fastModeBundle).not.toMatch(/model\.serviceTiers\.(length|some|map|includes)/);
+    expect(fastModeBundle).not.toMatch(/serviceTiers\.(length|some|map|includes)/);
+    expect(assembleScript).toContain('fast mode missing service tiers guard');
+    expect(assembleScript).toContain('serviceTiers?.length??0');
+    expect(assembleScript).not.toContain('model.serviceTiers.length');
+    expect(assembleScript).not.toContain('model.serviceTiers.some');
+    expect(assembleScript).not.toContain('model.serviceTiers.map');
+    expect(assembleScript).not.toContain('model.serviceTiers.includes');
+    expect(manifest.patchSummary?.fastMode?.results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ label: 'fast mode missing service tiers guard' }),
+      ]),
+    );
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {

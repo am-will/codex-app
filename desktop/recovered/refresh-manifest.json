@@ -335,6 +335,17 @@
     "modelSettings": {
       "patched": false,
       "results": []
+    },
+    "fastMode": {
+      "patched": true,
+      "results": [
+        {
+          "label": "fast mode missing service tiers guard",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
     }
   },
   "nativeModuleSummary": {
