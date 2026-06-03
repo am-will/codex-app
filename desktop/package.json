@@ -8,6 +8,7 @@
   "author": "OpenAI",
   "codexBuildFlavor": "prod",
   "codexBuildNumber": "3511",
+  "codexCliVersion": "0.136.0",
   "scripts": {
     "rebuild:natives": "electron-rebuild -f -w better-sqlite3,node-pty",
     "start": "npm run rebuild:natives && electron-forge start",

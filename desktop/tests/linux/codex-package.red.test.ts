@@ -166,7 +166,11 @@ describe('Codex package staging RED contract', () => {
 
     expect(workflowSource).not.toContain('lfs: true');
     expect(workflowSource).toContain('Hydrate Linux codex helpers');
-    expect(workflowSource).toContain('@openai/codex@0.128.0');
+    expect(workflowSource).toContain(
+      'CODEX_CLI_VERSION="$(node -p "require(\'./desktop/package.json\').codexCliVersion")"',
+    );
+    expect(workflowSource).toContain('"@openai/codex@${CODEX_CLI_VERSION}"');
+    expect(workflowSource).not.toMatch(/@openai\/codex@0\.\d+\.\d+/);
     expect(workflowSource).toContain('Verify Linux codex helpers');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
@@ -174,7 +178,9 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg --version');
     expect(workflowSource).toContain('build-linux-arm64-deb');
     expect(workflowSource).toContain('runs-on: ubuntu-22.04-arm');
-    expect(workflowSource).toContain('--os=linux --cpu=arm64 @openai/codex@0.128.0');
+    expect(workflowSource).toContain(
+      '--os=linux --cpu=arm64 "@openai/codex@${CODEX_CLI_VERSION}"',
+    );
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/codex');
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/git');
