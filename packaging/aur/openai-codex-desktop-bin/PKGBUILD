@@ -44,7 +44,7 @@ provides=('codex-desktop')
 conflicts=('codex-desktop')
 options=('!strip')
 source=("codex-app-linux-x64-v${pkgver}.deb::${url}/releases/download/v${pkgver}/codex-app-linux-x64-v${pkgver}.deb")
-sha256sums=('SKIP')
+sha256sums=('519024dc97262b81eafaa256cc55e7e1e11ba8925510b7f0962180a2f222531c')
 
 package() {
   local data_tar
