@@ -1,0 +1,2 @@
+import{r as e}from"./lib-MoKmYgcO.js";var t=e({servers:{id:`settings.mcp.myServers`,defaultMessage:`Servers`,description:`Heading for the user's MCP servers list`}}),n={mcpServers:`settings-search-mcp-servers`},r=[{label:t.servers,sectionSlug:`mcp-settings`,targetId:n.mcpServers}];export{n,t as r,r as t};
+//# sourceMappingURL=mcp-settings.search-BopWZeCE.js.map

@@ -1,0 +1,2 @@
+import{R as e,h as t}from"./vscode-api-sUstfl-x.js";import{i as n}from"./git-current-branch-query-VkU7ix9i.js";var r=n({method:`submodule-paths`,getParams:e=>({operationSource:e.operationSource,root:e.root}),getOptions:e=>({refetchOnWindowFocus:e.refetchOnWindowFocus,select:e=>e.paths,staleTime:e.staleTime})}).fromCwd$,i=e(t,(e,{get:t})=>t(r,e).data??null);export{i as n,r as t};
+//# sourceMappingURL=git-submodule-paths-query-Dnl21TBm.js.map

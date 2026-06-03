@@ -1,0 +1,30 @@
+diff --git a/node_modules/better-sqlite3/src/better_sqlite3.cpp b/node_modules/better-sqlite3/src/better_sqlite3.cpp
+index 5b223dd..dce3024 100644
+--- a/node_modules/better-sqlite3/src/better_sqlite3.cpp
++++ b/node_modules/better-sqlite3/src/better_sqlite3.cpp
+@@ -60 +60 @@ NODE_MODULE_INIT(/* exports, context */) {
+-	v8::Local<v8::External> data = v8::External::New(isolate, addon);
++	v8::Local<v8::External> data = BETTER_SQLITE3_EXTERNAL_NEW(isolate, addon);
+diff --git a/node_modules/better-sqlite3/src/util/helpers.cpp b/node_modules/better-sqlite3/src/util/helpers.cpp
+index 6f72a93..f7d190d 100644
+--- a/node_modules/better-sqlite3/src/util/helpers.cpp
++++ b/node_modules/better-sqlite3/src/util/helpers.cpp
+@@ -92 +92 @@ void SetPrototypeGetter(
+-		0,
++		nullptr,
+diff --git a/node_modules/better-sqlite3/src/util/macros.cpp b/node_modules/better-sqlite3/src/util/macros.cpp
+index fe215e0..f57b178 100644
+--- a/node_modules/better-sqlite3/src/util/macros.cpp
++++ b/node_modules/better-sqlite3/src/util/macros.cpp
+@@ -27,0 +28,8 @@
++#if defined(V8_ENABLE_SANDBOX) || (defined(V8_MAJOR_VERSION) && V8_MAJOR_VERSION >= 14)
++#define BETTER_SQLITE3_EXTERNAL_NEW(isolate, value) v8::External::New((isolate), (value), v8::kExternalPointerTypeTagDefault)
++#define BETTER_SQLITE3_EXTERNAL_VALUE(external) (external)->Value(v8::kExternalPointerTypeTagDefault)
++#else
++#define BETTER_SQLITE3_EXTERNAL_NEW(isolate, value) v8::External::New((isolate), (value))
++#define BETTER_SQLITE3_EXTERNAL_VALUE(external) (external)->Value()
++#endif
++
+@@ -34 +42 @@
+-#define OnlyAddon static_cast<Addon*>(info.Data().As<v8::External>()->Value())
++#define OnlyAddon static_cast<Addon*>(BETTER_SQLITE3_EXTERNAL_VALUE(info.Data().As<v8::External>()))

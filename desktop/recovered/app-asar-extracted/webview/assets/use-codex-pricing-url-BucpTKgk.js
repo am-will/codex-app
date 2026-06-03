@@ -1,0 +1,2 @@
+import{lt as e}from"./vscode-api-sUstfl-x.js";import{c as t,i as n}from"./statsig-Cajk3UKk.js";import{a as r,r as i}from"./links-DlYWpuc5.js";var a=e(),o=`show_logged_in_pricing_page`;function s(e){let s=(0,a.c)(3),{logExposure:c}=e,l=t(),u;return s[0]!==c||s[1]!==l?(u=()=>n(l,`337040058`,{disableExposureLog:!c}).get(o,!1)?r:i,s[0]=c,s[1]=l,s[2]=u):u=s[2],u}export{s as t};
+//# sourceMappingURL=use-codex-pricing-url-BucpTKgk.js.map

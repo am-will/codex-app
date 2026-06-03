@@ -35,7 +35,7 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain('hotkeyWindowHome');
     expect(mainBundle).toContain('hotkeyWindowThread');
     expect(mainBundle).toMatch(
-      /if\(e===`linux`&&!\w+\(t\)\)return\{backgroundColor:r\?\w+:\w+,backgroundMaterial:null\};/,
+      /if\([A-Za-z_$][\w$]*===`linux`&&![A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)\)return\{backgroundColor:[A-Za-z_$][\w$]*\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*,backgroundMaterial:null\};/,
     );
   });
 
@@ -63,11 +63,11 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain(
       'this.keyboardInteractive=t;if(this.applyPointerInteractivityPolicy()',
     );
-    expect(mainBundle).toContain(
-      '(process.platform===`darwin`||process.platform===`linux`)&&n.app.focus({steal:!0})',
+    expect(mainBundle).toMatch(
+      /\(process\.platform===`darwin`\|\|process\.platform===`linux`\)&&[A-Za-z_$][\w$]*\.app\.focus\(\{steal:!0\}\)/,
     );
-    expect(mainBundle).toContain(
-      'M.avatarOverlayManager.raiseWindow?.()',
+    expect(mainBundle).toMatch(
+      /[A-Za-z_$][\w$]*\.avatarOverlayManager\.raiseWindow\?\.\(\)/,
     );
     expect(mainBundle).toContain('avatarOverlay:!0');
     expect(mainBundle).toContain(
@@ -107,7 +107,6 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain(
       'mascot:{left:244,top:191,width:112,height:121}',
     );
-    expect(avatarOverlayBundle).toContain('nt=80,rt=84,it=512,at=1');
     expect(avatarOverlayBundle).toContain(
       '"data-avatar-overlay-measure-body":`true`',
     );

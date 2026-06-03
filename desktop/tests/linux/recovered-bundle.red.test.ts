@@ -41,7 +41,7 @@ describe('Recovered Codex bundle RED contract', () => {
     desktopRoot,
     'tmp',
     'codex-upstream',
-    '26.519.22136',
+    '26.601.21317',
     'extracted',
     'Codex.app',
     'Contents',
@@ -165,8 +165,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.519.22136');
-      expect(summary.buildNumber).toBe('3003');
+      expect(summary.version).toBe('26.601.21317');
+      expect(summary.buildNumber).toBe('3511');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -178,7 +178,7 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).toMatch(
-        /\(n===`win32`\|\|n===`linux`\)\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\(\)\}/,
+        /\(n===`win32`\|\|n===`linux`\)\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([^)]*\)\}/,
       );
       expect(mainBundle).toContain(
         'process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`',
@@ -191,7 +191,7 @@ describe('Recovered Codex bundle RED contract', () => {
       );
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
       expect(mainBundle).toMatch(
-        /\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
+        /\.filter\(e=>\{try\{return!!e&&[a-z]\.existsSync\(e\)\}catch\{return!1\}\}\)/,
       );
       expect(loginRouteBundle).toContain('useExternalBrowser:!0');
       expect(composerBundle).toContain('threadGoalObjective');
@@ -305,9 +305,9 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.519.22136');
-    expect(packageJson.codexBuildNumber).toBe('3003');
-    expect(packageJson.devDependencies?.electron).toBe('41.2.0');
+    expect(packageJson.version).toBe('26.601.21317');
+    expect(packageJson.codexBuildNumber).toBe('3511');
+    expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
     expect(packageJson.dependencies?.['node-pty']).toBeDefined();
@@ -352,8 +352,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.519.22136');
-    expect(manifest.buildNumber).toBe('3003');
+    expect(manifest.version).toBe('26.601.21317');
+    expect(manifest.buildNumber).toBe('3511');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual(
         expect.arrayContaining([
@@ -534,19 +534,21 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches = mainSource.match(/platforms:\{linux:\{/g) ?? [];
+    const linuxTargetMatches = mainSource.match(/linux:\{/g) ?? [];
 
     expect(mainSource).toContain('useExternalBrowser===!0');
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
     expect(mainSource).toContain('function linuxResolveEditorTarget(');
-    expect(mainSource).toContain('id:`cursor`,platforms:{linux:{label:`Cursor`');
-    expect(mainSource).toContain('id:`fileManager`,platforms:{linux:{label:`File Manager`');
+    expect(mainSource).toContain('linuxCursor=GD({id:`cursor`,label:`Cursor`');
+    expect(mainSource).toContain('linux:{detect:()=>linuxResolveEditorTarget([`cursor`]');
+    expect(mainSource).toContain('linuxFileManager=GD({id:`fileManager`,label:`File Manager`');
+    expect(mainSource).toContain('linux:{detect:linuxFileManagerDetect');
     expect(mainSource).toMatch(
       /linuxFileManagerDetect\(\)\{return [A-Za-z$_]+\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)\}/,
     );
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
-      /[a-z]=\([a-z]&&[a-z]\.length>0\?[a-z]:[a-z]\.filter\(e=>e!==`~`\)\.map\(t=>e\.[A-Za-z$_]+\([a-z]\)\)\)\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
+      /[a-z]=\([a-z]&&[a-z]\.length>0\?[a-z]:[a-z]\.filter\(e=>e!==`~`\)\.map\(e=>t\.[A-Za-z$_]+\([a-z]\)\)\)\.filter\(e=>\{try\{return!!e&&[a-z]\.existsSync\(e\)\}catch\{return!1\}\}\)/,
     );
   });
 

@@ -1,0 +1,2 @@
+function e({hasOpenPr:e,isDraft:t,url:n}){return e?t?`draft`:`open`:n==null?null:`merged`}function t({canMerge:e,ciStatus:t,status:n}){return n===`merged`?`merged`:n===`draft`?`draft`:t===`failing`?`failing`:t===`passing`&&!e?`successful`:e?`ready`:`in_progress`}export{t as n,e as t};
+//# sourceMappingURL=pull-request-visual-state-BQrdCPCw.js.map

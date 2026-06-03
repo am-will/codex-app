@@ -1,0 +1,2 @@
+import{g as e,n as t}from"./vscode-api-sUstfl-x.js";async function n(e,n,r){await t(`set-thread-pinned`,{params:r===void 0?{threadId:e,pinned:n}:{threadId:e,pinned:n,beforeThreadId:r}})}async function r(n){try{await t(`set-pinned-threads-order`,{params:{threadIds:n}})}catch(t){e.error(`Failed to set pinned thread order`,{safe:{},sensitive:{error:t}})}}export{n,r as t};
+//# sourceMappingURL=set-pinned-thread-UwfYLy27.js.map

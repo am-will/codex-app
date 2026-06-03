@@ -1,0 +1,2 @@
+import{H as e,h as t}from"./vscode-api-sUstfl-x.js";import{n}from"./rpc-y95ESgjb.js";var r=[`hotkey-window-hotkey-state`],i=e(t,()=>({queryKey:r,queryFn:async()=>{let e=n.hotkeyWindowHotkeys;return e==null?{supported:!1,configuredHotkey:null,isGateEnabled:!1,isDevMode:!1,isDevOverrideEnabled:!1,isActive:!1}:e.getState()}}));export{i as n,r as t};
+//# sourceMappingURL=hotkey-window-state-D7VneH_9.js.map
