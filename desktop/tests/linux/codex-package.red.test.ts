@@ -172,6 +172,8 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('"@openai/codex@${CODEX_CLI_VERSION}"');
     expect(workflowSource).not.toMatch(/@openai\/codex@0\.\d+\.\d+/);
     expect(workflowSource).toContain('Verify Linux codex helpers');
+    expect(workflowSource).toContain("*/vendor/*/bin/codex");
+    expect(workflowSource).toContain("*/vendor/*/codex-path/rg");
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex --version');
