@@ -117,38 +117,7 @@ describe('Recovered Codex bundle RED contract', () => {
         ),
         'utf8',
       );
-      const readOutputBuildContaining = (needle: string) => {
-        const buildRoot = path.join(outputRoot, '.vite', 'build');
-        const match = fs.readdirSync(buildRoot).find((entry) => {
-          if (!entry.endsWith('.js')) {
-            return false;
-          }
-
-          return fs.readFileSync(path.join(buildRoot, entry), 'utf8').includes(needle);
-        });
-
-        if (match == null) {
-          throw new Error(`Missing output build bundle containing "${needle}".`);
-        }
-
-        return fs.readFileSync(path.join(buildRoot, match), 'utf8');
-      };
       const outputAssetsRoot = path.join(outputRoot, 'webview', 'assets');
-      const readOutputAssetContaining = (needle: string) => {
-        const match = fs.readdirSync(outputAssetsRoot).find((entry) => {
-          if (!entry.endsWith('.js')) {
-            return false;
-          }
-
-          return fs.readFileSync(path.join(outputAssetsRoot, entry), 'utf8').includes(needle);
-        });
-
-        if (match == null) {
-          throw new Error(`Missing output webview asset containing "${needle}".`);
-        }
-
-        return fs.readFileSync(path.join(outputAssetsRoot, match), 'utf8');
-      };
       const rendererEntry = fs.readFileSync(
         path.join(
           outputAssetsRoot,
@@ -171,10 +140,6 @@ describe('Recovered Codex bundle RED contract', () => {
       const loginRouteBundle = readOutputAsset('login-route-');
       const composerBundle = readOutputAsset('composer-');
       const appShellBundle = readOutputAsset('app-shell-');
-      const ambientSuggestionsBundle = readOutputBuildContaining('ambient_suggestions');
-      const turnDiffAnalyticsBundle = readOutputAssetContaining('turn_diff_analytics');
-      const reviewNavigationBundle = readOutputAsset('review-navigation-model-');
-      const windowControlsSafeAreaBundle = readOutputAsset('use-window-controls-safe-area-');
       const pluginsPageBundle = fs.readFileSync(
         path.join(
           outputAssetsRoot,
@@ -236,26 +201,6 @@ describe('Recovered Codex bundle RED contract', () => {
         expect(pluginInstallFlowBundle).toContain('open-in-browser');
       }
       expect(appShellBundle).toContain('app-shell-shortcut-state-changed');
-      expect(appShellBundle).toContain(
-        'paddingInlineEnd:`max(var(--spacing-token-safe-header-right),176px)`',
-      );
-      expect(appShellBundle).toContain(
-        'style:{width:r,minWidth:Jt`${t}px`,...s}',
-      );
-      expect(ambientSuggestionsBundle).toContain('if(process.platform===`linux`)return u');
-      expect(ambientSuggestionsBundle).toContain('if(process.platform===`linux`)return null');
-      expect(mainBundle).toContain('inAppBrowserUse:o.inAppBrowserUse');
-      expect(mainBundle).toContain('CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse');
-      expect(mainBundle).toContain('node-repl-symlink-to-node');
-      expect(turnDiffAnalyticsBundle).toContain(
-        'globalThis.navigator?.platform?.toLowerCase().startsWith(`linux`)',
-      );
-      expect(reviewNavigationBundle).toContain(
-        'enabled:!(globalThis.process?.platform===`linux`',
-      );
-      expect(windowControlsSafeAreaBundle).toContain(
-        'windows:Object.freeze({left:0,right:h}),linux:Object.freeze({left:0,right:h})',
-      );
       expect(pluginsCardsBundle ?? pluginsPageBundle).toContain('plugins');
       expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([
         expect.objectContaining({
@@ -277,24 +222,6 @@ describe('Recovered Codex bundle RED contract', () => {
           }),
           expect.objectContaining({ label: 'linux primary window uses custom title bar' }),
           expect.objectContaining({ label: 'linux open-in target registry' }),
-        ]),
-      );
-      expect(summary.patchSummary.backgroundGitWork.turnDiffAnalytics.results).toEqual([
-        expect.objectContaining({
-          label: 'linux skips turn diff analytics git capture',
-          patched: true,
-        }),
-      ]);
-      expect(summary.patchSummary.backgroundGitWork.reviewNavigation.results).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            label: 'linux skips review summary background git query',
-            patched: true,
-          }),
-          expect.objectContaining({
-            label: 'linux skips branch diff stats background git query',
-            patched: true,
-          }),
         ]),
       );
     },
@@ -451,55 +378,6 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(appMainBundle).toContain('tool_suggest');
     expect(composerBundle).toContain('threadGoalObjective');
     expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
-  });
-
-  test('renderer reserves header space for Linux window controls', () => {
-    const appShellBundle = readRecoveredAsset('app-shell-');
-    const safeAreaBundle = readRecoveredAsset('use-window-controls-safe-area-');
-
-    expect(appShellBundle).toContain(
-      'paddingInlineEnd:`max(var(--spacing-token-safe-header-right),176px)`',
-    );
-    expect(appShellBundle).toContain('style:{width:r,minWidth:Jt`${t}px`,...s}');
-    expect(safeAreaBundle).toContain('h=176');
-    expect(safeAreaBundle).toContain(
-      'windows:Object.freeze({left:0,right:h}),linux:Object.freeze({left:0,right:h})',
-    );
-  });
-
-  test('desktop skips background model and git work on Linux', () => {
-    const ambientSuggestionsBundleName = fs
-      .readdirSync(recoveredBuildRoot)
-      .find((entry) => {
-        if (!entry.endsWith('.js')) {
-          return false;
-        }
-
-        return readRecoveredBuildFile(entry).includes('ambient_suggestions');
-      });
-
-    if (ambientSuggestionsBundleName == null) {
-      throw new Error('Missing recovered build bundle containing ambient_suggestions.');
-    }
-
-    expect(readRecoveredBuildFile(ambientSuggestionsBundleName)).toContain(
-      'if(process.platform===`linux`)return u',
-    );
-    expect(readRecoveredBuildFile(ambientSuggestionsBundleName)).toContain(
-      'if(process.platform===`linux`)return null',
-    );
-
-    expect(readRecoveredAsset('app-server-manager-signals-')).toContain(
-      'globalThis.navigator?.platform?.toLowerCase().startsWith(`linux`)',
-    );
-    expect(readRecoveredAsset('review-navigation-model-')).toContain(
-      'enabled:!(globalThis.process?.platform===`linux`',
-    );
-    expect(readRecoveredMainBuildFile()).toContain('inAppBrowserUse:o.inAppBrowserUse');
-    expect(readRecoveredMainBuildFile()).toContain(
-      'CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse',
-    );
-    expect(readRecoveredMainBuildFile()).toContain('node-repl-symlink-to-node');
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {

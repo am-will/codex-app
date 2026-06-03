@@ -329,46 +329,6 @@ const mainLinuxTitleBarOverlayUpdatePatchAlternatives = [
 ];
 const mainLinuxTitleBarOverlayUpdatePatchMarker =
   'if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;';
-const windowControlsSafeAreaPatchTarget =
-  'o=16,s=Object.freeze({default:Object.freeze({left:0,right:0}),mac:Object.freeze({legacy:Object.freeze({left:66+o,right:0}),modern:Object.freeze({left:76+o,right:0})}),windows:Object.freeze({left:0,right:0}),linux:Object.freeze({left:0,right:120})})';
-const windowControlsSafeAreaPatchReplacement =
-  'o=16,h=176,s=Object.freeze({default:Object.freeze({left:0,right:0}),mac:Object.freeze({legacy:Object.freeze({left:66+o,right:0}),modern:Object.freeze({left:76+o,right:0})}),windows:Object.freeze({left:0,right:h}),linux:Object.freeze({left:0,right:h})})';
-const appShellHeaderEndSlotPaddingPatchTarget =
-  'o=At(e=>{let{width:n}=kt(e);t.set(n)});return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{"aria-hidden":!0,className:c(`invisible pointer-events-none fixed top-0 left-0 min-w-max [&_*]:![view-transition-name:none]`,!!e.length&&a),ref:o,children:(0,Q.jsx)(br,{entries:e})}),(0,Q.jsx)(U.div,{"data-test-id":`header-shell-slot`,className:c(`pointer-events-none relative h-full shrink-0 [container-type:inline-size]`,!!e.length&&a),style:{width:r,minWidth:Jt`${t}px`},children:(0,Q.jsx)(br,{entries:e,fillSlot:!0})})]})}';
-const appShellHeaderEndSlotPaddingPatchReplacement =
-  'o=At(e=>{let{width:n}=kt(e);t.set(n)}),s=n===`end`?{paddingInlineEnd:`max(var(--spacing-token-safe-header-right),176px)`}:void 0;return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{"aria-hidden":!0,className:c(`invisible pointer-events-none fixed top-0 left-0 min-w-max [&_*]:![view-transition-name:none]`,!!e.length&&a),style:s,ref:o,children:(0,Q.jsx)(br,{entries:e})}),(0,Q.jsx)(U.div,{"data-test-id":`header-shell-slot`,className:c(`pointer-events-none relative h-full shrink-0 [container-type:inline-size]`,!!e.length&&a),style:{width:r,minWidth:Jt`${t}px`,...s},children:(0,Q.jsx)(br,{entries:e,fillSlot:!0})})]})}';
-const ambientSuggestionsLinuxSkipPatchTarget =
-  'async function Fn({hostId:e,projectRoot:n,isProjectlessChat:r,enabled:i,appServerConnection:a,serviceTier:o,staleTimeMs:s,mode:l=`default`}){let u=Mn(e,n);if(!i||l===`default`&&u.generatedAtMs!=null&&Date.now()-u.generatedAtMs<s)return u;';
-const ambientSuggestionsLinuxSkipPatchReplacement =
-  'async function Fn({hostId:e,projectRoot:n,isProjectlessChat:r,enabled:i,appServerConnection:a,serviceTier:o,staleTimeMs:s,mode:l=`default`}){let u=Mn(e,n);if(process.platform===`linux`)return u;if(!i||l===`default`&&u.generatedAtMs!=null&&Date.now()-u.generatedAtMs<s)return u;';
-const threadTitleLinuxSkipPatchTarget =
-  'async function uP({prompt:e,cwd:t,serviceTier:n,client:r,timeoutMs:i=oP}){let a=e.trim();if(a.length===0)return null;';
-const threadTitleLinuxSkipPatchReplacement =
-  'async function uP({prompt:e,cwd:t,serviceTier:n,client:r,timeoutMs:i=oP}){if(process.platform===`linux`)return null;let a=e.trim();if(a.length===0)return null;';
-const turnDiffAnalyticsLinuxSkipPatchTarget =
-  'async function bk(e,t,n){try{return await sD(`git`).request({method:`turn-diff-capture-start`,params:{cwd:p(n),hostConfig:wk(e,t),operationSource:`turn_diff_analytics`}})}catch(e){return B.warning(`Failed to start turn diff analytics capture`,{safe:{},sensitive:{error:e}}),null}}';
-const turnDiffAnalyticsLinuxSkipPatchReplacement =
-  'async function bk(e,t,n){if(globalThis.process?.platform===`linux`||globalThis.navigator?.platform?.toLowerCase().startsWith(`linux`))return null;try{return await sD(`git`).request({method:`turn-diff-capture-start`,params:{cwd:p(n),hostConfig:wk(e,t),operationSource:`turn_diff_analytics`}})}catch(e){return B.warning(`Failed to start turn diff analytics capture`,{safe:{},sensitive:{error:e}}),null}}';
-const reviewSummaryLinuxSkipPatchTarget =
-  '{enabled:e.enabled,refetchInterval:e=>e.state.data?.type===`error`?qe:!1,refetchIntervalInBackground:!0,refetchOnWindowFocus:`always`,staleTime:C.FIVE_SECONDS}';
-const reviewSummaryLinuxSkipPatchReplacement =
-  '{enabled:!(globalThis.process?.platform===`linux`||globalThis.navigator?.platform?.toLowerCase().startsWith(`linux`))&&e.enabled,refetchInterval:e=>e.state.data?.type===`error`?qe:!1,refetchIntervalInBackground:!0,refetchOnWindowFocus:`always`,staleTime:C.FIVE_SECONDS}';
-const branchDiffStatsLinuxSkipPatchTarget =
-  '{enabled:e.enabled,staleTime:C.FIVE_SECONDS}';
-const branchDiffStatsLinuxSkipPatchReplacement =
-  '{enabled:!(globalThis.process?.platform===`linux`||globalThis.navigator?.platform?.toLowerCase().startsWith(`linux`))&&e.enabled,staleTime:C.FIVE_SECONDS}';
-const mainLinuxBrowserUseRuntimePatchTarget =
-  'p({ambientSuggestions:o.ambientSuggestions,appshotsEnabled:o.appshotsEnabled,inAppBrowserUse:o.inAppBrowserUse,inAppBrowserUseAllowed:o.inAppBrowserUseAllowed,browserPane:o.browserPane,externalBrowserUse:o.externalBrowserUse,externalBrowserUseAllowed:o.externalBrowserUseAllowed,computerUse:o.computerUse,computerUseNodeRepl:o.computerUseNodeRepl,sites:o.sites,control:o.control,dil:o.dil,multiBrowserTabs:o.multiBrowserTabs,multiWindow:o.multiWindow,processManager:o.processManager})';
-const mainLinuxBrowserUseRuntimePatchReplacement =
-  'p({ambientSuggestions:o.ambientSuggestions,appshotsEnabled:o.appshotsEnabled,inAppBrowserUse:o.inAppBrowserUse,inAppBrowserUseAllowed:o.inAppBrowserUseAllowed,browserPane:o.browserPane,externalBrowserUse:process.platform===`linux`&&process.env.CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse,externalBrowserUseAllowed:o.externalBrowserUseAllowed,computerUse:o.computerUse,computerUseNodeRepl:o.computerUseNodeRepl,sites:o.sites,control:o.control,dil:o.dil,multiBrowserTabs:o.multiBrowserTabs,multiWindow:o.multiWindow,processManager:o.processManager})';
-const mainLinuxBrowserUseRuntimePatchMarker =
-  'CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse';
-const mainLinuxNodeReplSymlinkPatchTarget =
-  'h=Bn({platform:r,rawValue:e.CODEX_NODE_REPL_PATH,resolveWindowsAppsPath:s})??zn({devRelativePathSegments:[`electron`,`bin`,`node_repl`],isPackaged:t,platform:r,repoRoot:i,resolveBundledPath:s,resourcesPath:u});return{codexCliPath:f.path,codexCliPathSource:f.source,nodePath:m.path,nodePathSource:m.source,nodeReplPath:h.path,nodeReplPathSource:h.source,platform:r}}';
-const mainLinuxNodeReplSymlinkPatchReplacement =
-  'h=Bn({platform:r,rawValue:e.CODEX_NODE_REPL_PATH,resolveWindowsAppsPath:s})??zn({devRelativePathSegments:[`electron`,`bin`,`node_repl`],isPackaged:t,platform:r,repoRoot:i,resolveBundledPath:s,resourcesPath:u}),g=h.path!=null&&m.path!=null&&(()=>{try{let e=require(`fs`);return e.realpathSync(h.path)===e.realpathSync(m.path)}catch{return!1}})()?{path:null,source:`node-repl-symlink-to-node`}:h;return{codexCliPath:f.path,codexCliPathSource:f.source,nodePath:m.path,nodePathSource:m.source,nodeReplPath:g.path,nodeReplPathSource:g.source,platform:r}}';
-const mainLinuxNodeReplSymlinkPatchMarker =
-  'node-repl-symlink-to-node';
 const mainLinuxPrimaryTitleBarPatchAlternatives = [
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
@@ -1529,24 +1489,6 @@ function findExtractedWebviewAsset(extractedAppRoot, prefix, extension = '.js') 
   return path.join(assetsRoot, matches[0]);
 }
 
-function findExtractedBuildAssetContaining(extractedAppRoot, needle) {
-  const buildRoot = path.join(extractedAppRoot, '.vite', 'build');
-  assertExists(buildRoot, 'Extracted codex build root');
-
-  const matches = fs
-    .readdirSync(buildRoot)
-    .filter((entry) => entry.endsWith('.js'))
-    .map((entry) => path.join(buildRoot, entry))
-    .filter((entryPath) => fs.readFileSync(entryPath, 'utf8').includes(needle))
-    .sort();
-
-  if (matches.length === 0) {
-    throw new Error(`Missing extracted build asset containing "${needle}" in ${buildRoot}`);
-  }
-
-  return matches[0];
-}
-
 function findOptionalExtractedWebviewAsset(extractedAppRoot, prefix, extension = '.js') {
   const assetsRoot = path.join(extractedAppRoot, 'webview', 'assets');
   assertExists(assetsRoot, 'Extracted codex webview assets root');
@@ -1800,119 +1742,12 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxAvatarOverlayAvailabilityPatchMarker,
       },
       {
-        label: 'linux disables external browser-use runtime by default',
-        target: mainLinuxBrowserUseRuntimePatchTarget,
-        replacement: mainLinuxBrowserUseRuntimePatchReplacement,
-        marker: mainLinuxBrowserUseRuntimePatchMarker,
-      },
-      {
-        label: 'linux rejects node_repl symlink to plain node',
-        target: mainLinuxNodeReplSymlinkPatchTarget,
-        replacement: mainLinuxNodeReplSymlinkPatchReplacement,
-        marker: mainLinuxNodeReplSymlinkPatchMarker,
-      },
-      {
         label: 'linux open-in target registry',
         alternatives: mainLinuxOpenTargetsPatchAlternatives,
         marker: mainLinuxOpenTargetsPatchMarker,
       },
     ]),
   );
-}
-
-function patchCodexWindowControlsSafeArea(extractedAppRoot) {
-  const safeAreaPath = findExtractedWebviewAsset(
-    extractedAppRoot,
-    'use-window-controls-safe-area-',
-  );
-
-  return {
-    asset: path.basename(safeAreaPath),
-    results: applyPatchesToFile(safeAreaPath, [
-      {
-        label: 'linux window controls safe header spacing',
-        target: windowControlsSafeAreaPatchTarget,
-        replacement: windowControlsSafeAreaPatchReplacement,
-      },
-    ]),
-  };
-}
-
-function patchCodexAppShellTopBar(extractedAppRoot) {
-  const appShellPath = findExtractedWebviewAsset(extractedAppRoot, 'app-shell-');
-
-  return {
-    asset: path.basename(appShellPath),
-    results: applyPatchesToFile(appShellPath, [
-      {
-        label: 'linux header end slot reserves native controls',
-        target: appShellHeaderEndSlotPaddingPatchTarget,
-        replacement: appShellHeaderEndSlotPaddingPatchReplacement,
-      },
-    ]),
-  };
-}
-
-function patchCodexAmbientSuggestions(extractedAppRoot) {
-  const ambientSuggestionsPath = findExtractedBuildAssetContaining(
-    extractedAppRoot,
-    'ambient_suggestions',
-  );
-
-  return {
-    asset: path.basename(ambientSuggestionsPath),
-    results: applyPatchesToFile(ambientSuggestionsPath, [
-      {
-        label: 'linux skips ambient suggestion model turns',
-        target: ambientSuggestionsLinuxSkipPatchTarget,
-        replacement: ambientSuggestionsLinuxSkipPatchReplacement,
-      },
-      {
-        label: 'linux skips thread title model turns',
-        target: threadTitleLinuxSkipPatchTarget,
-        replacement: threadTitleLinuxSkipPatchReplacement,
-      },
-    ]),
-  };
-}
-
-function patchCodexLinuxBackgroundGitWork(extractedAppRoot) {
-  const turnDiffPath = findExtractedWebviewAsset(
-    extractedAppRoot,
-    'app-server-manager-signals-',
-  );
-  const reviewNavigationPath = findExtractedWebviewAsset(
-    extractedAppRoot,
-    'review-navigation-model-',
-  );
-
-  return {
-    turnDiffAnalytics: {
-      asset: path.basename(turnDiffPath),
-      results: applyPatchesToFile(turnDiffPath, [
-        {
-          label: 'linux skips turn diff analytics git capture',
-          target: turnDiffAnalyticsLinuxSkipPatchTarget,
-          replacement: turnDiffAnalyticsLinuxSkipPatchReplacement,
-        },
-      ]),
-    },
-    reviewNavigation: {
-      asset: path.basename(reviewNavigationPath),
-      results: applyPatchesToFile(reviewNavigationPath, [
-        {
-          label: 'linux skips review summary background git query',
-          target: reviewSummaryLinuxSkipPatchTarget,
-          replacement: reviewSummaryLinuxSkipPatchReplacement,
-        },
-        {
-          label: 'linux skips branch diff stats background git query',
-          target: branchDiffStatsLinuxSkipPatchTarget,
-          replacement: branchDiffStatsLinuxSkipPatchReplacement,
-        },
-      ]),
-    },
-  };
 }
 
 function patchCodexStartupShell(extractedAppRoot) {
@@ -2325,10 +2160,6 @@ export function patchExtractedCodexApp(extractedAppRoot) {
     preload: patchCodexPreload(extractedAppRoot),
     bootstrap: patchCodexBootstrap(extractedAppRoot),
     mainProcess: patchCodexMainProcessBundle(extractedAppRoot),
-    ambientSuggestions: patchCodexAmbientSuggestions(extractedAppRoot),
-    backgroundGitWork: patchCodexLinuxBackgroundGitWork(extractedAppRoot),
-    windowControlsSafeArea: patchCodexWindowControlsSafeArea(extractedAppRoot),
-    appShellTopBar: patchCodexAppShellTopBar(extractedAppRoot),
     startupShell: patchCodexStartupShell(extractedAppRoot),
     avatarOverlayRenderer: patchCodexAvatarOverlayRenderer(extractedAppRoot),
     authWebview: patchCodexAuthWebviewBundles(extractedAppRoot),
