@@ -38,6 +38,6 @@ pkgbase = openai-codex-desktop-bin
 	conflicts = codex-desktop
 	options = !strip
 	source = codex-app-linux-x64-v26.601.21317.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21317/codex-app-linux-x64-v26.601.21317.deb
-	sha256sums = SKIP
+	sha256sums = 782510e23be997f3c87a9cbbdb09bd06698fc6e8b0649514b02917f3603eca3a
 
 pkgname = openai-codex-desktop-bin
