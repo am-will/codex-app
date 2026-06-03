@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-CiQ1k8xo.js";import{t}from"./clsx-BcPLHiun.js";import{lt as n}from"./vscode-api-sUstfl-x.js";var r=n(),i=e();function a(e){let n=(0,r.c)(5),{children:a,className:o}=e,s;n[0]===o?s=n[1]:(s=t(`flex items-center gap-2`,o),n[0]=o,n[1]=s);let c;return n[2]!==a||n[3]!==s?(c=(0,i.jsx)(`div`,{className:s,children:a}),n[2]=a,n[3]=s,n[4]=c):c=n[4],c}export{a as t};
+//# sourceMappingURL=control-group-CgFVnD7x.js.map

@@ -28,17 +28,17 @@ describe('Automation run archive regression gate (RED)', () => {
     const mainSource = readRecoveredMainBundle();
 
     expect(mainSource).toMatch(
-      /async function [A-Za-z_$][\w$]*\(e,n,r\)\{let i=\(await n\.getWorktreeRepository\(e,r\)\)\?\.root;/,
+      /async function [A-Za-z_$][\w$]*\(e,t,r\)\{let i=await t\.getWorktreeRepository\(e,r\);/,
     );
     expect(mainSource).toMatch(
-      /branchName:\(await t\.[A-Za-z_$][\w$]*\(i,r\)\)\?\.branch\?\?`HEAD`/,
+      /branchName:\(await n\.[A-Za-z_$][\w$]*\(i\)\)\?\.branch\?\?`HEAD`/,
     );
     expect(mainSource).toContain('{type:`branch`,branchName:`HEAD`}');
     expect(mainSource).toMatch(
-      /[A-Za-z_$][\w$]*=n\.executionEnvironment===`worktree`&&![A-Za-z_$][\w$]*&&\(await o\.getWorktreeRepository\([A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*\)\)\?\.root!=null/,
+      /[A-Za-z_$][\w$]*=[A-Za-z_$][\w$]*\.executionEnvironment===`worktree`&&![A-Za-z_$][\w$]*&&\(await [A-Za-z_$][\w$]*\.getWorktreeRepository\([A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*\)\)\?\.root!=null/,
     );
     expect(mainSource).toMatch(
-      /let e=await [A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*,o,[A-Za-z_$][\w$]*\),r=await t\.[A-Za-z_$][\w$]*\(\{gitManager:o,workspaceRoot:[A-Za-z_$][\w$]*,startingState:e,localEnvironmentConfigPath:n\.localEnvironmentConfigPath,appServerClient:[A-Za-z_$][\w$]*\}\);/,
+      /let [A-Za-z_$][\w$]*=await [A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*\),[A-Za-z_$][\w$]*=await [A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(\{gitManager:[A-Za-z_$][\w$]*,workspaceRoot:[A-Za-z_$][\w$]*,startingState:[A-Za-z_$][\w$]*,localEnvironmentConfigPath:[A-Za-z_$][\w$]*\.localEnvironmentConfigPath,appServerClient:[A-Za-z_$][\w$]*\}\);/,
     );
   });
 });

@@ -1,0 +1,2 @@
+import{P as e,lt as t}from"./vscode-api-sUstfl-x.js";import{n}from"./thread-context-inputs-BUuWvrJW.js";var r=t();function i(t){let i=(0,r.c)(2),a;return i[0]===t?a=i[1]:(a=t==null?void 0:{hostId:t},i[0]=t,i[1]=a),e(n,a)}function a(e){return i(e).data?.codexHome}export{i as n,a as t};
+//# sourceMappingURL=use-codex-home-zmo5hiIG.js.map

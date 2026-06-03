@@ -1,0 +1,2 @@
+import{ko as e}from"./app-server-manager-signals-BOGyjFm3.js";function t(t){return e(t?.source)?.parentThreadId!=null}function n(e,n){return!n&&t(e)}export{n,t};
+//# sourceMappingURL=is-subagent-conversation-DwbNoV13.js.map

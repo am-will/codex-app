@@ -1,0 +1,2 @@
+import{I as e,lt as t}from"./vscode-api-sUstfl-x.js";import{o as n,r}from"./codex-avatar-9OkGRaoz.js";var i=t();function a(){let t=(0,i.c)(8),a=e(r),o=a.data?.avatarDirectory??null,s=a.data?.avatars,c;t[0]===s?c=t[1]:(c=n(s),t[0]=s,t[1]=c);let l;return t[2]!==a.isError||t[3]!==a.isLoading||t[4]!==a.refetch||t[5]!==o||t[6]!==c?(l={avatarDirectory:o,avatarOptions:c,isError:a.isError,isLoading:a.isLoading,refetch:a.refetch},t[2]=a.isError,t[3]=a.isLoading,t[4]=a.refetch,t[5]=o,t[6]=c,t[7]=l):l=t[7],l}export{a as t};
+//# sourceMappingURL=use-avatar-options-B21XKZBs.js.map

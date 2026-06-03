@@ -56,6 +56,12 @@ const bootstrapLinuxGitWrapperAlternatives = [
     replacement:
       'require(`node:crypto`);let i=require(`node:child_process`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var a=`desktop.intelLaunchWarning.message`,',
   },
+  {
+    target:
+      'require(`node:crypto`);let c=require(`node:child_process`);var l=`desktop.intelLaunchWarning.message`,',
+    replacement:
+      'require(`node:crypto`);let c=require(`node:child_process`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var l=`desktop.intelLaunchWarning.message`,',
+  },
 ];
 const bootstrapLinuxGitWrapperMarker =
   'process.platform===`linux`&&typeof process.resourcesPath==`string`';
@@ -138,6 +144,12 @@ const mainGitOriginsPatchAlternatives = [
     replacement:
       'let a=this.getRequestAppServerClient(i).hostConfig,o=t.Zr(a),s=P(n??[],o).map(t=>e.fn(t)),c=N((0,r.homedir)(),o),l=t.s(this.globalState),u=t.i(this.globalState),d=l.length>0?l:u??[],f=(s&&s.length>0?s:d.filter(e=>e!==`~`).map(t=>e.fn(t))).filter(t=>{try{return!!t&&o.existsSync(t)}catch{return!1}}),p=t.Ut(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:a,operationSource:p.source}});',
   },
+  {
+    target:
+      'let a=this.getRequestAppServerClient(i).hostConfig,s=n.Pr(a),c=oe(e??[],s).map(e=>t.hn(e)),l=P((0,o.homedir)(),s),u=r.s(this.globalState),d=r.i(this.globalState),f=u.length>0?u:d??[],p=c&&c.length>0?c:f.filter(e=>e!==`~`).map(e=>t.hn(e)),m=n.ut(),{origins:h}=await this.requestGitWorker({method:`git-origins`,params:{dirs:p,hostConfig:a,operationSource:m.source}});',
+    replacement:
+      'let a=this.getRequestAppServerClient(i).hostConfig,s=n.Pr(a),c=oe(e??[],s).map(e=>t.hn(e)),l=P((0,o.homedir)(),s),u=r.s(this.globalState),d=r.i(this.globalState),f=u.length>0?u:d??[],p=(c&&c.length>0?c:f.filter(e=>e!==`~`).map(e=>t.hn(e))).filter(e=>{try{return!!e&&s.existsSync(e)}catch{return!1}}),m=n.ut(),{origins:h}=await this.requestGitWorker({method:`git-origins`,params:{dirs:p,hostConfig:a,operationSource:m.source}});',
+  },
 ];
 const mainGitOriginsPatchMarker =
   '.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}';
@@ -196,6 +208,12 @@ const mainOpenInBrowserPatchAlternatives = [
     replacement:
       'case`open-in-browser`:{let{url:e}=i;if(typeof e==`string`&&this.windowManager.queueCodexDeepLinkUrl(e,i.originHostId))break;if(i.useExternalBrowser===!0){if(typeof e==`string`&&gh(e))try{if(process.platform===`linux`){let i=require(`../../scripts/linux-browser-launch.js`),a=await i.openUrlWithLinuxBrowserSession(e);if(!a.launched){a.error&&$().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:a.code??null},sensitive:{error:a.error}}),await n.shell.openExternal(e)}}else await n.shell.openExternal(e)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}if(typeof e==`string`&&hV(e))try{if(hh({browserPaneEnabled:ve().browserPane,link:{type:`url`,url:e}})){r.send(F,{open:!0,type:`toggle-browser-panel`,url:e,source:i.source??`manual`,initiator:i.initiator??`open_in_browser_bridge`});break}await n.shell.openExternal(e)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}',
   },
+  {
+    target:
+      'case`open-in-browser`:{let{url:t}=i;if(typeof t==`string`&&this.windowManager.queueCodexDeepLinkUrl(t,i.originHostId))break;if(i.useExternalBrowser===!0){if(typeof t==`string`&&_v(t))try{await a.shell.openExternal(t)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}if(typeof t==`string`&&eG(t))try{if(gv({browserPaneEnabled:Be().browserPane,link:{type:`url`,url:t}})){e.send(F,{type:`toggle-browser-panel`,open:!0,url:t,hostId:i.hostId,source:i.source??`manual`,initiator:i.initiator??`open_in_browser_bridge`});break}await a.shell.openExternal(t)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}',
+    replacement:
+      'case`open-in-browser`:{let{url:t}=i;if(typeof t==`string`&&this.windowManager.queueCodexDeepLinkUrl(t,i.originHostId))break;if(i.useExternalBrowser===!0){if(typeof t==`string`&&_v(t))try{if(process.platform===`linux`){let i=require(`../../scripts/linux-browser-launch.js`),o=await i.openUrlWithLinuxBrowserSession(t);if(!o.launched){o.error&&$().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:o.code??null},sensitive:{error:o.error}}),await a.shell.openExternal(t)}}else await a.shell.openExternal(t)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}if(typeof t==`string`&&eG(t))try{if(gv({browserPaneEnabled:Be().browserPane,link:{type:`url`,url:t}})){e.send(F,{type:`toggle-browser-panel`,open:!0,url:t,hostId:i.hostId,source:i.source??`manual`,initiator:i.initiator??`open_in_browser_bridge`});break}await a.shell.openExternal(t)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}',
+  },
 ];
 const mainOpenInBrowserPatchMarker = 'openUrlWithLinuxBrowserSession';
 const mainLinuxOpaqueWindowPatchAlternatives = [
@@ -253,6 +271,12 @@ const mainLinuxOpaqueWindowPatchAlternatives = [
     replacement:
       'function zY({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){if(n&&!FY(t)&&(e===`darwin`||e===`win32`))return{backgroundColor:r?mY:hY,backgroundMaterial:e===`win32`?`none`:null};if(e===`win32`&&!FY(t))return{backgroundColor:pY,backgroundMaterial:`mica`};if(e===`linux`&&!FY(t))return{backgroundColor:r?mY:hY,backgroundMaterial:null};return{backgroundColor:pY,backgroundMaterial:null}}',
   },
+  {
+    target:
+      'function A2({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){return n&&!w2(t)&&(e===`darwin`||e===`win32`)?{backgroundColor:r?$0:e2,backgroundMaterial:e===`win32`?`none`:null}:e===`win32`&&!w2(t)?{backgroundColor:Q0,backgroundMaterial:`mica`}:{backgroundColor:Q0,backgroundMaterial:null}}',
+    replacement:
+      'function A2({platform:e,appearance:t,opaqueWindowsEnabled:n,prefersDarkColors:r}){if(n&&!w2(t)&&(e===`darwin`||e===`win32`))return{backgroundColor:r?$0:e2,backgroundMaterial:e===`win32`?`none`:null};if(e===`win32`&&!w2(t))return{backgroundColor:Q0,backgroundMaterial:`mica`};if(e===`linux`&&!w2(t))return{backgroundColor:r?$0:e2,backgroundMaterial:null};return{backgroundColor:Q0,backgroundMaterial:null}}',
+  },
 ];
 const mainLinuxOpaqueWindowPatchMarker = 'backgroundMaterial:`mica`};if(e===`linux`&&';
 const mainLinuxTitleBarOverlayColorPatchAlternatives = [
@@ -285,6 +309,12 @@ const mainLinuxTitleBarOverlayColorPatchAlternatives = [
       'function TY(){return{color:pY,symbolColor:n.nativeTheme.shouldUseDarkColors?wY:CY,height:SY}}',
     replacement:
       'function TY(){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:SY}:{color:pY,symbolColor:n.nativeTheme.shouldUseDarkColors?wY:CY,height:SY}}',
+  },
+  {
+    target:
+      'function m2(e=1){return{color:Q0,symbolColor:a.nativeTheme.shouldUseDarkColors?f2:d2,height:Math.round(u2*e)}}',
+    replacement:
+      'function m2(e=1){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:Math.round(u2*e)}:{color:Q0,symbolColor:a.nativeTheme.shouldUseDarkColors?f2:d2,height:Math.round(u2*e)}}',
   },
 ];
 const mainLinuxTitleBarOverlayColorPatchMarker =
@@ -324,6 +354,11 @@ const mainLinuxPrimaryTitleBarPatchAlternatives = [
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:TY()}:{titleBarStyle:`default`}',
     replacement:
       '(n===`win32`||n===`linux`)?{titleBarStyle:`hidden`,titleBarOverlay:TY()}:{titleBarStyle:`default`}',
+  },
+  {
+    target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:m2(r)}:{titleBarStyle:`default`}',
+    replacement:
+      '(n===`win32`||n===`linux`)?{titleBarStyle:`hidden`,titleBarOverlay:m2(r)}:{titleBarStyle:`default`}',
   },
 ];
 const mainLinuxPrimaryTitleBarPatchMarker =
@@ -395,6 +430,12 @@ const mainLinuxAvatarOverlayTypePatchAlternatives = [
       'case`avatarOverlay`:return{...VY({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),hasShadow:!1};',
     replacement:
       'case`avatarOverlay`:return{...VY({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},hasShadow:!1};',
+  },
+  {
+    target:
+      'case`avatarOverlay`:return{...M2({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),hasShadow:!1};',
+    replacement:
+      'case`avatarOverlay`:return{...M2({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},hasShadow:!1};',
   },
 ];
 const mainLinuxAvatarOverlayTypePatchMarker =
@@ -501,6 +542,11 @@ const mainLinuxAvatarOverlayFocusRaisePatchAlternatives = [
     replacement:
       'let de=()=>{ue.refreshApplicationMenu(),M.avatarOverlayManager.raiseWindow?.()};',
   },
+  {
+    target: 'let pe=()=>{fe.refreshApplicationMenu()};',
+    replacement:
+      'let pe=()=>{fe.refreshApplicationMenu(),N.avatarOverlayManager.raiseWindow?.()};',
+  },
 ];
 const mainLinuxAvatarOverlayFocusRaisePatchMarker =
   'M.avatarOverlayManager.raiseWindow?.()';
@@ -523,6 +569,12 @@ const mainLinuxAvatarOverlayFocusableWindowPatchAlternatives = [
     replacement:
       'appearance:`avatarOverlay`,focusable:process.platform===`linux`?!0:!1,show:!1,initialRoute:kG',
   },
+  {
+    target:
+      'appearance:`avatarOverlay`,focusable:!1,show:!1,initialRoute:uQ',
+    replacement:
+      'appearance:`avatarOverlay`,focusable:process.platform===`linux`?!0:!1,show:!1,initialRoute:uQ',
+  },
 ];
 const mainLinuxAvatarOverlayFocusableWindowPatchMarker =
   'focusable:process.platform===`linux`?!0:!1';
@@ -538,6 +590,12 @@ const mainLinuxAvatarOverlayKeyboardFocusPatchAlternatives = [
       'if(this.applyPointerInteractivityPolicy(),!t){process.platform!==`linux`&&r.setFocusable(!1);return}r.setFocusable(!0),r.show(),(process.platform===`darwin`||process.platform===`linux`)&&n.app.focus({steal:!0}),r.focus(),r.webContents.focus()',
     replacement:
       'this.keyboardInteractive=t;if(this.applyPointerInteractivityPolicy(),!t){process.platform!==`linux`&&r.setFocusable(!1);return}r.setFocusable(!0),r.show(),(process.platform===`darwin`||process.platform===`linux`)&&n.app.focus({steal:!0}),r.focus(),r.webContents.focus()',
+  },
+  {
+    target:
+      'if(this.applyPointerInteractivityPolicy(),!t){n.setFocusable(!1);return}n.setFocusable(!0),n.show(),process.platform===`darwin`&&a.app.focus({steal:!0}),n.focus(),n.webContents.focus()',
+    replacement:
+      'this.keyboardInteractive=t;if(this.applyPointerInteractivityPolicy(),!t){process.platform!==`linux`&&n.setFocusable(!1);return}n.setFocusable(!0),n.show(),(process.platform===`darwin`||process.platform===`linux`)&&a.app.focus({steal:!0}),n.focus(),n.webContents.focus()',
   },
 ];
 const mainLinuxAvatarOverlayKeyboardFocusPatchMarker =
@@ -561,6 +619,12 @@ const mainLinuxAvatarOverlayAvailabilityPatchAlternatives = [
     replacement:
       'function xe(e,{buildFlavor:n=t.O.resolve(),env:r=f.default.env,platform:i=f.default.platform}={}){let a=i===`linux`?{...e,avatarOverlay:!0}:e,o=i===`win32`&&r.CODEX_ELECTRON_ENABLE_WINDOWS_COMPUTER_USE===`1`?{...a,computerUse:!0,computerUseNodeRepl:!0}:a,s=n===t.O.Dev?Se(r):null;return s==null?o:{...o,...s}}',
   },
+  {
+    target:
+      'function Ue(e,{buildFlavor:t=r.M.resolve(),env:n=h.default.env,platform:i=h.default.platform}={}){let a=i===`win32`&&n.CODEX_ELECTRON_ENABLE_WINDOWS_COMPUTER_USE===`1`?{...e,computerUse:!0,computerUseNodeRepl:!0}:e,o=t===r.M.Dev?We(n):null;return o==null?{...a,deviceAttestation:xe({platform:i})}:{...a,...o,deviceAttestation:xe({platform:i})}}',
+    replacement:
+      'function Ue(e,{buildFlavor:t=r.M.resolve(),env:n=h.default.env,platform:i=h.default.platform}={}){let a=i===`linux`?{...e,avatarOverlay:!0}:e,o=i===`win32`&&n.CODEX_ELECTRON_ENABLE_WINDOWS_COMPUTER_USE===`1`?{...a,computerUse:!0,computerUseNodeRepl:!0}:a,s=t===r.M.Dev?We(n):null;return s==null?{...o,deviceAttestation:xe({platform:i})}:{...o,...s,deviceAttestation:xe({platform:i})}}',
+  },
 ];
 const mainLinuxAvatarOverlayAvailabilityPatchMarker =
   'n===`linux`?{...e,avatarOverlay:!0}:e';
@@ -583,6 +647,12 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
     replacement:
       'et=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Ce.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[be(e)],screenX:e.screenX,screenY:e.screenY},C.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),O(!0),b(null)}',
   },
+  {
+    target:
+      'ot=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),ke.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[U(e)],screenX:e.screenX,screenY:e.screenY},y.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),A(!0),E(null))}',
+    replacement:
+      'ot=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),ke.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[U(e)],screenX:e.screenX,screenY:e.screenY},y.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),A(!0),E(null)}',
+  },
 ];
 const avatarOverlayDirectMascotDragPatchMarker =
   'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return';
@@ -592,6 +662,18 @@ const avatarOverlayLargeActivityTrayLayoutPatchReplacement =
   'fn={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}';
 const avatarOverlayLargeActivityTrayLayoutPatchMarker =
   'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}';
+const avatarOverlayLargeActivityTrayLayoutPatchAlternatives = [
+  {
+    target: avatarOverlayLargeActivityTrayLayoutPatchTarget,
+    replacement: avatarOverlayLargeActivityTrayLayoutPatchReplacement,
+  },
+  {
+    target:
+      'gn={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:80,top:56,width:276,height:131},viewport:{width:356,height:320}}',
+    replacement:
+      'gn={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}',
+  },
+];
 const avatarOverlayLargeActivityTrayPaddingPatchTarget =
   '`block w-full min-w-0 px-3 py-1.5 text-left focus-visible:outline-token-focus focus-visible:outline focus-visible:outline-offset-[-2px]`';
 const avatarOverlayLargeActivityTrayPaddingPatchReplacement =
@@ -604,12 +686,32 @@ const avatarOverlayLargeActivityTrayWrapPatchReplacement =
   'he?`whitespace-pre-wrap`:x==null?`whitespace-pre-wrap`:void 0';
 const avatarOverlayLargeActivityTrayWrapPatchMarker =
   'he?`whitespace-pre-wrap`:x==null?`whitespace-pre-wrap`:void 0';
+const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
+  {
+    target: avatarOverlayLargeActivityTrayWrapPatchTarget,
+    replacement: avatarOverlayLargeActivityTrayWrapPatchReplacement,
+  },
+  {
+    target: 'F?`whitespace-pre-wrap`:x==null?`line-clamp-2`:void 0',
+    replacement: 'F?`whitespace-pre-wrap`:x==null?`whitespace-pre-wrap`:void 0',
+  },
+];
 const avatarOverlayReadableActivityBodyHeightPatchTarget =
   '$=2,et=2,tt=.035,nt=32,rt=84,it=512,at=1';
 const avatarOverlayReadableActivityBodyHeightPatchReplacement =
   '$=2,et=2,tt=.035,nt=80,rt=84,it=512,at=1';
 const avatarOverlayReadableActivityBodyHeightPatchMarker =
   '$=2,et=2,tt=.035,nt=80,rt=84,it=512,at=1';
+const avatarOverlayReadableActivityBodyHeightPatchAlternatives = [
+  {
+    target: avatarOverlayReadableActivityBodyHeightPatchTarget,
+    replacement: avatarOverlayReadableActivityBodyHeightPatchReplacement,
+  },
+  {
+    target: 'at=2,Q=2,ot=.035,st=32,ct=84,lt=512,ut=1',
+    replacement: 'at=2,Q=2,ot=.035,st=80,ct=84,lt=512,ut=1',
+  },
+];
 const avatarOverlayReadableActivityBodyMeasurementPatchTarget =
   '"data-avatar-overlay-measure-body":`true`';
 const avatarOverlayReadableActivityBodyMeasurementPatchReplacement =
@@ -640,106 +742,16 @@ const appServerTurnCompletedPatchTarget =
   'if(!this.conversations.get(r)){i.error(`Received turn/completed for unknown conversation`,{safe:{conversationId:r},sensitive:{}});break}let a=null,o=null,s=null;';
 const appServerTurnCompletedPatchReplacement =
   'if(!this.conversations.get(r))break;let a=null,o=null,s=null;';
-const webviewChatGptLoginPatchAlternatives = [
-  {
-    target:
-      'let{authUrl:r,completion:i}=await b.loginWithChatGpt(t);r&&E.dispatchMessage(`open-in-browser`,{url:r});let a=await i;',
-    replacement:
-      'let{authUrl:r,completion:i}=await b.loginWithChatGpt(t);r&&E.dispatchMessage(`open-in-browser`,{url:r,useExternalBrowser:!0});let a=await i;',
-  },
-  {
-    target:
-      'let{authUrl:r,completion:i}=await ci(`login-with-chatgpt`,{abortController:e});r&&E.dispatchMessage(`open-in-browser`,{url:r});let a=await i;',
-    replacement:
-      'let{authUrl:r,completion:i}=await ci(`login-with-chatgpt`,{abortController:e});r&&E.dispatchMessage(`open-in-browser`,{url:r,useExternalBrowser:!0});let a=await i;',
-  },
-  {
-    target:
-      'a(t=>t?.abortController===e?{...t,verificationUrl:r,userCode:i}:t),E.dispatchMessage(`open-in-browser`,{url:r});let s=await o;',
-    replacement:
-      'a(t=>t?.abortController===e?{...t,verificationUrl:r,userCode:i}:t),E.dispatchMessage(`open-in-browser`,{url:r,useExternalBrowser:!0});let s=await o;',
-  },
-  {
-    target:
-      'let{authUrl:r,completion:i}=await pi(`login-with-chatgpt`,{abortController:e});r&&E.dispatchMessage(`open-in-browser`,{url:r});let a=await i;',
-    replacement:
-      'let{authUrl:r,completion:i}=await pi(`login-with-chatgpt`,{abortController:e});r&&E.dispatchMessage(`open-in-browser`,{url:r,useExternalBrowser:!0});let a=await i;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:a}=await f(`login-with-chatgpt`,{abortController:e,useStreamlinedLogin:L});if(n){let e=ie({authUrl:n,useStreamlinedLogin:L});v.dispatchMessage(`open-in-browser`,{url:e,...L?{useExternalBrowser:!0}:{}})}let o=await a;',
-    replacement:
-      'let{authUrl:n,completion:a}=await f(`login-with-chatgpt`,{abortController:e,useStreamlinedLogin:L});if(n){let e=ie({authUrl:n,useStreamlinedLogin:L});v.dispatchMessage(`open-in-browser`,{url:e,useExternalBrowser:!0})}let o=await a;',
-  },
-  {
-    target:
-      'd(t=>t?.abortController===e?{...t,verificationUrl:n,userCode:a}:t),v.dispatchMessage(`open-in-browser`,{url:n});let s=await o;',
-    replacement:
-      'd(t=>t?.abortController===e?{...t,verificationUrl:n,userCode:a}:t),v.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let s=await o;',
-  },
-  {
-    target:
-      'let{authUrl:i,completion:a}=await ae({signal:e.signal});i&&_.dispatchMessage(`open-in-browser`,{url:i});let o=await a;',
-    replacement:
-      'let{authUrl:i,completion:a}=await ae({signal:e.signal});i&&_.dispatchMessage(`open-in-browser`,{url:i,useExternalBrowser:!0});let o=await a;',
-  },
-  {
-    target:
-      's(t=>t?.abortController===e?{...t,verificationUrl:i,userCode:a}:t),_.dispatchMessage(`open-in-browser`,{url:i});let c=await o;',
-    replacement:
-      's(t=>t?.abortController===e?{...t,verificationUrl:i,userCode:a}:t),_.dispatchMessage(`open-in-browser`,{url:i,useExternalBrowser:!0});let c=await o;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:r}=await se({signal:e.signal});n&&v.dispatchMessage(`open-in-browser`,{url:n});let o=await r;',
-    replacement:
-      'let{authUrl:n,completion:r}=await se({signal:e.signal});n&&v.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let o=await r;',
-  },
-  {
-    target:
-      'u(t=>t?.abortController===e?{...t,verificationUrl:n,userCode:r}:t),v.dispatchMessage(`open-in-browser`,{url:n});let s=await o;',
-    replacement:
-      'u(t=>t?.abortController===e?{...t,verificationUrl:n,userCode:r}:t),v.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let s=await o;',
-  },
-];
-const remoteChatGptLoginPatchAlternatives = [
-  {
-    target:
-      'let{authUrl:n,completion:a}=await c.loginWithChatGpt(t);i.dispatchMessage(`open-in-browser`,{url:n});let o=await a;',
-    replacement:
-      'let{authUrl:n,completion:a}=await c.loginWithChatGpt(t);i.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let o=await a;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:r}=await S(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n});let o=await r;',
-    replacement:
-      'let{authUrl:n,completion:r}=await S(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let o=await r;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:r}=await x(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n});let o=await r;',
-    replacement:
-      'let{authUrl:n,completion:r}=await x(`login-with-chatgpt-for-host`,{abortController:t,hostId:e});i.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let o=await r;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:r}=await _(`login-with-chatgpt-for-host`,{abortController:t,hostId:e,useStreamlinedLogin:v}),i=ge({authUrl:n,useStreamlinedLogin:v});D.dispatchMessage(`open-in-browser`,{url:i,...v?{useExternalBrowser:!0}:{}});let a=await r;',
-    replacement:
-      'let{authUrl:n,completion:r}=await _(`login-with-chatgpt-for-host`,{abortController:t,hostId:e,useStreamlinedLogin:v}),i=ge({authUrl:n,useStreamlinedLogin:v});D.dispatchMessage(`open-in-browser`,{url:i,useExternalBrowser:!0});let a=await r;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:r}=await at({hostId:e,signal:t.signal});L.dispatchMessage(`open-in-browser`,{url:n});let i=await r;',
-    replacement:
-      'let{authUrl:n,completion:r}=await at({hostId:e,signal:t.signal});L.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let i=await r;',
-  },
-  {
-    target:
-      'let{authUrl:n,completion:r}=await rt({hostId:e,signal:t.signal});H.dispatchMessage(`open-in-browser`,{url:n});let i=await r;',
-    replacement:
-      'let{authUrl:n,completion:r}=await rt({hostId:e,signal:t.signal});H.dispatchMessage(`open-in-browser`,{url:n,useExternalBrowser:!0});let i=await r;',
-  },
-];
+const webviewChatGptLoginPatchPattern =
+  /([A-Za-z_$][A-Za-z0-9_$]*)\.dispatchMessage\(`open-in-browser`,\{url:([^{}]+?)\}\)/g;
+const webviewChatGptLoginPatchReplacement =
+  '$1.dispatchMessage(`open-in-browser`,{url:$2,useExternalBrowser:!0})';
+const remoteChatGptLoginPatchPattern = webviewChatGptLoginPatchPattern;
+const remoteChatGptLoginPatchReplacement = webviewChatGptLoginPatchReplacement;
+const pluginInstallFlowNativeBrowserPatchPattern =
+  /([A-Za-z_$][A-Za-z0-9_$]*)\.dispatchMessage\(`open-in-browser`,\{url:([^{}]+?)\}\)/g;
+const pluginInstallFlowNativeBrowserPatchReplacement =
+  '$1.dispatchMessage(`open-in-browser`,{url:$2,useExternalBrowser:!0})';
 const pluginsPageAppConnectPatchAlternatives = [
   {
     target: 'function qo(e){s.dispatchMessage(`open-in-browser`,{url:e})}',
@@ -1126,6 +1138,12 @@ const mainLinuxOpenTargetsPatchAlternatives = [
     replacement:
       'function linuxResolveAbsoluteCommand(e){let t=Ji(e);return t&&(0,o.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,r.homedir)();return[(0,i.join)(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,r.homedir)();return[(0,i.join)(e,`Applications`),(0,i.join)(e,`Downloads`),`/opt`]}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,o.readdirSync)(e)}catch{continue}for(let r of n){let a=r.toLowerCase();if(!a.endsWith(`.desktop`)||!t.some(e=>a.includes(e)))continue;let s=(0,i.join)(e,r),c=null;try{c=(0,o.readFileSync)(s,`utf8`)}catch{continue}let l=c.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!l)continue;let u=l.replace(/%.?/g,``).trim().split(/\\s+/)[0];if(!u)continue;let d=linuxResolveAbsoluteCommand(u)??(()=>{let e=Fi(u);return e?Ji(e):null})();if(d)return d}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,o.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let r of n){if(!r.isFile())continue;let n=r.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let a=linuxResolveAbsoluteCommand((0,i.join)(e,r.name));if(a)return a}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=Fi(t);if(e){let t=Ji(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let r=n.length>0?linuxFindDesktopEntryExec(n):null;return r??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return Fi(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:DE,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:DE,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:DE,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:DE,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:DE}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>XT(e)}}};var cD=[linuxVscode,BE,linuxVscodeInsiders,HE,RE,UT,bT,qT,OE,nD,GE,linuxZed,vT,linuxWindsurf,nE,jE,linuxCursor,JT,ST,$T,VT,qE,iE,linuxFileManager,QT,WE,ZE,uE,dE,fE,pE,mE,hE,gE,_E,PE],lD=t.ti(`open-in-targets`);',
   },
+  {
+    target:
+      'var Fk=[gk,vk,mk,yO,XD,CO,ik,Mk,xk,JD,MO,sk,wO,QD,kO,_O,Ck,PO,OO,bk,Dk,BO,VO,HO,UO,WO,GO,KO,qO,uk],Ik=n.zr(`open-in-targets`);',
+    replacement:
+      'function linuxResolveAbsoluteCommand(e){let t=To(e);return t&&(0,l.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,o.homedir)();return[(0,s.join)(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,o.homedir)();return[(0,s.join)(e,`Applications`),(0,s.join)(e,`Downloads`),`/opt`]}function linuxResolveDesktopExec(e){let n;try{n=t.Mn(e)}catch{return null}let r=n.at(0);if(!r)return null;return linuxResolveAbsoluteCommand(r)??(()=>{let e=fo(r);return e?To(e):null})()}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,l.readdirSync)(e)}catch{continue}for(let r of n){let i=r.toLowerCase();if(!i.endsWith(`.desktop`)||!t.some(e=>i.includes(e)))continue;let a=(0,s.join)(e,r),o=null;try{o=(0,l.readFileSync)(a,`utf8`)}catch{continue}let c=o.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!c)continue;let u=linuxResolveDesktopExec(c.replace(/%.?/g,``).trim());if(u)return u}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,l.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let r of n){if(!r.isFile())continue;let n=r.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let i=linuxResolveAbsoluteCommand((0,s.join)(e,r.name));if(i)return i}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=fo(t);if(e){let t=To(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let r=n.length>0?linuxFindDesktopEntryExec(n):null;return r??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return fo(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:nk,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:nk,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:nk,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:nk,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:rk}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>lk(e)}}};var Fk=[gk,linuxVscode,vk,linuxVscodeInsiders,mk,yO,XD,CO,ik,Mk,linuxZed,xk,linuxWindsurf,JD,MO,linuxCursor,sk,wO,linuxFileManager,QD,kO,_O,Ck,PO,OO,bk,Dk,BO,VO,HO,UO,WO,GO,KO,qO,uk],Ik=n.zr(`open-in-targets`);',
+  },
 ];
 const mainLinuxOpenTargetsPatchMarker = 'function linuxResolveEditorTarget(';
 const startupBackgroundPatchTarget = '--startup-background: transparent;';
@@ -1225,6 +1243,12 @@ export function applyRegexPatch(source, pattern, replacement, label, sourcePath,
     skipped: false,
     source: source.replace(pattern, replacement),
   };
+}
+
+function sourceHasAlternativePatch(source, alternatives) {
+  return alternatives.some(
+    ({ target, replacement }) => source.includes(target) || source.includes(replacement),
+  );
 }
 
 function parseOutputRoot(argv) {
@@ -1772,8 +1796,7 @@ function patchCodexAvatarOverlayRenderer(extractedAppRoot) {
       },
       {
         label: 'avatar overlay activity tray uses larger default layout',
-        target: avatarOverlayLargeActivityTrayLayoutPatchTarget,
-        replacement: avatarOverlayLargeActivityTrayLayoutPatchReplacement,
+        alternatives: avatarOverlayLargeActivityTrayLayoutPatchAlternatives,
         marker: avatarOverlayLargeActivityTrayLayoutPatchMarker,
       },
       {
@@ -1784,14 +1807,12 @@ function patchCodexAvatarOverlayRenderer(extractedAppRoot) {
       },
       {
         label: 'avatar overlay activity tray wraps compact messages',
-        target: avatarOverlayLargeActivityTrayWrapPatchTarget,
-        replacement: avatarOverlayLargeActivityTrayWrapPatchReplacement,
+        alternatives: avatarOverlayLargeActivityTrayWrapPatchAlternatives,
         marker: avatarOverlayLargeActivityTrayWrapPatchMarker,
       },
       {
         label: 'avatar overlay compact activity body can show more lines',
-        target: avatarOverlayReadableActivityBodyHeightPatchTarget,
-        replacement: avatarOverlayReadableActivityBodyHeightPatchReplacement,
+        alternatives: avatarOverlayReadableActivityBodyHeightPatchAlternatives,
         marker: avatarOverlayReadableActivityBodyHeightPatchMarker,
       },
       {
@@ -1831,7 +1852,9 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
       'composer.slashCommands.noResults',
       'requiresEmptyComposer',
     ]) ?? indexBundlePath;
+  const loginRouteBundleSource = fs.readFileSync(loginRouteBundlePath, 'utf8');
   const loginBundleSource = fs.readFileSync(indexBundlePath, 'utf8');
+  const remoteConnectionsSource = fs.readFileSync(remoteConnectionsPath, 'utf8');
   const composerBundleSource = fs.readFileSync(composerBundlePath, 'utf8');
   const pluginInstallFlowSource = fs.readFileSync(pluginInstallFlowPath, 'utf8');
   const appShellSource = fs.readFileSync(appShellPath, 'utf8');
@@ -1845,15 +1868,72 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
     indexBundlePath,
   );
   const needsGoalsFeaturePatches = !composerBundleSource.includes('threadGoalObjective');
+  const loginRoutePatches = [];
+  if (webviewChatGptLoginPatchPattern.test(loginRouteBundleSource)) {
+    loginRoutePatches.push({
+      label: 'chatgpt login requests native external browser',
+      type: 'regex',
+      pattern: webviewChatGptLoginPatchPattern,
+      replacement: webviewChatGptLoginPatchReplacement,
+    });
+  }
+  webviewChatGptLoginPatchPattern.lastIndex = 0;
+  const remoteConnectionPatches = [];
+  if (remoteChatGptLoginPatchPattern.test(remoteConnectionsSource)) {
+    remoteConnectionPatches.push({
+      label: 'remote chatgpt login requests native external browser',
+      type: 'regex',
+      pattern: remoteChatGptLoginPatchPattern,
+      replacement: remoteChatGptLoginPatchReplacement,
+    });
+  }
+  remoteChatGptLoginPatchPattern.lastIndex = 0;
+  const pluginInstallFlowPatches = [];
+  if (
+    needsLegacyPluginBrowserPatches &&
+    pluginInstallFlowNativeBrowserPatchPattern.test(pluginInstallFlowSource)
+  ) {
+    pluginInstallFlowNativeBrowserPatchPattern.lastIndex = 0;
+    pluginInstallFlowPatches.push({
+      label: 'apps page requests native external browser',
+      type: 'regex',
+      pattern: pluginInstallFlowNativeBrowserPatchPattern,
+      replacement: pluginInstallFlowNativeBrowserPatchReplacement,
+    });
+  } else {
+    pluginInstallFlowNativeBrowserPatchPattern.lastIndex = 0;
+  }
+  if (sourceHasAlternativePatch(pluginInstallFlowSource, pluginsPageBrowserFallbackPatchAlternatives)) {
+    pluginInstallFlowPatches.push({
+      label: 'apps page browser fallback opens install url',
+      alternatives: pluginsPageBrowserFallbackPatchAlternatives,
+    });
+  }
+  const pluginCardsPatches = [];
+  if (sourceHasAlternativePatch(pluginInstallFlowSource, pluginCardsAppConnectPatchAlternatives)) {
+    pluginCardsPatches.push({
+      label: 'plugin install app connect requests native external browser',
+      alternatives: pluginCardsAppConnectPatchAlternatives,
+    });
+  }
+  if (sourceHasAlternativePatch(pluginInstallFlowSource, pluginCardsInstallUrlOpenPatchAlternatives)) {
+    pluginCardsPatches.push({
+      label: 'plugin install direct install url requests native external browser',
+      alternatives: pluginCardsInstallUrlOpenPatchAlternatives,
+    });
+  }
+  if (sourceHasAlternativePatch(pluginInstallFlowSource, pluginCardsBrowserFallbackPatchAlternatives)) {
+    pluginCardsPatches.push({
+      label: 'plugin install browser fallback opens install url',
+      alternatives: pluginCardsBrowserFallbackPatchAlternatives,
+    });
+  }
 
   return {
     login: summarizePatchResults(
-      applyPatchesToFile(loginRouteBundlePath, [
-        {
-          label: 'chatgpt login requests native external browser',
-          alternatives: webviewChatGptLoginPatchAlternatives,
-        },
-      ]).concat(
+      (loginRoutePatches.length > 0
+        ? applyPatchesToFile(loginRouteBundlePath, loginRoutePatches)
+        : []).concat(
       applyPatchesToFile(indexBundlePath, [
         ...browserPaneAvailabilityPatches.map((patch, index) => ({
           label: `linux browser pane availability ${index + 1}`,
@@ -1899,37 +1979,13 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
       ),
     ),
     remoteConnections: summarizePatchResults(
-      applyPatchesToFile(remoteConnectionsPath, [
-        {
-          label: 'remote chatgpt login requests native external browser',
-          alternatives: remoteChatGptLoginPatchAlternatives,
-        },
-      ]),
+      remoteConnectionPatches.length > 0
+        ? applyPatchesToFile(remoteConnectionsPath, remoteConnectionPatches)
+        : [],
     ),
     pluginsPage: summarizePatchResults(
-      (needsLegacyPluginBrowserPatches
-        ? applyPatchesToFile(pluginInstallFlowPath, [
-            {
-              label: 'apps page app connect requests native external browser',
-              alternatives: pluginsPageAppConnectPatchAlternatives,
-            },
-            {
-              label: 'apps page openInBrowser callback requests native external browser',
-              alternatives: pluginsPageOpenInBrowserCallbackPatchAlternatives,
-            },
-            {
-              label: 'apps page install url requests native external browser',
-              alternatives: pluginsPageInstallUrlPatchAlternatives,
-            },
-            {
-              label: 'apps page resolved url requests native external browser',
-              alternatives: pluginsPageResolvedUrlPatchAlternatives,
-            },
-            {
-              label: 'apps page browser fallback opens install url',
-              alternatives: pluginsPageBrowserFallbackPatchAlternatives,
-            },
-          ])
+      (pluginInstallFlowPatches.length > 0
+        ? applyPatchesToFile(pluginInstallFlowPath, pluginInstallFlowPatches)
         : []).concat(
         needsPluginMenuPatch
           ? applyPatchesToFile(appShellPath, [
@@ -1943,21 +1999,8 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
       ),
     ),
     pluginsCards: summarizePatchResults(
-      needsLegacyPluginBrowserPatches
-        ? applyPatchesToFile(pluginInstallFlowPath, [
-            {
-              label: 'plugin install app connect requests native external browser',
-              alternatives: pluginCardsAppConnectPatchAlternatives,
-            },
-            {
-              label: 'plugin install direct install url requests native external browser',
-              alternatives: pluginCardsInstallUrlOpenPatchAlternatives,
-            },
-            {
-              label: 'plugin install browser fallback opens install url',
-              alternatives: pluginCardsBrowserFallbackPatchAlternatives,
-            },
-          ])
+      pluginCardsPatches.length > 0
+        ? applyPatchesToFile(pluginInstallFlowPath, pluginCardsPatches)
         : [],
     ),
   };

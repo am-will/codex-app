@@ -41,7 +41,7 @@ describe('Recovered Codex bundle RED contract', () => {
     desktopRoot,
     'tmp',
     'codex-upstream',
-    '26.519.22136',
+    '26.601.21317',
     'extracted',
     'Codex.app',
     'Contents',
@@ -165,8 +165,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.519.22136');
-      expect(summary.buildNumber).toBe('3003');
+      expect(summary.version).toBe('26.601.21317');
+      expect(summary.buildNumber).toBe('3511');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -178,7 +178,7 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).toMatch(
-        /\(n===`win32`\|\|n===`linux`\)\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\(\)\}/,
+        /\(n===`win32`\|\|n===`linux`\)\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([^)]*\)\}/,
       );
       expect(mainBundle).toContain(
         'process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`',
@@ -191,7 +191,7 @@ describe('Recovered Codex bundle RED contract', () => {
       );
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
       expect(mainBundle).toMatch(
-        /\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
+        /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
       );
       expect(loginRouteBundle).toContain('useExternalBrowser:!0');
       expect(composerBundle).toContain('threadGoalObjective');
@@ -202,32 +202,13 @@ describe('Recovered Codex bundle RED contract', () => {
       }
       expect(appShellBundle).toContain('app-shell-shortcut-state-changed');
       expect(pluginsCardsBundle ?? pluginsPageBundle).toContain('plugins');
-      expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            label: 'apps page app connect requests native external browser',
-          }),
-          expect.objectContaining({
-            label: 'apps page openInBrowser callback requests native external browser',
-          }),
-          expect.objectContaining({ label: 'apps page install url requests native external browser' }),
-          expect.objectContaining({
-            label: 'apps page resolved url requests native external browser',
-          }),
-          expect.objectContaining({ label: 'apps page browser fallback opens install url' }),
-        ]),
-      );
-      expect(summary.patchSummary.authWebview.pluginsCards.results).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            label: 'plugin install app connect requests native external browser',
-          }),
-          expect.objectContaining({
-            label: 'plugin install direct install url requests native external browser',
-          }),
-          expect.objectContaining({ label: 'plugin install browser fallback opens install url' }),
-        ]),
-      );
+      expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([
+        expect.objectContaining({
+          label: 'apps page requests native external browser',
+          patched: true,
+        }),
+      ]);
+      expect(summary.patchSummary.authWebview.pluginsCards.results).toEqual([]);
       expect(summary.patchSummary.mainProcess.results).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ label: 'git origins existing-path filter' }),
@@ -305,8 +286,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.519.22136');
-    expect(packageJson.codexBuildNumber).toBe('3003');
+    expect(packageJson.version).toBe('26.601.21317');
+    expect(packageJson.codexBuildNumber).toBe('3511');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -352,33 +333,16 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.519.22136');
-    expect(manifest.buildNumber).toBe('3003');
+    expect(manifest.version).toBe('26.601.21317');
+    expect(manifest.buildNumber).toBe('3511');
     expect(manifest.electronVersion).toBe('42.1.0');
-    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual(
-        expect.arrayContaining([
-        expect.objectContaining({
-          label: 'apps page app connect requests native external browser',
-        }),
-        expect.objectContaining({
-          label: 'apps page openInBrowser callback requests native external browser',
-        }),
-        expect.objectContaining({ label: 'apps page install url requests native external browser' }),
-        expect.objectContaining({ label: 'apps page resolved url requests native external browser' }),
-        expect.objectContaining({ label: 'apps page browser fallback opens install url' }),
-      ]),
-    );
-    expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          label: 'plugin install app connect requests native external browser',
-        }),
-        expect.objectContaining({
-          label: 'plugin install direct install url requests native external browser',
-        }),
-        expect.objectContaining({ label: 'plugin install browser fallback opens install url' }),
-      ]),
-    );
+    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
+      expect.objectContaining({
+        label: 'apps page requests native external browser',
+        patched: true,
+      }),
+    ]);
+    expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
   });
 
   test('webview index resolves the active renderer entry instead of pinning a full-app bundle name', () => {
@@ -428,26 +392,13 @@ describe('Recovered Codex bundle RED contract', () => {
     };
 
     expect(appShell).toContain('app-shell-shortcut-state-changed');
-    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual(
-        expect.arrayContaining([
-        expect.objectContaining({
-          label: 'apps page app connect requests native external browser',
-        }),
-        expect.objectContaining({ label: 'apps page install url requests native external browser' }),
-        expect.objectContaining({ label: 'apps page resolved url requests native external browser' }),
-      ]),
-    );
-    expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          label: 'plugin install app connect requests native external browser',
-        }),
-        expect.objectContaining({
-          label: 'plugin install direct install url requests native external browser',
-        }),
-        expect.objectContaining({ label: 'plugin install browser fallback opens install url' }),
-      ]),
-    );
+    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
+      expect.objectContaining({
+        label: 'apps page requests native external browser',
+        patched: true,
+      }),
+    ]);
+    expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
   });
 
   test('model settings patch hooks remain available even when the latest upstream bundle skips them', () => {
@@ -546,7 +497,7 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
-      /[a-z]=\([a-z]&&[a-z]\.length>0\?[a-z]:[a-z]\.filter\(e=>e!==`~`\)\.map\(t=>e\.[A-Za-z$_]+\([a-z]\)\)\)\.filter\(t=>\{try\{return!!t&&[a-z]\.existsSync\(t\)\}catch\{return!1\}\}\)/,
+      /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
     );
   });
 

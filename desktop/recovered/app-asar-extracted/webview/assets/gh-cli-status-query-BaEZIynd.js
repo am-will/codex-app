@@ -1,0 +1,2 @@
+import{R as e,h as t,i as n,u as r}from"./vscode-api-sUstfl-x.js";var i=n(t,`gh-cli-status`,e=>({gcTime:r.INFINITE,params:{hostId:e},staleTime:e=>e.state.data?.isInstalled===!0&&e.state.data.isAuthenticated===!0?r.INFINITE:r.FIVE_SECONDS})),a=e(t,(e,{get:t})=>{let n=t(i,e);return n.isError?`error`:n.data==null?`loading`:n.data.isInstalled?n.data.isAuthenticated?`available`:`unauthenticated`:`missing`});function o(e,t){e.query.invalidate(i,t)}export{o as n,a as t};
+//# sourceMappingURL=gh-cli-status-query-BaEZIynd.js.map

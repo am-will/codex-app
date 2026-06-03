@@ -1,2 +1,0 @@
-import{pa as e}from"./app-server-manager-signals-Csopz8aM.js";function t(t){return e(t?.source)?.parentThreadId!=null}function n(e,n){return!n&&t(e)}export{n,t};
-//# sourceMappingURL=is-subagent-conversation-Djwiz_Ce.js.map

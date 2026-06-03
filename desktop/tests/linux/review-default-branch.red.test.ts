@@ -33,8 +33,8 @@ describe('Review base branch regression gate (RED)', () => {
     const workerSource = readRecoveredWorkerBundle();
 
     expect(workerSource).toContain('async handleDefaultBranch');
-    expect(workerSource).toContain('getWorktreeRepositoryByRoot(e.root,t)');
-    expect(workerSource).toContain('getDefaultRemoteAndBranch())?.branch??null');
+    expect(workerSource).toContain('getWorktreeRepositoryForRoot(e.root,t)');
+    expect(workerSource).toContain('?.branch??null;return');
     expect(workerSource).toMatch(
       /\.find\([A-Za-z_$][\w$]*=>[A-Za-z_$][\w$]*===`main`\|\|[A-Za-z_$][\w$]*===`master`\)\?\?null,[A-Za-z_$][\w$]*\(\{branch:[A-Za-z_$][\w$]*\}\)/,
     );

@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/codex-upstream/26.519.22136/extracted/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "222f9153bc7148d095ce22f70228acbb0288bbe7a58ac101f862971b6ede7acc",
+  "appAsarPath": "/tmp/codex-update/extracted/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "effccc2a802cf9defe9f37d56ddb36fdf1e8ade61bcca7d5505a76bbd275efed",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.519.22136",
-  "buildNumber": "3003",
+  "version": "26.601.21317",
+  "buildNumber": "3511",
   "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -277,31 +277,7 @@
         "patched": true,
         "results": [
           {
-            "label": "apps page app connect requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "apps page openInBrowser callback requests native external browser",
-            "patched": false,
-            "skipped": true,
-            "reason": "apps page openInBrowser callback requests native external browser replacement already present"
-          },
-          {
-            "label": "apps page install url requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "apps page resolved url requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "apps page browser fallback opens install url",
+            "label": "apps page requests native external browser",
             "patched": true,
             "skipped": false,
             "reason": null
@@ -310,26 +286,7 @@
       },
       "pluginsCards": {
         "patched": false,
-        "results": [
-          {
-            "label": "plugin install app connect requests native external browser",
-            "patched": false,
-            "skipped": true,
-            "reason": "plugin install app connect requests native external browser replacement already present"
-          },
-          {
-            "label": "plugin install direct install url requests native external browser",
-            "patched": false,
-            "skipped": true,
-            "reason": "plugin install direct install url requests native external browser replacement already present"
-          },
-          {
-            "label": "plugin install browser fallback opens install url",
-            "patched": false,
-            "skipped": true,
-            "reason": "plugin install browser fallback opens install url replacement already present"
-          }
-        ]
+        "results": []
       }
     },
     "modelSettings": {

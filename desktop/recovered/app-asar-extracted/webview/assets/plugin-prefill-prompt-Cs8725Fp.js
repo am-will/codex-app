@@ -1,0 +1,2 @@
+import{ti as e}from"./app-server-manager-signals-BOGyjFm3.js";import{v as t}from"./mention-item-DOPWFNx_.js";function n(e){return e?.map(e=>e.trim()).find(e=>e.length>0)??null}function r({defaultPrompt:n,pluginDisplayName:r,pluginId:i}){return`${`[@${r}](${e(t(i))})`} ${n?.trim()??``}`}export{n,r as t};
+//# sourceMappingURL=plugin-prefill-prompt-Cs8725Fp.js.map
