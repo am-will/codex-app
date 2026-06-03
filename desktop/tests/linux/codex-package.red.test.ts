@@ -119,6 +119,16 @@ describe('Codex package staging RED contract', () => {
     expect(joinedScriptSources).toContain('icudtl.dat');
   });
 
+  test('codex linux build rejects stale assembled runtime caches', () => {
+    const buildSource = readDesktopFile('scripts/build-codex-linux-runtime.mjs');
+
+    expect(buildSource).toContain("import asar from '@electron/asar';");
+    expect(buildSource).toContain('function assertCurrentAssembledRuntime({ assembledRoot })');
+    expect(buildSource).toContain("asar.extractFile(asarPath, 'package.json')");
+    expect(buildSource).toContain('Existing assembled runtime root is stale');
+    expect(buildSource).toContain('assertCurrentAssembledRuntime({ assembledRoot });');
+  });
+
   test('codex staging scripts preserve Linux native modules via app.asar.unpacked from the shell', () => {
     const packageJson = JSON.parse(readDesktopFile('package.json')) as PackageJson;
     const scripts = packageJson.scripts ?? {};

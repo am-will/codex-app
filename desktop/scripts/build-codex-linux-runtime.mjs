@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import asar from '@electron/asar';
 
 import { assembleCodexRuntime } from './assemble-codex-runtime.mjs';
 
@@ -51,6 +52,39 @@ function parseCli(argv) {
 function assertExists(targetPath, label) {
   if (!fs.existsSync(targetPath)) {
     throw new Error(`${label} is missing: ${targetPath}`);
+  }
+}
+
+function readJsonFile(filePath, label) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (error) {
+    throw new Error(`Unable to read ${label}: ${filePath}\n${error.message}`);
+  }
+}
+
+function readAsarPackageJson(asarPath) {
+  try {
+    return JSON.parse(asar.extractFile(asarPath, 'package.json').toString('utf8'));
+  } catch (error) {
+    throw new Error(`Unable to read assembled codex package.json from ${asarPath}\n${error.message}`);
+  }
+}
+
+function assertCurrentAssembledRuntime({ assembledRoot }) {
+  const packageJson = readJsonFile(path.join(desktopRoot, 'package.json'), 'desktop package.json');
+  const appAsarPath = path.join(assembledRoot, 'resources', 'app.asar');
+  const assembledPackageJson = readAsarPackageJson(appAsarPath);
+  const expectedBuild = String(packageJson.codexBuildNumber ?? '');
+  const actualBuild = String(assembledPackageJson.codexBuildNumber ?? '');
+
+  if (assembledPackageJson.version !== packageJson.version || actualBuild !== expectedBuild) {
+    throw new Error(
+      `Existing assembled runtime root is stale: ${assembledRoot}\n` +
+      `Expected Codex ${packageJson.version} build ${expectedBuild}, ` +
+      `found ${assembledPackageJson.version ?? 'unknown'} build ${actualBuild || 'unknown'}.\n` +
+      'Use a fresh --assembled-root path or rebuild the assembled runtime.',
+    );
   }
 }
 
@@ -203,6 +237,7 @@ export async function buildCodexLinuxRuntime({
     assertExists(path.join(assembledRoot, 'resources', 'app.asar'), 'Assembled codex app.asar');
     assertExists(path.join(assembledRoot, 'resources', 'codex'), 'Assembled codex helper');
     assertExists(path.join(assembledRoot, 'resources', 'rg'), 'Assembled ripgrep helper');
+    assertCurrentAssembledRuntime({ assembledRoot });
   }
 
   copyShellExceptResources({ shellRoot, outputRoot });
