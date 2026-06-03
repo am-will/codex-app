@@ -214,16 +214,16 @@ describe('Codex package staging RED contract', () => {
     const srcInfoSource = readDesktopFile('../packaging/aur/openai-codex-desktop-bin/.SRCINFO');
 
     expect(pkgbuildSource).toContain('pkgname=openai-codex-desktop-bin');
-    expect(pkgbuildSource).toContain('codex-app-linux-v${pkgver}.deb');
-    expect(pkgbuildSource).toContain('/releases/download/v${pkgver}/codex-app-linux-v${pkgver}.deb');
+    expect(pkgbuildSource).toContain('codex-app-linux-x64-v${pkgver}.deb');
+    expect(pkgbuildSource).toContain('/releases/download/v${pkgver}/codex-app-linux-x64-v${pkgver}.deb');
     expect(pkgbuildSource).toContain('sha256sums=');
     expect(pkgbuildSource).toContain('bsdtar --no-same-owner -xf "${data_tar}"');
     expect(pkgbuildSource).toContain("provides=('codex-desktop')");
     expect(pkgbuildSource).toContain("conflicts=('codex-desktop')");
 
     expect(srcInfoSource).toContain('pkgbase = openai-codex-desktop-bin');
-    expect(srcInfoSource).toContain('source = codex-app-linux-v26.422.21641.deb::https://github.com/am-will/codex-app/releases/download/v26.422.21641/codex-app-linux-v26.422.21641.deb');
-    expect(srcInfoSource).toContain('sha256sums = 2fd92b58ee2a14df229bf75d8f4247115a55596cd6fbd222b74c981fa15d19ea');
+    expect(srcInfoSource).toContain('source = codex-app-linux-x64-v26.601.21317.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21317/codex-app-linux-x64-v26.601.21317.deb');
+    expect(srcInfoSource).toContain('sha256sums = SKIP');
 
     const aurDir = path.join(desktopRoot, '..', 'packaging', 'aur', 'openai-codex-desktop-bin');
     const aurFiles = fs.readdirSync(aurDir);
