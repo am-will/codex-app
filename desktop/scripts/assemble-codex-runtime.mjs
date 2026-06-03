@@ -360,9 +360,15 @@ const branchDiffStatsLinuxSkipPatchReplacement =
 const mainLinuxBrowserUseRuntimePatchTarget =
   'p({ambientSuggestions:o.ambientSuggestions,appshotsEnabled:o.appshotsEnabled,inAppBrowserUse:o.inAppBrowserUse,inAppBrowserUseAllowed:o.inAppBrowserUseAllowed,browserPane:o.browserPane,externalBrowserUse:o.externalBrowserUse,externalBrowserUseAllowed:o.externalBrowserUseAllowed,computerUse:o.computerUse,computerUseNodeRepl:o.computerUseNodeRepl,sites:o.sites,control:o.control,dil:o.dil,multiBrowserTabs:o.multiBrowserTabs,multiWindow:o.multiWindow,processManager:o.processManager})';
 const mainLinuxBrowserUseRuntimePatchReplacement =
-  'p({ambientSuggestions:o.ambientSuggestions,appshotsEnabled:o.appshotsEnabled,inAppBrowserUse:process.platform===`linux`&&process.env.CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.inAppBrowserUse,inAppBrowserUseAllowed:o.inAppBrowserUseAllowed,browserPane:o.browserPane,externalBrowserUse:process.platform===`linux`&&process.env.CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse,externalBrowserUseAllowed:o.externalBrowserUseAllowed,computerUse:o.computerUse,computerUseNodeRepl:o.computerUseNodeRepl,sites:o.sites,control:o.control,dil:o.dil,multiBrowserTabs:o.multiBrowserTabs,multiWindow:o.multiWindow,processManager:o.processManager})';
+  'p({ambientSuggestions:o.ambientSuggestions,appshotsEnabled:o.appshotsEnabled,inAppBrowserUse:o.inAppBrowserUse,inAppBrowserUseAllowed:o.inAppBrowserUseAllowed,browserPane:o.browserPane,externalBrowserUse:process.platform===`linux`&&process.env.CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse,externalBrowserUseAllowed:o.externalBrowserUseAllowed,computerUse:o.computerUse,computerUseNodeRepl:o.computerUseNodeRepl,sites:o.sites,control:o.control,dil:o.dil,multiBrowserTabs:o.multiBrowserTabs,multiWindow:o.multiWindow,processManager:o.processManager})';
 const mainLinuxBrowserUseRuntimePatchMarker =
-  'CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.inAppBrowserUse';
+  'CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse';
+const mainLinuxNodeReplSymlinkPatchTarget =
+  'h=Bn({platform:r,rawValue:e.CODEX_NODE_REPL_PATH,resolveWindowsAppsPath:s})??zn({devRelativePathSegments:[`electron`,`bin`,`node_repl`],isPackaged:t,platform:r,repoRoot:i,resolveBundledPath:s,resourcesPath:u});return{codexCliPath:f.path,codexCliPathSource:f.source,nodePath:m.path,nodePathSource:m.source,nodeReplPath:h.path,nodeReplPathSource:h.source,platform:r}}';
+const mainLinuxNodeReplSymlinkPatchReplacement =
+  'h=Bn({platform:r,rawValue:e.CODEX_NODE_REPL_PATH,resolveWindowsAppsPath:s})??zn({devRelativePathSegments:[`electron`,`bin`,`node_repl`],isPackaged:t,platform:r,repoRoot:i,resolveBundledPath:s,resourcesPath:u}),g=h.path!=null&&m.path!=null&&(()=>{try{let e=require(`fs`);return e.realpathSync(h.path)===e.realpathSync(m.path)}catch{return!1}})()?{path:null,source:`node-repl-symlink-to-node`}:h;return{codexCliPath:f.path,codexCliPathSource:f.source,nodePath:m.path,nodePathSource:m.source,nodeReplPath:g.path,nodeReplPathSource:g.source,platform:r}}';
+const mainLinuxNodeReplSymlinkPatchMarker =
+  'node-repl-symlink-to-node';
 const mainLinuxPrimaryTitleBarPatchAlternatives = [
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
@@ -1794,10 +1800,16 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxAvatarOverlayAvailabilityPatchMarker,
       },
       {
-        label: 'linux disables browser-use runtime by default',
+        label: 'linux disables external browser-use runtime by default',
         target: mainLinuxBrowserUseRuntimePatchTarget,
         replacement: mainLinuxBrowserUseRuntimePatchReplacement,
         marker: mainLinuxBrowserUseRuntimePatchMarker,
+      },
+      {
+        label: 'linux rejects node_repl symlink to plain node',
+        target: mainLinuxNodeReplSymlinkPatchTarget,
+        replacement: mainLinuxNodeReplSymlinkPatchReplacement,
+        marker: mainLinuxNodeReplSymlinkPatchMarker,
       },
       {
         label: 'linux open-in target registry',

@@ -244,8 +244,9 @@ describe('Recovered Codex bundle RED contract', () => {
       );
       expect(ambientSuggestionsBundle).toContain('if(process.platform===`linux`)return u');
       expect(ambientSuggestionsBundle).toContain('if(process.platform===`linux`)return null');
-      expect(mainBundle).toContain('CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.inAppBrowserUse');
+      expect(mainBundle).toContain('inAppBrowserUse:o.inAppBrowserUse');
       expect(mainBundle).toContain('CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse');
+      expect(mainBundle).toContain('node-repl-symlink-to-node');
       expect(turnDiffAnalyticsBundle).toContain(
         'globalThis.navigator?.platform?.toLowerCase().startsWith(`linux`)',
       );
@@ -494,12 +495,11 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(readRecoveredAsset('review-navigation-model-')).toContain(
       'enabled:!(globalThis.process?.platform===`linux`',
     );
-    expect(readRecoveredMainBuildFile()).toContain(
-      'CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.inAppBrowserUse',
-    );
+    expect(readRecoveredMainBuildFile()).toContain('inAppBrowserUse:o.inAppBrowserUse');
     expect(readRecoveredMainBuildFile()).toContain(
       'CODEX_LINUX_ENABLE_BROWSER_USE_RUNTIME!==`1`?!1:o.externalBrowserUse',
     );
+    expect(readRecoveredMainBuildFile()).toContain('node-repl-symlink-to-node');
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
