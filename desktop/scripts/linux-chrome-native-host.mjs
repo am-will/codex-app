@@ -42,6 +42,13 @@ function handleMessage(request) {
   log(`request ${JSON.stringify(request)}`);
 
   switch (request?.method) {
+    case 'ping':
+      respond(request, {
+        ready: true,
+        platform: process.platform,
+      });
+      return;
+
     case 'ensureCodexAppServer':
       respond(request, {
         ready: true,
