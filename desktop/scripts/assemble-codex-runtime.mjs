@@ -329,6 +329,14 @@ const mainLinuxTitleBarOverlayUpdatePatchAlternatives = [
 ];
 const mainLinuxTitleBarOverlayUpdatePatchMarker =
   'if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;';
+const windowControlsSafeAreaPatchTarget =
+  'o=16,s=Object.freeze({default:Object.freeze({left:0,right:0}),mac:Object.freeze({legacy:Object.freeze({left:66+o,right:0}),modern:Object.freeze({left:76+o,right:0})}),windows:Object.freeze({left:0,right:0}),linux:Object.freeze({left:0,right:120})})';
+const windowControlsSafeAreaPatchReplacement =
+  'o=16,h=176,s=Object.freeze({default:Object.freeze({left:0,right:0}),mac:Object.freeze({legacy:Object.freeze({left:66+o,right:0}),modern:Object.freeze({left:76+o,right:0})}),windows:Object.freeze({left:0,right:h}),linux:Object.freeze({left:0,right:h})})';
+const appShellHeaderEndSlotPaddingPatchTarget =
+  'o=At(e=>{let{width:n}=kt(e);t.set(n)});return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{"aria-hidden":!0,className:c(`invisible pointer-events-none fixed top-0 left-0 min-w-max [&_*]:![view-transition-name:none]`,!!e.length&&a),ref:o,children:(0,Q.jsx)(br,{entries:e})}),(0,Q.jsx)(U.div,{"data-test-id":`header-shell-slot`,className:c(`pointer-events-none relative h-full shrink-0 [container-type:inline-size]`,!!e.length&&a),style:{width:r,minWidth:Jt`${t}px`},children:(0,Q.jsx)(br,{entries:e,fillSlot:!0})})]})}';
+const appShellHeaderEndSlotPaddingPatchReplacement =
+  'o=At(e=>{let{width:n}=kt(e);t.set(n)}),s=n===`end`?{paddingInlineEnd:`max(var(--spacing-token-safe-header-right),176px)`}:void 0;return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{"aria-hidden":!0,className:c(`invisible pointer-events-none fixed top-0 left-0 min-w-max [&_*]:![view-transition-name:none]`,!!e.length&&a),style:s,ref:o,children:(0,Q.jsx)(br,{entries:e})}),(0,Q.jsx)(U.div,{"data-test-id":`header-shell-slot`,className:c(`pointer-events-none relative h-full shrink-0 [container-type:inline-size]`,!!e.length&&a),style:{width:r,minWidth:Jt`${t}px`,...s},children:(0,Q.jsx)(br,{entries:e,fillSlot:!0})})]})}';
 const mainLinuxPrimaryTitleBarPatchAlternatives = [
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
@@ -1750,6 +1758,39 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
   );
 }
 
+function patchCodexWindowControlsSafeArea(extractedAppRoot) {
+  const safeAreaPath = findExtractedWebviewAsset(
+    extractedAppRoot,
+    'use-window-controls-safe-area-',
+  );
+
+  return {
+    asset: path.basename(safeAreaPath),
+    results: applyPatchesToFile(safeAreaPath, [
+      {
+        label: 'linux window controls safe header spacing',
+        target: windowControlsSafeAreaPatchTarget,
+        replacement: windowControlsSafeAreaPatchReplacement,
+      },
+    ]),
+  };
+}
+
+function patchCodexAppShellTopBar(extractedAppRoot) {
+  const appShellPath = findExtractedWebviewAsset(extractedAppRoot, 'app-shell-');
+
+  return {
+    asset: path.basename(appShellPath),
+    results: applyPatchesToFile(appShellPath, [
+      {
+        label: 'linux header end slot reserves native controls',
+        target: appShellHeaderEndSlotPaddingPatchTarget,
+        replacement: appShellHeaderEndSlotPaddingPatchReplacement,
+      },
+    ]),
+  };
+}
+
 function patchCodexStartupShell(extractedAppRoot) {
   const startupShellPath = path.join(extractedAppRoot, 'webview', 'index.html');
 
@@ -2160,6 +2201,8 @@ export function patchExtractedCodexApp(extractedAppRoot) {
     preload: patchCodexPreload(extractedAppRoot),
     bootstrap: patchCodexBootstrap(extractedAppRoot),
     mainProcess: patchCodexMainProcessBundle(extractedAppRoot),
+    windowControlsSafeArea: patchCodexWindowControlsSafeArea(extractedAppRoot),
+    appShellTopBar: patchCodexAppShellTopBar(extractedAppRoot),
     startupShell: patchCodexStartupShell(extractedAppRoot),
     avatarOverlayRenderer: patchCodexAvatarOverlayRenderer(extractedAppRoot),
     authWebview: patchCodexAuthWebviewBundles(extractedAppRoot),

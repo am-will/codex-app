@@ -140,6 +140,7 @@ describe('Recovered Codex bundle RED contract', () => {
       const loginRouteBundle = readOutputAsset('login-route-');
       const composerBundle = readOutputAsset('composer-');
       const appShellBundle = readOutputAsset('app-shell-');
+      const windowControlsSafeAreaBundle = readOutputAsset('use-window-controls-safe-area-');
       const pluginsPageBundle = fs.readFileSync(
         path.join(
           outputAssetsRoot,
@@ -201,6 +202,15 @@ describe('Recovered Codex bundle RED contract', () => {
         expect(pluginInstallFlowBundle).toContain('open-in-browser');
       }
       expect(appShellBundle).toContain('app-shell-shortcut-state-changed');
+      expect(appShellBundle).toContain(
+        'paddingInlineEnd:`max(var(--spacing-token-safe-header-right),176px)`',
+      );
+      expect(appShellBundle).toContain(
+        'style:{width:r,minWidth:Jt`${t}px`,...s}',
+      );
+      expect(windowControlsSafeAreaBundle).toContain(
+        'windows:Object.freeze({left:0,right:h}),linux:Object.freeze({left:0,right:h})',
+      );
       expect(pluginsCardsBundle ?? pluginsPageBundle).toContain('plugins');
       expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([
         expect.objectContaining({
@@ -378,6 +388,20 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(appMainBundle).toContain('tool_suggest');
     expect(composerBundle).toContain('threadGoalObjective');
     expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
+  });
+
+  test('renderer reserves header space for Linux window controls', () => {
+    const appShellBundle = readRecoveredAsset('app-shell-');
+    const safeAreaBundle = readRecoveredAsset('use-window-controls-safe-area-');
+
+    expect(appShellBundle).toContain(
+      'paddingInlineEnd:`max(var(--spacing-token-safe-header-right),176px)`',
+    );
+    expect(appShellBundle).toContain('style:{width:r,minWidth:Jt`${t}px`,...s}');
+    expect(safeAreaBundle).toContain('h=176');
+    expect(safeAreaBundle).toContain(
+      'windows:Object.freeze({left:0,right:h}),linux:Object.freeze({left:0,right:h})',
+    );
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
