@@ -5,7 +5,7 @@
   "appAsarPath": "/tmp/codex-update/extracted/Codex.app/Contents/Resources/app.asar",
   "appAsarSha256": "effccc2a802cf9defe9f37d56ddb36fdf1e8ade61bcca7d5505a76bbd275efed",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.601.21317",
+  "version": "26.601.21318",
   "buildNumber": "3511",
   "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",

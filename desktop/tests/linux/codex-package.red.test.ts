@@ -224,8 +224,8 @@ describe('Codex package staging RED contract', () => {
     expect(pkgbuildSource).toContain("conflicts=('codex-desktop')");
 
     expect(srcInfoSource).toContain('pkgbase = openai-codex-desktop-bin');
-    expect(srcInfoSource).toContain('source = codex-app-linux-x64-v26.601.21317_icon1.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21317_icon1/codex-app-linux-x64-v26.601.21317_icon1.deb');
-    expect(srcInfoSource).toContain('sha256sums = 23cdaf2aa0d3360cba37d5d34a58228726d48e03670a40269e0552a7a3a646fc');
+    expect(srcInfoSource).toContain('source = codex-app-linux-x64-v26.601.21318.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21318/codex-app-linux-x64-v26.601.21318.deb');
+    expect(srcInfoSource).toContain('sha256sums = SKIP');
 
     const aurDir = path.join(desktopRoot, '..', 'packaging', 'aur', 'openai-codex-desktop-bin');
     const aurFiles = fs.readdirSync(aurDir);

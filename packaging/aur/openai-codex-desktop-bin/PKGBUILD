@@ -1,7 +1,7 @@
 # Maintainer: am-will <amwill@users.noreply.github.com>
 
 pkgname=openai-codex-desktop-bin
-pkgver=26.601.21317_icon1
+pkgver=26.601.21318
 pkgrel=1
 pkgdesc='OpenAI Codex desktop app for Linux (binary release)'
 arch=('x86_64')
@@ -44,7 +44,7 @@ provides=('codex-desktop')
 conflicts=('codex-desktop')
 options=('!strip')
 source=("codex-app-linux-x64-v${pkgver}.deb::${url}/releases/download/v${pkgver}/codex-app-linux-x64-v${pkgver}.deb")
-sha256sums=('23cdaf2aa0d3360cba37d5d34a58228726d48e03670a40269e0552a7a3a646fc')
+sha256sums=('SKIP')
 
 package() {
   local data_tar

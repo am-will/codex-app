@@ -2,7 +2,7 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.601.21317",
+  "version": "26.601.21318",
   "description": "Codex",
   "main": ".vite/build/bootstrap.js",
   "scripts": {

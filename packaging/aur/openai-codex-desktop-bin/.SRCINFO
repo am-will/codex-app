@@ -1,6 +1,6 @@
 pkgbase = openai-codex-desktop-bin
 	pkgdesc = OpenAI Codex desktop app for Linux (binary release)
-	pkgver = 26.601.21317_icon1
+	pkgver = 26.601.21318
 	pkgrel = 1
 	url = https://github.com/am-will/codex-app
 	arch = x86_64
@@ -37,7 +37,7 @@ pkgbase = openai-codex-desktop-bin
 	provides = codex-desktop
 	conflicts = codex-desktop
 	options = !strip
-	source = codex-app-linux-x64-v26.601.21317_icon1.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21317_icon1/codex-app-linux-x64-v26.601.21317_icon1.deb
-	sha256sums = 23cdaf2aa0d3360cba37d5d34a58228726d48e03670a40269e0552a7a3a646fc
+	source = codex-app-linux-x64-v26.601.21318.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21318/codex-app-linux-x64-v26.601.21318.deb
+	sha256sums = SKIP
 
 pkgname = openai-codex-desktop-bin

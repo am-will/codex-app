@@ -286,7 +286,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.601.21317');
+    expect(packageJson.version).toBe('26.601.21318');
     expect(packageJson.codexBuildNumber).toBe('3511');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
@@ -333,7 +333,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.601.21317');
+    expect(manifest.version).toBe('26.601.21318');
     expect(manifest.buildNumber).toBe('3511');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
