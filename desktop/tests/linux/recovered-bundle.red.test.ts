@@ -380,6 +380,28 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
   });
 
+  test('dictation shortcuts stay configurable instead of using stale Ctrl+M behavior', () => {
+    const mainSource = readRecoveredMainBuildFile();
+    const appMainBundle = readRecoveredAsset('app-main-');
+    const composerBundle = readRecoveredAsset('composer-');
+    const dictationSources = [mainSource, appMainBundle, composerBundle].join('\n');
+
+    expect(mainSource).toContain('globalDictationHold');
+    expect(mainSource).toContain('globalDictationToggle');
+    expect(mainSource).toContain('global-dictation-set-hotkey');
+    expect(mainSource).toContain('global-dictation-set-toggle-hotkey');
+    expect(mainSource).toContain('set-codex-command-keybinding');
+    expect(mainSource).toContain('globalShortcut.register');
+    expect(composerBundle).toContain('dictationShortcutLabel');
+    expect(composerBundle).toContain('codex-micro-push-to-talk-start');
+    expect(composerBundle).toContain('codex-micro-push-to-talk-stop');
+    expect(dictationSources).not.toContain('Ctrl+M');
+    expect(dictationSources).not.toContain('Control+M');
+    expect(dictationSources).not.toMatch(
+      /(?:dictation|Dictation|globalDictation|push-to-talk|micro)[\s\S]{0,240}KeyM/,
+    );
+  });
+
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
     const appShell = readRecoveredAsset('app-shell-');
     const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
