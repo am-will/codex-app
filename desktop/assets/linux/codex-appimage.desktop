@@ -2,7 +2,7 @@
 Version=1.5
 Type=Application
 Name=Codex
-Exec=/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11 Codex --ozone-platform=x11 %u
+Exec=/usr/bin/env Codex %u
 Icon=codex-desktop
 Categories=Development;
 MimeType=x-scheme-handler/codex;

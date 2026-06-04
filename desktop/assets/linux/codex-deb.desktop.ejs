@@ -2,7 +2,7 @@
 <% if (productName) { %>Name=<%= productName %>
 <% } %><% if (description) { %>Comment=<%= description %>
 <% } %><% if (genericName) { %>GenericName=<%= genericName %>
-<% } %><% if (name) { %>Exec=/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11 <%= name %> --ozone-platform=x11 %u
+<% } %><% if (name) { %>Exec=/usr/bin/env <%= name %> %u
 Icon=<%= name %>
 <% } %>Type=Application
 StartupNotify=true

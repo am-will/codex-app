@@ -8,8 +8,6 @@ export const CODEX_LINUX_DESKTOP_ID = 'codex-desktop.desktop';
 const DEFAULT_APP_NAME = 'Codex';
 const DEFAULT_STARTUP_WM_CLASS = 'Codex';
 const DEFAULT_CATEGORIES = ['Development'];
-const LINUX_X11_EXEC_PREFIX = '/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11';
-const LINUX_X11_OZONE_ARG = '--ozone-platform=x11';
 
 export type LinuxProtocolDesktopEntryOptions = {
   appName?: string;
@@ -64,9 +62,8 @@ function quoteDesktopExec(execPath: string): string {
 
 function renderCodexDesktopExec(execPath: string, trailingArgs: string[]): string {
   return [
-    LINUX_X11_EXEC_PREFIX,
+    '/usr/bin/env',
     quoteDesktopExec(execPath),
-    LINUX_X11_OZONE_ARG,
     ...trailingArgs,
   ].join(' ');
 }
