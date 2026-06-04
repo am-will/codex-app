@@ -286,7 +286,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.601.21318');
+    expect(packageJson.version).toBe('26.601.21319');
     expect(packageJson.codexBuildNumber).toBe('3511');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
@@ -333,7 +333,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.601.21318');
+    expect(manifest.version).toBe('26.601.21319');
     expect(manifest.buildNumber).toBe('3511');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
@@ -378,6 +378,28 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(appMainBundle).toContain('tool_suggest');
     expect(composerBundle).toContain('threadGoalObjective');
     expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
+  });
+
+  test('dictation shortcuts stay configurable instead of using stale Ctrl+M behavior', () => {
+    const mainSource = readRecoveredMainBuildFile();
+    const appMainBundle = readRecoveredAsset('app-main-');
+    const composerBundle = readRecoveredAsset('composer-');
+    const dictationSources = [mainSource, appMainBundle, composerBundle].join('\n');
+
+    expect(mainSource).toContain('globalDictationHold');
+    expect(mainSource).toContain('globalDictationToggle');
+    expect(mainSource).toContain('global-dictation-set-hotkey');
+    expect(mainSource).toContain('global-dictation-set-toggle-hotkey');
+    expect(mainSource).toContain('set-codex-command-keybinding');
+    expect(mainSource).toContain('globalShortcut.register');
+    expect(composerBundle).toContain('dictationShortcutLabel');
+    expect(composerBundle).toContain('codex-micro-push-to-talk-start');
+    expect(composerBundle).toContain('codex-micro-push-to-talk-stop');
+    expect(dictationSources).not.toContain('Ctrl+M');
+    expect(dictationSources).not.toContain('Control+M');
+    expect(dictationSources).not.toMatch(
+      /(?:dictation|Dictation|globalDictation|push-to-talk|micro)[\s\S]{0,240}KeyM/,
+    );
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
