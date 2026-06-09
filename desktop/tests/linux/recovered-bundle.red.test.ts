@@ -27,6 +27,31 @@ import {
   readOptionalRecoveredAsset,
 } from './recovered-bundle.helpers';
 
+function expectLinuxAppShellFloatingSidebarMarkers(bundle: string) {
+  expect(bundle).toContain('children:[r?null:(0,Q.jsx)(U.div,{initial:s?!1:{x:8}');
+  expect(bundle).toContain('left-0 z-40 min-h-0');
+  expect(bundle).toContain(
+    'group/windows-top-bar z-50 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-0',
+  );
+  expect(bundle).toContain('r?`top-toolbar-sm`:`top-0`');
+  expect(bundle).toContain('style:{width:n,zIndex:40}');
+  expect(bundle).toContain('flw=y(Wr),fls=y(Ze)');
+  expect(bundle).toContain('left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s');
+  expect(bundle).not.toContain('{,"data-testid"');
+}
+
+function expectLinuxAppShellTitleBarMarkers(bundle: string) {
+  expect(bundle).toContain(
+    'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null',
+  );
+  expect(bundle).toContain('function LinuxWindowControls(){');
+  expect(bundle).toContain('data-linux-codex-window-controls');
+  expect(bundle).toContain('onFocus:()=>u(!0),onBlur:()=>u(!1),onClick:n(`close`)');
+  expect(bundle).toContain('linux-application-menu-panel');
+  expect(bundle).toContain('getApplicationMenuItems');
+  expect(bundle).toContain('showApplicationMenu');
+}
+
 describe('Recovered Codex bundle RED contract', () => {
   const localAppAsarPath = path.resolve(
     desktopRoot,
@@ -163,6 +188,7 @@ describe('Recovered Codex bundle RED contract', () => {
         pluginsCardsAsset == null
           ? null
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
+      const windowControlsSafeAreaBundle = readOutputAsset('use-window-controls-safe-area-');
 
       expect(summary.outputRoot).toBe(outputRoot);
       expect(summary.version).toBe('26.601.21317');
@@ -177,13 +203,17 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
       expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
-      expect(mainBundle).toMatch(
+      expect(mainBundle).toContain('n===`linux`?{titleBarStyle:`hidden`}');
+      expect(mainBundle).not.toMatch(
         /\(n===`win32`\|\|n===`linux`\)\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([^)]*\)\}/,
       );
+      expect(mainBundle).toContain('codex_desktop:control-window');
+      expect(mainBundle).toContain('codex_desktop:get-application-menu-items');
+      expect(mainBundle).toContain('codex_desktop:click-application-menu-item');
       expect(mainBundle).toContain(
-        'process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`',
+        'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
       );
-      expect(mainBundle).toContain(
+      expect(mainBundle).not.toContain(
         'if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
       );
       expect(mainBundle).toContain(
@@ -201,6 +231,10 @@ describe('Recovered Codex bundle RED contract', () => {
         expect(pluginInstallFlowBundle).toContain('open-in-browser');
       }
       expect(appShellBundle).toContain('app-shell-shortcut-state-changed');
+      expectLinuxAppShellTitleBarMarkers(appShellBundle);
+      expectLinuxAppShellFloatingSidebarMarkers(appShellBundle);
+      expect(windowControlsSafeAreaBundle).toContain('linux:Object.freeze({left:0,right:0})');
+      expect(windowControlsSafeAreaBundle).not.toContain('linux:Object.freeze({left:0,right:120})');
       expect(pluginsCardsBundle ?? pluginsPageBundle).toContain('plugins');
       expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([
         expect.objectContaining({
@@ -214,16 +248,59 @@ describe('Recovered Codex bundle RED contract', () => {
           expect.objectContaining({ label: 'git origins existing-path filter' }),
           expect.objectContaining({ label: 'linux auth browser session handoff' }),
           expect.objectContaining({ label: 'linux opaque primary window background' }),
-          expect.objectContaining({
-            label: 'linux title bar overlay uses high contrast controls',
-          }),
-          expect.objectContaining({
-            label: 'linux title bar overlay refreshes on theme changes',
-          }),
           expect.objectContaining({ label: 'linux primary window uses custom title bar' }),
+          expect.objectContaining({
+            label: 'linux skips title bar overlay sync without overlay controls',
+          }),
+          expect.objectContaining({ label: 'linux window controls ipc handler' }),
+          expect.objectContaining({
+            label: 'linux application menu serialization ipc handler',
+          }),
           expect.objectContaining({ label: 'linux open-in target registry' }),
         ]),
       );
+      expect(summary.patchSummary.appShellRenderer.results).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            label: 'app shell custom title menu is enabled on linux',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell renders linux window controls in title bar',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell renders linux codex application sub-menus',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell hides floating sidebar nav when title bar owns chrome',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell raises floating sidebar above main header chrome',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell uses compiled top offset for floating sidebar',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell shifts main header left when floating sidebar is open',
+            patched: true,
+          }),
+          expect.objectContaining({
+            label: 'app shell applies floating sidebar main header left style offset',
+            patched: true,
+          }),
+        ]),
+      );
+      expect(summary.patchSummary.windowControlsSafeArea.results).toEqual([
+        expect.objectContaining({
+          label: 'linux window controls safe area uses inline title bar controls',
+          patched: true,
+        }),
+      ]);
     },
     180_000,
   );
@@ -308,6 +385,8 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
+    expect(preloadSource).toContain('getApplicationMenuItems:async');
+    expect(preloadSource).toContain('clickApplicationMenuItem:async');
   });
 
   test('tracked refresh manifest records the source metadata for the current recovered bundle', () => {
@@ -402,7 +481,7 @@ describe('Recovered Codex bundle RED contract', () => {
     );
   });
 
-  test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
+  test('linux app shell floating sidebar markers are present', () => {
     const appShell = readRecoveredAsset('app-shell-');
     const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
       patchSummary?: {
@@ -414,6 +493,7 @@ describe('Recovered Codex bundle RED contract', () => {
     };
 
     expect(appShell).toContain('app-shell-shortcut-state-changed');
+    expectLinuxAppShellFloatingSidebarMarkers(appShell);
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
       expect.objectContaining({
         label: 'apps page requests native external browser',

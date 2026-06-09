@@ -22,178 +22,272 @@
       ]
     },
     "preload": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "preload ipc retry guard",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "preload ipc retry guard replacement already present"
+        },
+        {
+          "label": "preload exposes linux title bar bridge",
+          "patched": false,
+          "skipped": true,
+          "reason": "preload exposes linux title bar bridge replacement already present"
         }
       ]
     },
     "bootstrap": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "bootstrap linux git wrapper path",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "bootstrap linux git wrapper path replacement already present"
         },
         {
           "label": "bootstrap startup stack logging",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "bootstrap startup stack logging replacement already present"
         }
       ]
     },
     "mainProcess": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "git origins existing-path filter",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "git origins existing-path filter replacement already present"
         },
         {
           "label": "linux auth browser session handoff",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux auth browser session handoff replacement already present"
         },
         {
           "label": "linux opaque primary window background",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        },
-        {
-          "label": "linux title bar overlay uses high contrast controls",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        },
-        {
-          "label": "linux title bar overlay refreshes on theme changes",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux opaque primary window background replacement already present"
         },
         {
           "label": "linux primary window uses custom title bar",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux primary window uses custom title bar replacement already present"
+        },
+        {
+          "label": "linux window controls ipc handler",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux window controls ipc handler replacement already present"
+        },
+        {
+          "label": "linux application menu serialization ipc handler",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux application menu serialization ipc handler replacement already present"
+        },
+        {
+          "label": "linux skips title bar overlay sync without overlay controls",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux skips title bar overlay sync without overlay controls replacement already present"
         },
         {
           "label": "linux hides native menu for custom title bar auto-hide",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux hides native menu for custom title bar auto-hide replacement already present"
         },
         {
           "label": "linux hides native menu for custom title bar remove-menu",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux hides native menu for custom title bar remove-menu replacement already present"
         },
         {
           "label": "linux avatar overlay uses toolbar window type",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay uses toolbar window type replacement already present"
         },
         {
           "label": "linux avatar overlay uses stronger always-on-top level",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay uses stronger always-on-top level replacement already present"
         },
         {
           "label": "linux avatar overlay refreshes always-on-top before show",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay refreshes always-on-top before show replacement already present"
         },
         {
           "label": "linux avatar overlay tracks top enforcement timer",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay tracks top enforcement timer replacement already present"
         },
         {
           "label": "linux avatar overlay keeps pointer events interactive",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay keeps pointer events interactive replacement already present"
         },
         {
           "label": "linux avatar overlay exposes raise helper",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay exposes raise helper replacement already present"
         },
         {
           "label": "linux avatar overlay stops top enforcement on close",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay stops top enforcement on close replacement already present"
         },
         {
           "label": "linux avatar overlay re-raises after app window focus",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay re-raises after app window focus replacement already present"
         },
         {
           "label": "linux avatar overlay remains focusable for reply input",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay remains focusable for reply input replacement already present"
         },
         {
           "label": "linux avatar overlay steals focus for reply input",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay steals focus for reply input replacement already present"
         },
         {
           "label": "linux avatar overlay is available in main process",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux avatar overlay is available in main process replacement already present"
         },
         {
           "label": "linux open-in target registry",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux open-in target registry replacement already present"
+        }
+      ]
+    },
+    "appShellRenderer": {
+      "patched": false,
+      "results": [
+        {
+          "label": "app shell custom title menu is enabled on linux",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell custom title menu is enabled on linux replacement already present"
+        },
+        {
+          "label": "app shell renders linux window controls in title bar",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell renders linux window controls in title bar replacement already present"
+        },
+        {
+          "label": "app shell upgrades linux window controls in title bar",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell upgrades linux window controls in title bar replacement already present"
+        },
+        {
+          "label": "app shell title bar reserves space for inline window controls",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell title bar reserves space for inline window controls replacement already present"
+        },
+        {
+          "label": "app shell renders linux codex application sub-menus",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell renders linux codex application sub-menus replacement already present"
+        },
+        {
+          "label": "app shell hides floating sidebar nav when title bar owns chrome",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell hides floating sidebar nav when title bar owns chrome replacement already present"
+        },
+        {
+          "label": "app shell raises floating sidebar above main header chrome",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell raises floating sidebar above main header chrome replacement already present"
+        },
+        {
+          "label": "app shell sets floating sidebar inline z-index above main content",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell sets floating sidebar inline z-index above main content replacement already present"
+        },
+        {
+          "label": "app shell uses compiled top offset for floating sidebar",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell uses compiled top offset for floating sidebar replacement already present"
+        },
+        {
+          "label": "app shell shifts main header left when floating sidebar is open",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell shifts main header left when floating sidebar is open replacement already present"
+        },
+        {
+          "label": "app shell applies floating sidebar main header left style offset",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell applies floating sidebar main header left style offset replacement already present"
+        }
+      ]
+    },
+    "windowControlsSafeArea": {
+      "patched": false,
+      "results": [
+        {
+          "label": "linux window controls safe area uses inline title bar controls",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux window controls safe area uses inline title bar controls replacement already present"
         }
       ]
     },
     "startupShell": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "startup shell opaque background",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "startup shell opaque background replacement already present"
         },
         {
           "label": "startup shell light theme colors",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "startup shell light theme colors replacement already present"
         },
         {
           "label": "startup shell no logo fade",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "startup shell no logo fade replacement already present"
         },
         {
           "label": "startup shell no shimmer animation",
@@ -210,37 +304,37 @@
       ]
     },
     "avatarOverlayRenderer": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "avatar overlay drag starts only on mascot",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "avatar overlay drag starts only on mascot replacement already present"
         },
         {
           "label": "avatar overlay activity tray uses larger default layout",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "avatar overlay activity tray uses larger default layout replacement already present"
         },
         {
           "label": "avatar overlay activity tray uses larger padding",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "avatar overlay activity tray uses larger padding replacement already present"
         },
         {
           "label": "avatar overlay activity tray wraps compact messages",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "avatar overlay activity tray wraps compact messages replacement already present"
         },
         {
           "label": "avatar overlay compact activity body can show more lines",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "avatar overlay compact activity body can show more lines replacement already present"
         },
         {
           "label": "avatar overlay activity body measurement matches larger padding",

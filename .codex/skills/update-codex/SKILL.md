@@ -17,8 +17,9 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
   `Contents/Resources/app.asar` using `--app-asar`, or from a DMG using
   `--dmg` when the feed/source provides one.
 - Preserve Linux behavior patches in `desktop/scripts/assemble-codex-runtime.mjs`, especially:
-  - Linux hidden titlebar/titlebar overlay path.
-  - Linux native menu hide/remove behavior.
+  - Linux hidden titlebar path with in-app File/Edit/View/Window/Help menus and custom window controls.
+  - Linux in-renderer Codex application sub-menus (not native GTK popups) via application-menu IPC.
+  - Linux native menu hide/remove behavior for the custom title bar chrome.
   - Linux external browser routing for auth and plugin/app flows.
   - Linux open-in target registry and browser-session launcher.
   - Linux pet/avatar overlay stability patches, including the X11/XWayland
