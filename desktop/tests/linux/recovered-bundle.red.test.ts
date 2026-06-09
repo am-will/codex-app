@@ -50,6 +50,9 @@ function expectLinuxAppShellTitleBarMarkers(bundle: string) {
   expect(bundle).toContain('linux-application-menu-panel');
   expect(bundle).toContain('getApplicationMenuItems');
   expect(bundle).toContain('showApplicationMenu');
+  expect(bundle).toContain('"aria-haspopup":e.submenu?`menu`:void 0');
+  expect(bundle).toContain('style:{paddingLeft:t*14}');
+  expect(bundle).toContain('e.submenu?null:S(e)');
 }
 
 describe('Recovered Codex bundle RED contract', () => {
@@ -66,7 +69,7 @@ describe('Recovered Codex bundle RED contract', () => {
     desktopRoot,
     'tmp',
     'codex-upstream',
-    '26.601.21317',
+    '26.601.21319',
     'extracted',
     'Codex.app',
     'Contents',
@@ -191,7 +194,7 @@ describe('Recovered Codex bundle RED contract', () => {
       const windowControlsSafeAreaBundle = readOutputAsset('use-window-controls-safe-area-');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.601.21317');
+      expect(summary.version).toBe('26.601.21319');
       expect(summary.buildNumber).toBe('3511');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
@@ -210,6 +213,7 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('codex_desktop:control-window');
       expect(mainBundle).toContain('codex_desktop:get-application-menu-items');
       expect(mainBundle).toContain('codex_desktop:click-application-menu-item');
+      expect(mainBundle).toContain('i.click(void 0,n??void 0,n?.webContents)');
       expect(mainBundle).toContain(
         'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
       );

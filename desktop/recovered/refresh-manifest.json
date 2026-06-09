@@ -95,6 +95,12 @@
           "reason": "linux application menu serialization ipc handler replacement already present"
         },
         {
+          "label": "linux application menu click passes window context",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux application menu click passes window context replacement already present"
+        },
+        {
           "label": "linux skips title bar overlay sync without overlay controls",
           "patched": false,
           "skipped": true,
@@ -218,6 +224,12 @@
           "patched": false,
           "skipped": true,
           "reason": "app shell renders linux codex application sub-menus replacement already present"
+        },
+        {
+          "label": "app shell upgrades linux codex application sub-menus",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell upgrades linux codex application sub-menus replacement already present"
         },
         {
           "label": "app shell hides floating sidebar nav when title bar owns chrome",

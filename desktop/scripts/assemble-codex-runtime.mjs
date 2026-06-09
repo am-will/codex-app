@@ -329,8 +329,14 @@ const mainLinuxWindowControlPatchMarker = 'codex_desktop:control-window';
 const mainLinuxApplicationMenuPatchTarget =
   'codex_desktop:control-window`,async(e,t)=>{if(!b(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let x=!1;a.ipcMain.handle(sl,';
 const mainLinuxApplicationMenuPatchReplacement =
-  'codex_desktop:control-window`,async(e,t)=>{if(!b(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let o=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:o});continue}let s={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:o};i.submenu&&i.submenu.items.length>0&&(s.submenu=linuxSerializeMenuItems(i.submenu,o)),n.push(s)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}a.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!b(e))return{items:[]};let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!b(e))return;let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,r=linuxMenuItemAtPath(n,t?.path);r&&r.enabled!==!1&&typeof r.click==`function`&&r.click()});let x=!1;a.ipcMain.handle(sl,';
+  'codex_desktop:control-window`,async(e,t)=>{if(!b(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let o=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:o});continue}let s={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:o};i.submenu&&i.submenu.items.length>0&&(s.submenu=linuxSerializeMenuItems(i.submenu,o)),n.push(s)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}a.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!b(e))return{items:[]};let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!b(e))return;let n=a.BrowserWindow.fromWebContents(e.sender),r=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)});let x=!1;a.ipcMain.handle(sl,';
 const mainLinuxApplicationMenuPatchMarker = 'codex_desktop:get-application-menu-items';
+const mainLinuxApplicationMenuClickContextUpgradePatchPattern =
+  /a\.ipcMain\.handle\(`codex_desktop:click-application-menu-item`,async\(e,t\)=>\{if\(!b\(e\)\)return;let n=a\.Menu\.getApplicationMenu\(\)\?\.getMenuItemById\(t\?\.menuId\)\?\.submenu,r=linuxMenuItemAtPath\(n,t\?\.path\);r&&r\.enabled!==!1&&typeof r\.click==`function`&&r\.click\(\)\}\)/;
+const mainLinuxApplicationMenuClickContextUpgradePatchReplacement =
+  'a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!b(e))return;let n=a.BrowserWindow.fromWebContents(e.sender),r=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)})';
+const mainLinuxApplicationMenuClickContextUpgradePatchMarker =
+  'click(void 0,n??void 0,n?.webContents)';
 const preloadLinuxBridgePatchTarget =
   'showApplicationMenu:async(t,n,i)=>{await e.ipcRenderer.invoke(r,{menuId:t,x:n,y:i})}';
 const preloadLinuxBridgePatchReplacement =
@@ -387,10 +393,17 @@ const appShellLinuxWindowsMenuPatchMarker =
   'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null';
 const appShellLinuxApplicationMenuFunction =
   'function nr(){let e=D(),t=$n(),{platform:p}=nt(),h=p===`linux`&&typeof window.electronBridge?.getApplicationMenuItems==`function`,[n,r]=(0,Z.useState)(null),[m,g]=(0,Z.useState)([]),[_,v]=(0,Z.useState)(null),y=(0,Z.useRef)(0);if((0,Z.useEffect)(()=>{if(!h||!n)return;let e=e=>{e.key===`Escape`&&r(null)},t=e=>{let t=document.getElementById(`linux-application-menu-panel`);t&&!t.contains(e.target)&&!e.target.closest(`[data-linux-menu-trigger=true]`)&&r(null)};return document.addEventListener(`keydown`,e),document.addEventListener(`mousedown`,t),()=>{document.removeEventListener(`keydown`,e),document.removeEventListener(`mousedown`,t)}},[h,n]),!t)return null;let b=e=>e?e.replace(/CommandOrControl|CmdOrCtrl/g,`Ctrl`).replace(/Command/g,`Ctrl`).replace(/Control/g,`Ctrl`):``,x=async(e,t)=>{if(h){if(n===e){r(null);return}let i=t.currentTarget.getBoundingClientRect(),a=y.current+1;y.current=a,r(e),g([]);let o=await window.electronBridge.getApplicationMenuItems(e);y.current===a&&(v({left:Math.round(i.left),top:Math.round(i.bottom)}),g(o?.items??[]))}else{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let i=y.current+1;y.current=i,r(e);let a=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(a.left),Math.round(a.bottom))}finally{y.current===i&&r(null)}}},S=async e=>{e.enabled!==!1&&n&&(await window.electronBridge?.clickApplicationMenuItem?.(n,e.path),r(null))},C=`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,w=t=>c(C,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`);return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:tr.map(({id:t,message:i})=>(0,Q.jsx)(`button`,{type:`button`,"data-linux-menu-trigger":h?`true`:void 0,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(i),className:w(t),onClick:e=>{x(t,e)},children:(0,Q.jsx)(k,{...i})},t))}),h&&n&&_&&(0,Q.jsx)(`div`,{id:`linux-application-menu-panel`,className:`no-drag fixed z-50 m-px flex min-w-[220px] flex-col rounded-xl bg-token-dropdown-background/90 p-1 text-token-foreground shadow-lg ring-[0.5px] ring-token-border backdrop-blur-sm select-none`,style:{left:_.left,top:_.top},children:m.map(t=>t.type===`separator`?(0,Q.jsx)(`div`,{className:`mx-1 my-1 border-t border-token-border/60`,role:`separator`},t.path):(0,Q.jsx)(`button`,{type:`button`,className:c(`flex w-full items-center gap-3 rounded-lg p-1.5 text-left text-sm outline-none transition-colors`,t.enabled===!1?`cursor-default opacity-50`:`cursor-interaction hover:bg-token-list-hover-background focus:bg-token-list-hover-background`),disabled:t.enabled===!1,onClick:()=>{S(t)},children:(0,Q.jsxs)(`span`,{className:`flex w-full items-center gap-3`,children:[(0,Q.jsx)(`span`,{className:`min-w-0 flex-1 truncate`,children:t.label}),t.accelerator?(0,Q.jsx)(`span`,{className:`shrink-0 pl-4 text-xs text-token-text-tertiary tabular-nums`,children:b(t.accelerator)}):null]})},t.path))})]})}';
+const appShellLinuxApplicationMenuFunctionWithSubmenus =
+  'function nr(){let e=D(),t=$n(),{platform:p}=nt(),h=p===`linux`&&typeof window.electronBridge?.getApplicationMenuItems==`function`,[n,r]=(0,Z.useState)(null),[m,g]=(0,Z.useState)([]),[_,v]=(0,Z.useState)(null),y=(0,Z.useRef)(0);if((0,Z.useEffect)(()=>{if(!h||!n)return;let e=e=>{e.key===`Escape`&&r(null)},t=e=>{let t=document.getElementById(`linux-application-menu-panel`);t&&!t.contains(e.target)&&!e.target.closest(`[data-linux-menu-trigger=true]`)&&r(null)};return document.addEventListener(`keydown`,e),document.addEventListener(`mousedown`,t),()=>{document.removeEventListener(`keydown`,e),document.removeEventListener(`mousedown`,t)}},[h,n]),!t)return null;let b=e=>e?e.replace(/CommandOrControl|CmdOrCtrl/g,`Ctrl`).replace(/Command/g,`Ctrl`).replace(/Control/g,`Ctrl`):``,x=async(e,t)=>{if(h){if(n===e){r(null);return}let i=t.currentTarget.getBoundingClientRect(),a=y.current+1;y.current=a,r(e),g([]);let o=await window.electronBridge.getApplicationMenuItems(e);y.current===a&&(v({left:Math.round(i.left),top:Math.round(i.bottom)}),g(o?.items??[]))}else{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let i=y.current+1;y.current=i,r(e);let a=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(a.left),Math.round(a.bottom))}finally{y.current===i&&r(null)}}},S=async e=>{e.enabled!==!1&&!e.submenu&&n&&(await window.electronBridge?.clickApplicationMenuItem?.(n,e.path),r(null))},C=`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,w=t=>c(C,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),M=(e,t=0)=>e.flatMap(e=>e.type===`separator`?[(0,Q.jsx)(`div`,{className:`mx-1 my-1 border-t border-token-border/60`,role:`separator`},e.path)]:[(0,Q.jsx)(`button`,{type:`button`,"aria-haspopup":e.submenu?`menu`:void 0,className:c(`flex w-full items-center gap-3 rounded-lg p-1.5 text-left text-sm outline-none transition-colors`,e.enabled===!1?`cursor-default opacity-50`:e.submenu?`cursor-default text-token-text-tertiary`:`cursor-interaction hover:bg-token-list-hover-background focus:bg-token-list-hover-background`),disabled:e.enabled===!1,onClick:()=>{e.submenu?null:S(e)},children:(0,Q.jsxs)(`span`,{className:`flex w-full items-center gap-3`,style:{paddingLeft:t*14},children:[(0,Q.jsx)(`span`,{className:`min-w-0 flex-1 truncate`,children:e.label}),e.submenu?(0,Q.jsx)(`span`,{className:`shrink-0 text-xs text-token-text-tertiary`,children:`>`}):e.accelerator?(0,Q.jsx)(`span`,{className:`shrink-0 pl-4 text-xs text-token-text-tertiary tabular-nums`,children:b(e.accelerator)}):null]})},e.path),...(e.submenu?M(e.submenu,t+1):[])]);return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:tr.map(({id:t,message:i})=>(0,Q.jsx)(`button`,{type:`button`,"data-linux-menu-trigger":h?`true`:void 0,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(i),className:w(t),onClick:e=>{x(t,e)},children:(0,Q.jsx)(k,{...i})},t))}),h&&n&&_&&(0,Q.jsx)(`div`,{id:`linux-application-menu-panel`,className:`no-drag fixed z-50 m-px flex min-w-[220px] flex-col rounded-xl bg-token-dropdown-background/90 p-1 text-token-foreground shadow-lg ring-[0.5px] ring-token-border backdrop-blur-sm select-none`,style:{left:_.left,top:_.top},children:M(m)})]})}';
 const appShellLinuxApplicationMenuPatchTarget =
   'function nr(){let e=D(),t=$n(),[n,r]=(0,Z.useState)(null),i=(0,Z.useRef)(0);if(!t)return null;let a=async(e,t)=>{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let a=i.current+1;i.current=a,r(e);let o=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(o.left),Math.round(o.bottom))}finally{i.current===a&&r(null)}};return(0,Q.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:tr.map(({id:t,message:r})=>(0,Q.jsx)(`button`,{type:`button`,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(r),className:c(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{a(t,e)},children:(0,Q.jsx)(k,{...r})},t))})}';
-const appShellLinuxApplicationMenuPatchReplacement = appShellLinuxApplicationMenuFunction;
+const appShellLinuxApplicationMenuPatchReplacement =
+  appShellLinuxApplicationMenuFunctionWithSubmenus;
 const appShellLinuxApplicationMenuPatchMarker = 'linux-application-menu-panel';
+const appShellLinuxApplicationMenuUpgradePatchPattern =
+  /function nr\(\)\{let e=D\(\),t=\$n\(\),[\s\S]*?\}(?=var rr=|;?function ar\(|;?function LinuxWindowControls\(\)|;?function \$r\(e\)\{return null\})/;
+const appShellLinuxApplicationMenuUpgradePatchMarker =
+  'style:{paddingLeft:t*14}';
 // Close icon uses useState for red hover: plain hover:text-token-charts-red is not in app-main CSS.
 const appShellLinuxWindowControlsFunction =
   'function LinuxWindowControls(){let{platform:e}=nt(),t=window.electronBridge?.controlWindow;if(e!==`linux`||typeof t!=`function`)return null;let n=e=>()=>{void t(e)},[a,u]=(0,Z.useState)(!1),o=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,r=c(o,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),i=c(o,a?`text-token-charts-red`:`text-token-text-tertiary`);return(0,Q.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,Q.jsx)(`button`,{type:`button`,className:r,onClick:n(`minimize`),"aria-label":`Minimize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:r,onClick:n(`maximize`),"aria-label":`Maximize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:i,onMouseEnter:()=>u(!0),onMouseLeave:()=>u(!1),onFocus:()=>u(!0),onBlur:()=>u(!1),onClick:n(`close`),"aria-label":`Close`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}';
@@ -415,10 +428,18 @@ const appShellLinuxFloatingSidebarHideNavHeaderPatchReplacement =
   'children:[r?null:(0,Q.jsx)(U.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:h,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-(--spacing-token-safe-header-left) pe-2`,children:(0,Q.jsx)(qn,{hideUnreadBadge:!0,onToggleSidebar:l})}),(0,Q.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]';
 const appShellLinuxFloatingSidebarHideNavHeaderPatchMarker =
   'children:[r?null:(0,Q.jsx)(U.div,{initial:s?!1:{x:8}';
-const appShellLinuxFloatingSidebarZIndexPatchTarget =
-  'pointer-events-auto fixed bottom-0 left-0 z-30 min-h-0';
 const appShellLinuxFloatingSidebarZIndexPatchReplacement =
   'pointer-events-auto fixed bottom-0 left-0 z-40 min-h-0';
+const appShellLinuxFloatingSidebarZIndexPatchAlternatives = [
+  {
+    target: 'pointer-events-auto fixed bottom-0 left-0 z-30 min-h-0',
+    replacement: appShellLinuxFloatingSidebarZIndexPatchReplacement,
+  },
+  {
+    target: 'pointer-events-auto min-h-0',
+    replacement: appShellLinuxFloatingSidebarZIndexPatchReplacement,
+  },
+];
 const appShellLinuxFloatingSidebarZIndexPatchMarker = 'left-0 z-40 min-h-0';
 const appShellLinuxFloatingSidebarInlineZIndexPatchTarget =
   'exit:{opacity:0,x:s?0:-8},style:{width:n},transition:h,children:[(0,Q.jsxs)(`aside`';
@@ -1740,6 +1761,13 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxApplicationMenuPatchMarker,
       },
       {
+        type: 'regex',
+        label: 'linux application menu click passes window context',
+        pattern: mainLinuxApplicationMenuClickContextUpgradePatchPattern,
+        replacement: mainLinuxApplicationMenuClickContextUpgradePatchReplacement,
+        marker: mainLinuxApplicationMenuClickContextUpgradePatchMarker,
+      },
+      {
         label: 'linux skips title bar overlay sync without overlay controls',
         alternatives: mainLinuxTitleBarOverlaySyncSkipPatchAlternatives,
         marker: mainLinuxTitleBarOverlaySyncSkipPatchMarker,
@@ -1855,6 +1883,13 @@ function patchCodexAppShellRenderer(extractedAppRoot) {
         marker: appShellLinuxApplicationMenuPatchMarker,
       },
       {
+        type: 'regex',
+        label: 'app shell upgrades linux codex application sub-menus',
+        pattern: appShellLinuxApplicationMenuUpgradePatchPattern,
+        replacement: appShellLinuxApplicationMenuFunctionWithSubmenus,
+        marker: appShellLinuxApplicationMenuUpgradePatchMarker,
+      },
+      {
         label: 'app shell hides floating sidebar nav when title bar owns chrome',
         target: appShellLinuxFloatingSidebarHideNavHeaderPatchTarget,
         replacement: appShellLinuxFloatingSidebarHideNavHeaderPatchReplacement,
@@ -1862,8 +1897,7 @@ function patchCodexAppShellRenderer(extractedAppRoot) {
       },
       {
         label: 'app shell raises floating sidebar above main header chrome',
-        target: appShellLinuxFloatingSidebarZIndexPatchTarget,
-        replacement: appShellLinuxFloatingSidebarZIndexPatchReplacement,
+        alternatives: appShellLinuxFloatingSidebarZIndexPatchAlternatives,
         marker: appShellLinuxFloatingSidebarZIndexPatchMarker,
       },
       {
