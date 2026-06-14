@@ -63,7 +63,9 @@ function quoteDesktopExec(execPath: string): string {
 function renderCodexDesktopExec(execPath: string, trailingArgs: string[]): string {
   return [
     '/usr/bin/env',
+    'ELECTRON_OZONE_PLATFORM_HINT=x11',
     quoteDesktopExec(execPath),
+    '--ozone-platform=x11',
     ...trailingArgs,
   ].join(' ');
 }

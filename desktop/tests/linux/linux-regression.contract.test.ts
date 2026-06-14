@@ -278,10 +278,8 @@ describe('Linux Ubuntu port regression gates (T4a)', () => {
     expect(protocolModule.CODEX_PROTOCOL_URL_ARG).toBe('%u');
     expect(desktopEntry).toContain('MimeType=x-scheme-handler/codex;');
     expect(desktopEntry).toContain(
-      'Exec=/usr/bin/env "/home/amwill/.local/bin/codex-desktop" %u',
+      'Exec=/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11 "/home/amwill/.local/bin/codex-desktop" --ozone-platform=x11 %u',
     );
-    expect(desktopEntry).not.toContain('ELECTRON_OZONE_PLATFORM_HINT=x11');
-    expect(desktopEntry).not.toContain('--ozone-platform=x11');
     expect(desktopEntry).toContain('StartupWMClass=Codex');
   });
 
@@ -358,16 +356,12 @@ describe('Linux Ubuntu port regression gates (T4a)', () => {
     expect(forgeConfig).toContain('codex-appimage.desktop');
     expect(forgeConfig).toContain('desktopTemplate: linuxRpmDesktopTemplate');
     expect(debTemplate).toContain(
-      'Exec=/usr/bin/env <%= name %> %u',
+      'Exec=/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11 <%= name %> --ozone-platform=x11 %u',
     );
-    expect(debTemplate).not.toContain('ELECTRON_OZONE_PLATFORM_HINT=x11');
-    expect(debTemplate).not.toContain('--ozone-platform=x11');
     expect(debTemplate).toContain('MimeType=<%= mimeType.join(\';\') %>;');
     expect(appImageDesktop).toContain(
-      `Exec=/usr/bin/env Codex ${protocolModule.CODEX_PROTOCOL_URL_ARG}`,
+      `Exec=/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11 Codex --ozone-platform=x11 ${protocolModule.CODEX_PROTOCOL_URL_ARG}`,
     );
-    expect(appImageDesktop).not.toContain('ELECTRON_OZONE_PLATFORM_HINT=x11');
-    expect(appImageDesktop).not.toContain('--ozone-platform=x11');
     expect(appImageDesktop).toContain(
       `MimeType=${protocolModule.CODEX_PROTOCOL_MIME_TYPE};`,
     );
@@ -406,10 +400,8 @@ describe('Linux Ubuntu port regression gates (T4a)', () => {
     expect(enabled.enabled).toBe(true);
     expect(enabled.desktopEntryManaged).toBe(true);
     expect(desktopEntryContents).toContain(
-      'Exec=/usr/bin/env "/opt/codex/Codex Desktop" --open-at-login',
+      'Exec=/usr/bin/env ELECTRON_OZONE_PLATFORM_HINT=x11 "/opt/codex/Codex Desktop" --ozone-platform=x11 --open-at-login',
     );
-    expect(desktopEntryContents).not.toContain('ELECTRON_OZONE_PLATFORM_HINT=x11');
-    expect(desktopEntryContents).not.toContain('--ozone-platform=x11');
     expect(fs.existsSync(startupDesktopEntry)).toBe(false);
     expect(disabled.disabled).toBe(true);
     expect(disabled.desktopEntryManaged).toBe(true);
