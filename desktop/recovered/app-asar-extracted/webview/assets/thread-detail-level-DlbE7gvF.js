@@ -1,2 +1,0 @@
-import{y as e}from"./src-CYrn1fYL.js";import{lt as t}from"./vscode-api-sUstfl-x.js";import{a as n}from"./setting-storage-Cel8Tr7E.js";var r=t(),i=`STEPS_PROSE`,a=`STEPS_COMMANDS`;function o(e){return e===`STEPS_EXECUTION`?a:e??`STEPS_COMMANDS`}function s(){let t=(0,r.c)(2),i=n(e.conversationDetailMode),a;return t[0]===i?a=t[1]:(a=o(i),t[0]=i,t[1]=a),a}export{s as i,i as n,o as r,a as t};
-//# sourceMappingURL=thread-detail-level-DlbE7gvF.js.map

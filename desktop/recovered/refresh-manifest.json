@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/tmp/codex-update/extracted/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "effccc2a802cf9defe9f37d56ddb36fdf1e8ade61bcca7d5505a76bbd275efed",
+  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream-26.609.41114/extracted/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "586dcb004fc1dc50030bcdd10677e06fbb771c2b016f62880df16e58ff134050",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.601.21319",
-  "buildNumber": "3511",
+  "version": "26.609.41114",
+  "buildNumber": "3888",
   "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -26,6 +26,12 @@
       "results": [
         {
           "label": "preload ipc retry guard",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "preload exposes linux title bar bridge",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -71,34 +77,46 @@
           "reason": null
         },
         {
-          "label": "linux title bar overlay uses high contrast controls",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        },
-        {
-          "label": "linux title bar overlay refreshes on theme changes",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        },
-        {
           "label": "linux primary window uses custom title bar",
           "patched": true,
           "skipped": false,
           "reason": null
         },
         {
-          "label": "linux hides native menu for custom title bar auto-hide",
+          "label": "linux window controls ipc handler",
           "patched": true,
           "skipped": false,
           "reason": null
         },
         {
-          "label": "linux hides native menu for custom title bar remove-menu",
+          "label": "linux application menu serialization ipc handler",
           "patched": true,
           "skipped": false,
           "reason": null
+        },
+        {
+          "label": "linux application menu click passes window context",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux application menu click passes window context replacement already present"
+        },
+        {
+          "label": "linux skips title bar overlay sync without overlay controls",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux hides native menu for custom title bar auto-hide",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux hides native menu for custom title bar auto-hide replacement already present"
+        },
+        {
+          "label": "linux hides native menu for custom title bar remove-menu",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux hides native menu for custom title bar remove-menu replacement already present"
         },
         {
           "label": "linux avatar overlay uses toolbar window type",
@@ -171,6 +189,94 @@
           "patched": true,
           "skipped": false,
           "reason": null
+        }
+      ]
+    },
+    "appShellRenderer": {
+      "patched": true,
+      "results": [
+        {
+          "label": "app shell custom title menu is enabled on linux",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell custom title menu is enabled on linux replacement already present"
+        },
+        {
+          "label": "app shell renders linux window controls in title bar",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell upgrades linux window controls in title bar",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell upgrades linux window controls in title bar replacement already present"
+        },
+        {
+          "label": "app shell title bar reserves space for inline window controls",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell renders linux codex application sub-menus",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell upgrades linux codex application sub-menus",
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell upgrades linux codex application sub-menus replacement already present"
+        },
+        {
+          "label": "app shell hides floating sidebar nav when title bar owns chrome",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell raises floating sidebar above main header chrome",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell sets floating sidebar inline z-index above main content",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell uses compiled top offset for floating sidebar",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell shifts main header left when floating sidebar is open",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "app shell applies floating sidebar main header left style offset",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
+    "windowControlsSafeArea": {
+      "patched": false,
+      "results": [
+        {
+          "label": "linux window controls safe area uses inline title bar controls",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux window controls safe area uses inline title bar controls replacement already present"
         }
       ]
     },

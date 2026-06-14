@@ -1,0 +1,2 @@
+import{s as e}from"./chunk-Cq_f4orQ.js";import{n as t}from"./jsx-runtime-DXKlqYIQ.js";var n=(0,e(t(),1).createContext)(null);export{n as t};
+//# sourceMappingURL=app-shell-bottom-panel-scroll-sync-BsqRHBfD.js.map

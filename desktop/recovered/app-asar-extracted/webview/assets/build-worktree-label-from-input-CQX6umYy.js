@@ -1,2 +1,0 @@
-import{ya as e}from"./app-server-manager-signals-BOGyjFm3.js";var t=`Codex Task`;function n(n){let r=n.find(e=>e.type===`text`);if(!r)return t;let i=e(r.text).trim();if(i.length===0)return t;let a=i.replace(/\s+/g,` `).trim();return a.length===0?t:a.length<=80?a:`${a.slice(0,79).trimEnd()}…`}export{n as t};
-//# sourceMappingURL=build-worktree-label-from-input-CQX6umYy.js.map

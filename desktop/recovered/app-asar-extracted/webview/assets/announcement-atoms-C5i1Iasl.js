@@ -1,0 +1,2 @@
+import{v as e}from"./app-scope-DbsKKT7R.js";import{t}from"./persisted-atom-ZYz6xocX.js";var n=e(!1),r=t(`has-seen-knowledge-work-announcement`,!1),i=t(`has-seen-fast-mode-announcement`,!1),a=t(`has-seen-work-plugins-announcement`,!1),o=t(`has-seen-appgen-announcement`,!1),s=t(`workspace-message-last-seen-at-by-account`,{});function c(e,t){return t==null?null:e[t]??null}function l(e,t,n){let r=c(e,t);return r!=null&&r>=n?e:{...e,[t]:n}}export{n as a,c,a as i,i as n,s as o,r,l as s,o as t};
+//# sourceMappingURL=announcement-atoms-C5i1Iasl.js.map

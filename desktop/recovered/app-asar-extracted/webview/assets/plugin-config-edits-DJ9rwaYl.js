@@ -1,2 +1,0 @@
-import{Er as e,Sr as t,br as n,ft as r,wr as i,xr as a}from"./src-CYrn1fYL.js";`${e}${a}`;var o=`${n}@${a}`;function s(e){let n=r(e);if(!(n==null||!i(n)))return t(e.slice(0,e.length-n.length-1))}function c({pluginId:e,enabled:t}){return[{keyPath:`plugins.${e}.enabled`,value:t,mergeStrategy:`upsert`}]}export{c as n,s as r,o as t};
-//# sourceMappingURL=plugin-config-edits-DJ9rwaYl.js.map

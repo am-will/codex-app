@@ -1,0 +1,2 @@
+import{c as e,h as t,t as n}from"./app-scope-DbsKKT7R.js";var r=t(n,!1),i=t(n,!1),a=t(n,!1),o=t(n,!1),s=e(n,({get:e})=>e(a)||e(i));function c(e){e.set(r,!1),e.set(i,!1),e.set(a,!1),e.set(o,!1)}function l(e,{altKey:t,ctrlKey:n,metaKey:s,shiftKey:c}){e.set(r,t),e.set(i,n),e.set(a,s),e.set(o,c)}export{l as a,a as i,r as n,s as r,c as t};
+//# sourceMappingURL=keyboard-modifier-state-BAxIpNzb.js.map

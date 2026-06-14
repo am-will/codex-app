@@ -1,2 +1,0 @@
-import{a as e,h as t,u as n}from"./vscode-api-sUstfl-x.js";var r=e(t,`list-automations`,{enabled:!0,refetchInterval:n.ONE_MINUTE,staleTime:n.ONE_MINUTE});export{r as t};
-//# sourceMappingURL=automation-queries-t-Z2G1SI.js.map

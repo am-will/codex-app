@@ -1,0 +1,2 @@
+import{c as e,t}from"./app-scope-DbsKKT7R.js";import{a as n,u as r}from"./vscode-api-B47PzOKa.js";var i=n(t,`os-info`,{staleTime:r.INFINITE}),a=e(t,({get:e})=>o(e(i).data?.platform));function o(e){return e!=null&&e!==`web`?c(e):s()}function s(){let e=typeof navigator>`u`?``:navigator.platform??``;return e.startsWith(`Mac`)?`macOS`:e.startsWith(`Win`)?`windows`:`linux`}function c(e){return e===`win32`?`windows`:e===`darwin`?`macOS`:`linux`}export{a as n,i as r,o as t};
+//# sourceMappingURL=platform-BrML-86Y.js.map

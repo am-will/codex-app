@@ -1,0 +1,2 @@
+import{R as e}from"./app-scope-DbsKKT7R.js";import{t}from"./platform-BrML-86Y.js";import{t as n}from"./use-os-info-C4nndl-a.js";var r=e();function i(){let e=(0,r.c)(7),{data:i,isLoading:o}=n(),s,c;if(e[0]!==i?.platform){let n=t(i?.platform);s=n,c=a(n),e[0]=i?.platform,e[1]=s,e[2]=c}else s=e[1],c=e[2];let l;return e[3]!==o||e[4]!==s||e[5]!==c?(l={platform:s,modifierSymbol:c,isLoading:o},e[3]=o,e[4]=s,e[5]=c,e[6]=l):l=e[6],l}function a(e){return e===`macOS`?`⌘`:`^`}export{i as t};
+//# sourceMappingURL=use-platform-6l2GVgMn.js.map

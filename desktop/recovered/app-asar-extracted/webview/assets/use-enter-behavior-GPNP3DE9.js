@@ -1,2 +1,0 @@
-import{C as e}from"./src-CYrn1fYL.js";import{lt as t}from"./vscode-api-sUstfl-x.js";import{a as n}from"./setting-storage-Cel8Tr7E.js";var r=t();function i(){let t=(0,r.c)(2),i=n(e.composerEnterBehavior),a;return t[0]===i?a=t[1]:(a={enterBehavior:i},t[0]=i,t[1]=a),a}export{i as t};
-//# sourceMappingURL=use-enter-behavior-GPNP3DE9.js.map

@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-DXKlqYIQ.js";import{R as t,n}from"./app-scope-DbsKKT7R.js";import{k as r}from"./vscode-api-B47PzOKa.js";var i=t(),a=e();function o(e){let t=(0,i.c)(3),{children:o}=e,s=r(),c;return t[0]!==o||t[1]!==s?(c=(0,a.jsx)(n,{queryClient:s,children:o}),t[0]=o,t[1]=s,t[2]=c):c=t[2],c}export{o as t};
+//# sourceMappingURL=app-DnGGP2LQ.js.map

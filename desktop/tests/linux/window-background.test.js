@@ -63,18 +63,18 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain(
       'this.keyboardInteractive=t;if(this.applyPointerInteractivityPolicy()',
     );
-    expect(mainBundle).toContain(
-      '(process.platform===`darwin`||process.platform===`linux`)&&a.app.focus({steal:!0})',
+    expect(mainBundle).toMatch(
+      /\(process\.platform===`darwin`\|\|process\.platform===`linux`\)&&[A-Za-z_$][\w$]*\.app\.focus\(\{steal:!0\}\)/,
     );
-    expect(mainBundle).toContain(
-      'N.avatarOverlayManager.raiseWindow?.()',
+    expect(mainBundle).toMatch(
+      /[A-Za-z_$][\w$]*\.avatarOverlayManager\.raiseWindow\?\.\(\)/,
     );
     expect(mainBundle).toContain('avatarOverlay:!0');
     expect(mainBundle).toContain(
       'startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||',
     );
     expect(mainBundle).toContain(
-      'this.cancelMomentum(),this.stopLinuxTopEnforcement(),this.window=null,this.removeDisplayChangeListeners()',
+      'this.cancelMomentum(),this.clearMovedWindowPersist(),this.stopLinuxTopEnforcement(),this.window=null,this.removeDisplayChangeListeners()',
     );
     expect(mainBundle).not.toContain('applyLinuxWindowShape');
     expect(mainBundle).not.toContain('setShape');
@@ -101,13 +101,15 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain(
       'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}',
     );
-    expect(avatarOverlayBundle).toContain('px-5 py-3');
+    expect(avatarOverlayBundle).toContain('py-3 pr-5');
     expect(avatarOverlayBundle).not.toContain('line-clamp-2');
     expect(avatarOverlayBundle).toContain('whitespace-pre-wrap');
     expect(avatarOverlayBundle).toContain(
       'mascot:{left:244,top:191,width:112,height:121}',
     );
-    expect(avatarOverlayBundle).toContain('st=80,ct=84,lt=512,ut=1');
+    expect(avatarOverlayBundle).toMatch(
+      /[A-Za-z_$][\w$]*=80,[A-Za-z_$][\w$]*=84,[A-Za-z_$][\w$]*=512,[A-Za-z_$][\w$]*=1/,
+    );
     expect(avatarOverlayBundle).toContain(
       '"data-avatar-overlay-measure-body":`true`',
     );

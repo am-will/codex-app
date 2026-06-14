@@ -1,0 +1,2 @@
+function e(e){let t=0,n=0;for(let r of e)t+=r.additions,n+=r.deletions;return{fileCount:e.length,linesAdded:t,linesDeleted:n,hasChanges:t>0||n>0}}export{e as t};
+//# sourceMappingURL=diff-summary-DoVQLmtR.js.map

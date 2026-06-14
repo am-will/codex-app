@@ -28,10 +28,10 @@ describe('Automation run archive regression gate (RED)', () => {
     const mainSource = readRecoveredMainBundle();
 
     expect(mainSource).toMatch(
-      /async function [A-Za-z_$][\w$]*\(e,t,r\)\{let i=await t\.getWorktreeRepository\(e,r\);/,
+      /async function [A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*\)\{let [A-Za-z_$][\w$]*=await [A-Za-z_$][\w$]*\.getWorktreeRepository\([A-Za-z_$][\w$]*,[A-Za-z_$][\w$]*\);/,
     );
     expect(mainSource).toMatch(
-      /branchName:\(await n\.[A-Za-z_$][\w$]*\(i\)\)\?\.branch\?\?`HEAD`/,
+      /branchName:\(await [A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)\)\?\.branch\?\?`HEAD`/,
     );
     expect(mainSource).toContain('{type:`branch`,branchName:`HEAD`}');
     expect(mainSource).toMatch(

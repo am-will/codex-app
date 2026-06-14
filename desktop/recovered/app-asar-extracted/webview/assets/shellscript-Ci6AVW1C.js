@@ -1,0 +1,1 @@
+import{t as e}from"./shellscript-CkRg4Y67.js";export{e as default};

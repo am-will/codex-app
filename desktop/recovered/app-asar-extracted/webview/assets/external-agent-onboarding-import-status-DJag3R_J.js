@@ -1,0 +1,2 @@
+import{h as e,t}from"./app-scope-DbsKKT7R.js";var n=e(t,{status:`idle`});async function r(e,t){e.set(n,{status:`importing`,startedAtMs:Date.now()});try{await t(),e.set(n,{status:`success`,completedAtMs:Date.now()})}catch(t){throw e.set(n,{status:`error`,completedAtMs:Date.now()}),t}}export{r as n,n as t};
+//# sourceMappingURL=external-agent-onboarding-import-status-DJag3R_J.js.map

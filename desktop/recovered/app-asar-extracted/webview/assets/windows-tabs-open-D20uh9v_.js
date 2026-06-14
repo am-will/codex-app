@@ -1,0 +1,2 @@
+import{n as e}from"./windows-tabs-open-schema-i6530hZO.js";function t(e){return{type:e.schema.shape.type.value,schema:e.schema,run:(t,n)=>e.run(e.schema.parse(t),n)}}function n(e){let t=new Map;for(let n of e)t.set(n.type,n.run);return t}var r=null,i=t({schema:e,run:(e,t)=>{if(r==null)throw Error(`windows.tabs.open is unavailable in this app view`);return r(e,t)}});function a(e){r=e}export{t as i,i as n,n as r,a as t};
+//# sourceMappingURL=windows-tabs-open-D20uh9v_.js.map

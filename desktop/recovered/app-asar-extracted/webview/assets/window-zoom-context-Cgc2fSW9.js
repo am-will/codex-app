@@ -1,0 +1,2 @@
+import{s as e}from"./chunk-Cq_f4orQ.js";import{n as t}from"./jsx-runtime-DXKlqYIQ.js";var n=e(t(),1),r=(0,n.createContext)(1);function i(){return(0,n.useContext)(r)}export{i as n,r as t};
+//# sourceMappingURL=window-zoom-context-Cgc2fSW9.js.map

@@ -1,2 +1,0 @@
-import{$i as e,aa as t,ia as n}from"./src-CYrn1fYL.js";var r=e({detail:t([n().transform(e=>({type:null,message:e})),e({type:n(),message:n()}),e({error_code:n().optional(),message:n(),type:n().optional()}).transform(({error_code:e,message:t,type:n})=>({type:n??e??null,message:t}))])});function i(e){try{let t=r.safeParse(JSON.parse(e.message));return t.success?t.data.detail:null}catch{return null}}export{i as t};
-//# sourceMappingURL=codex-api-error-B3GqHcV_.js.map
