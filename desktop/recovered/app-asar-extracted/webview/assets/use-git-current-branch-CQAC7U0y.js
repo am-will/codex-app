@@ -1,2 +1,0 @@
-import{R as e,a as t}from"./app-scope-DbsKKT7R.js";import{cr as n}from"./app-server-manager-signals-Coif6OOI.js";import{n as r}from"./git-current-branch-query-D6QRwYiF.js";var i=e();function a(e,a,o,s){let c=(0,i.c)(7),l=e??null,u;c[0]===s?u=c[1]:(u=n(s,null),c[0]=s,c[1]=u);let d;return c[2]!==a||c[3]!==o||c[4]!==l||c[5]!==u?(d={cwd:l,hostConfig:a,operationSource:o,...u},c[2]=a,c[3]=o,c[4]=l,c[5]=u,c[6]=d):d=c[6],t(r,d)}export{a as t};
-//# sourceMappingURL=use-git-current-branch-CQAC7U0y.js.map

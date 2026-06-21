@@ -1,2 +1,0 @@
-import{Wr as e}from"./persisted-signal-C9s53PEH.js";import{t}from"./persisted-atom-ZYz6xocX.js";var n=`browser-sidebar-comment-mode-coachmark-dismissed`,r=t(n,!1);function i(){e(n,!0)}export{i as n,r as t};
-//# sourceMappingURL=browser-sidebar-comment-mode-coachmark-state-Cf7uKmGs.js.map

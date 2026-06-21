@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream-26.609.41114/extracted/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "586dcb004fc1dc50030bcdd10677e06fbb771c2b016f62880df16e58ff134050",
+  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream/extracted/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "7964ba848dfbe8fb6a6e149f4b2d74865956eb2f9e75b17211d01deb61f9b230",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.609.41114",
-  "buildNumber": "3888",
+  "version": "26.616.51431",
+  "buildNumber": "4212",
   "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -192,14 +192,25 @@
         }
       ]
     },
+    "workspaceRootDropHandler": {
+      "patched": true,
+      "results": [
+        {
+          "label": "linux owl feature binding falls back when unavailable",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
     "appShellRenderer": {
       "patched": true,
       "results": [
         {
           "label": "app shell custom title menu is enabled on linux",
-          "patched": false,
-          "skipped": true,
-          "reason": "app shell custom title menu is enabled on linux replacement already present"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         },
         {
           "label": "app shell renders linux window controls in title bar",
@@ -263,9 +274,9 @@
         },
         {
           "label": "app shell applies floating sidebar main header left style offset",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell applies floating sidebar main header left style offset replacement already present"
         }
       ]
     },
@@ -365,6 +376,24 @@
             "patched": true,
             "skipped": false,
             "reason": null
+          },
+          {
+            "label": "renderer forwards goals feature overrides",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "renderer advertises goals desktop feature",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          },
+          {
+            "label": "composer shows goals slash command",
+            "patched": false,
+            "skipped": true,
+            "reason": "composer shows goals slash command replacement already present"
           }
         ]
       },

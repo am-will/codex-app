@@ -1,2 +1,0 @@
-import{R as e}from"./app-scope-DbsKKT7R.js";import{x as t}from"./src-B2PlTT4D.js";import{a as n}from"./setting-storage-II74UqER.js";var r=e(),i=`STEPS_PROSE`,a=`STEPS_COMMANDS`;function o(e){return e===`STEPS_EXECUTION`?a:e??`STEPS_COMMANDS`}function s(){let e=(0,r.c)(2),i=n(t.conversationDetailMode),a;return e[0]===i?a=e[1]:(a=o(i),e[0]=i,e[1]=a),a}export{s as i,i as n,o as r,a as t};
-//# sourceMappingURL=thread-detail-level-CBDw8ew_.js.map

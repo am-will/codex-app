@@ -1,0 +1,2 @@
+function e(e){return e.trimStart().toLowerCase().startsWith(`gpt`)?e.split(/(\s+)/).map(e=>e.trim().length===0?e:e.split(`-`).map((e,t)=>e.toLowerCase()===`gpt`?`GPT`:e.toLowerCase()===`oai`?`OAI`:t>0&&e.length>0?`${e[0]?.toUpperCase()??``}${e.slice(1)}`:e).join(`-`)).join(``):e}export{e as t};
+//# sourceMappingURL=format-model-display-name-CDASt7Bo.js.map

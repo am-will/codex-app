@@ -1,2 +1,0 @@
-import{t as e}from"./jsx-runtime-DXKlqYIQ.js";import{R as t}from"./app-scope-DbsKKT7R.js";import{t as n}from"./clsx-Cir5-jBH.js";var r=t(),i=e();function a(e){let t=(0,r.c)(5),{children:a,className:o}=e,s;t[0]===o?s=t[1]:(s=n(`bg-token-badge-background text-token-badge-foreground inline-flex items-center rounded-sm px-2 py-1 text-sm leading-none`,o),t[0]=o,t[1]=s);let c;return t[2]!==a||t[3]!==s?(c=(0,i.jsx)(`span`,{className:s,children:a}),t[2]=a,t[3]=s,t[4]=c):c=t[4],c}export{a as t};
-//# sourceMappingURL=badge-BQnJrRCM.js.map

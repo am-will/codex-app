@@ -1,2 +1,0 @@
-import{n as e}from"./chunk-AGHRB4JF-CxpLiR73.js";var t=e(({flowchart:e})=>{let t=e?.subGraphTitleMargin?.top??0,n=e?.subGraphTitleMargin?.bottom??0;return{subGraphTitleTopMargin:t,subGraphTitleBottomMargin:n,subGraphTitleTotalMargin:t+n}},`getSubGraphTitleMargins`);export{t};
-//# sourceMappingURL=chunk-CVBHYZKI-CS6ASgV1.js.map

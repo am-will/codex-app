@@ -1,2 +1,0 @@
-import{s as e}from"./chunk-Cq_f4orQ.js";import{n as t}from"./jsx-runtime-DXKlqYIQ.js";import{f as n,m as r,p as i}from"./single-value-B7t_Y-IU.js";var a=e(t(),1);function o(){!i.current&&n();let[e]=(0,a.useState)(r.current);return e}export{o as t};
-//# sourceMappingURL=use-reduced-motion-DApFb9Ok.js.map

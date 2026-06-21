@@ -1,0 +1,2 @@
+import{t as e}from"./app-scope-CWE-zIhQ.js";import{a as t,u as n}from"./vscode-api-B8VvwF1m.js";var r=t(e,`list-pinned-threads`,{refetchOnWindowFocus:`always`,staleTime:n.FIVE_SECONDS});export{r as t};
+//# sourceMappingURL=pinned-threads-query-CxOLHQk9.js.map

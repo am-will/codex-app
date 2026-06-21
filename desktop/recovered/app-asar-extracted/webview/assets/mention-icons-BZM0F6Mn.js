@@ -1,0 +1,2 @@
+import{r as e,t}from"./get-file-icon-CJVlWEfE.js";import{t as n}from"./skills-B7o2sCDI.js";function r({path:n,matchType:r}){return r===`directory`?t.folder:t[e(n)]}function i(){return n}export{i as n,r as t};
+//# sourceMappingURL=mention-icons-BZM0F6Mn.js.map

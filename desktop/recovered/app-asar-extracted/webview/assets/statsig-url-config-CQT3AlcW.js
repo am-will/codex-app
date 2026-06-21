@@ -1,2 +1,0 @@
-import{na as e}from"./src-B2PlTT4D.js";var t=e().url().refine(e=>e.startsWith(`https://`));function n(e,n){let r=t.safeParse(e.url);return r.success?r.data:n}export{n as t};
-//# sourceMappingURL=statsig-url-config-CQT3AlcW.js.map

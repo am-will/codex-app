@@ -1,0 +1,2 @@
+import{_r as e,gr as t,mr as n,vt as r,xr as i,yr as a}from"./src-C7fSIbpz.js";`${i}${t}`;var o=`${n}@${t}`;function s(t){let n=r(t);if(!(n==null||!a(n)))return e(t.slice(0,t.length-n.length-1))}function c({pluginId:e,enabled:t}){return[{keyPath:`plugins.${e}.enabled`,value:t,mergeStrategy:`upsert`}]}export{c as n,s as r,o as t};
+//# sourceMappingURL=plugin-config-edits-CIaiuAET.js.map

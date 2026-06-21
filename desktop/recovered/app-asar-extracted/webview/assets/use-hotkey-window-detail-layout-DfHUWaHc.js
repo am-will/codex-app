@@ -1,2 +1,0 @@
-import{s as e}from"./chunk-Cq_f4orQ.js";import{n as t}from"./jsx-runtime-DXKlqYIQ.js";import{R as n}from"./app-scope-DbsKKT7R.js";var r=n(),i=e(t(),1),a=(0,i.createContext)(null);function o(e){let t=(0,r.c)(4),n=(0,i.useContext)(a),o,s;t[0]!==e||t[1]!==n?(o=()=>{if(n!=null)return n(e),()=>{n(null)}},s=[e,n],t[0]=e,t[1]=n,t[2]=o,t[3]=s):(o=t[2],s=t[3]),(0,i.useLayoutEffect)(o,s)}export{o as n,a as t};
-//# sourceMappingURL=use-hotkey-window-detail-layout-DfHUWaHc.js.map

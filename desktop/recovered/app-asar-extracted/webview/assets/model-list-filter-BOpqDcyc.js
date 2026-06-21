@@ -1,0 +1,2 @@
+function e({authMethod:e,availableModels:t,defaultModel:n,models:r,useHiddenModels:i}){let a=[],o=null,s=i&&e!==`amazonBedrock`;return r.forEach(n=>{if(s?t.has(n.model):!n.hidden){let t=e===`copilot`?[n.supportedReasoningEfforts.find(e=>e.reasoningEffort===`medium`)??{reasoningEffort:`medium`,description:`medium effort`}]:[...n.supportedReasoningEfforts];a.push({...n,supportedReasoningEfforts:t}),n.isDefault&&(o=n)}}),o??=a.find(e=>e.model===n)??null,{models:a,defaultModel:o}}export{e as t};
+//# sourceMappingURL=model-list-filter-BOpqDcyc.js.map

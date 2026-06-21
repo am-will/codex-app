@@ -1,0 +1,2 @@
+import{g as e,t}from"./app-scope-CWE-zIhQ.js";var n={},r=e(t,!1),i=e(t,n);function a(e,t){return e[t]?.length??0}function o(e,t){let n=e[t];for(let e=(n?.length??0)-1;e>=0;e--){let t=n?.[e]?.menuItem;if(t!=null)return t}}export{i,o as n,r,a as t};
+//# sourceMappingURL=command-menu-state-Cs_dyGtg.js.map

@@ -1,0 +1,2 @@
+import{Z as e,a as t}from"./app-scope-CWE-zIhQ.js";import{a as n}from"./thread-context-inputs-CF11za43.js";var r=e();function i(e){let i=(0,r.c)(2),a;return i[0]===e?a=i[1]:(a=e==null?void 0:{hostId:e},i[0]=e,i[1]=a),t(n,a)}function a(e){return i(e).data?.homeDirectory}export{i as n,a as t};
+//# sourceMappingURL=use-home-directory-HIwY15Hs.js.map

@@ -1,0 +1,2 @@
+import{l as e,t}from"./app-scope-CWE-zIhQ.js";import{G as n,W as r}from"./use-host-config-C-vtNynr.js";import{Ft as i,Ot as a,T as o,zt as s}from"./thread-context-inputs-CF11za43.js";var c=e(t,(e,{get:t})=>e==null?null:r({id:e,title:t(i,e),turns:t(o,e)??t(s,e)})),l=e(t,(e,{get:t})=>{if(e==null)return null;let r=t(c,e);if(r!=null)return r;let i=t(a,e);return n(e,t(o,i)??t(s,i))});export{l as n,c as t};
+//# sourceMappingURL=local-conversation-title-signals-6DWWrOA1.js.map

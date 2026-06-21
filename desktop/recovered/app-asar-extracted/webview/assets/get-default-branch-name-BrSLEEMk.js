@@ -1,2 +1,0 @@
-var e=5;function t({branchPrefix:e,conversationTitle:t}){let r=e?.trim()??``,i=n(t);return i.length===0?r:`${r}${i}`}function n(t){return t?t.trim().toLowerCase().split(/\s+/).slice(0,e).map(e=>e.replace(/[^a-z0-9]/g,``)).filter(e=>e.length>0).join(`-`):``}export{t};
-//# sourceMappingURL=get-default-branch-name-BrSLEEMk.js.map

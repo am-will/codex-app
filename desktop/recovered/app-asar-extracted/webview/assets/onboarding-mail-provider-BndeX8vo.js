@@ -1,0 +1,2 @@
+import{t as e}from"./app-scope-CWE-zIhQ.js";import{i as t}from"./vscode-api-B8VvwF1m.js";import{r as n}from"./skus-K50o09d3.js";var r=t(e,`email-domain-mail-provider`,e=>({enabled:e!=null,params:e==null?void 0:{domain:e},staleTime:1/0}));function i(e){if(e==null)return null;let t=e.lastIndexOf(`@`);if(t<=0)return null;let n=e.slice(t+1).trim().toLowerCase();return n.length===0?null:n}function a(e,t){return e===`other`?n(t)?`microsoft`:`google`:e}export{i as n,a as r,r as t};
+//# sourceMappingURL=onboarding-mail-provider-BndeX8vo.js.map

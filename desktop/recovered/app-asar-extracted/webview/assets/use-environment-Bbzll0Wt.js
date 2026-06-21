@@ -1,0 +1,2 @@
+import{r as e}from"./react-Cvp3RcFC.js";import{t}from"./persisted-atom-DAN4dBf_.js";var n=t(`environment`,null),r=()=>e(n);function i(e){return Array.isArray(e?.repos)?e.repos[0]:void 0}function a(e){if(e==null)return null;let t=i(e);return t==null?null:(e.repo_map??{})[t]??null}export{r as i,a as n,i as r,n as t};
+//# sourceMappingURL=use-environment-Bbzll0Wt.js.map

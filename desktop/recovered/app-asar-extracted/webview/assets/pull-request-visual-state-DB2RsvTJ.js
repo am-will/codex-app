@@ -1,0 +1,2 @@
+function e({hasOpenPr:e,isDraft:t,url:n}){return e?t?`draft`:`open`:n==null?null:`merged`}function t({canMerge:e,ciStatus:t,hasMergeConflicts:n=!1,status:r}){return r===`merged`?`merged`:r===`draft`?`draft`:n||t===`failing`?`failing`:t===`passing`&&!e?`successful`:e?`ready`:`in_progress`}export{t as n,e as t};
+//# sourceMappingURL=pull-request-visual-state-DB2RsvTJ.js.map

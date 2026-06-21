@@ -1,0 +1,2 @@
+import{_ as e,t}from"./app-scope-CWE-zIhQ.js";var n=e(t,e=>null,void 0,{key:({conversationId:e,hostId:t})=>JSON.stringify([t,e])});function r(e,t,r){let i={conversationId:r.conversationId,hostId:t};switch(r.kind){case`removed`:e.get(n,i)?.requestId===r.requestId&&e.set(n,i,null);break;case`updated`:e.set(n,i,{requestId:r.requestId,resolutionState:r.resolutionState});break}}export{n,r as t};
+//# sourceMappingURL=request-user-input-auto-resolution-1nt2rAu4.js.map

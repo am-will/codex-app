@@ -44,7 +44,7 @@ describe('Linux window background stability', () => {
 
     expect(mainBundle).toContain('process.platform===`linux`&&(e.setSkipTaskbar(!0),e.setAlwaysOnTop(!0,`screen-saver`))');
     expect(mainBundle).toMatch(
-      /case`avatarOverlay`:return\{\.\.\.[A-Za-z_$][\w$]*\(\{alwaysOnTop:!0,platform:[A-Za-z_$][\w$]*,resizable:!1,thickFrame:!1\}\),\.\.\.[A-Za-z_$][\w$]*===`linux`\?\{type:`toolbar`\}:\{\},hasShadow:!1\};/,
+      /case`avatarOverlay`:return\{\.\.\.[A-Za-z_$][\w$]*\(\{alwaysOnTop:!0,platform:[A-Za-z_$][\w$]*,resizable:!1,thickFrame:!1\}\),\.\.\.[A-Za-z_$][\w$]*===`linux`\?\{type:`toolbar`\}:\{\}(?:,\.\.\.[A-Za-z_$][\w$]*===`darwin`\?\{enableLargerThanScreen:!0\}:\{\})?,hasShadow:!1\};/,
     );
     expect(mainBundle).toContain(
       'e.setAlwaysOnTop(!0,`screen-saver`),e.moveTop(),e.isFocused()||e.showInactive()',
@@ -73,8 +73,8 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain(
       'startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||',
     );
-    expect(mainBundle).toContain(
-      'this.cancelMomentum(),this.clearMovedWindowPersist(),this.stopLinuxTopEnforcement(),this.window=null,this.removeDisplayChangeListeners()',
+    expect(mainBundle).toMatch(
+      /this\.cancelMomentum\(\),this\.clearMovedWindowPersist\(\),this\.stopLinuxTopEnforcement\(\),(?:this\.nativePositionController\.clear\(\),)?this\.window=null,this\.removeDisplayChangeListeners\(\)/,
     );
     expect(mainBundle).not.toContain('applyLinuxWindowShape');
     expect(mainBundle).not.toContain('setShape');

@@ -1,0 +1,2 @@
+import{s as e}from"./chunk-Cq_f4orQ.js";import{n as t}from"./jsx-runtime-DXKlqYIQ.js";import{n,r,t as i}from"./reduced-motion-GGHfH0hr.js";var a=e(t(),1);function o(){!n.current&&i();let[e]=(0,a.useState)(r.current);return e}export{o as t};
+//# sourceMappingURL=use-reduced-motion-DZ8C9oC7.js.map

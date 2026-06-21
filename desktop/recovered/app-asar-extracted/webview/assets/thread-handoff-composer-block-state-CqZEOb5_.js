@@ -1,2 +1,0 @@
-import{g as e,t}from"./app-scope-DbsKKT7R.js";var n=e(t,e=>0);function r(e,t,r){t!=null&&e.set(n,t,e.get(n,t)+r)}function i({pendingPastedTextAttachmentCount:e,queuedFollowUpsError:t,queuedFollowUpsLoading:n,queuedFollowUpCount:r}){return e>0?`pending-pasted-text-attachments`:n?`loading-queued-follow-ups`:t?`unavailable-queued-follow-ups`:r>0?`queued-follow-ups`:null}export{i as n,n as r,r as t};
-//# sourceMappingURL=thread-handoff-composer-block-state-CqZEOb5_.js.map

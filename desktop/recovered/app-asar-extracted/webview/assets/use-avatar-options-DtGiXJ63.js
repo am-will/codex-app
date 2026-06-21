@@ -1,0 +1,2 @@
+import{Z as e,s as t}from"./app-scope-CWE-zIhQ.js";import{n,s as r}from"./custom-avatars-query-Ddrk8Ytc.js";var i=e();function a(){let e=(0,i.c)(8),{data:a,isError:o,isFetching:s,isLoading:c}=t(n),l=a?.avatarDirectory??null,u=a?.avatars,d;e[0]===u?d=e[1]:(d=r(u),e[0]=u,e[1]=d);let f;return e[2]!==o||e[3]!==s||e[4]!==c||e[5]!==l||e[6]!==d?(f={avatarDirectory:l,avatarOptions:d,isError:o,isFetching:s,isLoading:c},e[2]=o,e[3]=s,e[4]=c,e[5]=l,e[6]=d,e[7]=f):f=e[7],f}export{a as t};
+//# sourceMappingURL=use-avatar-options-DtGiXJ63.js.map

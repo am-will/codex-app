@@ -1,0 +1,2 @@
+var e=typeof window<`u`,t={current:null},n={current:!1};function r(){if(n.current=!0,e)if(window.matchMedia){let e=window.matchMedia(`(prefers-reduced-motion)`),n=()=>t.current=e.matches;e.addEventListener(`change`,n),n()}else t.current=!1}export{e as i,n,t as r,r as t};
+//# sourceMappingURL=reduced-motion-GGHfH0hr.js.map

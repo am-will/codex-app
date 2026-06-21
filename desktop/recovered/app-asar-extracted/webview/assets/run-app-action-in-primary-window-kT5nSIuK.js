@@ -1,2 +1,0 @@
-import{n as e}from"./rpc-ByJrNKRv.js";function t(t,{sourceHostId:n,sourceThreadId:r}={}){let i=e.appActions;if(i==null)throw Error(`App actions are unavailable in this host`);return i.runInPrimaryWindow({action:t,sourceHostId:n,sourceThreadId:r})}export{t};
-//# sourceMappingURL=run-app-action-in-primary-window-kT5nSIuK.js.map

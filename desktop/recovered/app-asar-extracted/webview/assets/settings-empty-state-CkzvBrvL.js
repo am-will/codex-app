@@ -1,2 +1,0 @@
-import{t as e}from"./jsx-runtime-DXKlqYIQ.js";import{R as t}from"./app-scope-DbsKKT7R.js";import{t as n}from"./clsx-Cir5-jBH.js";var r=t(),i=e();function a(e){let t=(0,r.c)(5),{children:a,className:o}=e,s;t[0]===o?s=t[1]:(s=n(`flex min-h-[62px] items-center justify-center px-4 text-center text-sm text-token-text-secondary`,o),t[0]=o,t[1]=s);let c;return t[2]!==a||t[3]!==s?(c=(0,i.jsx)(`div`,{className:s,children:a}),t[2]=a,t[3]=s,t[4]=c):c=t[4],c}export{a as t};
-//# sourceMappingURL=settings-empty-state-CkzvBrvL.js.map

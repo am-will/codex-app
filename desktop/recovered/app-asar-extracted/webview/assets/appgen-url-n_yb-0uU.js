@@ -1,0 +1,2 @@
+function e(e){if(e==null)return null;let t=new URL(e);return`${t.host}${t.pathname===`/`?``:t.pathname}${t.search}${t.hash}`}function t(e,t){try{let r=new URL(e),i=new URL(t);if(r.origin!==i.origin)return!1;let a=n(i.pathname),o=n(r.pathname);return a===`/`||o===a||o.startsWith(`${a}/`)}catch{return!1}}function n(e){return e.replace(/\/+$/u,``)||`/`}export{e as n,t};
+//# sourceMappingURL=appgen-url-n_yb-0uU.js.map

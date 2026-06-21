@@ -1,2 +1,0 @@
-function e({intl:e,amount:t,currencyCode:n,minorUnitExponent:r}){return t==null?null:e.formatNumber(t,{style:`currency`,currency:n,currencyDisplay:`narrowSymbol`,trailingZeroDisplay:`stripIfInteger`,minimumFractionDigits:r??void 0,maximumFractionDigits:r??void 0})}export{e as t};
-//# sourceMappingURL=plan-pricing-BlmlSI53.js.map

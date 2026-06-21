@@ -1,2 +1,0 @@
-import{$n as e,Xn as t,Yn as n,Zn as r,_t as i,tr as a}from"./src-B2PlTT4D.js";`${a}${t}`;var o=`${n}@${t}`;function s(t){let n=i(t);if(!(n==null||!e(n)))return r(t.slice(0,t.length-n.length-1))}function c({pluginId:e,enabled:t}){return[{keyPath:`plugins.${e}.enabled`,value:t,mergeStrategy:`upsert`}]}export{c as n,s as r,o as t};
-//# sourceMappingURL=plugin-config-edits-bWIodIpE.js.map

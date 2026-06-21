@@ -1,0 +1,2 @@
+var e=`gpt-5.5`,t=`medium`,n=[`minimal`,`low`,`medium`,`high`,`xhigh`,`max`];function r(e){return e===`none`||e===`minimal`||e===`low`||e===`medium`||e===`high`||e===`xhigh`||e===`max`}export{r as i,t as n,e as r,n as t};
+//# sourceMappingURL=models-and-reasoning-efforts-Ct6D5g-X.js.map

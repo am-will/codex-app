@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-DXKlqYIQ.js";import{Z as t}from"./app-scope-CWE-zIhQ.js";var n=t(),r=e();function i(e){let t=(0,n.c)(2),{browser:i,chromeExtension:a,children:o,extension:s,electron:c}=e;if(!(c!==void 0&&c))return null;let l;return t[0]===o?l=t[1]:(l=(0,r.jsx)(r.Fragment,{children:o}),t[0]=o,t[1]=l),l}export{i as t};
+//# sourceMappingURL=with-window-B85Yfj4i.js.map

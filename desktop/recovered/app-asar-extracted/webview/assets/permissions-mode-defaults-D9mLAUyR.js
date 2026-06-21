@@ -1,0 +1,2 @@
+import{Wi as e}from"./src-C7fSIbpz.js";import{a as t,l as n}from"./persisted-atom-store-CN8swCI1.js";import{t as r}from"./persisted-atom-DAN4dBf_.js";var i=`preferred-non-full-access-agent-mode-by-host-id`,a=r(e,{}),o=r(i,{});function s(r,i){n(e,{...t(e,{}),[r]:i})}function c(e,t){return t[e]??null}export{s as i,o as n,c as r,a as t};
+//# sourceMappingURL=permissions-mode-defaults-D9mLAUyR.js.map

@@ -1,0 +1,2 @@
+function e(e){for(let n=e.commandActions.length-1;n>=0;--n){let r=e.commandActions[n]?.command.trim()??``;if(r.length>0&&!t(r))return r}let n=e.command.trim();return t(n)?``:n}function t(e){return/^(?:.*[/\\])?(?:bash|cmd(?:\.exe)?|fish|powershell(?:\.exe)?|pwsh(?:\.exe)?|sh|zsh)(?:\s|$)/iu.test(e)}export{e as t};
+//# sourceMappingURL=command-execution-command-OqCVdN_Y.js.map

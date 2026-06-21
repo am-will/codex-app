@@ -40,7 +40,17 @@ describe('Recovered Codex bundle RED contract', () => {
   const versionedUpstreamAppAsarPath = path.resolve(
     desktopRoot,
     'tmp',
-    'upstream-26.609.41114',
+    'upstream-26.616.51431',
+    'extracted',
+    'Codex.app',
+    'Contents',
+    'Resources',
+    'app.asar',
+  );
+  const currentUnversionedUpstreamAppAsarPath = path.resolve(
+    desktopRoot,
+    'tmp',
+    'upstream',
     'extracted',
     'Codex.app',
     'Contents',
@@ -60,6 +70,8 @@ describe('Recovered Codex bundle RED contract', () => {
   const newDmgPath = path.resolve(desktopRoot, '..', 'Codex.dmg');
   const currentUpstreamAppAsarPath = fs.existsSync(versionedUpstreamAppAsarPath)
     ? versionedUpstreamAppAsarPath
+    : fs.existsSync(currentUnversionedUpstreamAppAsarPath)
+      ? currentUnversionedUpstreamAppAsarPath
     : legacyUpstreamAppAsarPath;
   const localRefreshArgs = fs.existsSync(currentUpstreamAppAsarPath)
     ? ['--app-asar', currentUpstreamAppAsarPath]
@@ -116,6 +128,17 @@ describe('Recovered Codex bundle RED contract', () => {
         ),
         'utf8',
       );
+      const workspaceRootDropHandlerBundle = fs.readFileSync(
+        path.join(
+          outputRoot,
+          '.vite',
+          'build',
+          fs.readdirSync(path.join(outputRoot, '.vite', 'build')).find((entry) =>
+            /^workspace-root-drop-handler-.+\.js$/.test(entry),
+          ) ?? '',
+        ),
+        'utf8',
+      );
       const outputAssetsRoot = path.join(outputRoot, 'webview', 'assets');
       const rendererEntry = fs.readFileSync(
         path.join(
@@ -164,8 +187,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.609.41114');
-      expect(summary.buildNumber).toBe('3888');
+      expect(summary.version).toBe('26.616.51431');
+      expect(summary.buildNumber).toBe('4212');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -189,11 +212,12 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
       expect(mainBundle).toContain('function linuxResolveEditorTarget(');
+      expect(workspaceRootDropHandlerBundle).toContain('return{isOwlFeatureEnabled:()=>!1}');
       expect(mainBundle).toMatch(
         /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
       );
       expect(loginRouteBundle).toContain('useExternalBrowser:!0');
-      expect(composerBundle).toContain('threadGoalObjective');
+      expect(composerBundle).toContain('threadGoalDraft');
       expect(summary.patchSummary.modelSettings.results).toEqual([]);
       expect(pluginsPageBundle).toContain('plugins');
       if (pluginInstallFlowBundle != null) {
@@ -222,6 +246,12 @@ describe('Recovered Codex bundle RED contract', () => {
           expect.objectContaining({ label: 'linux open-in target registry' }),
         ]),
       );
+      expect(summary.patchSummary.workspaceRootDropHandler.results).toEqual([
+        expect.objectContaining({
+          label: 'linux owl feature binding falls back when unavailable',
+          patched: true,
+        }),
+      ]);
     },
     180_000,
   );
@@ -284,8 +314,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.609.41114');
-    expect(packageJson.codexBuildNumber).toBe('3888');
+    expect(packageJson.version).toBe('26.616.51431');
+    expect(packageJson.codexBuildNumber).toBe('4212');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -331,8 +361,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.609.41114');
-    expect(manifest.buildNumber).toBe('3888');
+    expect(manifest.version).toBe('26.616.51431');
+    expect(manifest.buildNumber).toBe('4212');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
       expect.objectContaining({
@@ -374,7 +404,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(appMainBundle).toContain('toggleBrowserPanel');
     expect(appMainBundle).toContain('electron-desktop-features-changed');
     expect(appMainBundle).toContain('tool_suggest');
-    expect(composerBundle).toContain('threadGoalObjective');
+    expect(composerBundle).toContain('threadGoalDraft');
     expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
   });
 
