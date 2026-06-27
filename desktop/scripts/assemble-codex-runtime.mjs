@@ -38,6 +38,12 @@ const preloadPatchPattern =
 const preloadPatchReplacement =
   'sendMessageFromView:async t=>{$1;try{await e.ipcRenderer.invoke($2,t)}catch(n){if(String(n?.message??n).includes(`No handler registered`)){setTimeout(()=>{e.ipcRenderer.invoke($2,t).catch(()=>{})},250);return}throw n}}';
 const preloadPatchMarker = ';try{await e.ipcRenderer.invoke(';
+const bootstrapLinuxOzoneSwitchPatchPattern =
+  /for\(let ([\w$]+) of S\(\{buildFlavor:([\w$]+),env:process\.env\}\)\)([\w$]+)\.app\.commandLine\.appendSwitch\(\1\.name,\1\.value\);/;
+const bootstrapLinuxOzoneSwitchPatchReplacement =
+  'process.platform===`linux`&&(process.env.ELECTRON_OZONE_PLATFORM_HINT||(process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`),$3.app.commandLine.appendSwitch(`ozone-platform`,`x11`));for(let $1 of S({buildFlavor:$2,env:process.env}))$3.app.commandLine.appendSwitch($1.name,$1.value);';
+const bootstrapLinuxOzoneSwitchPatchMarker =
+  'app.commandLine.appendSwitch(`ozone-platform`,`x11`)';
 const bootstrapPatchPattern =
   /([\w$]+)\.captureException\(([\w$]+),\{tags:\{phase:`bootstrap-import-main`\}\}\),await ([\w$]+)\(\2\)/;
 const bootstrapPatchReplacement =
@@ -2219,6 +2225,13 @@ function patchCodexBootstrap(extractedAppRoot) {
         label: 'bootstrap linux git wrapper path',
         alternatives: bootstrapLinuxGitWrapperAlternatives,
         marker: bootstrapLinuxGitWrapperMarker,
+      },
+      {
+        type: 'regex',
+        pattern: bootstrapLinuxOzoneSwitchPatchPattern,
+        replacement: bootstrapLinuxOzoneSwitchPatchReplacement,
+        marker: bootstrapLinuxOzoneSwitchPatchMarker,
+        label: 'bootstrap linux ozone x11 launch',
       },
       {
         type: 'regex',

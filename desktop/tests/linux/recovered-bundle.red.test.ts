@@ -359,6 +359,12 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(bootstrapSource).toContain(
       '(()=>{try{process.stderr?.writable&&console.error(',
     );
+    expect(bootstrapSource).toContain(
+      'process.env.ELECTRON_OZONE_PLATFORM_HINT||(process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`)',
+    );
+    expect(bootstrapSource).toContain(
+      'app.commandLine.appendSwitch(`ozone-platform`,`x11`)',
+    );
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
   });
