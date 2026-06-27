@@ -1,0 +1,30 @@
+{
+  "name": "browser",
+  "version": "26.601.10930",
+  "description": "Use Codex browser automation on Linux through the in-app browser surface and the local Chrome native host compatibility bridge.",
+  "author": {
+    "name": "OpenAI"
+  },
+  "homepage": "https://openai.com/",
+  "repository": "https://openai.com/",
+  "license": "Proprietary",
+  "keywords": ["browser", "chrome", "linux", "browser-use"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Browser",
+    "shortDescription": "Control the in-app browser",
+    "longDescription": "Use Codex browser automation on Linux through the in-app browser surface and the local Chrome native host compatibility bridge.",
+    "developerName": "OpenAI",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read"],
+    "websiteURL": "https://openai.com/",
+    "privacyPolicyURL": "https://openai.com/policies/privacy-policy/",
+    "termsOfServiceURL": "https://openai.com/policies/terms-of-use/",
+    "defaultPrompt": [
+      "Open a webpage in the browser",
+      "Use the browser to inspect this page"
+    ],
+    "brandColor": "#10A37F",
+    "screenshots": []
+  }
+}

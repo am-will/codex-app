@@ -1,0 +1,30 @@
+{
+  "name": "chrome",
+  "version": "26.601.10930",
+  "description": "Connect the Codex Chrome extension to the local Linux native messaging host for Chrome-aware browser workflows.",
+  "author": {
+    "name": "OpenAI"
+  },
+  "homepage": "https://openai.com/",
+  "repository": "https://openai.com/",
+  "license": "Proprietary",
+  "keywords": ["browser", "chrome", "linux", "browser-use"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Chrome",
+    "shortDescription": "Chrome extension connection support",
+    "longDescription": "Connect the Codex Chrome extension to the local Linux native messaging host for Chrome-aware browser workflows.",
+    "developerName": "OpenAI",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read"],
+    "websiteURL": "https://openai.com/",
+    "privacyPolicyURL": "https://openai.com/policies/privacy-policy/",
+    "termsOfServiceURL": "https://openai.com/policies/terms-of-use/",
+    "defaultPrompt": [
+      "Check the Codex Chrome extension connection",
+      "Use Chrome browser context"
+    ],
+    "brandColor": "#4285F4",
+    "screenshots": []
+  }
+}

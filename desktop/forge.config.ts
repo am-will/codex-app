@@ -66,6 +66,7 @@ const config: ForgeConfig = {
     extraResource: [
       path.join(linuxHelperResourceRoot, 'codex'),
       path.join(linuxHelperResourceRoot, 'rg'),
+      path.join(__dirname, 'resources', 'plugins'),
     ],
     ignore: (file) => {
       if (!file) {

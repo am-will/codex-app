@@ -155,10 +155,61 @@ describe('Codex package staging RED contract', () => {
     expect(joinedScriptSources).toContain('Linux shell app.asar.unpacked');
   });
 
+  test('codex linux package ships the bundled browser plugin marketplace', () => {
+    const marketplaceRoot = path.join(desktopRoot, 'resources', 'plugins', 'openai-bundled');
+    const marketplacePath = path.join(marketplaceRoot, '.agents', 'plugins', 'marketplace.json');
+    const marketplace = JSON.parse(fs.readFileSync(marketplacePath, 'utf8')) as {
+      name?: string;
+      plugins?: Array<{ name?: string; source?: { source?: string; path?: string } }>;
+    };
+    const plugins = marketplace.plugins ?? [];
+    const pluginNames = plugins.map((plugin) => plugin.name);
+
+    expect(marketplace.name).toBe('openai-bundled');
+    expect(pluginNames).toEqual(expect.arrayContaining(['browser', 'chrome']));
+
+    for (const pluginName of ['browser', 'chrome']) {
+      const pluginRoot = path.join(marketplaceRoot, 'plugins', pluginName);
+      const manifest = JSON.parse(
+        fs.readFileSync(path.join(pluginRoot, '.codex-plugin', 'plugin.json'), 'utf8'),
+      ) as { name?: string; skills?: string };
+      const marketplaceEntry = plugins.find((plugin) => plugin.name === pluginName);
+
+      expect(marketplaceEntry?.source).toEqual({
+        source: 'local',
+        path: `./plugins/${pluginName}`,
+      });
+      expect(manifest.name).toBe(pluginName);
+      expect(manifest.skills).toBe('./skills/');
+      expect(fs.existsSync(path.join(pluginRoot, 'scripts', 'browser-client.mjs'))).toBe(true);
+    }
+
+    expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'browser', 'skills', 'browser', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'chrome', 'skills', 'chrome', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'chrome', 'scripts', 'extension-id.json'))).toBe(true);
+    expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'chrome', 'extension-host', 'linux', 'x64', 'extension-host'))).toBe(true);
+  });
+
+  test('codex package staging copies desktop plugin resources into packaged resources', () => {
+    const assembleSource = readDesktopFile('scripts/assemble-codex-runtime.mjs');
+    const forgeConfigSource = readDesktopFile('forge.config.ts');
+
+    expect(assembleSource).toContain('sourceStat.isDirectory()');
+    expect(assembleSource).toContain('fs.cpSync(sourcePath, destinationPath');
+    expect(assembleSource).toContain("const optionalDesktopResources = ['plugins'];");
+    expect(assembleSource).toContain("path.join(desktopRoot, 'resources', resourceName)");
+    expect(forgeConfigSource).toContain("path.join(__dirname, 'resources', 'plugins')");
+  });
+
   test('codex payload prerequisites are present in repo for deterministic staging', () => {
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'app.asar'))).toBe(true);
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'codex'))).toBe(true);
     expect(fs.existsSync(path.join(desktopRoot, '..', 'codex', 'app', 'resources', 'rg'))).toBe(true);
+    expect(
+      fs.existsSync(
+        path.join(desktopRoot, 'resources', 'plugins', 'openai-bundled', '.agents', 'plugins', 'marketplace.json'),
+      ),
+    ).toBe(true);
   });
 
   test('linux release workflow hydrates helpers and writes concrete release note filenames', () => {

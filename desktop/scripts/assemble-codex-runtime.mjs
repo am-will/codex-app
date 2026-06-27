@@ -2045,9 +2045,19 @@ function copyOptional(sourcePath, destinationPath) {
     return;
   }
 
+  const sourceStat = fs.statSync(sourcePath);
   fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+
+  if (sourceStat.isDirectory()) {
+    fs.cpSync(sourcePath, destinationPath, {
+      recursive: true,
+      preserveTimestamps: true,
+    });
+    return;
+  }
+
   fs.copyFileSync(sourcePath, destinationPath);
-  fs.chmodSync(destinationPath, fs.statSync(sourcePath).mode);
+  fs.chmodSync(destinationPath, sourceStat.mode);
 }
 
 function listLinuxNodePtyPrebuilds(sourceNodeModulesRoot) {
@@ -3139,10 +3149,18 @@ export async function assembleCodexRuntime({ outputRoot }) {
     );
   }
 
-  const optionalResources = ['notification.wav', 'THIRD_PARTY_NOTICES.txt'];
-  for (const resourceName of optionalResources) {
+  const optionalCodexResources = ['notification.wav', 'THIRD_PARTY_NOTICES.txt'];
+  for (const resourceName of optionalCodexResources) {
     copyOptional(
       path.join(codexResourcesRoot, resourceName),
+      path.join(resourcesRoot, resourceName),
+    );
+  }
+
+  const optionalDesktopResources = ['plugins'];
+  for (const resourceName of optionalDesktopResources) {
+    copyOptional(
+      path.join(desktopRoot, 'resources', resourceName),
       path.join(resourcesRoot, resourceName),
     );
   }
