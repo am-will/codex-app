@@ -241,6 +241,9 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain(".removeMenu()");
       expect(mainBundle).toContain('function linuxDetectCommand(');
       expect(mainBundle).toContain('linuxEditorTarget(`cursor`,`Cursor`');
+      expect(mainBundle).toContain(
+        'linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+      );
       expect(mainBundle).toContain('id:`fileManager`,label:`File Manager`');
       expect(workspaceRootDropHandlerBundle).toContain('return null');
       expect(mainBundle).toMatch(
@@ -574,6 +577,9 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
     expect(mainSource).toContain('function linuxDetectCommand(');
     expect(mainSource).toContain('linuxEditorTarget(`cursor`,`Cursor`');
+    expect(mainSource).toContain(
+      'linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+    );
     expect(mainSource).toContain('id:`fileManager`,label:`File Manager`');
     expect(mainSource).toContain('linuxDetectCommand(`xdg-open`,[`/usr/bin/xdg-open`])');
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
