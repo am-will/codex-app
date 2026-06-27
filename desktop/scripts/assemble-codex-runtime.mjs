@@ -74,6 +74,12 @@ const bootstrapLinuxGitWrapperAlternatives = [
     replacement:
       'require(`node:crypto`);let c=require(`node:child_process`),l=require(`node:timers/promises`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var u=`desktop.intelLaunchWarning.message`,',
   },
+  {
+    target:
+      'require(`node:crypto`);let s=require(`node:fs`);s=e.o(s);let c=require(`node:child_process`),l=require(`node:timers/promises`);var u=`desktop.intelLaunchWarning.message`,',
+    replacement:
+      'require(`node:crypto`);let s=require(`node:fs`);s=e.o(s);let c=require(`node:child_process`),l=require(`node:timers/promises`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var u=`desktop.intelLaunchWarning.message`,',
+  },
 ];
 const bootstrapLinuxGitWrapperMarker =
   'process.platform===`linux`&&typeof process.resourcesPath==`string`';
@@ -174,6 +180,12 @@ const mainGitOriginsPatchAlternatives = [
     replacement:
       'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Hr(i),s=re(e??[],a).map(e=>t.ja(e)),c=F((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=(s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.ja(e))).filter(e=>{try{return!!e&&a.existsSync(e)}catch{return!1}}),p=t.mt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
   },
+  {
+    target:
+      'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Zr(i),s=re(e??[],a).map(e=>t.Ya(e)),c=L((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.Ya(e)),p=t.pt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
+    replacement:
+      'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Zr(i),s=re(e??[],a).map(e=>t.Ya(e)),c=L((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=(s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.Ya(e))).filter(e=>{try{return!!e&&a.existsSync(e)}catch{return!1}}),p=t.pt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
+  },
 ];
 const mainGitOriginsPatchMarker =
   '.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}';
@@ -250,6 +262,12 @@ const mainOpenInBrowserPatchAlternatives = [
     replacement:
       'case`open-in-browser`:{let{url:r}=n;if(typeof r==`string`&&this.windowManager.queueCodexDeepLinkUrl(r,n.originHostId))break;if(n.useExternalBrowser===!0||n.openTarget===`external-browser`){if(typeof r==`string`&&Lx(r))try{if(process.platform===`linux`){let i=require(`../../scripts/linux-browser-launch.js`),o=await i.openUrlWithLinuxBrowserSession(r);if(!o.launched){o.error&&$().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:o.code??null},sensitive:{error:o.error}}),await a.shell.openExternal(r)}}else await a.shell.openExternal(r)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}if(typeof r==`string`&&Px(r))try{let i=He(),o=this.settingsStore?.getEffective(t.bi.openLinkInTargetPreference.key)??t.bi.openLinkInTargetPreference.default,s=this.settingsStore?.getEffective(t.bi.openLocalUrlInTargetPreference.key)??t.bi.openLocalUrlInTargetPreference.default,c=oZ(n.initiator),l=n.openTarget==null&&n.disposition===`new-tab`&&c,d=n.openTarget??(l?sZ(o):o),f=n.openTarget??(l?sZ(s):s);if(Fx({browserPaneEnabled:i.browserPane,link:{type:`url`,url:r},openLinkInTargetPreference:d,openLocalUrlInTargetPreference:f,webLinksDefaultInAppBrowser:n.openTarget===`in-app-browser`||i.linksDefaultInAppBrowser&&c})){e.send(R,{type:`toggle-browser-panel`,...n.disposition===`new-tab`?{browserTabId:t.gs(`manual:${(0,u.randomUUID)()}`)}:{},open:!0,url:r,hostId:n.hostId,source:n.source??`manual`,initiator:n.initiator??`open_in_browser_bridge`});break}await a.shell.openExternal(r)}catch(e){$().error(`Open-in-browser failed`,{safe:{},sensitive:{error:e}})}else $().warning(`Open-in-browser received invalid url`);break}',
   },
+  {
+    target:
+      'try{let e=c,t=new URL(c);return t.protocol===`https:`&&t.hostname===`chatgpt.com`&&(t.searchParams.set(`no_universal_links`,`1`),e=t.toString()),await a.shell.openExternal(e),!0}catch(e){return d(e),!1}',
+    replacement:
+      'try{let e=c,n=new URL(c);if(n.protocol===`https:`&&n.hostname===`chatgpt.com`&&(n.searchParams.set(`no_universal_links`,`1`),e=n.toString()),process.platform===`linux`){let n=require(`../../scripts/linux-browser-launch.js`),r=await n.openUrlWithLinuxBrowserSession(e);return r.launched||(r.error&&XA().warning(`Linux browser session launch failed; falling back to shell.openExternal`,{safe:{code:r.code??null},sensitive:{error:r.error}}),await a.shell.openExternal(e)),!0}return await a.shell.openExternal(e),!0}catch(e){return d(e),!1}',
+  },
 ];
 const mainOpenInBrowserPatchMarker = 'openUrlWithLinuxBrowserSession';
 const mainLinuxOpaqueWindowPatchAlternatives = [
@@ -324,6 +342,12 @@ const mainLinuxOpaqueWindowPatchAlternatives = [
       'function v5({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){return n?{backgroundColor:r?V8:H8,backgroundMaterial:e===`win32`?`none`:null}:e===`win32`&&!f5(t)?{backgroundColor:B8,backgroundMaterial:`mica`}:{backgroundColor:B8,backgroundMaterial:null}}',
     replacement:
       'function v5({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){if(n)return{backgroundColor:r?V8:H8,backgroundMaterial:e===`win32`?`none`:null};if(e===`win32`&&!f5(t))return{backgroundColor:B8,backgroundMaterial:`mica`};if(e===`linux`&&!f5(t))return{backgroundColor:r?V8:H8,backgroundMaterial:null};return{backgroundColor:B8,backgroundMaterial:null}}',
+  },
+  {
+    target:
+      'function A9({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){return n?{backgroundColor:r?$7:e9,backgroundMaterial:e===`win32`?`none`:null}:e===`win32`&&!w9(t)?{backgroundColor:Q7,backgroundMaterial:`mica`}:{backgroundColor:Q7,backgroundMaterial:null}}',
+    replacement:
+      'function A9({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){if(n)return{backgroundColor:r?$7:e9,backgroundMaterial:e===`win32`?`none`:null};if(e===`win32`&&!w9(t))return{backgroundColor:Q7,backgroundMaterial:`mica`};if(e===`linux`&&!w9(t))return{backgroundColor:r?$7:e9,backgroundMaterial:null};return{backgroundColor:Q7,backgroundMaterial:null}}',
   },
 ];
 const mainLinuxOpaqueWindowPatchMarker = 'backgroundMaterial:`mica`};if(e===`linux`&&';
@@ -426,6 +450,12 @@ const mainLinuxPrimaryTitleBarPatchAlternatives = [
     replacement:
       'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:n5(r)}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
   },
+  {
+    target:
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:m9(r)}:{titleBarStyle:`default`}',
+    replacement:
+      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:m9(r)}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+  },
 ];
 const mainLinuxPrimaryTitleBarPatchMarker = 'n===`linux`?{titleBarStyle:`hidden`}';
 const mainLinuxTitleBarOverlaySyncSkipPatchAlternatives = [
@@ -469,6 +499,11 @@ const mainLinuxWindowControlPatchAlternatives = [
     replacement:
       'U1(c,k),z1(k);a.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(bl,',
   },
+  {
+    target: 'G2(l,k),V2(k);let A=!1;a.ipcMain.handle(zl,',
+    replacement:
+      'G2(l,k),V2(k);a.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(zl,',
+  },
 ];
 const mainLinuxWindowControlPatchMarker = 'codex_desktop:control-window';
 const mainLinuxApplicationMenuPatchTarget =
@@ -491,6 +526,12 @@ const mainLinuxApplicationMenuPatchAlternatives = [
       'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(bl,',
     replacement:
       'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let o=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:o});continue}let s={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:o};i.submenu&&i.submenu.items.length>0&&(s.submenu=linuxSerializeMenuItems(i.submenu,o)),n.push(s)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}a.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!k(e))return{items:[]};let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender),r=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)});let A=!1;a.ipcMain.handle(bl,',
+  },
+  {
+    target:
+      'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(zl,',
+    replacement:
+      'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let o=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:o});continue}let s={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:o};i.submenu&&i.submenu.items.length>0&&(s.submenu=linuxSerializeMenuItems(i.submenu,o)),n.push(s)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}a.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!k(e))return{items:[]};let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender),r=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)});let A=!1;a.ipcMain.handle(zl,',
   },
 ];
 const mainLinuxApplicationMenuPatchMarker = 'codex_desktop:get-application-menu-items';
@@ -562,6 +603,10 @@ const appShellLinuxWindowsMenuPatchAlternatives = [
     replacement:
       'function In(){let{platform:e}=at();return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null}',
   },
+  {
+    target: 'function qP(){return Vke()&&window.electronBridge?.showApplicationMenu!=null}',
+    replacement: 'function qP(){return Vke()&&window.electronBridge?.showApplicationMenu!=null}',
+  },
 ];
 const appShellLinuxWindowsMenuPatchMarker =
   'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null';
@@ -583,6 +628,12 @@ const appShellLinuxApplicationMenuPatchAlternatives = [
       'function zn(){let e=v(),[t,n]=(0,Z.useState)(null),r=(0,Z.useRef)(0);if(!In())return null;let i=async(e,t)=>{let i=window.electronBridge?.showApplicationMenu;if(!i)return;let a=r.current+1;r.current=a,n(e);let o=t.currentTarget.getBoundingClientRect();try{await i(e,Math.round(o.left),Math.round(o.bottom))}finally{r.current===a&&n(null)}};return(0,Q.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:Rn.map(({id:n,message:r})=>(0,Q.jsx)(`button`,{type:`button`,"aria-expanded":t===n,"aria-haspopup":`menu`,"aria-label":e.formatMessage(r),className:C(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,t===n?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{i(n,e)},children:(0,Q.jsx)(b,{...r})},n))})}',
     replacement:
       'function zn(){let e=v(),t=In(),{platform:p}=at(),h=p===`linux`&&typeof window.electronBridge?.getApplicationMenuItems==`function`,[n,r]=(0,Z.useState)(null),[i,a]=(0,Z.useState)([]),[o,s]=(0,Z.useState)(null),c=(0,Z.useRef)(0);if((0,Z.useEffect)(()=>{if(!h||!n)return;let e=e=>{e.key===`Escape`&&r(null)},t=e=>{let t=document.getElementById(`linux-application-menu-panel`);t&&!t.contains(e.target)&&!e.target.closest(`[data-linux-menu-trigger=true]`)&&r(null)};return document.addEventListener(`keydown`,e),document.addEventListener(`mousedown`,t),()=>{document.removeEventListener(`keydown`,e),document.removeEventListener(`mousedown`,t)}},[h,n]),!t)return null;let l=e=>e?e.replace(/CommandOrControl|CmdOrCtrl/g,`Ctrl`).replace(/Command/g,`Ctrl`).replace(/Control/g,`Ctrl`):``,u=async(e,t)=>{if(h){if(n===e){r(null);return}let i=t.currentTarget.getBoundingClientRect(),o=c.current+1;c.current=o,r(e),a([]);let l=await window.electronBridge.getApplicationMenuItems(e);c.current===o&&(s({left:Math.round(i.left),top:Math.round(i.bottom)}),a(l?.items??[]))}else{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let i=c.current+1;c.current=i,r(e);let a=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(a.left),Math.round(a.bottom))}finally{c.current===i&&r(null)}}},d=async e=>{e.enabled!==!1&&!e.submenu&&n&&(await window.electronBridge?.clickApplicationMenuItem?.(n,e.path),r(null))},f=(e,t=0)=>e.flatMap(e=>e.type===`separator`?[(0,Q.jsx)(`div`,{className:`mx-1 my-1 border-t border-token-border/60`,role:`separator`},e.path)]:[(0,Q.jsx)(`button`,{type:`button`,"aria-haspopup":e.submenu?`menu`:void 0,className:C(`flex w-full items-center gap-3 rounded-lg p-1.5 text-left text-sm outline-none transition-colors`,e.enabled===!1?`cursor-default opacity-50`:e.submenu?`cursor-default text-token-text-tertiary`:`cursor-interaction hover:bg-token-list-hover-background focus:bg-token-list-hover-background`),disabled:e.enabled===!1,onClick:()=>{e.submenu?null:d(e)},children:(0,Q.jsxs)(`span`,{className:`flex w-full items-center gap-3`,style:{paddingLeft:t*14},children:[(0,Q.jsx)(`span`,{className:`min-w-0 flex-1 truncate`,children:e.label}),e.submenu?(0,Q.jsx)(`span`,{className:`shrink-0 text-xs text-token-text-tertiary`,children:`>`}):e.accelerator?(0,Q.jsx)(`span`,{className:`shrink-0 pl-4 text-xs text-token-text-tertiary tabular-nums`,children:l(e.accelerator)}):null]})},e.path),...(e.submenu?f(e.submenu,t+1):[])]);return(0,Q.jsxs)(Q.Fragment,{children:[(0,Q.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:Rn.map(({id:t,message:i})=>(0,Q.jsx)(`button`,{type:`button`,"data-linux-menu-trigger":h?`true`:void 0,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(i),className:C(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{u(t,e)},children:(0,Q.jsx)(b,{...i})},t))}),h&&n&&o&&(0,Q.jsx)(`div`,{id:`linux-application-menu-panel`,className:`no-drag fixed z-50 m-px flex min-w-[220px] flex-col rounded-xl bg-token-dropdown-background/90 p-1 text-token-foreground shadow-lg ring-[0.5px] ring-token-border backdrop-blur-sm select-none`,style:{left:o.left,top:o.top},children:f(i)})]})}',
+  },
+  {
+    target:
+      'function hWe(){let e=md(),[t,n]=(0,YP.useState)(null),r=(0,YP.useRef)(0);if(!qP())return null;let i=async(e,t)=>{let i=window.electronBridge?.showApplicationMenu;if(!i)return;let a=r.current+1;r.current=a,n(e);let o=t.currentTarget.getBoundingClientRect();try{await i(e,Math.round(o.left),Math.round(o.bottom))}finally{r.current===a&&n(null)}};return(0,XP.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:gWe.map(({id:n,message:r})=>(0,XP.jsx)(`button`,{type:`button`,"aria-expanded":t===n,"aria-haspopup":`menu`,"aria-label":e.formatMessage(r),className:$(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,t===n?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{i(n,e)},children:(0,XP.jsx)(Q,{...r})},n))})}',
+    replacement:
+      'function hWe(){let e=md(),t=qP(),h=typeof window.electronBridge?.getApplicationMenuItems==`function`,[n,r]=(0,YP.useState)(null),[i,a]=(0,YP.useState)([]),[o,s]=(0,YP.useState)(null),c=(0,YP.useRef)(0);if((0,YP.useEffect)(()=>{if(!h||!n)return;let e=e=>{e.key===`Escape`&&r(null)},t=e=>{let t=document.getElementById(`linux-application-menu-panel`);t&&!t.contains(e.target)&&!e.target.closest(`[data-linux-menu-trigger=true]`)&&r(null)};return document.addEventListener(`keydown`,e),document.addEventListener(`mousedown`,t),()=>{document.removeEventListener(`keydown`,e),document.removeEventListener(`mousedown`,t)}},[h,n]),!t)return null;let l=e=>e?e.replace(/CommandOrControl|CmdOrCtrl/g,`Ctrl`).replace(/Command/g,`Ctrl`).replace(/Control/g,`Ctrl`):``,u=async(e,t)=>{if(h){if(n===e){r(null);return}let i=t.currentTarget.getBoundingClientRect(),o=c.current+1;c.current=o,r(e),a([]);let l=await window.electronBridge.getApplicationMenuItems(e);c.current===o&&(s({left:Math.round(i.left),top:Math.round(i.bottom)}),a(l?.items??[]))}else{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let i=c.current+1;c.current=i,r(e);let a=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(a.left),Math.round(a.bottom))}finally{c.current===i&&r(null)}}},d=async e=>{e.enabled!==!1&&!e.submenu&&n&&(await window.electronBridge?.clickApplicationMenuItem?.(n,e.path),r(null))},f=(e,t=0)=>e.flatMap(e=>e.type===`separator`?[(0,XP.jsx)(`div`,{className:`mx-1 my-1 border-t border-token-border/60`,role:`separator`},e.path)]:[(0,XP.jsx)(`button`,{type:`button`,"aria-haspopup":e.submenu?`menu`:void 0,className:$(`flex w-full items-center gap-3 rounded-lg p-1.5 text-left text-sm outline-none transition-colors`,e.enabled===!1?`cursor-default opacity-50`:e.submenu?`cursor-default text-token-text-tertiary`:`cursor-interaction hover:bg-token-list-hover-background focus:bg-token-list-hover-background`),disabled:e.enabled===!1,onClick:()=>{e.submenu?null:d(e)},children:(0,XP.jsxs)(`span`,{className:`flex w-full items-center gap-3`,style:{paddingLeft:t*14},children:[(0,XP.jsx)(`span`,{className:`min-w-0 flex-1 truncate`,children:e.label}),e.submenu?(0,XP.jsx)(`span`,{className:`shrink-0 text-xs text-token-text-tertiary`,children:`>`}):e.accelerator?(0,XP.jsx)(`span`,{className:`shrink-0 pl-4 text-xs text-token-text-tertiary tabular-nums`,children:l(e.accelerator)}):null]})},e.path),...(e.submenu?f(e.submenu,t+1):[])]);return(0,XP.jsxs)(XP.Fragment,{children:[(0,XP.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:gWe.map(({id:t,message:i})=>(0,XP.jsx)(`button`,{type:`button`,"data-linux-menu-trigger":h?`true`:void 0,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(i),className:$(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{u(t,e)},children:(0,XP.jsx)(Q,{...i})},t))}),h&&n&&o&&(0,XP.jsx)(`div`,{id:`linux-application-menu-panel`,className:`no-drag fixed z-50 m-px flex min-w-[220px] flex-col rounded-xl bg-token-dropdown-background/90 p-1 text-token-foreground shadow-lg ring-[0.5px] ring-token-border backdrop-blur-sm select-none`,style:{left:o.left,top:o.top},children:f(i)})]})}',
   },
 ];
 const appShellLinuxApplicationMenuPatchMarker = 'linux-application-menu-panel';
@@ -607,6 +658,12 @@ const appShellLinuxWindowControlsPatchAlternatives = [
       'children:[n,r,i]}),e[4]=r,e[5]=a),a}function ri(e){return null}',
     replacement:
       'children:[n,r,i,(0,Q.jsx)(LinuxWindowControls,{})]}),e[4]=r,e[5]=a),a}function LinuxWindowControls(){let{platform:e}=at(),t=window.electronBridge?.controlWindow;if(e!==`linux`||typeof t!=`function`)return null;let n=e=>()=>{void t(e)},[r,i]=(0,Z.useState)(!1),a=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,o=C(a,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),s=C(a,r?`text-token-charts-red`:`text-token-text-tertiary`);return(0,Q.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,Q.jsx)(`button`,{type:`button`,className:o,onClick:n(`minimize`),"aria-label":`Minimize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:o,onClick:n(`maximize`),"aria-label":`Maximize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:s,onMouseEnter:()=>i(!0),onMouseLeave:()=>i(!1),onFocus:()=>i(!0),onBlur:()=>i(!1),onClick:n(`close`),"aria-label":`Close`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}function ri(e){return null}',
+  },
+  {
+    target:
+      'function VGe(){let e=(0,VF.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,UF.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,UF.jsx)(pF,{}),(0,UF.jsx)(hWe,{})]}),e[0]=t):t=e[0],t}var VF',
+    replacement:
+      'function VGe(){let e=(0,VF.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,UF.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,UF.jsx)(pF,{}),(0,UF.jsx)(hWe,{}),(0,UF.jsx)(LinuxWindowControls,{})]}),e[0]=t):t=e[0],t}function LinuxWindowControls(){let e=window.electronBridge?.controlWindow;if(typeof e!=`function`)return null;let t=t=>()=>{void e(t)},[n,r]=(0,HF.useState)(!1),i=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,a=$(i,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),o=$(i,n?`text-token-charts-red`:`text-token-text-tertiary`);return(0,UF.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,UF.jsx)(`button`,{type:`button`,className:a,onClick:t(`minimize`),"aria-label":`Minimize`,children:(0,UF.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,UF.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,UF.jsx)(`button`,{type:`button`,className:a,onClick:t(`maximize`),"aria-label":`Maximize`,children:(0,UF.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,UF.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,UF.jsx)(`button`,{type:`button`,className:o,onMouseEnter:()=>r(!0),onMouseLeave:()=>r(!1),onFocus:()=>r(!0),onBlur:()=>r(!1),onClick:t(`close`),"aria-label":`Close`,children:(0,UF.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,UF.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}var VF',
   },
 ];
 const appShellLinuxWindowControlsUpgradePatchPattern =
@@ -633,6 +690,12 @@ const appShellLinuxFloatingSidebarHideNavHeaderPatchAlternatives = [
     replacement:
       'children:[r?null:(0,Q.jsx)(w.div,{initial:c?!1:{x:8},animate:{x:0},exit:{x:c?0:8},transition:g,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-(--spacing-token-safe-header-left) pe-2`,children:(0,Q.jsx)($n,{hideUnreadBadge:!0,onToggleSidebar:u})}),(0,Q.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
   },
+  {
+    target:
+      'children:[(0,UF.jsx)(Qp.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,UF.jsx)(pF,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,UF.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
+    replacement:
+      'children:[r?null:(0,UF.jsx)(Qp.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,UF.jsx)(pF,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,UF.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
+  },
 ];
 const appShellLinuxFloatingSidebarHideNavHeaderPatchMarker =
   'children:[r?null:(0,Q.jsx)';
@@ -647,12 +710,16 @@ const appShellLinuxFloatingSidebarZIndexPatchAlternatives = [
     target: 'pointer-events-auto min-h-0',
     replacement: appShellLinuxFloatingSidebarZIndexPatchReplacement,
   },
+  {
+    target: 'pointer-events-auto fixed bottom-0 left-0 z-[42] min-h-0',
+    replacement: 'pointer-events-auto fixed bottom-0 left-0 z-[42] min-h-0',
+  },
 ];
 const appShellLinuxFloatingSidebarZIndexPatchMarker = 'left-0 z-40 min-h-0';
 const appShellLinuxFloatingSidebarInlineZIndexPatchTarget =
-  'exit:{opacity:0,x:c?0:-8},style:{width:n},transition:g,children:[(0,Q.jsxs)(`aside`';
+  'style:{width:n},transition:';
 const appShellLinuxFloatingSidebarInlineZIndexPatchReplacement =
-  'exit:{opacity:0,x:c?0:-8},style:{width:n,zIndex:40},transition:g,children:[(0,Q.jsxs)(`aside`';
+  'style:{width:n,zIndex:40},transition:';
 const appShellLinuxFloatingSidebarInlineZIndexPatchMarker = 'style:{width:n,zIndex:40}';
 const appShellLinuxFloatingSidebarTopPatchTarget = 'r?`top-(--height-toolbar-sm)`:`top-0`';
 const appShellLinuxFloatingSidebarTopPatchReplacement = 'r?`top-toolbar-sm`:`top-0`';
@@ -672,6 +739,12 @@ const appShellLinuxFloatingSidebarMainHeaderLeftPatchAlternatives = [
     replacement:
       'function yr({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a,leftPanelWidth:lp}=ie(),flw=c(Jr),fls=c(ke),o=Pe(0),s=$t`${i}px`,l=$t`${a}px`,u=c(U)',
   },
+  {
+    target:
+      'function aGe({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a}=vS(),o=sp(0),s=vp`${i}px`,c=vp`${a}px`,l=X(QSe)',
+    replacement:
+      'function aGe({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a,leftPanelWidth:lp}=vS(),flw=X(HS),fls=X(GS),o=sp(0),s=vp`${i}px`,c=vp`${a}px`,l=X(QSe)',
+  },
 ];
 const appShellLinuxFloatingSidebarMainHeaderLeftStylePatchTarget =
   'style:t?{left:s}:{},children:[(0,Q.jsx)(_r,{entries:p,fitWidth:n,slotWidth:t?o:i,side:`start`})';
@@ -687,6 +760,12 @@ const appShellLinuxFloatingSidebarMainHeaderLeftStylePatchAlternatives = [
       'style:t?{left:s}:{},children:[(0,Q.jsx)(br,{entries:p,fitWidth:n,slotWidth:t?o:i,side:`start`})',
     replacement:
       'style:t?{left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s}:{},children:[(0,Q.jsx)(br,{entries:p,fitWidth:n,slotWidth:t?o:i,side:`start`})',
+  },
+  {
+    target:
+      'style:t?{left:s}:{},children:[(0,OF.jsx)(oGe,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
+    replacement:
+      'style:t?{left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s}:{},children:[(0,OF.jsx)(oGe,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
   },
 ];
 const appShellLinuxFloatingSidebarMainHeaderLeftPatchMarker =
@@ -744,6 +823,12 @@ const mainLinuxAvatarOverlayTypePatchAlternatives = [
     replacement:
       'case`avatarOverlay`:return{...b5({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},...n===`darwin`?{enableLargerThanScreen:!0}:{},hasShadow:!1};',
   },
+  {
+    target:
+      'case`avatarOverlay`:return{...M9({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`darwin`?{enableLargerThanScreen:!0}:{},hasShadow:!1};',
+    replacement:
+      'case`avatarOverlay`:return{...M9({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},...n===`darwin`?{enableLargerThanScreen:!0}:{},hasShadow:!1};',
+  },
 ];
 const mainLinuxAvatarOverlayTypePatchMarker =
   '...n===`linux`?{type:`toolbar`}:{},hasShadow:!1};';
@@ -777,6 +862,12 @@ const mainLinuxAvatarOverlayShowPatchAlternatives = [
     replacement:
       'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),process.platform===`linux`&&(e.setAlwaysOnTop(!0,`screen-saver`),this.startLinuxTopEnforcement()),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&(this.finishPendingPresentation(),this.broadcastOpenState())}',
   },
+  {
+    target:
+      'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&this.broadcastOpenState();let n=this.pendingPresentation;n!=null&&(this.pendingPresentation=null,n.velocity==null?(this.dockRestoreAnchor=n.target,this.animatePresentationTo(n.target,P6(this.anchor,n.target),()=>{this.dockRestoreAnchor===n.target&&(this.dockRestoreAnchor=null)})):this.startMomentum(n.velocity.x,n.velocity.y,!0))}',
+    replacement:
+      'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),process.platform===`linux`&&(e.setAlwaysOnTop(!0,`screen-saver`),this.startLinuxTopEnforcement()),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&this.broadcastOpenState();let n=this.pendingPresentation;n!=null&&(this.pendingPresentation=null,n.velocity==null?(this.dockRestoreAnchor=n.target,this.animatePresentationTo(n.target,P6(this.anchor,n.target),()=>{this.dockRestoreAnchor===n.target&&(this.dockRestoreAnchor=null)})):this.startMomentum(n.velocity.x,n.velocity.y,!0))}',
+  },
 ];
 const mainLinuxAvatarOverlayShowPatchMarker = 'this.startLinuxTopEnforcement()';
 const mainLinuxAvatarOverlayTopTimerPatchAlternatives = [
@@ -802,6 +893,12 @@ const mainLinuxAvatarOverlayTopTimerPatchAlternatives = [
       'momentumTimer=null;suppressNextRendererThrow=!1;movedWindowPersistTimer=null;mousePassthroughEnabled=!1;pendingRealtimeStart=null;hideAfterRealtimeSessionEnd=!1;hasRealtimeSession=!1;pendingPresentation=null;placement=`top-end`;',
     replacement:
       'momentumTimer=null;suppressNextRendererThrow=!1;movedWindowPersistTimer=null;mousePassthroughEnabled=!1;topEnforcementTimer=null;keyboardInteractive=!1;pendingRealtimeStart=null;hideAfterRealtimeSessionEnd=!1;hasRealtimeSession=!1;pendingPresentation=null;placement=`top-end`;',
+  },
+  {
+    target:
+      'momentumTimer=null;pendingPresentation=null;presentationOffset={x:0,y:0};presentationMotionTarget=null;presentationVisibility=null;startupPresentationVisibility=null;dockRestoreAnchor=null;dockTarget=null;orbDragFollowTarget=null;orbDragFollowTimer=null;suppressNextRendererThrow=!1;movedWindowPersistTimer=null;mousePassthroughEnabled=!1;placement=`top-end`;',
+    replacement:
+      'momentumTimer=null;pendingPresentation=null;presentationOffset={x:0,y:0};presentationMotionTarget=null;presentationVisibility=null;startupPresentationVisibility=null;dockRestoreAnchor=null;dockTarget=null;orbDragFollowTarget=null;orbDragFollowTimer=null;suppressNextRendererThrow=!1;movedWindowPersistTimer=null;mousePassthroughEnabled=!1;topEnforcementTimer=null;keyboardInteractive=!1;placement=`top-end`;',
   },
 ];
 const mainLinuxAvatarOverlayTopTimerPatchMarker = 'keyboardInteractive=!1;';
@@ -857,6 +954,12 @@ const mainLinuxAvatarOverlayRaiseMethodPatchAlternatives = [
       'isOpen(){let e=this.window;return e!=null&&!e.isDestroyed()&&e.isVisible()&&!this.windowStagedForNativePresentation}getVisibleWebContents()',
     replacement:
       'isOpen(){let e=this.window;return e!=null&&!e.isDestroyed()&&e.isVisible()&&!this.windowStagedForNativePresentation}raiseWindow(){let e=this.window;if(e==null||e.isDestroyed()||!e.isVisible()||process.platform!==`linux`)return;let t=()=>{e.isDestroyed()||(e.setAlwaysOnTop(!0,`screen-saver`),e.moveTop(),e.isFocused()||e.showInactive())};t();let n=setTimeout(t,0),r=setTimeout(t,80);n.unref?.(),r.unref?.()}startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||(this.topEnforcementTimer=setInterval(()=>{this.raiseWindow()},500),this.topEnforcementTimer.unref?.())}stopLinuxTopEnforcement(){this.topEnforcementTimer!=null&&(clearInterval(this.topEnforcementTimer),this.topEnforcementTimer=null)}getVisibleWebContents()',
+  },
+  {
+    target:
+      'isOpen(){let e=this.window;return e!=null&&!e.isDestroyed()&&e.isVisible()&&!this.windowStagedForNativePresentation}subscribePresentationFocus(e){',
+    replacement:
+      'isOpen(){let e=this.window;return e!=null&&!e.isDestroyed()&&e.isVisible()&&!this.windowStagedForNativePresentation}raiseWindow(){let e=this.window;if(e==null||e.isDestroyed()||!e.isVisible()||process.platform!==`linux`)return;let t=()=>{e.isDestroyed()||(e.setAlwaysOnTop(!0,`screen-saver`),e.moveTop(),e.isFocused()||e.showInactive())};t();let n=setTimeout(t,0),r=setTimeout(t,80);n.unref?.(),r.unref?.()}startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||(this.topEnforcementTimer=setInterval(()=>{this.raiseWindow()},500),this.topEnforcementTimer.unref?.())}stopLinuxTopEnforcement(){this.topEnforcementTimer!=null&&(clearInterval(this.topEnforcementTimer),this.topEnforcementTimer=null)}subscribePresentationFocus(e){',
   },
 ];
 const mainLinuxAvatarOverlayRaiseMethodPatchMarker =
@@ -952,6 +1055,12 @@ const mainLinuxAvatarOverlayFocusableWindowPatchAlternatives = [
     replacement:
       'appearance:`avatarOverlay`,focusable:process.platform===`linux`?!0:!1,show:!1,initialRoute:L2',
   },
+  {
+    target:
+      'appearance:`avatarOverlay`,focusable:!1,show:!1,initialRoute:K3',
+    replacement:
+      'appearance:`avatarOverlay`,focusable:process.platform===`linux`?!0:!1,show:!1,initialRoute:K3',
+  },
 ];
 const mainLinuxAvatarOverlayFocusableWindowPatchMarker =
   'focusable:process.platform===`linux`?!0:!1';
@@ -1020,6 +1129,12 @@ const mainLinuxAvatarOverlayAvailabilityPatchAlternatives = [
     replacement:
       'function Ke(e,{buildFlavor:t=n.i.resolve(),env:r=m.default.env,platform:i=m.default.platform}={}){let a=i===`linux`?{...e,avatarOverlay:!0}:e,o=i===`darwin`&&!n.i.isInternal(t)&&a.computerUseNodeRepl!=null?{...a,computerUseNodeRepl:!1}:a,s=i===`win32`&&o.computerUse===!0?{...o,computerUseNodeRepl:!0}:o,c=i===`win32`&&r.CODEX_ELECTRON_ENABLE_WINDOWS_COMPUTER_USE===`1`?{...s,computerUse:!0,computerUseNodeRepl:!0}:s,l=t===n.i.Dev?qe(r):null;return l==null?{...c,deviceAttestation:ye({platform:i})}:{...c,...l,deviceAttestation:ye({platform:i})}}',
   },
+  {
+    target:
+      'function Je(e,{buildFlavor:t=n.i.resolve(),env:r=p.default.env,platform:i=p.default.platform}={}){let a=i===`darwin`&&!n.i.isInternal(t)&&e.computerUseNodeRepl!=null?{...e,computerUseNodeRepl:!1}:e,o=i===`win32`&&e.computerUse===!0?{...a,computerUseNodeRepl:!0}:a,s=i===`win32`&&r.CODEX_ELECTRON_ENABLE_WINDOWS_COMPUTER_USE===`1`?{...o,computerUse:!0,computerUseNodeRepl:!0}:o,c=t===n.i.Dev?Ye(r):null;return c==null?{...s,deviceAttestation:ve({platform:i})}:{...s,...c,deviceAttestation:ve({platform:i})}}',
+    replacement:
+      'function Je(e,{buildFlavor:t=n.i.resolve(),env:r=p.default.env,platform:i=p.default.platform}={}){let a=i===`linux`?{...e,avatarOverlay:!0}:e,o=i===`darwin`&&!n.i.isInternal(t)&&a.computerUseNodeRepl!=null?{...a,computerUseNodeRepl:!1}:a,s=i===`win32`&&o.computerUse===!0?{...o,computerUseNodeRepl:!0}:o,c=i===`win32`&&r.CODEX_ELECTRON_ENABLE_WINDOWS_COMPUTER_USE===`1`?{...s,computerUse:!0,computerUseNodeRepl:!0}:s,l=t===n.i.Dev?Ye(r):null;return l==null?{...c,deviceAttestation:ve({platform:i})}:{...c,...l,deviceAttestation:ve({platform:i})}}',
+  },
 ];
 const mainLinuxAvatarOverlayAvailabilityPatchMarker =
   'n===`linux`?{...e,avatarOverlay:!0}:e';
@@ -1060,6 +1175,12 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
     replacement:
       'Ct=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Ve.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[De(e)],screenX:e.screenX,screenY:e.screenY},m.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY}),oe(!0),D(null)}',
   },
+  {
+    target:
+      'Be=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),xe.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[ot(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:g},a.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:g}),ee(!0),S(null))}',
+    replacement:
+      'Be=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),xe.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[ot(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:g},a.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:g}),ee(!0),S(null)}',
+  },
 ];
 const avatarOverlayDirectMascotDragPatchMarker =
   'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return';
@@ -1091,6 +1212,12 @@ const avatarOverlayLargeActivityTrayLayoutPatchAlternatives = [
       'At={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:80,top:56,width:276,height:131},viewport:{width:356,height:320}}',
     replacement:
       'At={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}',
+  },
+  {
+    target:
+      'En={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:80,top:56,width:276,height:131},viewport:{width:356,height:320}}',
+    replacement:
+      'En={mascot:{left:244,top:191,width:112,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}',
   },
 ];
 const avatarOverlayLargeActivityTrayPaddingPatchTarget =
@@ -1124,6 +1251,10 @@ const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
     target: 'V?`whitespace-pre-wrap`:x==null?`line-clamp-2`:void 0',
     replacement: 'V?`whitespace-pre-wrap`:x==null?`whitespace-pre-wrap`:void 0',
   },
+  {
+    target: 'B?`whitespace-pre-wrap`:y==null?`line-clamp-2`:void 0',
+    replacement: 'B?`whitespace-pre-wrap`:y==null?`whitespace-pre-wrap`:void 0',
+  },
 ];
 const avatarOverlayReadableActivityBodyHeightPatchTarget =
   '$=2,et=2,tt=.035,nt=32,rt=84,it=512,at=1';
@@ -1149,6 +1280,10 @@ const avatarOverlayReadableActivityBodyHeightPatchAlternatives = [
   {
     target: 'Y=2,Ve=2,He=.035,Ue=32,We=84,Ge=512,Ke=1',
     replacement: 'Y=2,Ve=2,He=.035,Ue=80,We=84,Ge=512,Ke=1',
+  },
+  {
+    target: 'Bt=2,Vt=2,Ht=.035,Ut=32,Wt=84,Gt=512,Kt=1',
+    replacement: 'Bt=2,Vt=2,Ht=.035,Ut=80,Wt=84,Gt=512,Kt=1',
   },
 ];
 const avatarOverlayReadableActivityBodyMeasurementPatchTarget =
@@ -1479,6 +1614,12 @@ const rendererGoalsDefaultFeatureOverridePatchAlternatives = [
     replacement:
       'var GH=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`]',
   },
+  {
+    target:
+      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    replacement:
+      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`]',
+  },
 ];
 const rendererDesktopGoalsFeaturePatchMarker = 'goals:!0';
 const rendererDesktopGoalsFeaturePatchAlternatives = [
@@ -1493,6 +1634,12 @@ const rendererDesktopGoalsFeaturePatchAlternatives = [
       'computerUse:_.available,computerUseNodeRepl:_.available&&v,recordAndReplay:_.available&&y,sites:o,control:b,dil:x,multiBrowserTabs:d,multiWindow:S',
     replacement:
       'computerUse:_.available,computerUseNodeRepl:_.available&&v,recordAndReplay:_.available&&y,sites:o,control:b,goals:!0,dil:x,multiBrowserTabs:d,multiWindow:S',
+  },
+  {
+    target:
+      'computerUse:S.available,computerUseNodeRepl:S.available&&C,recordAndReplay:S.available&&w,sites:s,control:T,dil:E,multiBrowserTabs:_,multiWindow:D',
+    replacement:
+      'computerUse:S.available,computerUseNodeRepl:S.available&&C,recordAndReplay:S.available&&w,sites:s,control:T,goals:!0,dil:E,multiBrowserTabs:_,multiWindow:D',
   },
 ];
 const composerGoalsSlashCommandPatchMarker = 'id:`goal`,triggers:';
@@ -1615,6 +1762,12 @@ const mainLinuxOpenTargetsPatchAlternatives = [
     replacement:
       'function linuxResolveAbsoluteCommand(e){let t=fo(e);return t&&(0,l.existsSync)(t)?t:null}function linuxDesktopEntrySearchRoots(){let e=(0,o.homedir)();return[s.default.join(e,`.local`,`share`,`applications`),`/usr/share/applications`]}function linuxOpenTargetSearchRoots(){let e=(0,o.homedir)();return[s.default.join(e,`Applications`),s.default.join(e,`Downloads`),`/opt`]}function linuxResolveDesktopExec(e){let t=e.trim().match(/^"([^"]+)"|^\\x27([^\\x27]+)\\x27|^(\\S+)/),n=t?.[1]??t?.[2]??t?.[3];if(!n)return null;return linuxResolveAbsoluteCommand(n)??(()=>{let e=Qa(n);return e?fo(e):null})()}function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,l.readdirSync)(e)}catch{continue}for(let r of n){let i=r.toLowerCase();if(!i.endsWith(`.desktop`)||!t.some(e=>i.includes(e)))continue;let a=s.default.join(e,r),o=null;try{o=(0,l.readFileSync)(a,`utf8`)}catch{continue}let c=o.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!c)continue;let u=linuxResolveDesktopExec(c.replace(/%.?/g,``).trim());if(u)return u}}return null}function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,l.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let r of n){if(!r.isFile())continue;let n=r.name.toLowerCase();if(!n.endsWith(`.appimage`)||!t.some(e=>n.includes(e)))continue;let i=linuxResolveAbsoluteCommand(s.default.join(e,r.name));if(i)return i}}return null}function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=Qa(t);if(e){let t=fo(e);if(t)return t}}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let r=n.length>0?linuxFindDesktopEntryExec(n):null;return r??(n.length>0?linuxFindAppImage(n):null)}function linuxFileManagerDetect(){return Qa(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`],[`visual studio code`,`code`]),args:qM,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`],[`insiders`,`code-insiders`]),args:qM,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`],[`cursor`]),args:qM,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`],[`windsurf`]),args:qM,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:qM}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e]}}};var kN=[cN,linuxVscode,uN,linuxVscodeInsiders,oN,lM,Bj,pM,XM,linuxCursor,wN,linuxZed,pN,linuxWindsurf,Rj,SM,$M,mM,Hj,yM,sM,linuxFileManager,hN,wM,vM,fN,yN,AM,jM,MM,NM,PM,FM,IM,LM,nN],AN=t.qr(`open-in-targets`);',
   },
+  {
+    target:
+      'function YN(e){return JN.flatMap(t=>{let n=t.platforms[e];return n?[{id:t.id,...n}]:[]})}var XN=YN(process.platform),ZN=async e=>a.shell.readShortcutLink(e);',
+    replacement:
+      'function YN(e){return JN.flatMap(t=>{let n=t.platforms[e];return n?[{id:t.id,...n}]:[]})}function linuxDetectCommand(e,t=[]){for(let n of[e,...t]){let e=ls(n);if(e)return e;if(n.startsWith(`/`)&&(0,u.existsSync)(n))return n}return null}function linuxEditorTarget(e,t,n,r,i=[]){return{id:e,label:t,icon:n,kind:`editor`,detect:()=>linuxDetectCommand(r[0],r.slice(1).concat(i)),args:nM,supportsSsh:!0}}var XN=process.platform===`linux`?[...YN(process.platform),linuxEditorTarget(`vscode`,`VS Code`,`apps/vscode.png`,[`code`],[`/usr/bin/code`,`/snap/bin/code`]),linuxEditorTarget(`vscodeInsiders`,`VS Code Insiders`,`apps/vscode-insiders.png`,[`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`]),linuxEditorTarget(`cursor`,`Cursor`,`apps/cursor.png`,[`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`]),linuxEditorTarget(`windsurf`,`Windsurf`,`apps/windsurf.png`,[`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`]),linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`]),{id:`fileManager`,label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:()=>linuxDetectCommand(`xdg-open`,[`/usr/bin/xdg-open`]),args:e=>[e],open:async({path:e})=>bN(e)}]:YN(process.platform),ZN=async e=>a.shell.readShortcutLink(e);',
+  },
 ];
 const mainLinuxOpenTargetsPatchMarker = 'function linuxResolveEditorTarget(';
 const workspaceRootDropHandlerOwlFeatureFallbackPatchTarget =
@@ -1622,7 +1775,7 @@ const workspaceRootDropHandlerOwlFeatureFallbackPatchTarget =
 const workspaceRootDropHandlerOwlFeatureFallbackPatchReplacement =
   'function Qe(){let e=process._linkedBinding;if(typeof e!=`function`)return{isOwlFeatureEnabled:()=>!1};try{return Ge.parse(e.call(process,`electron_common_owl_features`))}catch{return{isOwlFeatureEnabled:()=>!1}}}';
 const workspaceRootDropHandlerOwlFeatureFallbackPatchMarker =
-  'return{isOwlFeatureEnabled:()=>!1}';
+  'if(typeof e!=`function`)return null;';
 const startupBackgroundPatchTarget = '--startup-background: transparent;';
 const startupBackgroundPatchReplacement = '--startup-background: #121212;';
 const startupLogoFadePatchTarget =
@@ -1634,9 +1787,9 @@ const startupLogoShimmerPatchTarget =
 const startupLogoShimmerPatchReplacement = 'animation: none;';
 const startupLightThemeMarker = '@media (prefers-color-scheme: light)';
 const startupLightThemePatchTarget =
-  '      :root {\n        --startup-background: #121212;\n        --startup-logo-base: #adadad;\n        --startup-logo-shimmer-soft: rgb(255 255 255 / 0.02);\n        --startup-logo-shimmer-peak: rgb(255 255 255 / 0.46);\n        --startup-logo-shimmer-tail: rgb(255 255 255 / 0.06);\n      }\n';
+  '\n      html,\n      body {';
 const startupLightThemePatchReplacement =
-  '      :root {\n        --startup-background: #121212;\n        --startup-logo-base: #adadad;\n        --startup-logo-shimmer-soft: rgb(255 255 255 / 0.02);\n        --startup-logo-shimmer-peak: rgb(255 255 255 / 0.46);\n        --startup-logo-shimmer-tail: rgb(255 255 255 / 0.06);\n      }\n\n      @media (prefers-color-scheme: light) {\n        :root {\n          --startup-background: #f5f5f5;\n          --startup-logo-base: #666;\n          --startup-logo-shimmer-soft: rgb(0 0 0 / 0.02);\n          --startup-logo-shimmer-peak: rgb(0 0 0 / 0.14);\n          --startup-logo-shimmer-tail: rgb(0 0 0 / 0.04);\n        }\n      }\n';
+  '\n      @media (prefers-color-scheme: light) {\n        :root {\n          --startup-background: #f5f5f5;\n          --logo-shimmer-base: #666;\n          --logo-shimmer-peak: rgb(0 0 0 / 0.14);\n          --logo-shimmer-soft: rgb(0 0 0 / 0.02);\n          --logo-shimmer-tail: rgb(0 0 0 / 0.04);\n        }\n      }\n\n      html,\n      body {';
 const startupKeyframesPatchTarget =
   '\n      @keyframes startup-codex-logo-fade-in {\n        0% {\n          opacity: 0;\n        }\n\n        100% {\n          opacity: 1;\n        }\n      }\n\n      @keyframes startup-codex-logo-shimmer {\n        0% {\n          background-position: 140% 0;\n        }\n\n        100% {\n          background-position: -120% 0;\n        }\n      }\n';
 const startupKeyframesPatchReplacement = '\n';
@@ -2290,7 +2443,17 @@ function patchCodexWorkspaceRootDropHandlerBundle(extractedAppRoot) {
 }
 
 function patchCodexAppShellRenderer(extractedAppRoot) {
-  const appShellPath = findExtractedWebviewAsset(extractedAppRoot, 'app-shell-');
+  const appShellPath =
+    findOptionalExtractedWebviewAsset(extractedAppRoot, 'app-shell-') ??
+    findOptionalExtractedWebviewAssetContaining(
+      extractedAppRoot,
+      ['app-initial~app-main~'],
+      ['applicationMenu:Object.freeze', 'window.electronBridge?.showApplicationMenu'],
+    );
+
+  if (!appShellPath) {
+    throw new Error('Missing extracted codex app shell renderer asset');
+  }
 
   return summarizePatchResults(
     applyPatchesToFile(appShellPath, [
@@ -2366,10 +2529,17 @@ function patchCodexAppShellRenderer(extractedAppRoot) {
 }
 
 function patchCodexWindowControlsSafeArea(extractedAppRoot) {
-  const safeAreaPath = findExtractedWebviewAsset(
-    extractedAppRoot,
-    'use-window-controls-safe-area-',
-  );
+  const safeAreaPath =
+    findOptionalExtractedWebviewAsset(extractedAppRoot, 'use-window-controls-safe-area-') ??
+    findOptionalExtractedWebviewAssetContaining(
+      extractedAppRoot,
+      ['app-initial~app-main~'],
+      ['applicationMenu:Object.freeze({left:0,right:0})'],
+    );
+
+  if (!safeAreaPath) {
+    throw new Error('Missing extracted window controls safe-area renderer asset');
+  }
 
   return summarizePatchResults(
     applyPatchesToFile(safeAreaPath, [
@@ -2460,7 +2630,7 @@ function patchCodexAvatarOverlayRenderer(extractedAppRoot) {
 
 function patchCodexAuthWebviewBundles(extractedAppRoot) {
   const indexBundlePath =
-    findOptionalExtractedWebviewAssetContaining(extractedAppRoot, ['index-', 'app-main-'], [
+    findOptionalExtractedWebviewAssetContaining(extractedAppRoot, ['index-', 'app-main-', 'app-initial~app-main~'], [
       'tool_suggest',
       'multiWindow',
     ]) ?? findExtractedWebviewAsset(extractedAppRoot, 'index-');
@@ -2524,11 +2694,13 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
       replacement: remoteChatGptLoginPatchReplacement,
     });
   }
-  remoteConnectionPatches.push({
-    label: 'remote chatgpt login requests native external browser',
-    alternatives: remoteConnectionsLoginPatchAlternatives,
-    marker: 'useExternalBrowser:!0',
-  });
+  if (sourceHasAlternativePatch(remoteConnectionsSource, remoteConnectionsLoginPatchAlternatives)) {
+    remoteConnectionPatches.push({
+      label: 'remote chatgpt login requests native external browser',
+      alternatives: remoteConnectionsLoginPatchAlternatives,
+      marker: 'useExternalBrowser:!0',
+    });
+  }
   remoteChatGptLoginPatchPattern.lastIndex = 0;
   const pluginInstallFlowPatches = [];
   if (

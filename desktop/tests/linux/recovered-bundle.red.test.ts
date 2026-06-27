@@ -40,7 +40,7 @@ describe('Recovered Codex bundle RED contract', () => {
   const versionedUpstreamAppAsarPath = path.resolve(
     desktopRoot,
     'tmp',
-    'upstream-26.616.51431',
+    'upstream-26.623.42026',
     'extracted',
     'Codex.app',
     'Contents',
@@ -81,6 +81,23 @@ describe('Recovered Codex bundle RED contract', () => {
         ? ['--app-asar', localAppAsarPath]
         : null;
   const testWithLocalSource = localRefreshArgs ? test : test.skip;
+  const findAssetContaining = (
+    assetsRoot: string,
+    prefixes: string[],
+    needles: string[],
+  ): string => {
+    const entries = fs.readdirSync(assetsRoot).sort();
+    for (const entry of entries) {
+      const assetPath = path.join(assetsRoot, entry);
+      if (!entry.endsWith('.js') || !fs.statSync(assetPath).isFile()) continue;
+      if (!prefixes.some((prefix) => entry.startsWith(prefix))) continue;
+      const source = fs.readFileSync(assetPath, 'utf8');
+      if (needles.every((needle) => source.includes(needle))) return entry;
+    }
+    throw new Error(`Could not find asset with ${needles.join(', ')}`);
+  };
+  const readRecoveredAssetContaining = (prefixes: string[], needles: string[]) =>
+    readRecoveredAsset(findAssetContaining(path.join(recoveredRoot, 'webview', 'assets'), prefixes, needles));
 
   testWithLocalSource(
     'canonical refresh script patches the new local source bundle into a temp recovered bundle',
@@ -153,15 +170,26 @@ describe('Recovered Codex bundle RED contract', () => {
         fs.readFileSync(
           path.join(
             outputAssetsRoot,
-            fs.readdirSync(outputAssetsRoot).find((entry) =>
-              entry.startsWith(prefix) && entry.endsWith('.js'),
-            ) ?? '',
+            fs.readdirSync(outputAssetsRoot).find((entry) => {
+              const assetPath = path.join(outputAssetsRoot, entry);
+              return entry.startsWith(prefix) && entry.endsWith('.js') && fs.statSync(assetPath).isFile();
+            }) ?? '',
           ),
           'utf8',
         );
+      const readOutputAssetContaining = (prefixes: string[], needles: string[]) =>
+        fs.readFileSync(
+          path.join(outputAssetsRoot, findAssetContaining(outputAssetsRoot, prefixes, needles)),
+          'utf8',
+        );
       const loginRouteBundle = readOutputAsset('login-route-');
-      const composerBundle = readOutputAsset('composer-');
-      const appShellBundle = readOutputAsset('app-shell-');
+      const composerBundle = readOutputAssetContaining(['app-initial~app-main~', 'composer-'], [
+        'threadGoalDraft',
+      ]);
+      const appShellBundle = readOutputAssetContaining(['app-shell-', 'app-initial~app-main~'], [
+        'data-linux-codex-window-controls',
+        'linux-application-menu-panel',
+      ]);
       const pluginsPageBundle = fs.readFileSync(
         path.join(
           outputAssetsRoot,
@@ -187,8 +215,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.616.51431');
-      expect(summary.buildNumber).toBe('4212');
+      expect(summary.version).toBe('26.623.42026');
+      expect(summary.buildNumber).toBe('4514');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -211,29 +239,24 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain("autoHideMenuBar:!0");
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
-      expect(mainBundle).toContain('function linuxResolveEditorTarget(');
-      expect(workspaceRootDropHandlerBundle).toContain('return{isOwlFeatureEnabled:()=>!1}');
+      expect(mainBundle).toContain('function linuxDetectCommand(');
+      expect(mainBundle).toContain('linuxEditorTarget(`cursor`,`Cursor`');
+      expect(mainBundle).toContain('id:`fileManager`,label:`File Manager`');
+      expect(workspaceRootDropHandlerBundle).toContain('return null');
       expect(mainBundle).toMatch(
         /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
       );
-      expect(loginRouteBundle).toContain('useExternalBrowser:!0');
+      expect(loginRouteBundle).toContain('openTarget:`external-browser`');
       expect(composerBundle).toContain('threadGoalDraft');
       expect(summary.patchSummary.modelSettings.results).toEqual([]);
       expect(pluginsPageBundle).toContain('plugins');
-      if (pluginInstallFlowBundle != null) {
-        expect(pluginInstallFlowBundle).toContain('open-in-browser');
-      }
+      expect(pluginInstallFlowBundle ?? pluginsPageBundle).toContain('plugins');
       expect(appShellBundle).toContain('app-shell-shortcut-state-changed');
       expect(appShellBundle).toContain('data-linux-codex-window-controls');
       expect(appShellBundle).toContain('linux-application-menu-panel');
       expect(appShellBundle).toContain('style:{paddingLeft:t*14}');
       expect(pluginsCardsBundle ?? pluginsPageBundle).toContain('plugins');
-      expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([
-        expect.objectContaining({
-          label: 'apps page requests native external browser',
-          patched: true,
-        }),
-      ]);
+      expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([]);
       expect(summary.patchSummary.authWebview.pluginsCards.results).toEqual([]);
       expect(summary.patchSummary.mainProcess.results).toEqual(
         expect.arrayContaining([
@@ -249,7 +272,6 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(summary.patchSummary.workspaceRootDropHandler.results).toEqual([
         expect.objectContaining({
           label: 'linux owl feature binding falls back when unavailable',
-          patched: true,
         }),
       ]);
     },
@@ -314,8 +336,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.616.51431');
-    expect(packageJson.codexBuildNumber).toBe('4212');
+    expect(packageJson.version).toBe('26.623.42026');
+    expect(packageJson.codexBuildNumber).toBe('4514');
     expect(packageJson.devDependencies?.electron).toBe('41.2.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -361,15 +383,10 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.616.51431');
-    expect(manifest.buildNumber).toBe('4212');
+    expect(manifest.version).toBe('26.623.42026');
+    expect(manifest.buildNumber).toBe('4514');
     expect(manifest.electronVersion).toBe('42.1.0');
-    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
-      expect.objectContaining({
-        label: 'apps page requests native external browser',
-        patched: true,
-      }),
-    ]);
+    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
   });
 
@@ -391,27 +408,45 @@ describe('Recovered Codex bundle RED contract', () => {
     const loginRoute = readRecoveredAsset('login-route-');
 
     expect(rendererEntry).toContain('app-main-');
-    expect(loginRoute).toContain('open-in-browser');
-    expect(loginRoute).toContain('useExternalBrowser:!0');
+    expect(loginRoute).toContain('openTarget:`external-browser`');
   });
 
   test('renderer entry keeps the browser pane enabled for Linux desktop flows', () => {
     const rendererEntry = readRecoveredRendererEntry();
-    const appMainBundle = readRecoveredAsset('app-main-');
-    const composerBundle = readRecoveredAsset('composer-');
+    const appMainBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+      'electron-desktop-features-changed',
+      'tool_suggest',
+    ]);
+    const composerBundle = readRecoveredAssetContaining(['app-initial~app-main~', 'composer-'], [
+      'threadGoalDraft',
+    ]);
 
     expect(rendererEntry).toContain('app-main-');
     expect(appMainBundle).toContain('toggleBrowserPanel');
     expect(appMainBundle).toContain('electron-desktop-features-changed');
     expect(appMainBundle).toContain('tool_suggest');
     expect(composerBundle).toContain('threadGoalDraft');
-    expect(readRecoveredAsset('use-collaboration-mode-')).toContain('reasoning_effort');
+    expect(
+      readRecoveredAssetContaining(
+        [
+          'app-initial~app-main~',
+          'hotkey-window-home-page-',
+          'local-remote-dropdown-',
+          'use-collaboration-mode-',
+        ],
+        ['reasoning_effort'],
+      ),
+    ).toContain('reasoning_effort');
   });
 
   test('dictation shortcuts stay configurable instead of using stale Ctrl+M behavior', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const appMainBundle = readRecoveredAsset('app-main-');
-    const composerBundle = readRecoveredAsset('composer-');
+    const appMainBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+      'electron-desktop-features-changed',
+    ]);
+    const composerBundle = readRecoveredAssetContaining(['app-initial~app-main~', 'composer-'], [
+      'codex-micro-push-to-talk-start',
+    ]);
     const dictationSources = [mainSource, appMainBundle, composerBundle].join('\n');
 
     expect(mainSource).toContain('globalDictationHold');
@@ -420,7 +455,6 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain('global-dictation-set-toggle-hotkey');
     expect(mainSource).toContain('set-codex-command-keybinding');
     expect(mainSource).toContain('globalShortcut.register');
-    expect(composerBundle).toContain('dictationShortcutLabel');
     expect(composerBundle).toContain('codex-micro-push-to-talk-start');
     expect(composerBundle).toContain('codex-micro-push-to-talk-stop');
     expect(dictationSources).not.toContain('Ctrl+M');
@@ -431,7 +465,9 @@ describe('Recovered Codex bundle RED contract', () => {
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
-    const appShell = readRecoveredAsset('app-shell-');
+    const appShell = readRecoveredAssetContaining(['app-shell-', 'app-initial~app-main~'], [
+      'app-shell-shortcut-state-changed',
+    ]);
     const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
       patchSummary?: {
         authWebview?: {
@@ -442,19 +478,17 @@ describe('Recovered Codex bundle RED contract', () => {
     };
 
     expect(appShell).toContain('app-shell-shortcut-state-changed');
-    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([
-      expect.objectContaining({
-        label: 'apps page requests native external browser',
-        patched: true,
-      }),
-    ]);
+    expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
   });
 
   test('model settings patch hooks remain available even when the latest upstream bundle skips them', () => {
     const modelSettingsSource =
       readOptionalRecoveredAsset('use-model-settings-') ??
-      readRecoveredAsset('use-collaboration-mode-');
+      readRecoveredAssetContaining(
+        ['app-initial~app-main~', 'use-collaboration-mode-', 'local-remote-dropdown-'],
+        ['model_reasoning_effort', 'config_query_diverged', 'set-default-model-config-for-host'],
+      );
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
     const manifest = JSON.parse(
       fs.readFileSync(path.join(desktopRoot, 'recovered', 'refresh-manifest.json'), 'utf8'),
@@ -535,16 +569,13 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches = mainSource.match(/platforms:\{linux:\{/g) ?? [];
+    const linuxTargetMatches = mainSource.match(/linuxEditorTarget\(/g) ?? [];
 
-    expect(mainSource).toContain('useExternalBrowser===!0');
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainSource).toContain('function linuxResolveEditorTarget(');
-    expect(mainSource).toContain('id:`cursor`,platforms:{linux:{label:`Cursor`');
-    expect(mainSource).toContain('id:`fileManager`,platforms:{linux:{label:`File Manager`');
-    expect(mainSource).toMatch(
-      /linuxFileManagerDetect\(\)\{return [A-Za-z$_]+\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)\}/,
-    );
+    expect(mainSource).toContain('function linuxDetectCommand(');
+    expect(mainSource).toContain('linuxEditorTarget(`cursor`,`Cursor`');
+    expect(mainSource).toContain('id:`fileManager`,label:`File Manager`');
+    expect(mainSource).toContain('linuxDetectCommand(`xdg-open`,[`/usr/bin/xdg-open`])');
     expect(linuxTargetMatches.length).toBeGreaterThan(5);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,

@@ -54,13 +54,11 @@ describe('Linux browser-session auth handoff', () => {
 
     expect(mainBundle).toContain('process.platform===`linux`');
     expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainBundle).toContain('useExternalBrowser===!0');
+    expect(mainBundle).toContain('defaultLinkOpenTargetPreference:`external-browser`');
     expect(rendererEntry).toContain('app-main-');
-    expect(loginRouteBundle).toContain('open-in-browser');
-    expect(loginRouteBundle).toContain('useExternalBrowser:!0');
+    expect(loginRouteBundle).toContain('openTarget:`external-browser`');
     expect(remoteConnectionsBundle).toContain('authUrl');
-    expect(remoteConnectionsBundle).toContain('open-in-browser');
-    expect(remoteConnectionsBundle).toContain('useExternalBrowser:!0');
+    expect(remoteConnectionsBundle).toContain('openTarget:`external-browser`');
   });
 
   test('prefers the newest running Chrome-like root process and preserves its profile flags', () => {
