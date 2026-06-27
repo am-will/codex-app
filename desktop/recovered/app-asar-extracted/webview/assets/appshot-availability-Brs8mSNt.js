@@ -1,2 +1,0 @@
-import{c as e,l as t,t as n}from"./app-scope-CWE-zIhQ.js";import{M as r}from"./thread-context-inputs-CF11za43.js";import{f as i}from"./statsig-C09DmQ8J.js";import{n as a}from"./platform-7NaY1eMa.js";import{c as o}from"./config-queries-w6utieCU.js";var s=t(n,(e,{get:t})=>{if(t(a)!==`macOS`||!t(i,`1304276663`))return!1;let{data:n}=t(o,{hostId:e});return n!=null&&n.requirements?.allowAppshots!==!1}),c=e(n,({get:e})=>e(s,e(r)));export{s as n,c as t};
-//# sourceMappingURL=appshot-availability-Brs8mSNt.js.map

@@ -1,2 +1,0 @@
-import{s as e}from"./chunk-Cq_f4orQ.js";import{n as t,t as n}from"./jsx-runtime-DXKlqYIQ.js";e(t());var r=n(),i=e=>(0,r.jsx)(`svg`,{width:20,height:20,viewBox:`0 0 20 20`,fill:`currentColor`,xmlns:`http://www.w3.org/2000/svg`,...e,children:(0,r.jsx)(`path`,{d:`M4.5 5.75C4.5 5.05964 5.05964 4.5 5.75 4.5H14.25C14.9404 4.5 15.5 5.05964 15.5 5.75V14.25C15.5 14.9404 14.9404 15.5 14.25 15.5H5.75C5.05964 15.5 4.5 14.9404 4.5 14.25V5.75Z`})});export{i as t};
-//# sourceMappingURL=stop-Dq7o1Ent.js.map

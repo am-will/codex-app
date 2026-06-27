@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream/extracted/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "7964ba848dfbe8fb6a6e149f4b2d74865956eb2f9e75b17211d01deb61f9b230",
+  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream-26.623.42026/extracted/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "6f4ec4c023ad3c0680e31f0963988870dc6f07d76b64a64c8866e09d482ddda6",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.616.51431",
-  "buildNumber": "4212",
+  "version": "26.623.42026",
+  "buildNumber": "4514",
   "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -193,13 +193,13 @@
       ]
     },
     "workspaceRootDropHandler": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "linux owl feature binding falls back when unavailable",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux owl feature binding falls back when unavailable replacement already present"
         }
       ]
     },
@@ -208,9 +208,9 @@
       "results": [
         {
           "label": "app shell custom title menu is enabled on linux",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell custom title menu is enabled on linux replacement already present"
         },
         {
           "label": "app shell renders linux window controls in title bar",
@@ -250,9 +250,9 @@
         },
         {
           "label": "app shell raises floating sidebar above main header chrome",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell raises floating sidebar above main header chrome replacement already present"
         },
         {
           "label": "app shell sets floating sidebar inline z-index above main content",
@@ -369,55 +369,16 @@
     },
     "authWebview": {
       "login": {
-        "patched": true,
-        "results": [
-          {
-            "label": "chatgpt login requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "renderer forwards goals feature overrides",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "renderer advertises goals desktop feature",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          },
-          {
-            "label": "composer shows goals slash command",
-            "patched": false,
-            "skipped": true,
-            "reason": "composer shows goals slash command replacement already present"
-          }
-        ]
+        "patched": false,
+        "results": []
       },
       "remoteConnections": {
-        "patched": true,
-        "results": [
-          {
-            "label": "remote chatgpt login requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          }
-        ]
+        "patched": false,
+        "results": []
       },
       "pluginsPage": {
-        "patched": true,
-        "results": [
-          {
-            "label": "apps page requests native external browser",
-            "patched": true,
-            "skipped": false,
-            "reason": null
-          }
-        ]
+        "patched": false,
+        "results": []
       },
       "pluginsCards": {
         "patched": false,

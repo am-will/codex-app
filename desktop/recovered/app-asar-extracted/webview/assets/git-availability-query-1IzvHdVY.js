@@ -1,2 +1,0 @@
-import{p as e,t}from"./app-scope-CWE-zIhQ.js";import{Zn as n,er as r}from"./thread-context-inputs-CF11za43.js";import{u as i}from"./vscode-api-B8VvwF1m.js";var a=e(t,({hostConfig:e,operationSource:t})=>({queryKey:[`git`,`availability`,n(e)],queryFn:({signal:n})=>r(`git`).request({method:`availability`,params:{hostConfig:e,operationSource:t},signal:n}),refetchOnWindowFocus:!0,staleTime:i.THIRTY_SECONDS}),{excludeFieldsFromKey:[`operationSource`]});export{a as t};
-//# sourceMappingURL=git-availability-query-1IzvHdVY.js.map

@@ -1,2 +1,0 @@
-import{s as e}from"./app-scope-CWE-zIhQ.js";import{n as t}from"./use-host-config-C-vtNynr.js";import{M as n}from"./thread-context-inputs-CF11za43.js";function r(){return t(e(n)).kind!==`local`}export{r as t};
-//# sourceMappingURL=use-is-remote-host-AxSWmo-f.js.map

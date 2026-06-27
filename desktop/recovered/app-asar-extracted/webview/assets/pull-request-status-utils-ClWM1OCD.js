@@ -1,2 +1,0 @@
-function e(e){if(e.merged)return`merged`;switch(e.state.toUpperCase()){case`OPEN`:return e.draft?`draft`:`open`;case`MERGED`:return`merged`;case`CLOSED`:return`closed`;default:return`closed`}}function t(e){let t=/\/pull\/(\d+)(?:$|[/?#])/.exec(e);return t?Number(t[1]):null}export{e as n,t};
-//# sourceMappingURL=pull-request-status-utils-ClWM1OCD.js.map

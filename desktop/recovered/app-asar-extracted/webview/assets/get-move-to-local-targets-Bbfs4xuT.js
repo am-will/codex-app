@@ -1,2 +1,0 @@
-import{F as e,I as t,P as n}from"./rpc-EhAkKewY.js";function r({cwd:t,sourceWorktreeRoot:r,repoWorktreeEntries:a}){let o=i({cwd:t,sourceWorktreeRoot:r}),s=e(r);return(a??[]).filter(t=>e(t.root)!==s).map(e=>{let t=o.length>0?n(e.root,o):e.root;return{gitRoot:e.root,workspaceRoot:t}})}function i({cwd:n,sourceWorktreeRoot:r}){let i=t(n),a=t(r).replace(/\/+$/,``),o=e(n),s=e(r).replace(/\/+$/,``);if(o===s)return``;let c=`${s}/`;if(!o.startsWith(c))return``;let l=`${a}/`;return i.slice(l.length)}export{r as t};
-//# sourceMappingURL=get-move-to-local-targets-Bbfs4xuT.js.map

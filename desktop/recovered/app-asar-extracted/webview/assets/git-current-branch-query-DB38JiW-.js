@@ -1,2 +1,0 @@
-import{l as e,t}from"./app-scope-CWE-zIhQ.js";import{t as n}from"./git-query-signal-Dcxs2e3o.js";var r=n({method:`current-branch`,getParams:e=>({operationSource:e.operationSource,root:e.root}),getOptions:e=>({refetchOnWindowFocus:e.refetchOnWindowFocus,select:e=>e.branch,...e.staleTime==null?{}:{staleTime:e.staleTime}})}),i=r.fromMetadata$,a=r.fromCwd$,o=e(t,(e,{get:t})=>t(a,e).data??null);export{a as n,o as r,i as t};
-//# sourceMappingURL=git-current-branch-query-DB38JiW-.js.map

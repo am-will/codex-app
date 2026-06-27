@@ -1,0 +1,2 @@
+import{r as e,t}from"./src-DwoQmh2p.js";var n=e((e,n)=>{let r;return n===`sandbox`&&(r=t(`#i`+e)),t(n===`sandbox`?r.nodes()[0].contentDocument.body:`body`).select(`[id="${e}"]`)},`getDiagramElement`);export{n as t};
+//# sourceMappingURL=chunk-55IACEB6-CRiGv_m2.js.map

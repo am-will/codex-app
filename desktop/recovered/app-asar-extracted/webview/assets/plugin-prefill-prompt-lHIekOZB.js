@@ -1,2 +1,0 @@
-import{l as e}from"./parse-directives-DBclNB_1.js";import{b as t}from"./mention-item-RLNj54pl.js";function n(e){return e?.map(e=>e.trim()).find(e=>e.length>0)??null}function r({defaultPrompt:n,pluginDisplayName:r,pluginId:i}){return`${`[@${r}](${e(t(i))})`} ${n?.trim()??``}`}export{n,r as t};
-//# sourceMappingURL=plugin-prefill-prompt-lHIekOZB.js.map

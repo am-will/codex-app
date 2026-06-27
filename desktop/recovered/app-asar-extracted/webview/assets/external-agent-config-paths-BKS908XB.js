@@ -1,2 +1,0 @@
-function e(e,...t){let r=n(e);return[e.replace(/[\\/]+$/,``),...t.map(e=>e.replace(/^[\\/]+|[\\/]+$/g,``))].join(r)}function t(e){let t=n(e),a=e.replace(/[\\/]+$/,``),o=a.lastIndexOf(t);if(o===-1)return`.`;if(o===0)return t;let s=a.slice(0,o);return r(s)||i(s)?`${s}${t}`:s}function n(e){return e.includes(`\\`)?`\\`:`/`}function r(e){return/^[A-Za-z]:$/.test(e)}function i(e){return/^\\\\[^\\]+\\[^\\]+$/.test(e)}export{e as n,t};
-//# sourceMappingURL=external-agent-config-paths-BKS908XB.js.map

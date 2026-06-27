@@ -1,1 +1,0 @@
-import"./main-BDm-p1LA.js";import"./chunk-K5T4RW27-1QwNQQi0.js";import{n as e}from"./chunk-7N4EOEYR-BEkdQLCb.js";export{e as createArchitectureServices};

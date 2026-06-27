@@ -1,2 +1,0 @@
-import{Z as e}from"./app-scope-CWE-zIhQ.js";import{c as t,i as n}from"./statsig-C09DmQ8J.js";import{i as r,o as i}from"./links-0638gdWd.js";var a=e(),o=`show_logged_in_pricing_page`;function s(e){let s=(0,a.c)(3),{logExposure:c}=e,l=t(),u;return s[0]!==c||s[1]!==l?(u=()=>n(l,`337040058`,{disableExposureLog:!c}).get(o,!1)?i:r,s[0]=c,s[1]=l,s[2]=u):u=s[2],u}export{s as t};
-//# sourceMappingURL=use-codex-pricing-url-BL7UKal-.js.map

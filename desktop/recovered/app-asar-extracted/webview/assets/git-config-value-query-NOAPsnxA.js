@@ -1,2 +1,0 @@
-import{t as e}from"./git-query-signal-Dcxs2e3o.js";var t=e({method:`config-value`,getParams:e=>({key:e.key,operationSource:e.operationSource,root:e.root,scope:e.scope}),getOptions:e=>({refetchOnWindowFocus:e.refetchOnWindowFocus,select:e=>e.value,...e.staleTime==null?{}:{staleTime:e.staleTime}})}),n=t.fromCwd$,r=t.queryByMetadata$;export{n,r as t};
-//# sourceMappingURL=git-config-value-query-NOAPsnxA.js.map

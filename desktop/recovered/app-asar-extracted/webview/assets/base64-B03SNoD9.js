@@ -1,2 +1,0 @@
-function e(e){return new TextDecoder().decode(n(e))}function t(e){return r(new TextEncoder().encode(e))}function n(e){let t=atob(e);return Uint8Array.from(t,e=>e.charCodeAt(0))}function r(e){if(`toBase64`in e&&typeof e.toBase64==`function`)return e.toBase64();let t=``,n=32768;for(let r=0;r<e.byteLength;r+=n)t+=String.fromCharCode(...e.subarray(r,r+n));return btoa(t)}export{e as i,r as n,t as r,n as t};
-//# sourceMappingURL=base64-B03SNoD9.js.map
