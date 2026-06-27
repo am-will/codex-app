@@ -1322,6 +1322,12 @@ const appServerTurnCompletedPatchTarget =
   'if(!this.conversations.get(r)){i.error(`Received turn/completed for unknown conversation`,{safe:{conversationId:r},sensitive:{}});break}let a=null,o=null,s=null;';
 const appServerTurnCompletedPatchReplacement =
   'if(!this.conversations.get(r))break;let a=null,o=null,s=null;';
+const mainDynamicToolsNamespaceFlattenPatchTarget =
+  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout),n.resolve(t.dynamicTools)}';
+const mainDynamicToolsNamespaceFlattenPatchReplacement =
+  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]);n.resolve(r)}';
+const mainDynamicToolsNamespaceFlattenPatchMarker =
+  'flatMap(e=>e?.type===`namespace`?(e.tools??[]).map';
 const webviewChatGptLoginPatchPattern =
   /([A-Za-z_$][A-Za-z0-9_$]*)\.dispatchMessage\(`open-in-browser`,\{url:([^{}]+?)\}\)/g;
 const webviewChatGptLoginPatchReplacement =
@@ -1625,6 +1631,22 @@ const rendererGoalsDefaultFeatureOverridePatchAlternatives = [
       'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
     replacement:
       'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`]',
+  },
+];
+const rendererSupportedFeatureEnablementPatchMarker =
+  'k7=[`memories`,`tool_suggest`]';
+const rendererSupportedFeatureEnablementPatchAlternatives = [
+  {
+    target:
+      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    replacement:
+      'k7=[`memories`,`tool_suggest`]',
+  },
+  {
+    target:
+      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`]',
+    replacement:
+      'k7=[`memories`,`tool_suggest`]',
   },
 ];
 const rendererDesktopGoalsFeaturePatchMarker = 'goals:!0';
@@ -2422,6 +2444,12 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxAvatarOverlayAvailabilityPatchMarker,
       },
       {
+        label: 'dynamic tool namespaces flatten for bundled app-server',
+        target: mainDynamicToolsNamespaceFlattenPatchTarget,
+        replacement: mainDynamicToolsNamespaceFlattenPatchReplacement,
+        marker: mainDynamicToolsNamespaceFlattenPatchMarker,
+      },
+      {
         label: 'linux open-in target registry',
         alternatives: mainLinuxOpenTargetsPatchAlternatives,
         marker: mainLinuxOpenTargetsPatchMarker,
@@ -2781,6 +2809,11 @@ function patchCodexAuthWebviewBundles(extractedAppRoot) {
               },
             ]
           : []),
+        {
+          label: 'renderer syncs only bundled app-server feature enablements',
+          alternatives: rendererSupportedFeatureEnablementPatchAlternatives,
+          marker: rendererSupportedFeatureEnablementPatchMarker,
+        },
         ]),
       ).concat(
         undoBundlePath == null

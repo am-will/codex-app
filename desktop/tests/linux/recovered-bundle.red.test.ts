@@ -448,6 +448,32 @@ describe('Recovered Codex bundle RED contract', () => {
     ).toContain('reasoning_effort');
   });
 
+  test('dynamic thread-start tools match bundled app-server protocol', () => {
+    const mainSource = readRecoveredMainBuildFile();
+    const featureSyncBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+      'dynamic-tools-for-thread-start-requested',
+      'set-experimental-feature-enablement-for-host',
+    ]);
+    const dynamicToolBuilderBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+      'Tools provided by the Codex app.',
+      'type:`namespace`',
+    ]);
+    const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
+
+    expect(dynamicToolBuilderBundle).toContain('type:`namespace`');
+    expect(dynamicToolBuilderBundle).toContain('Tools provided by the Codex app.');
+    expect(mainSource).toContain(
+      'flatMap(e=>e?.type===`namespace`?(e.tools??[]).map',
+    );
+    expect(mainSource).toContain('delete n.type,n');
+    expect(featureSyncBundle).toContain('k7=[`memories`,`tool_suggest`]');
+    expect(featureSyncBundle).not.toContain(
+      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    );
+    expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
+    expect(assembleScript).toContain('renderer syncs only bundled app-server feature enablements');
+  });
+
   test('dictation shortcuts stay configurable instead of using stale Ctrl+M behavior', () => {
     const mainSource = readRecoveredMainBuildFile();
     const appMainBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
