@@ -469,6 +469,21 @@ describe('Recovered Codex bundle RED contract', () => {
       'dynamic-tools-for-thread-start-requested',
       'set-experimental-feature-enablement-for-host',
     ]);
+    const rendererThreadStartBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+      '"prewarm-thread-start-for-host"',
+      '"start-thread-for-host"',
+    ]);
+    const rendererRequestClientBundle = readRecoveredAssetContaining(
+      [
+        'app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~',
+        'app-initial~app-main~',
+      ],
+      [
+        'AppServerRequestClient is missing a message dispatcher',
+        'thread-prewarm-start',
+        'dispatchMessage(`mcp-request`',
+      ],
+    );
     const dynamicToolBuilderBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
       'Tools provided by the Codex app.',
       'type:`namespace`',
@@ -485,12 +500,32 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(mainSource).toContain('if(e==null)return[]');
     expect(mainSource).toContain('delete t.input_schema');
+    expect(mainSource).toContain('delete t.input_schema,delete t.type');
     expect(mainSource).toContain('delete n.type,n');
+    expect(mainSource).toContain(
+      'e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap',
+    );
+    expect(mainSource).toContain('[di].flatMap(e=>e?.type===`namespace`');
+    expect(rendererThreadStartBundle).toContain(
+      'prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource}',
+    );
+    expect(rendererThreadStartBundle).toContain(
+      'e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource}',
+    );
+    expect(rendererRequestClientBundle).toContain(
+      'e===`thread/start`&&(t=t.dynamicTools==null?t',
+    );
+    expect(rendererRequestClientBundle).toContain(
+      'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
+    );
     expect(featureSyncBundle).toContain('k7=[`memories`,`tool_suggest`]');
     expect(featureSyncBundle).not.toContain(
       'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
     );
     expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
+    expect(assembleScript).toContain(
+      'renderer request client normalizes thread-start dynamic tools',
+    );
     expect(assembleScript).toContain('renderer syncs only bundled app-server feature enablements');
   });
 

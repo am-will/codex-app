@@ -1364,9 +1364,33 @@ const appServerTurnCompletedPatchReplacement =
 const mainDynamicToolsNamespaceFlattenPatchTarget =
   'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout),n.resolve(t.dynamicTools)}';
 const mainDynamicToolsNamespaceFlattenPatchReplacement =
-  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,[t]});n.resolve(r)}';
+  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]});n.resolve(r)}';
 const mainDynamicToolsNamespaceFlattenPatchMarker =
   'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}';
+const mainDynamicToolsStartThreadPatchTarget =
+  'async function rF({prompt:e,cwd:n,serviceTier:r,appServerConnection:i,hostId:a,threadStartKind:o}){return t.t({prompt:e,cwd:n,serviceTier:r,client:{startThread:e=>i.startThread(e),startTurn:e=>i.startTurn(e),unsubscribeThread:e=>i.unsubscribeThread(e),interruptTurn:e=>i.interruptTurn(e),registerInternalNotificationHandler:e=>i.registerInternalNotificationHandler(e)}})}';
+const mainDynamicToolsStartThreadPatchReplacement =
+  'async function rF({prompt:e,cwd:n,serviceTier:r,appServerConnection:i,hostId:a,threadStartKind:o}){return t.t({prompt:e,cwd:n,serviceTier:r,client:{startThread:e=>i.startThread(e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap(n=>n?.type===`namespace`?(n.tools??[]).map(e=>{let t={...e,namespace:n.name};return delete t.type,t}):[n]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}),startTurn:e=>i.startTurn(e),unsubscribeThread:e=>i.unsubscribeThread(e),interruptTurn:e=>i.interruptTurn(e),registerInternalNotificationHandler:e=>i.registerInternalNotificationHandler(e)}})}';
+const mainDynamicToolsAutomationPatchTarget =
+  'async function Mi(e){try{let t=await e(),n=t.find(e=>e.type===`namespace`&&e.name===`codex_app`);return n?.type===`namespace`?n.tools.some(e=>e.name===li)?t:t.map(e=>e===n?{...n,tools:[...n.tools,ui]}:e):[...t,di]}catch(e){return pi().warning(`Failed to load dynamic tools for automation run`,{safe:{error:e},sensitive:{}}),[di]}}';
+const mainDynamicToolsAutomationPatchReplacement =
+  'async function Mi(e){try{let t=await e(),n=t.find(e=>e.type===`namespace`&&e.name===`codex_app`),r=n?.type===`namespace`?n.tools.some(e=>e.name===li)?t:t.map(e=>e===n?{...n,tools:[...n.tools,ui]}:e):[...t,di];return(r??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}catch(e){return pi().warning(`Failed to load dynamic tools for automation run`,{safe:{error:e},sensitive:{}}),[di].flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}}';
+const rendererPrewarmThreadStartDynamicToolsPatchTarget =
+  '"prewarm-thread-start-for-host":Q7((e,{params:t,timeoutMs:n})=>e.requestClient.prewarmThreadStart({...t,threadSource:t.threadSource===void 0?`user`:t.threadSource},{timeoutMs:n}))';
+const rendererPrewarmThreadStartDynamicToolsPatchReplacement =
+  '"prewarm-thread-start-for-host":Q7((e,{params:t,timeoutMs:n})=>{let r=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};return e.requestClient.prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource},{timeoutMs:n})})';
+const rendererStartThreadDynamicToolsPatchTarget =
+  '"start-thread-for-host":Q7((e,t)=>e.sendRequest(`thread/start`,{...t,threadSource:t.threadSource===void 0?`user`:t.threadSource},{timeoutMs:yp}))';
+const rendererStartThreadDynamicToolsPatchReplacement =
+  '"start-thread-for-host":Q7((e,t)=>{let n=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};return e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource},{timeoutMs:yp})})';
+const rendererRequestClientSendRequestDynamicToolsPatchTarget =
+  'async sendRequest(e,t,n){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);if(e===`config/read`)return this.sendConfigReadRequest(t,n);let{request:r,promise:i}=this.createRequest(e,t,n);return this.emitRequestStartedEvent(r),this.dispatchMessage(`mcp-request`,{request:r,hostId:this.hostId}),i}';
+const rendererRequestClientSendRequestDynamicToolsPatchReplacement =
+  'async sendRequest(e,t,n){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);if(e===`config/read`)return this.sendConfigReadRequest(t,n);e===`thread/start`&&(t=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})});let{request:r,promise:i}=this.createRequest(e,t,n);return this.emitRequestStartedEvent(r),this.dispatchMessage(`mcp-request`,{request:r,hostId:this.hostId}),i}';
+const rendererRequestClientPrewarmDynamicToolsPatchTarget =
+  'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);let{request:n,promise:r}=this.createRequest(`thread/start`,e,t);return this.emitRequestStartedEvent(n),this.dispatchMessage(`thread-prewarm-start`,{request:n,hostId:this.hostId}),r}';
+const rendererRequestClientPrewarmDynamicToolsPatchReplacement =
+  'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};let{request:n,promise:r}=this.createRequest(`thread/start`,e,t);return this.emitRequestStartedEvent(n),this.dispatchMessage(`thread-prewarm-start`,{request:n,hostId:this.hostId}),r}';
 const webviewChatGptLoginPatchPattern =
   /([A-Za-z_$][A-Za-z0-9_$]*)\.dispatchMessage\(`open-in-browser`,\{url:([^{}]+?)\}\)/g;
 const webviewChatGptLoginPatchReplacement =
@@ -2519,6 +2543,18 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainDynamicToolsNamespaceFlattenPatchMarker,
       },
       {
+        label: 'dynamic tool thread starts normalize for bundled app-server',
+        target: mainDynamicToolsStartThreadPatchTarget,
+        replacement: mainDynamicToolsStartThreadPatchReplacement,
+        marker: 'e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap',
+      },
+      {
+        label: 'automation dynamic tools normalize for bundled app-server',
+        target: mainDynamicToolsAutomationPatchTarget,
+        replacement: mainDynamicToolsAutomationPatchReplacement,
+        marker: '[di].flatMap(e=>e?.type===`namespace`',
+      },
+      {
         label: 'linux open-in target registry',
         alternatives: mainLinuxOpenTargetsPatchAlternatives,
         marker: mainLinuxOpenTargetsPatchMarker,
@@ -2658,6 +2694,71 @@ function patchCodexWindowControlsSafeArea(extractedAppRoot) {
         target: rendererLinuxWindowControlsSafeAreaPatchTarget,
         replacement: rendererLinuxWindowControlsSafeAreaPatchReplacement,
         marker: rendererLinuxWindowControlsSafeAreaPatchMarker,
+      },
+    ]),
+  );
+}
+
+function patchCodexRendererThreadStartBundle(extractedAppRoot) {
+  const rendererThreadStartPath = findOptionalExtractedWebviewAssetContaining(
+    extractedAppRoot,
+    ['app-initial~app-main~'],
+    ['"prewarm-thread-start-for-host"', '"start-thread-for-host"'],
+  );
+
+  if (!rendererThreadStartPath) {
+    throw new Error('Missing extracted renderer thread-start asset');
+  }
+
+  return summarizePatchResults(
+    applyPatchesToFile(rendererThreadStartPath, [
+      {
+        label: 'renderer prewarm thread start normalizes dynamic tools',
+        target: rendererPrewarmThreadStartDynamicToolsPatchTarget,
+        replacement: rendererPrewarmThreadStartDynamicToolsPatchReplacement,
+        marker: 'prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource}',
+      },
+      {
+        label: 'renderer thread start normalizes dynamic tools',
+        target: rendererStartThreadDynamicToolsPatchTarget,
+        replacement: rendererStartThreadDynamicToolsPatchReplacement,
+        marker: 'e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource}',
+      },
+    ]),
+  );
+}
+
+function patchCodexRendererRequestClientBundle(extractedAppRoot) {
+  const rendererRequestClientPath = findOptionalExtractedWebviewAssetContaining(
+    extractedAppRoot,
+    [
+      'app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~',
+      'app-initial~app-main~',
+    ],
+    [
+      'AppServerRequestClient is missing a message dispatcher',
+      'thread-prewarm-start',
+      'dispatchMessage(`mcp-request`',
+    ],
+  );
+
+  if (!rendererRequestClientPath) {
+    throw new Error('Missing extracted renderer request-client asset');
+  }
+
+  return summarizePatchResults(
+    applyPatchesToFile(rendererRequestClientPath, [
+      {
+        label: 'renderer request client normalizes thread-start dynamic tools',
+        target: rendererRequestClientSendRequestDynamicToolsPatchTarget,
+        replacement: rendererRequestClientSendRequestDynamicToolsPatchReplacement,
+        marker: 'e===`thread/start`&&(t=t.dynamicTools==null?t',
+      },
+      {
+        label: 'renderer prewarm request client normalizes dynamic tools',
+        target: rendererRequestClientPrewarmDynamicToolsPatchTarget,
+        replacement: rendererRequestClientPrewarmDynamicToolsPatchReplacement,
+        marker: 'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
       },
     ]),
   );
@@ -3092,6 +3193,8 @@ export function patchExtractedCodexApp(extractedAppRoot) {
     workspaceRootDropHandler: patchCodexWorkspaceRootDropHandlerBundle(extractedAppRoot),
     appShellRenderer: patchCodexAppShellRenderer(extractedAppRoot),
     windowControlsSafeArea: patchCodexWindowControlsSafeArea(extractedAppRoot),
+    rendererThreadStart: patchCodexRendererThreadStartBundle(extractedAppRoot),
+    rendererRequestClient: patchCodexRendererRequestClientBundle(extractedAppRoot),
     startupShell: patchCodexStartupShell(extractedAppRoot),
     avatarOverlayRenderer: patchCodexAvatarOverlayRenderer(extractedAppRoot),
     authWebview: patchCodexAuthWebviewBundles(extractedAppRoot),
