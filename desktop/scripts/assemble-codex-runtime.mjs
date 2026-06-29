@@ -1364,9 +1364,9 @@ const appServerTurnCompletedPatchReplacement =
 const mainDynamicToolsNamespaceFlattenPatchTarget =
   'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout),n.resolve(t.dynamicTools)}';
 const mainDynamicToolsNamespaceFlattenPatchReplacement =
-  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return n.inputSchema??=n.input_schema??{type:`object`,properties:{},additionalProperties:!1},delete n.input_schema,delete n.type,n}):[e]).map(e=>e?.inputSchema==null&&e?.input_schema!=null?(()=>{let t={...e,inputSchema:e.input_schema};return delete t.input_schema,t})():e);n.resolve(r)}';
+  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,[t]});n.resolve(r)}';
 const mainDynamicToolsNamespaceFlattenPatchMarker =
-  'inputSchema??=n.input_schema??{type:`object`,properties:{},additionalProperties:!1}';
+  'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}';
 const webviewChatGptLoginPatchPattern =
   /([A-Za-z_$][A-Za-z0-9_$]*)\.dispatchMessage\(`open-in-browser`,\{url:([^{}]+?)\}\)/g;
 const webviewChatGptLoginPatchReplacement =

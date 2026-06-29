@@ -481,9 +481,10 @@ describe('Recovered Codex bundle RED contract', () => {
       'flatMap(e=>e?.type===`namespace`?(e.tools??[]).map',
     );
     expect(mainSource).toContain(
-      'inputSchema??=n.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
+      'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
     );
-    expect(mainSource).toContain('delete n.input_schema');
+    expect(mainSource).toContain('if(e==null)return[]');
+    expect(mainSource).toContain('delete t.input_schema');
     expect(mainSource).toContain('delete n.type,n');
     expect(featureSyncBundle).toContain('k7=[`memories`,`tool_suggest`]');
     expect(featureSyncBundle).not.toContain(
