@@ -245,6 +245,7 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
       expect(mainBundle).toContain('function linuxDetectCommand(');
+      expect(mainBundle).toContain('${process.env.HOME}/.local/bin/${e}');
       expect(mainBundle).toContain('linuxEditorTarget(`cursor`,`Cursor`');
       expect(mainBundle).toContain(
         'linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
@@ -663,6 +664,7 @@ describe('Recovered Codex bundle RED contract', () => {
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
     expect(mainSource).toContain('function linuxDetectCommand(');
+    expect(mainSource).toContain('${process.env.HOME}/.local/bin/${e}');
     expect(mainSource).toContain('linuxEditorTarget(`cursor`,`Cursor`');
     expect(mainSource).toContain(
       'linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
