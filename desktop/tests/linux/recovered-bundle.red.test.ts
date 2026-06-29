@@ -228,13 +228,18 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).toMatch(
-        /n===`win32`\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([^)]*\)\}:n===`linux`\?\{titleBarStyle:`hidden`\}/,
+        /n===`win32`\|\|n===`linux`\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([^)]*\)\}:\{titleBarStyle:`default`\}/,
       );
       expect(mainBundle).toContain('codex_desktop:control-window');
       expect(mainBundle).toContain('codex_desktop:get-application-menu-items');
       expect(mainBundle).toContain('click(void 0,n??void 0,n?.webContents)');
-      expect(mainBundle).not.toContain(
+      expect(mainBundle).toContain(
         'process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`',
+      );
+      expect(mainBundle).toContain('focusable:m??!0');
+      expect(mainBundle).toContain('e.webContents?.focus?.()');
+      expect(mainBundle).toContain(
+        'c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())',
       );
       expect(mainBundle).toContain("autoHideMenuBar:!0");
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
@@ -267,6 +272,9 @@ describe('Recovered Codex bundle RED contract', () => {
           expect.objectContaining({ label: 'linux auth browser session handoff' }),
           expect.objectContaining({ label: 'linux opaque primary window background' }),
           expect.objectContaining({ label: 'linux primary window uses custom title bar' }),
+          expect.objectContaining({ label: 'linux primary window is explicitly focusable' }),
+          expect.objectContaining({ label: 'linux show window focuses web contents' }),
+          expect.objectContaining({ label: 'linux ready-to-show focuses web contents' }),
           expect.objectContaining({ label: 'linux window controls ipc handler' }),
           expect.objectContaining({ label: 'linux application menu serialization ipc handler' }),
           expect.objectContaining({ label: 'linux open-in target registry' }),
@@ -360,10 +368,17 @@ describe('Recovered Codex bundle RED contract', () => {
       '(()=>{try{process.stderr?.writable&&console.error(',
     );
     expect(bootstrapSource).toContain(
-      'process.env.ELECTRON_OZONE_PLATFORM_HINT||(process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`)',
+      'process.env.ELECTRON_OZONE_PLATFORM_HINT=`wayland`',
     );
     expect(bootstrapSource).toContain(
-      'app.commandLine.appendSwitch(`ozone-platform`,`x11`)',
+      'app.commandLine.appendSwitch(`ozone-platform`,`wayland`)',
+    );
+    expect(bootstrapSource).toContain(
+      'app.commandLine.appendSwitch(`enable-features`,`UseOzonePlatform,WaylandWindowDecorations`)',
+    );
+    expect(bootstrapSource).toContain('app.commandLine.appendSwitch(`enable-wayland-ime`)');
+    expect(bootstrapSource).toContain(
+      'app.commandLine.appendSwitch(`wayland-text-input-version`,`3`)',
     );
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
@@ -465,6 +480,10 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain(
       'flatMap(e=>e?.type===`namespace`?(e.tools??[]).map',
     );
+    expect(mainSource).toContain(
+      'inputSchema??=n.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
+    );
+    expect(mainSource).toContain('delete n.input_schema');
     expect(mainSource).toContain('delete n.type,n');
     expect(featureSyncBundle).toContain('k7=[`memories`,`tool_suggest`]');
     expect(featureSyncBundle).not.toContain(

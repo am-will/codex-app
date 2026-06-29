@@ -41,9 +41,9 @@ const preloadPatchMarker = ';try{await e.ipcRenderer.invoke(';
 const bootstrapLinuxOzoneSwitchPatchPattern =
   /for\(let ([\w$]+) of S\(\{buildFlavor:([\w$]+),env:process\.env\}\)\)([\w$]+)\.app\.commandLine\.appendSwitch\(\1\.name,\1\.value\);/;
 const bootstrapLinuxOzoneSwitchPatchReplacement =
-  'process.platform===`linux`&&(process.env.ELECTRON_OZONE_PLATFORM_HINT||(process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`),$3.app.commandLine.appendSwitch(`ozone-platform`,`x11`));for(let $1 of S({buildFlavor:$2,env:process.env}))$3.app.commandLine.appendSwitch($1.name,$1.value);';
+  'process.platform===`linux`&&(process.env.ELECTRON_OZONE_PLATFORM_HINT=`wayland`,$3.app.commandLine.appendSwitch(`ozone-platform`,`wayland`),$3.app.commandLine.appendSwitch(`enable-features`,`UseOzonePlatform,WaylandWindowDecorations`),$3.app.commandLine.appendSwitch(`enable-wayland-ime`),$3.app.commandLine.appendSwitch(`wayland-text-input-version`,`3`));for(let $1 of S({buildFlavor:$2,env:process.env}))$3.app.commandLine.appendSwitch($1.name,$1.value);';
 const bootstrapLinuxOzoneSwitchPatchMarker =
-  'app.commandLine.appendSwitch(`ozone-platform`,`x11`)';
+  'app.commandLine.appendSwitch(`ozone-platform`,`wayland`)';
 const bootstrapPatchPattern =
   /([\w$]+)\.captureException\(([\w$]+),\{tags:\{phase:`bootstrap-import-main`\}\}\),await ([\w$]+)\(\2\)/;
 const bootstrapPatchReplacement =
@@ -400,6 +400,12 @@ const mainLinuxTitleBarOverlayColorPatchAlternatives = [
     replacement:
       'function w6(e=1){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:Math.round(b6*e)}:{color:c6,symbolColor:r.nativeTheme.shouldUseDarkColors?S6:x6,height:Math.round(b6*e)}}',
   },
+  {
+    target:
+      'function m9(e=1){return{color:Q7,symbolColor:a.nativeTheme.shouldUseDarkColors?f9:d9,height:Math.round(u9*e)}}',
+    replacement:
+      'function m9(e=1){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:Math.round(u9*e)}:{color:Q7,symbolColor:a.nativeTheme.shouldUseDarkColors?f9:d9,height:Math.round(u9*e)}}',
+  },
 ];
 const mainLinuxTitleBarOverlayColorPatchMarker =
   'process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:';
@@ -417,75 +423,108 @@ const mainLinuxPrimaryTitleBarPatchAlternatives = [
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:ow()}:{titleBarStyle:`default`}',
   },
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:vM()}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:vM()}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:vM()}:{titleBarStyle:`default`}',
   },
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:xM()}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:xM()}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:xM()}:{titleBarStyle:`default`}',
   },
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:fq()}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:fq()}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:fq()}:{titleBarStyle:`default`}',
   },
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:TY()}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:TY()}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:TY()}:{titleBarStyle:`default`}',
   },
   {
     target: 'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:m2(r)}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:m2(r)}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:m2(r)}:{titleBarStyle:`default`}',
   },
   {
     target:
       'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:w6(r)}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:w6(r)}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:w6(r)}:{titleBarStyle:`default`}',
   },
   {
     target:
       'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:n5(r)}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:n5(r)}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:n5(r)}:{titleBarStyle:`default`}',
   },
   {
     target:
       'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:m9(r)}:{titleBarStyle:`default`}',
     replacement:
-      'n===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:m9(r)}:n===`linux`?{titleBarStyle:`hidden`}:{titleBarStyle:`default`}',
+      'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:m9(r)}:{titleBarStyle:`default`}',
   },
 ];
-const mainLinuxPrimaryTitleBarPatchMarker = 'n===`linux`?{titleBarStyle:`hidden`}';
+const mainLinuxPrimaryTitleBarPatchMarker =
+  'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:';
 const mainLinuxTitleBarOverlaySyncSkipPatchAlternatives = [
   {
     target:
       'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
     replacement:
-      'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
+      'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
   },
   {
     target:
       'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
     replacement:
-      'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
+      'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
   },
   {
     target:
       'installApplicationMenuTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
     replacement:
+      'installApplicationMenuTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
+  },
+  {
+    target:
       'installApplicationMenuTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;',
+    replacement:
+      'installApplicationMenuTitleBarOverlaySync(e,t){if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;',
   },
 ];
 const mainLinuxTitleBarOverlaySyncSkipPatchMarker =
-  'installWindowsTitleBarOverlaySync(e,t){if(process.platform!==`win32`||t!==`primary`)return;';
+  'if(process.platform!==`win32`&&process.platform!==`linux`||t!==`primary`)return;';
+const mainLinuxPrimaryWindowFocusablePatchAlternatives = [
+  {
+    target:
+      'focusable:m,...process.platform===`win32`||process.platform===`linux`?{autoHideMenuBar:!0}:{}',
+    replacement:
+      'focusable:m??!0,...process.platform===`win32`||process.platform===`linux`?{autoHideMenuBar:!0}:{}',
+  },
+];
+const mainLinuxPrimaryWindowFocusablePatchMarker = 'focusable:m??!0';
+const mainLinuxShowWindowFocusPatchAlternatives = [
+  {
+    target: 'e.focus(),n&&e.setAlwaysOnTop(!1),!0',
+    replacement: 'e.focus(),e.webContents?.focus?.(),n&&e.setAlwaysOnTop(!1),!0',
+  },
+];
+const mainLinuxShowWindowFocusPatchMarker = 'e.webContents?.focus?.()';
+const mainLinuxReadyToShowFocusPatchAlternatives = [
+  {
+    target:
+      'M.once(`ready-to-show`,()=>{J7().info(`window ready-to-show`,{safe:{hostId:_,windowId:M.id,webContentsId:M.webContents.id,appearance:c,startupElapsedMs:Date.now()-g}})})',
+    replacement:
+      'M.once(`ready-to-show`,()=>{J7().info(`window ready-to-show`,{safe:{hostId:_,windowId:M.id,webContentsId:M.webContents.id,appearance:c,startupElapsedMs:Date.now()-g}}),c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())})',
+  },
+];
+const mainLinuxReadyToShowFocusPatchMarker =
+  'c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())';
 const mainLinuxWindowControlPatchTarget = 'sX(b);let x=!1;a.ipcMain.handle(sl,';
 const mainLinuxWindowControlPatchReplacement =
   'sX(b),a.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!b(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let x=!1;a.ipcMain.handle(sl,';
@@ -1325,9 +1364,9 @@ const appServerTurnCompletedPatchReplacement =
 const mainDynamicToolsNamespaceFlattenPatchTarget =
   'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout),n.resolve(t.dynamicTools)}';
 const mainDynamicToolsNamespaceFlattenPatchReplacement =
-  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]);n.resolve(r)}';
+  'this.pendingDynamicToolsForThreadStartRequests.delete(t.requestId),clearTimeout(n.timeout);let r=(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return n.inputSchema??=n.input_schema??{type:`object`,properties:{},additionalProperties:!1},delete n.input_schema,delete n.type,n}):[e]).map(e=>e?.inputSchema==null&&e?.input_schema!=null?(()=>{let t={...e,inputSchema:e.input_schema};return delete t.input_schema,t})():e);n.resolve(r)}';
 const mainDynamicToolsNamespaceFlattenPatchMarker =
-  'flatMap(e=>e?.type===`namespace`?(e.tools??[]).map';
+  'inputSchema??=n.input_schema??{type:`object`,properties:{},additionalProperties:!1}';
 const webviewChatGptLoginPatchPattern =
   /([A-Za-z_$][A-Za-z0-9_$]*)\.dispatchMessage\(`open-in-browser`,\{url:([^{}]+?)\}\)/g;
 const webviewChatGptLoginPatchReplacement =
@@ -2365,6 +2404,11 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxPrimaryTitleBarPatchMarker,
       },
       {
+        label: 'linux title bar overlay uses visible linux colors',
+        alternatives: mainLinuxTitleBarOverlayColorPatchAlternatives,
+        marker: mainLinuxTitleBarOverlayColorPatchMarker,
+      },
+      {
         label: 'linux window controls ipc handler',
         alternatives: mainLinuxWindowControlPatchAlternatives,
         marker: mainLinuxWindowControlPatchMarker,
@@ -2382,9 +2426,24 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
         marker: mainLinuxApplicationMenuClickContextUpgradePatchMarker,
       },
       {
-        label: 'linux skips title bar overlay sync without overlay controls',
+        label: 'linux title bar overlay sync includes linux',
         alternatives: mainLinuxTitleBarOverlaySyncSkipPatchAlternatives,
         marker: mainLinuxTitleBarOverlaySyncSkipPatchMarker,
+      },
+      {
+        label: 'linux primary window is explicitly focusable',
+        alternatives: mainLinuxPrimaryWindowFocusablePatchAlternatives,
+        marker: mainLinuxPrimaryWindowFocusablePatchMarker,
+      },
+      {
+        label: 'linux show window focuses web contents',
+        alternatives: mainLinuxShowWindowFocusPatchAlternatives,
+        marker: mainLinuxShowWindowFocusPatchMarker,
+      },
+      {
+        label: 'linux ready-to-show focuses web contents',
+        alternatives: mainLinuxReadyToShowFocusPatchAlternatives,
+        marker: mainLinuxReadyToShowFocusPatchMarker,
       },
       {
         label: 'linux hides native menu for custom title bar auto-hide',
