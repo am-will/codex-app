@@ -63,6 +63,16 @@ jobs:
           npm run package
           npm run make:linux -- --skip-package
 
+      - name: Verify Linux release package contract
+        run: |
+          set -euo pipefail
+          CURRENT_DEB_SOURCE="$(find desktop/out/make -type f -name '*.deb' | head -n 1)"
+          test -n "${CURRENT_DEB_SOURCE}"
+          VERIFY_ROOT="$(mktemp -d)"
+          dpkg-deb -x "${CURRENT_DEB_SOURCE}" "${VERIFY_ROOT}/root"
+          node desktop/scripts/verify-linux-package-contract.mjs \
+            --package-root "${VERIFY_ROOT}/root/usr/lib/codex-desktop"
+
       - name: Normalize public artifact names and include release note
         run: |
           set -euo pipefail

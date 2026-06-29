@@ -5,6 +5,7 @@ import { describe, expect, test } from '@jest/globals';
 import { desktopRoot, readDesktopFile } from './recovered-bundle.helpers';
 
 type PackageJson = {
+  codexCliVersion?: string;
   scripts?: Record<string, string>;
 };
 
@@ -229,6 +230,9 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex --version');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg --version');
+    expect(workflowSource).toContain('Verify Linux release package contract');
+    expect(workflowSource).toContain('dpkg-deb -x "${CURRENT_DEB_SOURCE}"');
+    expect(workflowSource).toContain('node desktop/scripts/verify-linux-package-contract.mjs');
     expect(workflowSource).toContain('build-linux-arm64-deb');
     expect(workflowSource).toContain('runs-on: ubuntu-22.04-arm');
     expect(workflowSource).toContain(
@@ -260,6 +264,27 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('- ${CURRENT_DEB_NAME}');
     expect(workflowSource).toContain('- ${CURRENT_RPM_NAME}');
     expect(workflowSource).not.toContain('<current-version>');
+  });
+
+  test('linux package contract verifies bundled app-server version and thread-start protocol markers', () => {
+    const packageJson = JSON.parse(readDesktopFile('package.json')) as PackageJson;
+    const verifyScript = readDesktopFile('scripts/verify-linux-package-contract.mjs');
+
+    expect(packageJson.codexCliVersion).toBe('0.142.4');
+    expect(packageJson.codexCliVersion).not.toBe('0.136.0');
+    expect(verifyScript).toContain('codexPath, [\'--version\']');
+    expect(verifyScript).toContain('codex-cli ${expectedCliVersion}');
+    expect(verifyScript).toContain(
+      'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
+    );
+    expect(verifyScript).toContain('e===`thread/start`&&(t=t.dynamicTools==null?t');
+    expect(verifyScript).toContain(
+      'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
+    );
+    expect(verifyScript).toContain('k7=[`memories`,`tool_suggest`]');
+    expect(verifyScript).toContain(
+      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    );
   });
 
   test('aur package repackages the canonical GitHub deb release without committed binaries', () => {
