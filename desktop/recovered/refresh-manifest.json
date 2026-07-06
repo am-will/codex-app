@@ -486,7 +486,8 @@
       "node-pty/build/Release/pty.node",
       "node-pty/build/Release/obj.target/pty.node",
       "node-pty/bin/linux-x64-143/node-pty.node",
-      "node-pty/bin/linux-x64-145/node-pty.node"
+      "node-pty/bin/linux-x64-145/node-pty.node",
+      "node-pty/bin/linux-x64-146/node-pty.node"
     ]
   },
   "tempRoot": null
