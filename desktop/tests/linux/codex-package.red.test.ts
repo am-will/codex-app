@@ -188,7 +188,23 @@ describe('Codex package staging RED contract', () => {
     expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'browser', 'skills', 'browser', 'SKILL.md'))).toBe(true);
     expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'chrome', 'skills', 'chrome', 'SKILL.md'))).toBe(true);
     expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'chrome', 'scripts', 'extension-id.json'))).toBe(true);
-    expect(fs.existsSync(path.join(marketplaceRoot, 'plugins', 'chrome', 'extension-host', 'linux', 'x64', 'extension-host'))).toBe(true);
+
+    const chromeHostPath = path.join(
+      marketplaceRoot,
+      'plugins',
+      'chrome',
+      'extension-host',
+      'linux',
+      'x64',
+      'extension-host',
+    );
+    const chromeHostMode = fs.statSync(chromeHostPath).mode;
+    const chromeHostSource = fs.readFileSync(chromeHostPath, 'utf8');
+
+    expect(chromeHostMode & 0o111).not.toBe(0);
+    expect(chromeHostSource).toContain("const nativeHostName = 'com.openai.codexextension';");
+    expect(chromeHostSource).toContain("const browserClientPath = path.join(pluginRoot, 'scripts', 'browser-client.mjs');");
+    expect(chromeHostSource).toContain('ready: fs.existsSync(browserClientPath)');
   });
 
   test('codex package staging copies desktop plugin resources into packaged resources', () => {

@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const logPath = '/tmp/codex-chrome-native-host.log';
+const nativeHostName = 'com.openai.codexextension';
+const extensionHostPath = fileURLToPath(import.meta.url);
+const pluginRoot = path.resolve(path.dirname(extensionHostPath), '..', '..', '..');
+const browserClientPath = path.join(pluginRoot, 'scripts', 'browser-client.mjs');
 let input = Buffer.alloc(0);
 
 function log(message) {
@@ -44,8 +50,11 @@ function handleMessage(request) {
   switch (request?.method) {
     case 'ensureCodexAppServer':
       respond(request, {
-        ready: true,
+        ready: fs.existsSync(browserClientPath),
         platform: process.platform,
+        nativeHostName,
+        extensionHostPath,
+        browserClientPath,
       });
       return;
 
