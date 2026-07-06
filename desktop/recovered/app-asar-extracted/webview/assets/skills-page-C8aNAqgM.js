@@ -1,1 +1,0 @@
-import{n as e,t}from"./skills-page-BGxXxuU6.js";e();export{t as SkillsPage};

@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream-26.623.42026/extracted/Codex.app/Contents/Resources/app.asar",
-  "appAsarSha256": "6f4ec4c023ad3c0680e31f0963988870dc6f07d76b64a64c8866e09d482ddda6",
+  "appAsarPath": "/home/amwill/Applications/codex-app/desktop/tmp/upstream-26.623.101652/extracted/Codex.app/Contents/Resources/app.asar",
+  "appAsarSha256": "11a0d184c3e340cfb7088974cdfb2126ee328c8e00341ba884c978ed70aa06fc",
   "outputRoot": "/home/amwill/Applications/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.623.42026",
-  "buildNumber": "4514",
+  "version": "26.623.101652",
+  "buildNumber": "4674",
   "electronVersion": "42.1.0",
   "main": ".vite/build/bootstrap.js",
   "patchSummary": {
@@ -48,6 +48,12 @@
           "reason": null
         },
         {
+          "label": "bootstrap linux ozone x11 launch",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
           "label": "bootstrap startup stack logging",
           "patched": true,
           "skipped": false,
@@ -78,6 +84,12 @@
         },
         {
           "label": "linux primary window uses custom title bar",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux primary window uses custom title bar replacement already present"
+        },
+        {
+          "label": "linux title bar overlay uses visible linux colors",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -101,7 +113,25 @@
           "reason": "linux application menu click passes window context replacement already present"
         },
         {
-          "label": "linux skips title bar overlay sync without overlay controls",
+          "label": "linux title bar overlay sync includes linux",
+          "patched": false,
+          "skipped": true,
+          "reason": "linux title bar overlay sync includes linux replacement already present"
+        },
+        {
+          "label": "linux primary window is explicitly focusable",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux show window focuses web contents",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "linux ready-to-show focuses web contents",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -180,6 +210,24 @@
         },
         {
           "label": "linux avatar overlay is available in main process",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "dynamic tool namespaces flatten for bundled app-server",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "dynamic tool thread starts normalize for bundled app-server",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "automation dynamic tools normalize for bundled app-server",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -291,6 +339,40 @@
         }
       ]
     },
+    "rendererThreadStart": {
+      "patched": true,
+      "results": [
+        {
+          "label": "renderer prewarm thread start normalizes dynamic tools",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "renderer thread start normalizes dynamic tools",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
+    "rendererRequestClient": {
+      "patched": true,
+      "results": [
+        {
+          "label": "renderer request client normalizes thread-start dynamic tools",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "renderer prewarm request client normalizes dynamic tools",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        }
+      ]
+    },
     "startupShell": {
       "patched": true,
       "results": [
@@ -369,8 +451,15 @@
     },
     "authWebview": {
       "login": {
-        "patched": false,
-        "results": []
+        "patched": true,
+        "results": [
+          {
+            "label": "renderer syncs only bundled app-server feature enablements",
+            "patched": true,
+            "skipped": false,
+            "reason": null
+          }
+        ]
       },
       "remoteConnections": {
         "patched": false,

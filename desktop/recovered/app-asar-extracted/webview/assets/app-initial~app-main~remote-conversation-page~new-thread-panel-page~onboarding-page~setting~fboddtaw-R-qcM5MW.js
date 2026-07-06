@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{GI as t,GY as n,WI as r,ZY as i,nw as a,qC as o}from"./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~ke3yc5wu-BLQiF1Gs.js";function s(){return t(i(o)).kind!==`local`}var c=e((()=>{n(),a(),r()}));export{s as n,c as t};
+//# sourceMappingURL=app-initial~app-main~remote-conversation-page~new-thread-panel-page~onboarding-page~setting~fboddtaw-R-qcM5MW.js.map

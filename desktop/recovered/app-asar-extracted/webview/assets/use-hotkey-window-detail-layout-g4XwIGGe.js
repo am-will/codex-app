@@ -1,0 +1,2 @@
+import{n as e,s as t}from"./rolldown-runtime-Czos8NxU.js";import{cZ as n,lZ as r}from"./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~ke3yc5wu-BLQiF1Gs.js";function i(e){let t=(0,a.c)(4),n=(0,o.useContext)(s),r,i;t[0]!==e||t[1]!==n?(r=()=>{if(n!=null)return n(e),()=>{n(null)}},i=[e,n],t[0]=e,t[1]=n,t[2]=r,t[3]=i):(r=t[2],i=t[3]),(0,o.useLayoutEffect)(r,i)}var a,o,s,c=e((()=>{a=n(),o=t(r(),1),s=(0,o.createContext)(null)}));export{c as n,i as r,s as t};
+//# sourceMappingURL=use-hotkey-window-detail-layout-g4XwIGGe.js.map

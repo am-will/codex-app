@@ -40,7 +40,7 @@ describe('Recovered Codex bundle RED contract', () => {
   const versionedUpstreamAppAsarPath = path.resolve(
     desktopRoot,
     'tmp',
-    'upstream-26.623.42026',
+    'upstream-26.623.101652',
     'extracted',
     'Codex.app',
     'Contents',
@@ -215,8 +215,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.623.42026');
-      expect(summary.buildNumber).toBe('4514');
+      expect(summary.version).toBe('26.623.101652');
+      expect(summary.buildNumber).toBe('4674');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -244,13 +244,13 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain("autoHideMenuBar:!0");
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
-      expect(mainBundle).toContain('function linuxDetectCommand(');
-      expect(mainBundle).toContain('${process.env.HOME}/.local/bin/${e}');
-      expect(mainBundle).toContain('linuxEditorTarget(`cursor`,`Cursor`');
+      expect(mainBundle).toContain('function linuxResolveAbsoluteCommand(');
+      expect(mainBundle).toContain('${process.env.HOME}/.local/bin/${e[0]}');
+      expect(mainBundle).toContain('linuxCursor={id:`cursor`');
       expect(mainBundle).toContain(
-        'linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
       );
-      expect(mainBundle).toContain('id:`fileManager`,label:`File Manager`');
+      expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
       expect(workspaceRootDropHandlerBundle).toContain('return null');
       expect(mainBundle).toMatch(
         /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
@@ -348,9 +348,9 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.623.42028');
-    expect(packageJson.codexBuildNumber).toBe('4514');
-    expect(packageJson.devDependencies?.electron).toBe('41.2.0');
+    expect(packageJson.version).toBe('26.623.101652');
+    expect(packageJson.codexBuildNumber).toBe('4674');
+    expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
     expect(packageJson.dependencies?.['node-pty']).toBeDefined();
@@ -369,18 +369,12 @@ describe('Recovered Codex bundle RED contract', () => {
       '(()=>{try{process.stderr?.writable&&console.error(',
     );
     expect(bootstrapSource).toContain(
-      'process.env.ELECTRON_OZONE_PLATFORM_HINT=`wayland`',
+      'process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`',
     );
     expect(bootstrapSource).toContain(
-      'app.commandLine.appendSwitch(`ozone-platform`,`wayland`)',
+      'app.commandLine.appendSwitch(`ozone-platform`,`x11`)',
     );
-    expect(bootstrapSource).toContain(
-      'app.commandLine.appendSwitch(`enable-features`,`UseOzonePlatform,WaylandWindowDecorations`)',
-    );
-    expect(bootstrapSource).toContain('app.commandLine.appendSwitch(`enable-wayland-ime`)');
-    expect(bootstrapSource).toContain(
-      'app.commandLine.appendSwitch(`wayland-text-input-version`,`3`)',
-    );
+    expect(bootstrapSource).not.toContain('app.commandLine.appendSwitch(`ozone-platform`,`wayland`)');
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
     expect(preloadSource).not.toContain(',try{await e.ipcRenderer.invoke(');
   });
@@ -408,8 +402,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.623.42026');
-    expect(manifest.buildNumber).toBe('4514');
+    expect(manifest.version).toBe('26.623.101652');
+    expect(manifest.buildNumber).toBe('4674');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -506,7 +500,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain(
       'e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap',
     );
-    expect(mainSource).toContain('[di].flatMap(e=>e?.type===`namespace`');
+    expect(mainSource).toMatch(/\[[A-Za-z_$][\w$]*\]\.flatMap\(e=>e\?\.type===`namespace`/);
     expect(rendererThreadStartBundle).toContain(
       'prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource}',
     );
@@ -519,9 +513,11 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(rendererRequestClientBundle).toContain(
       'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
     );
-    expect(featureSyncBundle).toContain('k7=[`memories`,`tool_suggest`]');
-    expect(featureSyncBundle).not.toContain(
-      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    expect(featureSyncBundle).toMatch(
+      /[A-Za-z_$][\w$]*=\[`memories`,`tool_suggest`\]/,
+    );
+    expect(featureSyncBundle).not.toMatch(
+      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\]/,
     );
     expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
     expect(assembleScript).toContain(
@@ -660,18 +656,18 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches = mainSource.match(/linuxEditorTarget\(/g) ?? [];
+    const linuxTargetMatches = mainSource.match(/linuxResolveEditorTarget\(/g) ?? [];
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainSource).toContain('function linuxDetectCommand(');
-    expect(mainSource).toContain('${process.env.HOME}/.local/bin/${e}');
-    expect(mainSource).toContain('linuxEditorTarget(`cursor`,`Cursor`');
+    expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
+    expect(mainSource).toContain('${process.env.HOME}/.local/bin/${e[0]}');
+    expect(mainSource).toContain('linuxCursor={id:`cursor`');
     expect(mainSource).toContain(
-      'linuxEditorTarget(`zed`,`Zed`,`apps/zed.png`,[`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
     );
-    expect(mainSource).toContain('id:`fileManager`,label:`File Manager`');
-    expect(mainSource).toContain('linuxDetectCommand(`xdg-open`,[`/usr/bin/xdg-open`])');
-    expect(linuxTargetMatches.length).toBeGreaterThan(5);
+    expect(mainSource).toContain('linuxFileManager={id:`fileManager`');
+    expect(mainSource).toContain('linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)');
+    expect(linuxTargetMatches.length).toBeGreaterThan(4);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
     );

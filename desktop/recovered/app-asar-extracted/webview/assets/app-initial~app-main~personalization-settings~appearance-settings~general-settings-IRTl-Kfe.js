@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{DW as t,EW as n,GY as r,IU as i,LU as a,MX as o,NB as s,PB as c}from"./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~ke3yc5wu-BLQiF1Gs.js";var l,u=e((()=>{r(),c(),t(),a(),l=o(n,()=>({queryKey:[`app-info`],queryFn:()=>s.appInfo.get(),staleTime:i.INFINITE}))}));export{u as n,l as t};
+//# sourceMappingURL=app-initial~app-main~personalization-settings~appearance-settings~general-settings-IRTl-Kfe.js.map

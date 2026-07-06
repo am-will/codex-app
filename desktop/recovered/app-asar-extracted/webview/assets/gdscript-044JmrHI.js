@@ -1,0 +1,1 @@
+import{n as e,t}from"./gdscript-BsCSI5Qn.js";e();export{t as default};

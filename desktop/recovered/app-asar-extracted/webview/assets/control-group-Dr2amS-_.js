@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{cZ as t,hW as n,mW as r,tZ as i}from"./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~ke3yc5wu-BLQiF1Gs.js";function a(e){let t=(0,o.c)(5),{children:n,className:i}=e,a;t[0]===i?a=t[1]:(a=r(`flex items-center gap-2`,i),t[0]=i,t[1]=a);let c;return t[2]!==n||t[3]!==a?(c=(0,s.jsx)(`div`,{className:a,children:n}),t[2]=n,t[3]=a,t[4]=c):c=t[4],c}var o,s,c=e((()=>{o=t(),n(),s=i()}));export{c as n,a as t};
+//# sourceMappingURL=control-group-Dr2amS-_.js.map

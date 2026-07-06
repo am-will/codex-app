@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{AU as t,DW as n,EW as r,IU as i,LU as a,OU as o}from"./app-initial~app-main~worktree-init-v2-page~remote-conversation-page~onboarding-page~hotkey-~ke3yc5wu-BLQiF1Gs.js";var s,c=e((()=>{n(),a(),t(),s=o(r,`open-in-targets`,()=>({staleTime:i.ONE_MINUTE}))}));export{s as n,c as t};
+//# sourceMappingURL=open-in-targets-query-BeNh48ZN.js.map

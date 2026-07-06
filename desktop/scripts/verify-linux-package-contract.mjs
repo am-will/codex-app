@@ -30,16 +30,25 @@ const requiredAppAsarMarkers = [
   },
   {
     label: 'bundled app-server feature allowlist',
-    marker: 'k7=[`memories`,`tool_suggest`]',
+    markerPattern: /[A-Za-z_$][\w$]*=\[`memories`,`tool_suggest`\]/,
   },
 ];
 
 const forbiddenAppAsarMarkers = [
   {
     label: 'unsupported bundled app-server feature sync',
-    marker: 'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    markerPattern:
+      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\]/,
   },
 ];
+
+function sourceHasMarker(source, marker) {
+  if (marker.markerPattern) {
+    return marker.markerPattern.test(source);
+  }
+
+  return source.includes(marker.marker);
+}
 
 function parseArgValue(argv, name) {
   const index = argv.findIndex((arg) => arg === name);
@@ -98,14 +107,16 @@ function assertAppAsarMarkers(packageRoot) {
 
   const appAsarSource = readAsarJavaScriptSources(appAsarPath).join('\n');
 
-  for (const { label, marker } of requiredAppAsarMarkers) {
-    if (!appAsarSource.includes(marker)) {
+  for (const marker of requiredAppAsarMarkers) {
+    if (!sourceHasMarker(appAsarSource, marker)) {
+      const { label } = marker;
       throw new Error(`Packaged app.asar is missing ${label} marker.`);
     }
   }
 
-  for (const { label, marker } of forbiddenAppAsarMarkers) {
-    if (appAsarSource.includes(marker)) {
+  for (const marker of forbiddenAppAsarMarkers) {
+    if (sourceHasMarker(appAsarSource, marker)) {
+      const { label } = marker;
       throw new Error(`Packaged app.asar still contains ${label} marker.`);
     }
   }

@@ -62,13 +62,13 @@ describe('T8 RED contract: recovered compiled bundle integration', () => {
     expect(recoveredBootstrapSource).toContain('app.whenReady().then');
     expect(recoveredBootstrapSource).toContain('console.error(');
     expect(recoveredBootstrapSource).toContain(
-      'process.env.ELECTRON_OZONE_PLATFORM_HINT=`wayland`',
+      'process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`',
     );
     expect(recoveredBootstrapSource).toContain(
+      'app.commandLine.appendSwitch(`ozone-platform`,`x11`)',
+    );
+    expect(recoveredBootstrapSource).not.toContain(
       'app.commandLine.appendSwitch(`ozone-platform`,`wayland`)',
-    );
-    expect(recoveredBootstrapSource).toContain(
-      'app.commandLine.appendSwitch(`enable-features`,`UseOzonePlatform,WaylandWindowDecorations`)',
     );
     expect(recoveredPreloadSource).toContain('codex_desktop:message-from-view');
     expect(recoveredPreloadSource).toContain('codex_desktop:get-sentry-init-options');

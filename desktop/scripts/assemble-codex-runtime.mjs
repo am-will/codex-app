@@ -39,11 +39,11 @@ const preloadPatchReplacement =
   'sendMessageFromView:async t=>{$1;try{await e.ipcRenderer.invoke($2,t)}catch(n){if(String(n?.message??n).includes(`No handler registered`)){setTimeout(()=>{e.ipcRenderer.invoke($2,t).catch(()=>{})},250);return}throw n}}';
 const preloadPatchMarker = ';try{await e.ipcRenderer.invoke(';
 const bootstrapLinuxOzoneSwitchPatchPattern =
-  /for\(let ([\w$]+) of S\(\{buildFlavor:([\w$]+),env:process\.env\}\)\)([\w$]+)\.app\.commandLine\.appendSwitch\(\1\.name,\1\.value\);/;
+  /(?:process\.platform===`linux`&&\(process\.env\.ELECTRON_OZONE_PLATFORM_HINT=`wayland`,[\w$]+\.app\.commandLine\.appendSwitch\(`ozone-platform`,`wayland`\),[\w$]+\.app\.commandLine\.appendSwitch\(`enable-features`,`UseOzonePlatform,WaylandWindowDecorations`\),[\w$]+\.app\.commandLine\.appendSwitch\(`enable-wayland-ime`\),[\w$]+\.app\.commandLine\.appendSwitch\(`wayland-text-input-version`,`3`\)\);)?for\(let ([\w$]+) of S\(\{buildFlavor:([\w$]+),env:process\.env\}\)\)([\w$]+)\.app\.commandLine\.appendSwitch\(\1\.name,\1\.value\);/;
 const bootstrapLinuxOzoneSwitchPatchReplacement =
-  'process.platform===`linux`&&(process.env.ELECTRON_OZONE_PLATFORM_HINT=`wayland`,$3.app.commandLine.appendSwitch(`ozone-platform`,`wayland`),$3.app.commandLine.appendSwitch(`enable-features`,`UseOzonePlatform,WaylandWindowDecorations`),$3.app.commandLine.appendSwitch(`enable-wayland-ime`),$3.app.commandLine.appendSwitch(`wayland-text-input-version`,`3`));for(let $1 of S({buildFlavor:$2,env:process.env}))$3.app.commandLine.appendSwitch($1.name,$1.value);';
+  'process.platform===`linux`&&(process.env.ELECTRON_OZONE_PLATFORM_HINT=`x11`,$3.app.commandLine.appendSwitch(`ozone-platform`,`x11`));for(let $1 of S({buildFlavor:$2,env:process.env}))$3.app.commandLine.appendSwitch($1.name,$1.value);';
 const bootstrapLinuxOzoneSwitchPatchMarker =
-  'app.commandLine.appendSwitch(`ozone-platform`,`wayland`)';
+  'app.commandLine.appendSwitch(`ozone-platform`,`x11`)';
 const bootstrapPatchPattern =
   /([\w$]+)\.captureException\(([\w$]+),\{tags:\{phase:`bootstrap-import-main`\}\}\),await ([\w$]+)\(\2\)/;
 const bootstrapPatchReplacement =
@@ -191,6 +191,12 @@ const mainGitOriginsPatchAlternatives = [
       'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Zr(i),s=re(e??[],a).map(e=>t.Ya(e)),c=L((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.Ya(e)),p=t.pt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
     replacement:
       'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Zr(i),s=re(e??[],a).map(e=>t.Ya(e)),c=L((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=(s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.Ya(e))).filter(e=>{try{return!!e&&a.existsSync(e)}catch{return!1}}),p=t.pt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
+  },
+  {
+    target:
+      'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Qr(i),s=re(e??[],a).map(e=>t.Xa(e)),c=L((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.Xa(e)),p=t.pt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
+    replacement:
+      'let i=this.getRequestAppServerClient(n).hostConfig,a=t.Qr(i),s=re(e??[],a).map(e=>t.Xa(e)),c=L((0,o.homedir)(),a),l=r.s(this.globalState),u=r.i(this.globalState),d=l.length>0?l:u??[],f=(s&&s.length>0?s:d.filter(e=>e!==`~`).map(e=>t.Xa(e))).filter(e=>{try{return!!e&&a.existsSync(e)}catch{return!1}}),p=t.pt(),{origins:m}=await this.requestGitWorker({method:`git-origins`,params:{dirs:f,hostConfig:i,operationSource:p.source}});',
   },
 ];
 const mainGitOriginsPatchMarker =
@@ -355,6 +361,12 @@ const mainLinuxOpaqueWindowPatchAlternatives = [
     replacement:
       'function A9({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){if(n)return{backgroundColor:r?$7:e9,backgroundMaterial:e===`win32`?`none`:null};if(e===`win32`&&!w9(t))return{backgroundColor:Q7,backgroundMaterial:`mica`};if(e===`linux`&&!w9(t))return{backgroundColor:r?$7:e9,backgroundMaterial:null};return{backgroundColor:Q7,backgroundMaterial:null}}',
   },
+  {
+    target:
+      'function O9({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){return n?{backgroundColor:r?Z7:Q7,backgroundMaterial:e===`win32`?`none`:null}:e===`win32`&&!S9(t)?{backgroundColor:X7,backgroundMaterial:`mica`}:{backgroundColor:X7,backgroundMaterial:null}}',
+    replacement:
+      'function O9({platform:e,appearance:t,opaqueWindowSurfaceEnabled:n,prefersDarkColors:r}){if(n)return{backgroundColor:r?Z7:Q7,backgroundMaterial:e===`win32`?`none`:null};if(e===`win32`&&!S9(t))return{backgroundColor:X7,backgroundMaterial:`mica`};if(e===`linux`&&!S9(t))return{backgroundColor:r?Z7:Q7,backgroundMaterial:null};return{backgroundColor:X7,backgroundMaterial:null}}',
+  },
 ];
 const mainLinuxOpaqueWindowPatchMarker = 'backgroundMaterial:`mica`};if(e===`linux`&&';
 const mainLinuxTitleBarOverlayColorPatchAlternatives = [
@@ -405,6 +417,12 @@ const mainLinuxTitleBarOverlayColorPatchAlternatives = [
       'function m9(e=1){return{color:Q7,symbolColor:a.nativeTheme.shouldUseDarkColors?f9:d9,height:Math.round(u9*e)}}',
     replacement:
       'function m9(e=1){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:Math.round(u9*e)}:{color:Q7,symbolColor:a.nativeTheme.shouldUseDarkColors?f9:d9,height:Math.round(u9*e)}}',
+  },
+  {
+    target:
+      'function f9(e=1){return{color:X7,symbolColor:a.nativeTheme.shouldUseDarkColors?u9:l9,height:Math.round(c9*e)}}',
+    replacement:
+      'function f9(e=1){return process.platform===`linux`?{color:`#2b2f36`,symbolColor:`#ffffff`,height:Math.round(c9*e)}:{color:X7,symbolColor:a.nativeTheme.shouldUseDarkColors?u9:l9,height:Math.round(c9*e)}}',
   },
 ];
 const mainLinuxTitleBarOverlayColorPatchMarker =
@@ -522,6 +540,12 @@ const mainLinuxReadyToShowFocusPatchAlternatives = [
     replacement:
       'M.once(`ready-to-show`,()=>{J7().info(`window ready-to-show`,{safe:{hostId:_,windowId:M.id,webContentsId:M.webContents.id,appearance:c,startupElapsedMs:Date.now()-g}}),c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())})',
   },
+  {
+    target:
+      'M.once(`ready-to-show`,()=>{K7().info(`window ready-to-show`,{safe:{hostId:_,windowId:M.id,webContentsId:M.webContents.id,appearance:c,startupElapsedMs:Date.now()-g}})})',
+    replacement:
+      'M.once(`ready-to-show`,()=>{K7().info(`window ready-to-show`,{safe:{hostId:_,windowId:M.id,webContentsId:M.webContents.id,appearance:c,startupElapsedMs:Date.now()-g}}),c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())})',
+  },
 ];
 const mainLinuxReadyToShowFocusPatchMarker =
   'c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())';
@@ -548,6 +572,11 @@ const mainLinuxWindowControlPatchAlternatives = [
     target: 'G2(l,k),V2(k);let A=!1;a.ipcMain.handle(zl,',
     replacement:
       'G2(l,k),V2(k);a.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(zl,',
+  },
+  {
+    target: 'U2(l,k),z2(k);let A=!1;a.ipcMain.handle(ree,',
+    replacement:
+      'U2(l,k),z2(k);a.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(ree,',
   },
 ];
 const mainLinuxWindowControlPatchMarker = 'codex_desktop:control-window';
@@ -577,6 +606,12 @@ const mainLinuxApplicationMenuPatchAlternatives = [
       'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(zl,',
     replacement:
       'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let o=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:o});continue}let s={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:o};i.submenu&&i.submenu.items.length>0&&(s.submenu=linuxSerializeMenuItems(i.submenu,o)),n.push(s)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}a.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!k(e))return{items:[]};let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender),r=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)});let A=!1;a.ipcMain.handle(zl,',
+  },
+  {
+    target:
+      'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});let A=!1;a.ipcMain.handle(ree,',
+    replacement:
+      'codex_desktop:control-window`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let o=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:o});continue}let s={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:o};i.submenu&&i.submenu.items.length>0&&(s.submenu=linuxSerializeMenuItems(i.submenu,o)),n.push(s)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}a.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!k(e))return{items:[]};let n=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),a.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!k(e))return;let n=a.BrowserWindow.fromWebContents(e.sender),r=a.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)});let A=!1;a.ipcMain.handle(ree,',
   },
 ];
 const mainLinuxApplicationMenuPatchMarker = 'codex_desktop:get-application-menu-items';
@@ -652,6 +687,10 @@ const appShellLinuxWindowsMenuPatchAlternatives = [
     target: 'function qP(){return Vke()&&window.electronBridge?.showApplicationMenu!=null}',
     replacement: 'function qP(){return Vke()&&window.electronBridge?.showApplicationMenu!=null}',
   },
+  {
+    target: 'function cO(){return ST()&&window.electronBridge?.showApplicationMenu!=null}',
+    replacement: 'function cO(){return ST()&&window.electronBridge?.showApplicationMenu!=null}',
+  },
 ];
 const appShellLinuxWindowsMenuPatchMarker =
   'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null';
@@ -667,6 +706,12 @@ const appShellLinuxApplicationMenuPatchAlternatives = [
   {
     target: appShellLinuxApplicationMenuPatchTarget,
     replacement: appShellLinuxApplicationMenuPatchReplacement,
+  },
+  {
+    target:
+      'function uO(){let e=oe(),[t,n]=(0,dO.useState)(null),r=(0,dO.useRef)(0);if(!cO())return null;let i=async(e,t)=>{let i=window.electronBridge?.showApplicationMenu;if(!i)return;let a=r.current+1;r.current=a,n(e);let o=t.currentTarget.getBoundingClientRect();try{await i(e,Math.round(o.left),Math.round(o.bottom))}finally{r.current===a&&n(null)}};return(0,fO.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:mO.map(({id:n,message:r})=>(0,fO.jsx)(`button`,{type:`button`,"aria-expanded":t===n,"aria-haspopup":`menu`,"aria-label":e.formatMessage(r),className:U(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,t===n?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{i(n,e)},children:(0,fO.jsx)(E,{...r})},n))})}',
+    replacement:
+      'function uO(){let e=oe(),t=cO(),{platform:p}=Be(),h=p===`linux`&&typeof window.electronBridge?.getApplicationMenuItems==`function`,[n,r]=(0,dO.useState)(null),[i,a]=(0,dO.useState)([]),[o,s]=(0,dO.useState)(null),c=(0,dO.useRef)(0);if((0,dO.useEffect)(()=>{if(!h||!n)return;let e=e=>{e.key===`Escape`&&r(null)},t=e=>{let t=document.getElementById(`linux-application-menu-panel`);t&&!t.contains(e.target)&&!e.target.closest(`[data-linux-menu-trigger=true]`)&&r(null)};return document.addEventListener(`keydown`,e),document.addEventListener(`mousedown`,t),()=>{document.removeEventListener(`keydown`,e),document.removeEventListener(`mousedown`,t)}},[h,n]),!t)return null;let l=e=>e?e.replace(/CommandOrControl|CmdOrCtrl/g,`Ctrl`).replace(/Command/g,`Ctrl`).replace(/Control/g,`Ctrl`):``,u=async(e,t)=>{if(h){if(n===e){r(null);return}let i=t.currentTarget.getBoundingClientRect(),o=c.current+1;c.current=o,r(e),a([]);let l=await window.electronBridge.getApplicationMenuItems(e);c.current===o&&(s({left:Math.round(i.left),top:Math.round(i.bottom)}),a(l?.items??[]))}else{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let i=c.current+1;c.current=i,r(e);let a=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(a.left),Math.round(a.bottom))}finally{c.current===i&&r(null)}}},d=async e=>{e.enabled!==!1&&!e.submenu&&n&&(await window.electronBridge?.clickApplicationMenuItem?.(n,e.path),r(null))},f=(e,t=0)=>e.flatMap(e=>e.type===`separator`?[(0,fO.jsx)(`div`,{className:`mx-1 my-1 border-t border-token-border/60`,role:`separator`},e.path)]:[(0,fO.jsx)(`button`,{type:`button`,"aria-haspopup":e.submenu?`menu`:void 0,className:U(`flex w-full items-center gap-3 rounded-lg p-1.5 text-left text-sm outline-none transition-colors`,e.enabled===!1?`cursor-default opacity-50`:e.submenu?`cursor-default text-token-text-tertiary`:`cursor-interaction hover:bg-token-list-hover-background focus:bg-token-list-hover-background`),disabled:e.enabled===!1,onClick:()=>{e.submenu?null:d(e)},children:(0,fO.jsxs)(`span`,{className:`flex w-full items-center gap-3`,style:{paddingLeft:t*14},children:[(0,fO.jsx)(`span`,{className:`min-w-0 flex-1 truncate`,children:e.label}),e.submenu?(0,fO.jsx)(`span`,{className:`shrink-0 text-xs text-token-text-tertiary`,children:`>`}):e.accelerator?(0,fO.jsx)(`span`,{className:`shrink-0 pl-4 text-xs text-token-text-tertiary tabular-nums`,children:l(e.accelerator)}):null]})},e.path),...(e.submenu?f(e.submenu,t+1):[])]);return(0,fO.jsxs)(fO.Fragment,{children:[(0,fO.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:mO.map(({id:t,message:i})=>(0,fO.jsx)(`button`,{type:`button`,"data-linux-menu-trigger":h?`true`:void 0,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(i),className:U(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{u(t,e)},children:(0,fO.jsx)(E,{...i})},t))}),h&&n&&o&&(0,fO.jsx)(`div`,{id:`linux-application-menu-panel`,className:`no-drag fixed z-50 m-px flex min-w-[220px] flex-col rounded-xl bg-token-dropdown-background/90 p-1 text-token-foreground shadow-lg ring-[0.5px] ring-token-border backdrop-blur-sm select-none`,style:{left:o.left,top:o.top},children:f(i)})]})}',
   },
   {
     target:
@@ -690,6 +735,12 @@ const appShellLinuxApplicationMenuUpgradePatchMarker =
 const appShellLinuxWindowControlsFunction =
   'function LinuxWindowControls(){let{platform:e}=nt(),t=window.electronBridge?.controlWindow;if(e!==`linux`||typeof t!=`function`)return null;let n=e=>()=>{void t(e)},[a,u]=(0,Z.useState)(!1),o=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,r=c(o,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),i=c(o,a?`text-token-charts-red`:`text-token-text-tertiary`);return(0,Q.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,Q.jsx)(`button`,{type:`button`,className:r,onClick:n(`minimize`),"aria-label":`Minimize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:r,onClick:n(`maximize`),"aria-label":`Maximize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:i,onMouseEnter:()=>u(!0),onMouseLeave:()=>u(!1),onFocus:()=>u(!0),onBlur:()=>u(!1),onClick:n(`close`),"aria-label":`Close`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}';
 const appShellLinuxWindowControlsPatchAlternatives = [
+  {
+    target:
+      'function OA(){let e=(0,kA.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,$.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,$.jsx)(VO,{}),(0,$.jsx)(uO,{})]}),e[0]=t):t=e[0],t}',
+    replacement:
+      'function OA(){let e=(0,kA.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,$.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,$.jsx)(VO,{}),(0,$.jsx)(uO,{}),(0,$.jsx)(LinuxWindowControls,{})]}),e[0]=t):t=e[0],t}function LinuxWindowControls(){let{platform:e}=Be(),t=window.electronBridge?.controlWindow;if(e!==`linux`||typeof t!=`function`)return null;let n=e=>()=>{void t(e)},[r,i]=(0,AA.useState)(!1),a=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,o=U(a,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),s=U(a,r?`text-token-charts-red`:`text-token-text-tertiary`);return(0,$.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,$.jsx)(`button`,{type:`button`,className:o,onClick:n(`minimize`),"aria-label":`Minimize`,children:(0,$.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,$.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,$.jsx)(`button`,{type:`button`,className:o,onClick:n(`maximize`),"aria-label":`Maximize`,children:(0,$.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,$.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,$.jsx)(`button`,{type:`button`,className:s,onMouseEnter:()=>i(!0),onMouseLeave:()=>i(!1),onFocus:()=>i(!0),onBlur:()=>i(!1),onClick:n(`close`),"aria-label":`Close`,children:(0,$.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,$.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}',
+  },
   {
     target: 'children:[n,r,i]}),e[4]=r,e[5]=a),a}function Qr(e){return null}',
     replacement: 'children:[n,r,i,(0,Q.jsx)(LinuxWindowControls,{})]}),e[4]=r,e[5]=a),a}function LinuxWindowControls(){let{platform:e}=it(),t=window.electronBridge?.controlWindow;if(e!==`linux`||typeof t!=`function`)return null;let n=e=>()=>{void t(e)},[r,i]=(0,Z.useState)(!1),a=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,o=w(a,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),s=w(a,r?`text-token-charts-red`:`text-token-text-tertiary`);return(0,Q.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,Q.jsx)(`button`,{type:`button`,className:o,onClick:n(`minimize`),"aria-label":`Minimize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:o,onClick:n(`maximize`),"aria-label":`Maximize`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,Q.jsx)(`button`,{type:`button`,className:s,onMouseEnter:()=>i(!0),onMouseLeave:()=>i(!1),onFocus:()=>i(!0),onBlur:()=>i(!1),onClick:n(`close`),"aria-label":`Close`,children:(0,Q.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,Q.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}function Qr(e){return null}',
@@ -741,6 +792,12 @@ const appShellLinuxFloatingSidebarHideNavHeaderPatchAlternatives = [
     replacement:
       'children:[r?null:(0,UF.jsx)(Qp.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,UF.jsx)(pF,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,UF.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
   },
+  {
+    target:
+      'children:[(0,$.jsx)(tt.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,$.jsx)(VO,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,$.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
+    replacement:
+      'children:[r?null:(0,$.jsx)(tt.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,$.jsx)(VO,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,$.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
+  },
 ];
 const appShellLinuxFloatingSidebarHideNavHeaderPatchMarker =
   'children:[r?null:(0,Q.jsx)';
@@ -790,6 +847,12 @@ const appShellLinuxFloatingSidebarMainHeaderLeftPatchAlternatives = [
     replacement:
       'function aGe({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a,leftPanelWidth:lp}=vS(),flw=X(HS),fls=X(GS),o=sp(0),s=vp`${i}px`,c=vp`${a}px`,l=X(QSe)',
   },
+  {
+    target:
+      'function Nk({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a}=Sn(),o=ln(0),s=Jt`${i}px`,c=Jt`${a}px`,l=H(V)',
+    replacement:
+      'function Nk({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a,leftPanelWidth:lp}=Sn(),flw=H(BA),fls=H(wt),o=ln(0),s=Jt`${i}px`,c=Jt`${a}px`,l=H(V)',
+  },
 ];
 const appShellLinuxFloatingSidebarMainHeaderLeftStylePatchTarget =
   'style:t?{left:s}:{},children:[(0,Q.jsx)(_r,{entries:p,fitWidth:n,slotWidth:t?o:i,side:`start`})';
@@ -811,6 +874,12 @@ const appShellLinuxFloatingSidebarMainHeaderLeftStylePatchAlternatives = [
       'style:t?{left:s}:{},children:[(0,OF.jsx)(oGe,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
     replacement:
       'style:t?{left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s}:{},children:[(0,OF.jsx)(oGe,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
+  },
+  {
+    target:
+      'style:t?{left:s}:{},children:[(0,Uk.jsx)(Pk,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
+    replacement:
+      'style:t?{left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s}:{},children:[(0,Uk.jsx)(Pk,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
   },
 ];
 const appShellLinuxFloatingSidebarMainHeaderLeftPatchMarker =
@@ -874,6 +943,12 @@ const mainLinuxAvatarOverlayTypePatchAlternatives = [
     replacement:
       'case`avatarOverlay`:return{...M9({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},...n===`darwin`?{enableLargerThanScreen:!0}:{},hasShadow:!1};',
   },
+  {
+    target:
+      'case`avatarOverlay`:return{...A9({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`darwin`?{enableLargerThanScreen:!0}:{},hasShadow:!1};',
+    replacement:
+      'case`avatarOverlay`:return{...A9({alwaysOnTop:!0,platform:n,resizable:!1,thickFrame:!1}),...n===`linux`?{type:`toolbar`}:{},...n===`darwin`?{enableLargerThanScreen:!0}:{},hasShadow:!1};',
+  },
 ];
 const mainLinuxAvatarOverlayTypePatchMarker =
   '...n===`linux`?{type:`toolbar`}:{},hasShadow:!1};';
@@ -912,6 +987,12 @@ const mainLinuxAvatarOverlayShowPatchAlternatives = [
       'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&this.broadcastOpenState();let n=this.pendingPresentation;n!=null&&(this.pendingPresentation=null,n.velocity==null?(this.dockRestoreAnchor=n.target,this.animatePresentationTo(n.target,P6(this.anchor,n.target),()=>{this.dockRestoreAnchor===n.target&&(this.dockRestoreAnchor=null)})):this.startMomentum(n.velocity.x,n.velocity.y,!0))}',
     replacement:
       'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),process.platform===`linux`&&(e.setAlwaysOnTop(!0,`screen-saver`),this.startLinuxTopEnforcement()),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&this.broadcastOpenState();let n=this.pendingPresentation;n!=null&&(this.pendingPresentation=null,n.velocity==null?(this.dockRestoreAnchor=n.target,this.animatePresentationTo(n.target,P6(this.anchor,n.target),()=>{this.dockRestoreAnchor===n.target&&(this.dockRestoreAnchor=null)})):this.startMomentum(n.velocity.x,n.velocity.y,!0))}',
+  },
+  {
+    target:
+      'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&this.broadcastOpenState();let n=this.pendingPresentation;n!=null&&(this.pendingPresentation=null,n.velocity==null?(this.dockRestoreAnchor=n.target,this.animatePresentationTo(n.target,M6(this.anchor,n.target),()=>{this.dockRestoreAnchor===n.target&&(this.dockRestoreAnchor=null)})):this.startMomentum(n.velocity.x,n.velocity.y,!0))}',
+    replacement:
+      'showWindow(e){if(e.isDestroyed())return;let t=this.isOpen();this.windowStagedForNativePresentation&&=(e.setOpacity(1),!1),process.platform===`linux`&&(e.setAlwaysOnTop(!0,`screen-saver`),this.startLinuxTopEnforcement()),e.moveTop(),e.showInactive(),!t&&this.isOpen()&&this.broadcastOpenState();let n=this.pendingPresentation;n!=null&&(this.pendingPresentation=null,n.velocity==null?(this.dockRestoreAnchor=n.target,this.animatePresentationTo(n.target,M6(this.anchor,n.target),()=>{this.dockRestoreAnchor===n.target&&(this.dockRestoreAnchor=null)})):this.startMomentum(n.velocity.x,n.velocity.y,!0))}',
   },
 ];
 const mainLinuxAvatarOverlayShowPatchMarker = 'this.startLinuxTopEnforcement()';
@@ -1106,6 +1187,12 @@ const mainLinuxAvatarOverlayFocusableWindowPatchAlternatives = [
     replacement:
       'appearance:`avatarOverlay`,focusable:process.platform===`linux`?!0:!1,show:!1,initialRoute:K3',
   },
+  {
+    target:
+      'appearance:`avatarOverlay`,focusable:!1,show:!1,initialRoute:W3',
+    replacement:
+      'appearance:`avatarOverlay`,focusable:process.platform===`linux`?!0:!1,show:!1,initialRoute:W3',
+  },
 ];
 const mainLinuxAvatarOverlayFocusableWindowPatchMarker =
   'focusable:process.platform===`linux`?!0:!1';
@@ -1226,6 +1313,12 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
     replacement:
       'Be=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),xe.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[ot(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:g},a.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:g}),ee(!0),S(null)}',
   },
+  {
+    target:
+      'Be=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),xe.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[st(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:h},a.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:h}),M(!0),ne(null))}',
+    replacement:
+      'Be=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),xe.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[st(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:h},a.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:h}),M(!0),ne(null)}',
+  },
 ];
 const avatarOverlayDirectMascotDragPatchMarker =
   'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return';
@@ -1300,6 +1393,10 @@ const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
     target: 'B?`whitespace-pre-wrap`:y==null?`line-clamp-2`:void 0',
     replacement: 'B?`whitespace-pre-wrap`:y==null?`whitespace-pre-wrap`:void 0',
   },
+  {
+    target: 'V?`whitespace-pre-wrap`:y==null?`line-clamp-2`:void 0',
+    replacement: 'V?`whitespace-pre-wrap`:y==null?`whitespace-pre-wrap`:void 0',
+  },
 ];
 const avatarOverlayReadableActivityBodyHeightPatchTarget =
   '$=2,et=2,tt=.035,nt=32,rt=84,it=512,at=1';
@@ -1371,18 +1468,66 @@ const mainDynamicToolsStartThreadPatchTarget =
   'async function rF({prompt:e,cwd:n,serviceTier:r,appServerConnection:i,hostId:a,threadStartKind:o}){return t.t({prompt:e,cwd:n,serviceTier:r,client:{startThread:e=>i.startThread(e),startTurn:e=>i.startTurn(e),unsubscribeThread:e=>i.unsubscribeThread(e),interruptTurn:e=>i.interruptTurn(e),registerInternalNotificationHandler:e=>i.registerInternalNotificationHandler(e)}})}';
 const mainDynamicToolsStartThreadPatchReplacement =
   'async function rF({prompt:e,cwd:n,serviceTier:r,appServerConnection:i,hostId:a,threadStartKind:o}){return t.t({prompt:e,cwd:n,serviceTier:r,client:{startThread:e=>i.startThread(e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap(n=>n?.type===`namespace`?(n.tools??[]).map(e=>{let t={...e,namespace:n.name};return delete t.type,t}):[n]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}),startTurn:e=>i.startTurn(e),unsubscribeThread:e=>i.unsubscribeThread(e),interruptTurn:e=>i.interruptTurn(e),registerInternalNotificationHandler:e=>i.registerInternalNotificationHandler(e)}})}';
+const mainDynamicToolsStartThreadPatchAlternatives = [
+  {
+    target: mainDynamicToolsStartThreadPatchTarget,
+    replacement: mainDynamicToolsStartThreadPatchReplacement,
+  },
+  {
+    target:
+      'async function eF({prompt:e,cwd:n,serviceTier:r,appServerConnection:i,hostId:a,threadStartKind:o}){return t.t({prompt:e,cwd:n,serviceTier:r,client:{startThread:e=>i.startThread(e),startTurn:e=>i.startTurn(e),unsubscribeThread:e=>i.unsubscribeThread(e),interruptTurn:e=>i.interruptTurn(e),registerInternalNotificationHandler:e=>i.registerInternalNotificationHandler(e)}})}',
+    replacement:
+      'async function eF({prompt:e,cwd:n,serviceTier:r,appServerConnection:i,hostId:a,threadStartKind:o}){return t.t({prompt:e,cwd:n,serviceTier:r,client:{startThread:e=>i.startThread(e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap(n=>n?.type===`namespace`?(n.tools??[]).map(e=>{let t={...e,namespace:n.name};return delete t.type,t}):[n]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}),startTurn:e=>i.startTurn(e),unsubscribeThread:e=>i.unsubscribeThread(e),interruptTurn:e=>i.interruptTurn(e),registerInternalNotificationHandler:e=>i.registerInternalNotificationHandler(e)}})}',
+  },
+];
 const mainDynamicToolsAutomationPatchTarget =
   'async function Mi(e){try{let t=await e(),n=t.find(e=>e.type===`namespace`&&e.name===`codex_app`);return n?.type===`namespace`?n.tools.some(e=>e.name===li)?t:t.map(e=>e===n?{...n,tools:[...n.tools,ui]}:e):[...t,di]}catch(e){return pi().warning(`Failed to load dynamic tools for automation run`,{safe:{error:e},sensitive:{}}),[di]}}';
 const mainDynamicToolsAutomationPatchReplacement =
   'async function Mi(e){try{let t=await e(),n=t.find(e=>e.type===`namespace`&&e.name===`codex_app`),r=n?.type===`namespace`?n.tools.some(e=>e.name===li)?t:t.map(e=>e===n?{...n,tools:[...n.tools,ui]}:e):[...t,di];return(r??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}catch(e){return pi().warning(`Failed to load dynamic tools for automation run`,{safe:{error:e},sensitive:{}}),[di].flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}}';
+const mainDynamicToolsAutomationPatchAlternatives = [
+  {
+    target: mainDynamicToolsAutomationPatchTarget,
+    replacement: mainDynamicToolsAutomationPatchReplacement,
+  },
+  {
+    target:
+      'async function ki(e){try{let t=await e(),n=t.find(e=>e.type===`namespace`&&e.name===`codex_app`);return n?.type===`namespace`?n.tools.some(e=>e.name===oi)?t:t.map(e=>e===n?{...n,tools:[...n.tools,si]}:e):[...t,ci]}catch(e){return ui().warning(`Failed to load dynamic tools for automation run`,{safe:{error:e},sensitive:{}}),[ci]}}',
+    replacement:
+      'async function ki(e){try{let t=await e(),n=t.find(e=>e.type===`namespace`&&e.name===`codex_app`),r=n?.type===`namespace`?n.tools.some(e=>e.name===oi)?t:t.map(e=>e===n?{...n,tools:[...n.tools,si]}:e):[...t,ci];return(r??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}catch(e){return ui().warning(`Failed to load dynamic tools for automation run`,{safe:{error:e},sensitive:{}}),[ci].flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})}}',
+  },
+];
 const rendererPrewarmThreadStartDynamicToolsPatchTarget =
   '"prewarm-thread-start-for-host":Q7((e,{params:t,timeoutMs:n})=>e.requestClient.prewarmThreadStart({...t,threadSource:t.threadSource===void 0?`user`:t.threadSource},{timeoutMs:n}))';
 const rendererPrewarmThreadStartDynamicToolsPatchReplacement =
   '"prewarm-thread-start-for-host":Q7((e,{params:t,timeoutMs:n})=>{let r=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};return e.requestClient.prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource},{timeoutMs:n})})';
+const rendererPrewarmThreadStartDynamicToolsPatchAlternatives = [
+  {
+    target: rendererPrewarmThreadStartDynamicToolsPatchTarget,
+    replacement: rendererPrewarmThreadStartDynamicToolsPatchReplacement,
+  },
+  {
+    target:
+      '"prewarm-thread-start-for-host":$7((e,{params:t,timeoutMs:n})=>e.requestClient.prewarmThreadStart({...t,threadSource:t.threadSource===void 0?`user`:t.threadSource},{timeoutMs:n}))',
+    replacement:
+      '"prewarm-thread-start-for-host":$7((e,{params:t,timeoutMs:n})=>{let r=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};return e.requestClient.prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource},{timeoutMs:n})})',
+  },
+];
 const rendererStartThreadDynamicToolsPatchTarget =
   '"start-thread-for-host":Q7((e,t)=>e.sendRequest(`thread/start`,{...t,threadSource:t.threadSource===void 0?`user`:t.threadSource},{timeoutMs:yp}))';
 const rendererStartThreadDynamicToolsPatchReplacement =
   '"start-thread-for-host":Q7((e,t)=>{let n=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};return e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource},{timeoutMs:yp})})';
+const rendererStartThreadDynamicToolsPatchAlternatives = [
+  {
+    target: rendererStartThreadDynamicToolsPatchTarget,
+    replacement: rendererStartThreadDynamicToolsPatchReplacement,
+  },
+  {
+    target:
+      '"start-thread-for-host":$7((e,t)=>e.sendRequest(`thread/start`,{...t,threadSource:t.threadSource===void 0?`user`:t.threadSource},{timeoutMs:so}))',
+    replacement:
+      '"start-thread-for-host":$7((e,t)=>{let n=t.dynamicTools==null?t:{...t,dynamicTools:(t.dynamicTools??[]).flatMap(e=>e?.type===`namespace`?(e.tools??[]).map(t=>{let n={...t,namespace:e.name};return delete n.type,n}):[e]).flatMap(e=>{if(e==null)return[];let t={...e,inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}};return delete t.input_schema,delete t.type,[t]})};return e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource},{timeoutMs:so})})',
+  },
+];
 const rendererRequestClientSendRequestDynamicToolsPatchTarget =
   'async sendRequest(e,t,n){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);if(e===`config/read`)return this.sendConfigReadRequest(t,n);let{request:r,promise:i}=this.createRequest(e,t,n);return this.emitRequestStartedEvent(r),this.dispatchMessage(`mcp-request`,{request:r,hostId:this.hostId}),i}';
 const rendererRequestClientSendRequestDynamicToolsPatchReplacement =
@@ -1711,6 +1856,12 @@ const rendererSupportedFeatureEnablementPatchAlternatives = [
     replacement:
       'k7=[`memories`,`tool_suggest`]',
   },
+  {
+    target:
+      'A7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+    replacement:
+      'A7=[`memories`,`tool_suggest`]',
+  },
 ];
 const rendererDesktopGoalsFeaturePatchMarker = 'goals:!0';
 const rendererDesktopGoalsFeaturePatchAlternatives = [
@@ -1866,6 +2017,12 @@ const mainLinuxOpenTargetsPatchAlternatives = [
   {
     target: mainLinuxOpenTargetsSimplePatchTarget,
     replacement: mainLinuxOpenTargetsSimplePatchReplacement,
+  },
+  {
+    target:
+      'var GN=[wN,EN,SN,TM,nM,kM,fN,BN,kN,eM,RM,hN,AM,iM,FM,CM,jN,BM,PM,ON,FN,KM,qM,JM,YM,XM,ZM,QM,$M,vN];',
+    replacement:
+      'function linuxResolveAbsoluteCommand(e){let t=Lj(e,`linux`);return t&&(0,u.existsSync)(t)?t:null}function linuxResolveEditorTarget(e,t=[]){let n=process.env.HOME?[`${process.env.HOME}/.local/bin/${e[0]}`]:[];for(let r of[...e,...t,...n]){let e=Lj(r,`linux`);if(e)return e}return null}var linuxVscode={id:`vscode`,platforms:{linux:{label:`VS Code`,icon:`apps/vscode.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code`],[`/usr/bin/code`,`/snap/bin/code`]),args:$j,supportsSsh:!0}}},linuxVscodeInsiders={id:`vscodeInsiders`,platforms:{linux:{label:`VS Code Insiders`,icon:`apps/vscode-insiders.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`code-insiders`],[`/usr/bin/code-insiders`,`/snap/bin/code-insiders`]),args:$j,supportsSsh:!0}}},linuxCursor={id:`cursor`,platforms:{linux:{label:`Cursor`,icon:`apps/cursor.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`cursor`],[`/usr/bin/cursor`,`/opt/Cursor/cursor`,`/opt/cursor/cursor`]),args:$j,supportsSsh:!0}}},linuxWindsurf={id:`windsurf`,platforms:{linux:{label:`Windsurf`,icon:`apps/windsurf.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`windsurf`],[`/usr/bin/windsurf`,`/opt/Windsurf/windsurf`,`/opt/windsurf/windsurf`]),args:$j,supportsSsh:!0}}},linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`]),args:lN}}},linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:()=>Lj(`xdg-open`,`linux`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`),args:e=>[e],open:async({path:e})=>_N(e)}}};var GN=[linuxVscode,wN,linuxVscodeInsiders,EN,SN,linuxCursor,TM,nM,kM,fN,BN,linuxZed,kN,linuxWindsurf,eM,RM,hN,AM,linuxFileManager,iM,FM,CM,jN,BM,PM,ON,FN,KM,qM,JM,YM,XM,ZM,QM,$M,vN];',
   },
 ];
 const mainLinuxOpenTargetsPatchMarker = 'function linuxResolveEditorTarget(';
@@ -2552,14 +2709,12 @@ function patchCodexMainProcessBundle(extractedAppRoot) {
       },
       {
         label: 'dynamic tool thread starts normalize for bundled app-server',
-        target: mainDynamicToolsStartThreadPatchTarget,
-        replacement: mainDynamicToolsStartThreadPatchReplacement,
+        alternatives: mainDynamicToolsStartThreadPatchAlternatives,
         marker: 'e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap',
       },
       {
         label: 'automation dynamic tools normalize for bundled app-server',
-        target: mainDynamicToolsAutomationPatchTarget,
-        replacement: mainDynamicToolsAutomationPatchReplacement,
+        alternatives: mainDynamicToolsAutomationPatchAlternatives,
         marker: '[di].flatMap(e=>e?.type===`namespace`',
       },
       {
@@ -2722,14 +2877,12 @@ function patchCodexRendererThreadStartBundle(extractedAppRoot) {
     applyPatchesToFile(rendererThreadStartPath, [
       {
         label: 'renderer prewarm thread start normalizes dynamic tools',
-        target: rendererPrewarmThreadStartDynamicToolsPatchTarget,
-        replacement: rendererPrewarmThreadStartDynamicToolsPatchReplacement,
+        alternatives: rendererPrewarmThreadStartDynamicToolsPatchAlternatives,
         marker: 'prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource}',
       },
       {
         label: 'renderer thread start normalizes dynamic tools',
-        target: rendererStartThreadDynamicToolsPatchTarget,
-        replacement: rendererStartThreadDynamicToolsPatchReplacement,
+        alternatives: rendererStartThreadDynamicToolsPatchAlternatives,
         marker: 'e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource}',
       },
     ]),

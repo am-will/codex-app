@@ -281,9 +281,11 @@ describe('Codex package staging RED contract', () => {
     expect(verifyScript).toContain(
       'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
     );
-    expect(verifyScript).toContain('k7=[`memories`,`tool_suggest`]');
     expect(verifyScript).toContain(
-      'k7=[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`]',
+      '[A-Za-z_$][\\w$]*=\\[`memories`,`tool_suggest`\\]',
+    );
+    expect(verifyScript).toContain(
+      '[A-Za-z_$][\\w$]*=\\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\\]',
     );
   });
 
@@ -300,8 +302,14 @@ describe('Codex package staging RED contract', () => {
     expect(pkgbuildSource).toContain("conflicts=('codex-desktop')");
 
     expect(srcInfoSource).toContain('pkgbase = openai-codex-desktop-bin');
-    expect(srcInfoSource).toContain('source = codex-app-linux-x64-v26.601.21319.deb::https://github.com/am-will/codex-app/releases/download/v26.601.21319/codex-app-linux-x64-v26.601.21319.deb');
-    expect(srcInfoSource).toContain('sha256sums = e40e2395b397c48f804715e5bbe8a91e8c9f2ba8c8189b595beedbe6b0904646');
+    const pkgver = pkgbuildSource.match(/^pkgver=(.+)$/m)?.[1];
+    const sha256sum = pkgbuildSource.match(/^sha256sums=\('([^']+)'\)$/m)?.[1];
+    expect(pkgver).toBeTruthy();
+    expect(sha256sum).toBeTruthy();
+    expect(srcInfoSource).toContain(
+      `source = codex-app-linux-x64-v${pkgver}.deb::https://github.com/am-will/codex-app/releases/download/v${pkgver}/codex-app-linux-x64-v${pkgver}.deb`,
+    );
+    expect(srcInfoSource).toContain(`sha256sums = ${sha256sum}`);
 
     const aurDir = path.join(desktopRoot, '..', 'packaging', 'aur', 'openai-codex-desktop-bin');
     const aurFiles = fs.readdirSync(aurDir);
