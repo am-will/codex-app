@@ -28,12 +28,11 @@ function requireRecoveredBuildAsset(pattern: RegExp): string {
 describe('T8 RED contract: recovered compiled bundle integration', () => {
   test('recovered compiled bundle assets exist in desktop canonical location', () => {
     const requiredRecoveredPaths = [
-      '.vite/build/bootstrap.js',
+      '.vite/build/early-bootstrap.js',
       '.vite/build/preload.js',
       '.vite/build/worker.js',
       'webview/index.html',
       'webview/assets',
-      'skills',
     ];
 
     for (const relativePath of requiredRecoveredPaths) {
@@ -49,7 +48,7 @@ describe('T8 RED contract: recovered compiled bundle integration', () => {
       main?: string;
     };
     const recoveredBootstrapSource = fs.readFileSync(
-      path.join(recoveredBuildRoot, 'bootstrap.js'),
+      requireRecoveredBuildAsset(/^bootstrap(?:-.+)?\.js$/),
       'utf8',
     );
     const recoveredPreloadSource = fs.readFileSync(
@@ -57,7 +56,7 @@ describe('T8 RED contract: recovered compiled bundle integration', () => {
       'utf8',
     );
 
-    expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
+    expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
     expect(recoveredBootstrapSource).toContain('Desktop bootstrap failed to start the main app');
     expect(recoveredBootstrapSource).toContain('app.whenReady().then');
     expect(recoveredBootstrapSource).toContain('console.error(');

@@ -1,0 +1,1 @@
+import{GU as e,WU as t}from"./app-initial~app-main~new-thread-panel-page~appgen-library-page~hotkey-window-thread-page~ho~iufn7mg3-MXsOJYYa.js";t();export{e as default};

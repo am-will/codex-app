@@ -1,34 +1,41 @@
 # Linux Runtime Manual Smoke
 
-## Scope
-
-This note captures the manual Linux runtime checks performed for `T6` in the
-Ubuntu reconstruction workspace.
-
-## Commands Run
-
-From `/home/willr/Applications/codex-app/desktop`:
+## Static And Package Checks
 
 ```bash
+cd desktop
+npm run hydrate:codex:linux
 npm run test:linux
-./resources/bin/linux-x64/rg --version | head -n 1
-timeout 10s ./resources/bin/linux-x64/codex --help | head -n 5
+npm run package
+node scripts/verify-linux-package-contract.mjs \
+  --package-root out/Codex-linux-x64
 ```
 
-## Observed Results
+## Helper Checks
 
-- `npm run test:linux`
-  - Passed with Linux executable-resolution, PTY lifecycle, helper execute-bit,
-    deeplink, and startup-registration coverage green.
-- `./resources/bin/linux-x64/rg --version | head -n 1`
-  - Returned `ripgrep 15.1.0 (rev af60c2de9d)`.
-- `timeout 10s ./resources/bin/linux-x64/codex --help | head -n 5`
-  - Returned the expected Codex CLI help banner and usage text.
+```bash
+./out/Codex-linux-x64/resources/codex --version
+./out/Codex-linux-x64/resources/codex doctor
+./out/Codex-linux-x64/resources/rg --version
+```
 
-## Notes
+Expected app-server version: `0.144.0-alpha.4`.
 
-- The helper binaries are staged from the extracted Windows package's Linux ELF
-  payload and normalized to `0755` in the reconstruction workspace.
-- PTY validation currently runs through the Node test harness using `node-pty`
-  on Ubuntu, which is sufficient for runtime-layer verification before the
-  packaging task finalizes bundled resource placement.
+## Graphical Smoke
+
+```bash
+./out/Codex-linux-x64/Codex --no-sandbox
+```
+
+Confirm the runtime log reaches all of these states:
+
+- `window ready-to-show`
+- `initialize_handshake_result ... outcome=success`
+- `Codex CLI initialized`
+- `app routes mounted`
+- successful `model/list`
+- release `26.707.31123`
+
+The package verifier separately requires the `gpt-5.6-sol` renderer marker and complete
+Codex vendor layout, so a graphical smoke cannot pass while silently using the older
+single-binary helper package.

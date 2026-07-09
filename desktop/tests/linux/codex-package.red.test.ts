@@ -54,6 +54,26 @@ describe('Codex package staging RED contract', () => {
     }
   });
 
+  test('local package commands hydrate the complete version-matched Codex helper layout', () => {
+    const packageJson = JSON.parse(readDesktopFile('package.json')) as PackageJson;
+    const scripts = packageJson.scripts ?? {};
+    const hydrateCommand = scripts['hydrate:codex:linux'];
+
+    expect(hydrateCommand).toBe('node ./scripts/hydrate-codex-linux-helpers.mjs');
+    expect(readDesktopFile('scripts/hydrate-codex-linux-helpers.mjs')).toContain(
+      "'bin/codex-code-mode-host'",
+    );
+    expect(readDesktopFile('scripts/hydrate-codex-linux-helpers.mjs')).toContain(
+      "'codex-resources/bwrap'",
+    );
+    for (const scriptName of ['start', 'package', 'make', 'make:linux', 'publish']) {
+      expect(scripts[scriptName]).toContain('npm run hydrate:codex:linux');
+    }
+    expect(scripts['make:linux:arm64:deb']).toContain(
+      'npm run hydrate:codex:linux -- --arch arm64',
+    );
+  });
+
   test('codex staging scripts target the codex payload and avoid recovered-runtime coupling', () => {
     const packageJson = JSON.parse(readDesktopFile('package.json')) as PackageJson;
     const scripts = packageJson.scripts ?? {};
@@ -215,20 +235,19 @@ describe('Codex package staging RED contract', () => {
 
   test('linux release workflow hydrates helpers and writes concrete release note filenames', () => {
     const workflowSource = readDesktopFile('../.github/workflows/linux-release.yml');
+    const hydrateSource = readDesktopFile('scripts/hydrate-codex-linux-helpers.mjs');
 
     expect(workflowSource).not.toContain('lfs: true');
     expect(workflowSource).toContain('Hydrate Linux codex helpers');
     expect(workflowSource).toContain(
-      'CODEX_CLI_VERSION="$(node -p "require(\'./desktop/package.json\').codexCliVersion")"',
+      'node desktop/scripts/hydrate-codex-linux-helpers.mjs --arch x64',
     );
-    expect(workflowSource).toContain('"@openai/codex@${CODEX_CLI_VERSION}"');
+    expect(hydrateSource).toContain('`@openai/codex@${expectedVersion}`');
     expect(workflowSource).not.toMatch(/@openai\/codex@0\.\d+\.\d+/);
     expect(workflowSource).toContain('Verify Linux codex helpers');
-    expect(workflowSource).toContain("*/vendor/*/bin/codex");
-    expect(workflowSource).toContain("*/vendor/*/codex-path/rg");
-    expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex-vendor/bin/codex');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
-    expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex --version');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex-vendor/bin/codex --version');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg --version');
     expect(workflowSource).toContain('Verify Linux release package contract');
     expect(workflowSource).toContain('dpkg-deb -x "${CURRENT_DEB_SOURCE}"');
@@ -236,9 +255,9 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).toContain('build-linux-arm64-deb');
     expect(workflowSource).toContain('runs-on: ubuntu-22.04-arm');
     expect(workflowSource).toContain(
-      '--os=linux --cpu=arm64 "@openai/codex@${CODEX_CLI_VERSION}"',
+      'node desktop/scripts/hydrate-codex-linux-helpers.mjs --arch arm64',
     );
-    expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/codex');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/codex-vendor/bin/codex');
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/git');
     expect(workflowSource).toContain('CODEX_LINUX_HELPER_ARCH: linux-arm64');
@@ -266,14 +285,20 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).not.toContain('<current-version>');
   });
 
-  test('linux package contract verifies bundled app-server version and thread-start protocol markers', () => {
+  test('linux package contract verifies bundled helper layout and brand-specific protocol markers', () => {
     const packageJson = JSON.parse(readDesktopFile('package.json')) as PackageJson;
     const verifyScript = readDesktopFile('scripts/verify-linux-package-contract.mjs');
 
-    expect(packageJson.codexCliVersion).toBe('0.142.4');
+    expect(packageJson.codexCliVersion).toBe('0.144.0-alpha.4');
     expect(packageJson.codexCliVersion).not.toBe('0.136.0');
     expect(verifyScript).toContain('codexPath, [\'--version\']');
     expect(verifyScript).toContain('codex-cli ${expectedCliVersion}');
+    expect(verifyScript).toContain('codex-vendor');
+    expect(verifyScript).toContain('bin/codex-code-mode-host');
+    expect(verifyScript).toContain('codex-resources/bwrap');
+    expect(verifyScript).toContain('codex-resources/zsh/bin/zsh');
+    expect(verifyScript).toContain('gpt-5.6-sol');
+    expect(verifyScript).toContain('data-linux-codex-window-controls');
     expect(verifyScript).toContain(
       'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
     );

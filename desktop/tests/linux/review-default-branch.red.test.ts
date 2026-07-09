@@ -45,11 +45,11 @@ describe('Review base branch regression gate (RED)', () => {
   test('default branch resolution still falls back to main or master in the worker bundle', () => {
     const workerSource = readRecoveredWorkerBundle();
 
-    expect(workerSource).toContain('async handleDefaultBranch');
+    expect(workerSource).toContain('async getDefaultBranch');
     expect(workerSource).toContain('getWorktreeRepositoryForRoot(e.root,t)');
     expect(workerSource).toContain('?.branch??null;return');
     expect(workerSource).toMatch(
-      /\.find\([A-Za-z_$][\w$]*=>[A-Za-z_$][\w$]*===`main`\|\|[A-Za-z_$][\w$]*===`master`\)\?\?null,[A-Za-z_$][\w$]*\(\{branch:[A-Za-z_$][\w$]*\}\)/,
+      /\.find\([A-Za-z_$][\w$]*=>[A-Za-z_$][\w$]*===`main`\|\|[A-Za-z_$][\w$]*===`master`\)\?\?null,\{branch:[A-Za-z_$][\w$]*\}/,
     );
   });
 

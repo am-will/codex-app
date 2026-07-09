@@ -25,24 +25,18 @@ jobs:
           cache-dependency-path: desktop/package-lock.json
 
       - name: Hydrate Linux codex helpers
-        run: |
-          set -euo pipefail
-          CODEX_CLI_VERSION="$(node -p "require('./desktop/package.json').codexCliVersion")"
-          test -n "${CODEX_CLI_VERSION}"
-          npm install --prefix /tmp/codex-cli-package "@openai/codex@${CODEX_CLI_VERSION}"
-          CODEX_BINARY="$(find /tmp/codex-cli-package/node_modules -path '*/vendor/*/bin/codex' -type f | head -n 1)"
-          RG_BINARY="$(find /tmp/codex-cli-package/node_modules -path '*/vendor/*/codex-path/rg' -type f | head -n 1)"
-          test -n "${CODEX_BINARY}"
-          test -n "${RG_BINARY}"
-          install -m 0755 "${CODEX_BINARY}" desktop/resources/bin/linux-x64/codex
-          install -m 0755 "${RG_BINARY}" desktop/resources/bin/linux-x64/rg
+        run: node desktop/scripts/hydrate-codex-linux-helpers.mjs --arch x64
 
       - name: Verify Linux codex helpers
         run: |
           set -euo pipefail
-          test -x desktop/resources/bin/linux-x64/codex
+          test -x desktop/resources/bin/codex-launcher
+          test -x desktop/resources/bin/linux-x64/codex-vendor/bin/codex
+          test -x desktop/resources/bin/linux-x64/codex-vendor/bin/codex-code-mode-host
+          test -x desktop/resources/bin/linux-x64/codex-vendor/codex-resources/bwrap
+          test -x desktop/resources/bin/linux-x64/codex-vendor/codex-resources/zsh/bin/zsh
           test -x desktop/resources/bin/linux-x64/rg
-          desktop/resources/bin/linux-x64/codex --version
+          desktop/resources/bin/linux-x64/codex-vendor/bin/codex --version
           desktop/resources/bin/linux-x64/rg --version | head -n 1
 
       - name: Install Linux packaging dependencies
@@ -127,37 +121,25 @@ jobs:
       - name: Hydrate Linux arm64 codex helpers
         run: |
           set -euo pipefail
-          CODEX_CLI_VERSION="$(node -p "require('./desktop/package.json').codexCliVersion")"
-          test -n "${CODEX_CLI_VERSION}"
-          npm install --prefix /tmp/codex-cli-package-arm64 --os=linux --cpu=arm64 "@openai/codex@${CODEX_CLI_VERSION}"
-          npm install --prefix /tmp/codex-cli-package-x64 --os=linux --cpu=x64 "@openai/codex@${CODEX_CLI_VERSION}"
-          CODEX_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/bin/codex' -type f | head -n 1)"
-          RG_BINARY="$(find /tmp/codex-cli-package-arm64/node_modules -path '*/vendor/*/codex-path/rg' -type f | head -n 1)"
-          X64_CODEX_BINARY="$(find /tmp/codex-cli-package-x64/node_modules -path '*/vendor/*/bin/codex' -type f | head -n 1)"
-          X64_RG_BINARY="$(find /tmp/codex-cli-package-x64/node_modules -path '*/vendor/*/codex-path/rg' -type f | head -n 1)"
-          test -n "${CODEX_BINARY}"
-          test -n "${RG_BINARY}"
-          test -n "${X64_CODEX_BINARY}"
-          test -n "${X64_RG_BINARY}"
-          mkdir -p desktop/resources/bin/linux-arm64
-          mkdir -p desktop/resources/bin/linux-x64
-          install -m 0755 "${CODEX_BINARY}" desktop/resources/bin/linux-arm64/codex
-          install -m 0755 "${RG_BINARY}" desktop/resources/bin/linux-arm64/rg
-          install -m 0755 "${X64_CODEX_BINARY}" desktop/resources/bin/linux-x64/codex
-          install -m 0755 "${X64_RG_BINARY}" desktop/resources/bin/linux-x64/rg
+          node desktop/scripts/hydrate-codex-linux-helpers.mjs --arch arm64
+          node desktop/scripts/hydrate-codex-linux-helpers.mjs --arch x64
           install -m 0755 desktop/resources/bin/linux-x64/git desktop/resources/bin/linux-arm64/git
 
       - name: Verify Linux arm64 codex helpers
         run: |
           set -euo pipefail
-          test -x desktop/resources/bin/linux-arm64/codex
+          test -x desktop/resources/bin/codex-launcher
+          test -x desktop/resources/bin/linux-arm64/codex-vendor/bin/codex
+          test -x desktop/resources/bin/linux-arm64/codex-vendor/bin/codex-code-mode-host
+          test -x desktop/resources/bin/linux-arm64/codex-vendor/codex-resources/bwrap
+          test -x desktop/resources/bin/linux-arm64/codex-vendor/codex-resources/zsh/bin/zsh
           test -x desktop/resources/bin/linux-arm64/rg
           test -x desktop/resources/bin/linux-arm64/git
-          test -x desktop/resources/bin/linux-x64/codex
+          test -x desktop/resources/bin/linux-x64/codex-vendor/bin/codex
           test -x desktop/resources/bin/linux-x64/rg
-          file desktop/resources/bin/linux-arm64/codex | grep -Eq 'aarch64|ARM aarch64|ARM64'
+          file desktop/resources/bin/linux-arm64/codex-vendor/bin/codex | grep -Eq 'aarch64|ARM aarch64|ARM64'
           file desktop/resources/bin/linux-arm64/rg | grep -Eq 'aarch64|ARM aarch64|ARM64'
-          desktop/resources/bin/linux-arm64/codex --version
+          desktop/resources/bin/linux-arm64/codex-vendor/bin/codex --version
           desktop/resources/bin/linux-arm64/rg --version | head -n 1
 
       - name: Install dependencies

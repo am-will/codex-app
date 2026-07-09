@@ -2,45 +2,44 @@
 
 ## Canonical Input
 
-- Canonical current upstream payload root: `codex/`
-- Upstream packaging label: `codex`
-- Windows package manifest version: `26.325.2171.0`
-- Packaged JS app version: `26.325.21211`
+- Production appcast payload: `ChatGPT-darwin-arm64-26.707.31123.zip`
+- Packaged app version: `26.707.31123`
 - Build flavor: `prod`
-- Build number: `1255`
-- Bundled Electron version: `40.0.0`
-- Packaged app entrypoint: `.vite/build/bootstrap.js`
-- Recovered hashed main bundle: `.vite/build/main-I2_kj945.js`
-- Recovered renderer entry: `webview/assets/index-CQAG2N8w.js`
+- Build number: `5042`
+- App brand: `chatgpt`
+- Electron: `42.1.0`
+- Entry point: `.vite/build/early-bootstrap.js`
+- Bootstrap chunk: `.vite/build/bootstrap-CPtwLWh9.js`
+- Main-process chunk: `.vite/build/main-C2EbnYJv.js`
+- Renderer entry: `webview/assets/index-B6Kcpz4u.js`
+- Codex helper: `@openai/codex@0.144.0-alpha.4`
 
-## Reconstruction Workspace
+The refresh manifest records the source archive hash and portable source path. It does
+not retain contributor-specific absolute paths.
 
-- Active reconstruction app: `desktop/`
-- Runtime stack: Electron Forge + Vite + TypeScript
-- Current local starting point:
-  - packaged successfully on Linux
-  - launched successfully on Linux
-  - validated via `agent-browser` over CDP against the packaged app
+## Linux Mapping
 
-## Mapping Decision
+The macOS app supplies the JavaScript and web assets used as the behavioral reference.
+The Linux package supplies its own platform runtime:
 
-Because no original pnpm workspace is available, this repository uses the packaged upstream bundle in `codex/` as the canonical behavioral reference and `desktop/` as the implementation workspace for the Linux reconstruction.
+| Upstream component | Linux mapping |
+|---|---|
+| Electron 42.1.0 app shell | Electron Forge Linux package |
+| `.vite` and `webview` payload | recovered and narrowly patched `app.asar` |
+| Mach-O native modules | rebuilt Linux `better-sqlite3` and `node-pty` modules |
+| bundled macOS Codex helper | exact Linux `@openai/codex@0.144.0-alpha.4` vendor tree |
+| Sparkle updates | GitHub release artifacts and repository release workflow |
 
-Version policy for the current line:
+## Version Policy
 
-- `26.325.2171.0` identifies the imported Windows package payload.
-- `26.325.21211` drives `desktop/package.json`, Linux artifact names, and visible Electron app version surfaces.
-- `1255` is the embedded build number carried by the Linux wrapper metadata.
+`26.707.31123` drives `desktop/package.json`, installer names, and visible desktop
+version surfaces. Build `5042` remains separate metadata. Workspace Dependencies is a
+separate downloadable runtime stream and must not be presented as the desktop version.
 
-## Reference Inputs
+## Constraints
 
-- Primary parity oracle: packaged upstream bundle in `codex/`
-- Secondary parity oracle: mac app exists conceptually but is not present locally in this repository
-
-## Known Constraints
-
-- Internal workspace packages referenced by the extracted bundle are unavailable as source:
-  - `app-server-types`
-  - `protocol`
-  - `shared-node`
-- Native binaries in the extracted package are mixed-platform artifacts, but the shipped Electron host and several native modules are Windows-specific in that bundle.
+- Internal source workspaces referenced by the extracted package are unavailable.
+- Patch alternatives therefore target compiled behavior and fail when a required shape
+  is absent.
+- Brand-specific skips are explicit in the refresh manifest so removed standalone
+  Codex chunks are not treated as missing Linux support.

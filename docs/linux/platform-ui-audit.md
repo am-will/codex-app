@@ -2,39 +2,43 @@
 
 ## Scope
 
-- Workspace: `/home/willr/Applications/codex-app/desktop`
-- Recovered bundle: `/home/willr/Applications/codex-app/desktop/recovered/app-asar-extracted`
-- Validation date: 2026-03-27
+- Payload: ChatGPT/Codex `26.707.31123`, build `5042`
+- Electron: `42.1.0`
+- Validation date: 2026-07-09
 
-## What is now wired
+## Current Wiring
 
-- The app entrypoint now boots the recovered compiled Codex Electron bundle from `recovered/app-asar-extracted/.vite/build/bootstrap.js`.
-- The recovered preload bridge is shipped intact from `recovered/app-asar-extracted/.vite/build/preload.js`.
-- The recovered renderer is shipped intact from `recovered/app-asar-extracted/webview/index.html` and hashed `webview/assets/*` chunks.
-- The recovered skills payload is shipped from `recovered/app-asar-extracted/skills`.
-- Native Linux runtime deps are resolved from the top-level app `node_modules`, and Forge explicitly excludes the recovered nested `node_modules` tree so Windows upstream payloads do not leak into Linux packages.
+- `desktop/package.json` starts the recovered `.vite/build/early-bootstrap.js` entry.
+- The hashed bootstrap, main-process, preload, worker, and renderer chunks are tracked
+  under `desktop/recovered/app-asar-extracted`.
+- Linux title-bar controls and application submenus are injected into the current
+  ChatGPT app-shell bundle.
+- Linux browser-session handoff, git-origin filtering, focus restoration, startup
+  background, and X11 launch behavior remain applied through the assembler.
+- Removed standalone-only chunks are handled by app-brand gates instead of forcing old
+  patches into the ChatGPT payload.
 
-## Verified runtime behavior
+## Verified Runtime Behavior
 
-- `npm run test:linux` passes with the recovered bundle tests enabled.
-- `npm run package` succeeds after Electron 40 native rebuilds.
-- `npm run make` succeeds and emits `desktop/out/make/deb/x64/codex-desktop_26.325.21211_amd64.deb` and `desktop/out/make/AppImage/x64/Codex-26.325.21211-x64.AppImage`.
-- The packaged Linux app was inspected over CDP from the built output.
-- CDP target enumeration during packaged runtime reports:
-  - title: `Codex`
-  - url: `app://-/index.html?hostId=local`
-- During packaged runtime, the recovered app-server transport connects successfully to the bundled Linux helper at `resources/codex`.
-- The packaged plugins, skills, and settings surfaces render from the refreshed app bundle.
-- Plain unpacked local launches still require preserved `chrome-sandbox` setuid permissions or `--no-sandbox` for smoke validation.
+- The Linux regression suite and package contract pass.
+- The packaged app opens a ready-to-show primary window.
+- The app-server transport starts from `resources/codex` and reports
+  `0.144.0-alpha.4`.
+- `model/list` succeeds, and the recovered renderer includes `gpt-5.6-sol` and
+  `gpt-5.6-terra`.
+- The renderer mounts the app routes, browser-use native pipe startup succeeds, and
+  Linux window controls render from the patched app shell.
 
-## Reverse-engineered bridge/runtime findings now exercised on Linux
+## Expected Non-Blocking Warnings
 
-- The recovered preload exposes `window.codexWindowType = "electron"`.
-- The recovered preload exposes `window.electronBridge` with the compiled IPC surface required by the renderer.
-- The recovered main bundle registers the `app://` asset scheme and serves the recovered renderer from the bundled `webview` payload.
-- The recovered main bundle initializes the local app-server transport and Linux helper process successfully in packaged execution.
+- An unpacked smoke build may fail to register `codex://` until installed through a
+  desktop package.
+- Node REPL browser support remains unavailable until the selected primary runtime is
+  installed; native browser use still initializes independently.
+- A locally cached remote-control environment can log a disconnected host until the
+  renderer refreshes that state.
 
-## Remaining parity work
+## Remaining Validation
 
-- Wider manual UX coverage for updater wording and remote-connection flows still benefits from a dedicated follow-up pass with a configured remote target.
-- Full packaged parity sweeps on Ubuntu 22.04 and 24.04 remain useful follow-up validation beyond this refresh.
+- Release CI should build x64 AppImage, deb, and rpm artifacts plus the arm64 deb.
+- Broader distro coverage remains useful beyond the Ubuntu release builders.

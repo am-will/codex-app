@@ -46,6 +46,14 @@ export function findRecoveredMainBuildFile(): string {
   return findRecoveredBuildFileMatching(/^main-.*\.js$/);
 }
 
+export function findRecoveredBootstrapBuildFile(): string {
+  return findRecoveredBuildFileMatching(/^bootstrap(?:-.+)?\.js$/);
+}
+
+export function readRecoveredBootstrapBuildFile(): string {
+  return readRecoveredBuildFile(findRecoveredBootstrapBuildFile());
+}
+
 export function readRecoveredMainBuildFile(): string {
   return readRecoveredBuildFile(findRecoveredMainBuildFile());
 }

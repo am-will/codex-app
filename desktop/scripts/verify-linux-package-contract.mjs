@@ -42,6 +42,29 @@ const forbiddenAppAsarMarkers = [
   },
 ];
 
+const chatGptRequiredAppAsarMarkers = [
+  {
+    label: 'GPT-5.6 model assets',
+    marker: 'gpt-5.6-sol',
+  },
+  {
+    label: 'GPT-5.6 Terra model assets',
+    marker: 'gpt-5.6-terra',
+  },
+  {
+    label: 'Linux window controls IPC bridge',
+    marker: 'codex_desktop:control-window',
+  },
+  {
+    label: 'Linux window controls renderer',
+    marker: 'data-linux-codex-window-controls',
+  },
+  {
+    label: 'Linux application submenu renderer',
+    marker: 'linux-application-menu-panel',
+  },
+];
+
 function sourceHasMarker(source, marker) {
   if (marker.markerPattern) {
     return marker.markerPattern.test(source);
@@ -74,9 +97,35 @@ function assertFile(filePath, label) {
   }
 }
 
+function assertExecutable(filePath, label) {
+  assertFile(filePath, label);
+  fs.accessSync(filePath, fs.constants.X_OK);
+}
+
 function assertBundledCliVersion({ packageRoot, expectedCliVersion }) {
   const codexPath = path.join(packageRoot, 'resources', 'codex');
-  assertFile(codexPath, 'Bundled codex helper');
+  assertExecutable(codexPath, 'Bundled codex launcher');
+
+  const vendorRoot = path.join(packageRoot, 'resources', 'codex-vendor');
+  const vendorMetadataPath = path.join(vendorRoot, 'codex-package.json');
+  assertFile(vendorMetadataPath, 'Bundled codex vendor metadata');
+  const vendorMetadata = JSON.parse(fs.readFileSync(vendorMetadataPath, 'utf8'));
+  if (vendorMetadata.version !== expectedCliVersion) {
+    throw new Error(
+      `Expected codex vendor metadata version "${expectedCliVersion}", ` +
+        `found "${vendorMetadata.version ?? 'unknown'}".`,
+    );
+  }
+
+  for (const [relativePath, label] of [
+    ['bin/codex', 'Bundled codex executable'],
+    ['bin/codex-code-mode-host', 'Bundled codex code-mode host'],
+    ['codex-path/rg', 'Bundled codex ripgrep helper'],
+    ['codex-resources/bwrap', 'Bundled codex bubblewrap helper'],
+    ['codex-resources/zsh/bin/zsh', 'Bundled codex zsh helper'],
+  ]) {
+    assertExecutable(path.join(vendorRoot, relativePath), label);
+  }
 
   const actualVersion = childProcess
     .execFileSync(codexPath, ['--version'], {
@@ -105,16 +154,23 @@ function assertAppAsarMarkers(packageRoot) {
   const appAsarPath = path.join(packageRoot, 'resources', 'app.asar');
   assertFile(appAsarPath, 'Packaged app.asar');
 
+  const packageMetadata = JSON.parse(asar.extractFile(appAsarPath, 'package.json').toString('utf8'));
   const appAsarSource = readAsarJavaScriptSources(appAsarPath).join('\n');
+  const requiredMarkers =
+    packageMetadata.codexAppBrand === 'chatgpt'
+      ? chatGptRequiredAppAsarMarkers
+      : requiredAppAsarMarkers;
+  const forbiddenMarkers =
+    packageMetadata.codexAppBrand === 'chatgpt' ? [] : forbiddenAppAsarMarkers;
 
-  for (const marker of requiredAppAsarMarkers) {
+  for (const marker of requiredMarkers) {
     if (!sourceHasMarker(appAsarSource, marker)) {
       const { label } = marker;
       throw new Error(`Packaged app.asar is missing ${label} marker.`);
     }
   }
 
-  for (const marker of forbiddenAppAsarMarkers) {
+  for (const marker of forbiddenMarkers) {
     if (sourceHasMarker(appAsarSource, marker)) {
       const { label } = marker;
       throw new Error(`Packaged app.asar still contains ${label} marker.`);

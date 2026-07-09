@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";function t(e,t,n,r){let i=e!==!0&&n===0&&(r===`user_limit_reached`||r===`workspace_limit_reached`);return{hasReachedReferralLimit:i,hasReachedWorkspaceReferralLimit:i&&r===`workspace_limit_reached`,shouldShow:t||i}}var n=e((()=>{}));export{n,t};
+//# sourceMappingURL=app-initial~app-main~onboarding-page~hotkey-window-thread-page~quick-chat-window-page~chatg~jno3xtdy-DKVussJJ.js.map

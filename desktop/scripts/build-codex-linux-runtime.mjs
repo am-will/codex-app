@@ -153,11 +153,16 @@ function copyRuntimeResources({ shellRoot, assembledRoot, outputRoot }) {
 
   fs.mkdirSync(outputResourcesRoot, { recursive: true });
 
-  const requiredCodex = ['app.asar', 'codex', 'git', 'rg'];
+  const requiredCodex = ['app.asar', 'codex', 'git', 'rg', 'codex-vendor'];
   for (const resourceName of requiredCodex) {
     const sourcePath = path.join(assembledResourcesRoot, resourceName);
     assertExists(sourcePath, `Assembled codex resource "${resourceName}"`);
     const outputPath = path.join(outputResourcesRoot, resourceName);
+    if (fs.statSync(sourcePath).isDirectory()) {
+      copyTree(sourcePath, outputPath);
+      continue;
+    }
+
     fs.copyFileSync(sourcePath, outputPath);
 
     const shellPath = path.join(shellResourcesRoot, resourceName);

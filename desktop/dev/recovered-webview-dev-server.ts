@@ -11,7 +11,12 @@ export const RECOVERED_LINUX_BIN_ROOT = path.resolve(
   'bin',
   'linux-x64',
 );
-export const RECOVERED_CODEX_CLI_PATH = path.join(RECOVERED_LINUX_BIN_ROOT, 'codex');
+export const RECOVERED_CODEX_CLI_PATH = path.join(
+  RECOVERED_LINUX_BIN_ROOT,
+  'codex-vendor',
+  'bin',
+  'codex',
+);
 export const RECOVERED_GIT_EXECUTABLE_PATH = path.join(RECOVERED_LINUX_BIN_ROOT, 'git');
 export const RECOVERED_RG_EXECUTABLE_PATH = path.join(RECOVERED_LINUX_BIN_ROOT, 'rg');
 export const RECOVERED_WEBVIEW_ROOT = path.resolve(
