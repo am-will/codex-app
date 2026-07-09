@@ -1,4 +1,5 @@
 import type { ForgeConfig } from '@electron-forge/shared-types';
+import fs from 'node:fs';
 import path from 'node:path';
 
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
@@ -64,7 +65,8 @@ const config: ForgeConfig = {
     asar: true,
     icon: linuxPackagerIcon,
     extraResource: [
-      path.join(linuxHelperResourceRoot, 'codex'),
+      path.join(__dirname, 'resources', 'bin', 'codex-launcher'),
+      path.join(linuxHelperResourceRoot, 'codex-vendor'),
       path.join(linuxHelperResourceRoot, 'rg'),
       path.join(__dirname, 'resources', 'plugins'),
     ],
@@ -104,6 +106,15 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   hooks: {
+    postPackage: async (_forgeConfig, packageResult) => {
+      for (const outputPath of packageResult.outputPaths) {
+        const resourcesRoot = path.join(outputPath, 'resources');
+        const launcherPath = path.join(resourcesRoot, 'codex-launcher');
+        const codexPath = path.join(resourcesRoot, 'codex');
+        fs.renameSync(launcherPath, codexPath);
+        fs.chmodSync(codexPath, 0o755);
+      }
+    },
     preStart: async () => {
       applyRecoveredLinuxHelperEnv();
       await ensureRecoveredWebviewDevServer();

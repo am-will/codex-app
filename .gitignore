@@ -14,6 +14,7 @@ desktop/.webpack/
 desktop/.git/
 desktop/tmp/
 desktop/.tmp-tests/
+desktop/resources/bin/linux-*/codex-vendor/
 docs/linux/parity-captures/
 codex-3-12/
 /bootstrap*.js

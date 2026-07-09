@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BiTjvxq-.js";var r,i=e((()=>{t(),r=n(`AirVent`,[[`path`,{d:`M6 12H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2`,key:`larmp2`}],[`path`,{d:`M6 8h12`,key:`6g4wlu`}],[`path`,{d:`M18.3 17.7a2.5 2.5 0 0 1-3.16 3.83 2.53 2.53 0 0 1-1.14-2V12`,key:`1bo8pg`}],[`path`,{d:`M6.6 15.6A2 2 0 1 0 10 17v-5`,key:`t9h90c`}]])}));export{i as n,r as t};
+//# sourceMappingURL=air-vent-CslCjrCM-DhTPb5pJ.js.map

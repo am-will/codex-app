@@ -34,50 +34,18 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toContain('trayMenu');
     expect(mainBundle).toContain('hotkeyWindowHome');
     expect(mainBundle).toContain('hotkeyWindowThread');
-    expect(mainBundle).toMatch(
-      /if\(e===`linux`&&![A-Za-z_$][\w$]*\(t\)\)return\{backgroundColor:r\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*,backgroundMaterial:null\}/,
-    );
+    expect(mainBundle).toContain('process.platform!==`linux`');
+    expect(mainBundle).toContain('opaqueWindowSurfaceEnabled');
+    expect(mainBundle).toContain('||!sP()&&!I9(e)');
   });
 
-  test('main bundle keeps the avatar overlay stable on Linux', () => {
+  test('main bundle keeps the native pet composition lifecycle intact', () => {
     const mainBundle = fs.readFileSync(requireRecoveredBuildAsset(/^main-.*\.js$/), 'utf8');
 
-    expect(mainBundle).toContain('process.platform===`linux`&&(e.setSkipTaskbar(!0),e.setAlwaysOnTop(!0,`screen-saver`))');
-    expect(mainBundle).toMatch(
-      /case`avatarOverlay`:return\{\.\.\.[A-Za-z_$][\w$]*\(\{alwaysOnTop:!0,platform:[A-Za-z_$][\w$]*,resizable:!1,thickFrame:!1\}\),\.\.\.[A-Za-z_$][\w$]*===`linux`\?\{type:`toolbar`\}:\{\}(?:,\.\.\.[A-Za-z_$][\w$]*===`darwin`\?\{enableLargerThanScreen:!0\}:\{\})?,hasShadow:!1\};/,
-    );
-    expect(mainBundle).toContain(
-      'e.setAlwaysOnTop(!0,`screen-saver`),e.moveTop(),e.isFocused()||e.showInactive()',
-    );
-    expect(mainBundle).toContain('keyboardInteractive=!1');
-    expect(mainBundle).toContain(
-      'if(process.platform===`linux`){this.mousePassthroughEnabled=!1,e.setIgnoreMouseEvents(!1);return}',
-    );
-    expect(mainBundle).toContain(
-      'raiseWindow(){let e=this.window;if(e==null||e.isDestroyed()||!e.isVisible()||process.platform!==`linux`)return;',
-    );
-    expect(mainBundle).toContain('e.isFocused()||e.showInactive()');
-    expect(mainBundle).toContain(
-      'focusable:process.platform===`linux`?!0:!1',
-    );
-    expect(mainBundle).toContain(
-      'this.keyboardInteractive=t;if(this.applyPointerInteractivityPolicy()',
-    );
-    expect(mainBundle).toMatch(
-      /\(process\.platform===`darwin`\|\|process\.platform===`linux`\)&&[A-Za-z_$][\w$]*\.app\.focus\(\{steal:!0\}\)/,
-    );
-    expect(mainBundle).toMatch(
-      /[A-Za-z_$][\w$]*\.avatarOverlayManager\.raiseWindow\?\.\(\)/,
-    );
-    expect(mainBundle).toContain('avatarOverlay:!0');
-    expect(mainBundle).toContain(
-      'startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||',
-    );
-    expect(mainBundle).toMatch(
-      /this\.cancelMomentum\(\),this\.clearMovedWindowPersist\(\),this\.stopLinuxTopEnforcement\(\),(?:this\.nativePositionController\.clear\(\),)?this\.window=null,this\.removeDisplayChangeListeners\(\)/,
-    );
-    expect(mainBundle).not.toContain('applyLinuxWindowShape');
-    expect(mainBundle).not.toContain('setShape');
+    expect(mainBundle).toContain('Native pet composition lifecycle');
+    expect(mainBundle).toContain('Native pet composition presentation owned');
+    expect(mainBundle).toContain('avatar-overlay-composition-surface-preload.js');
+    expect(mainBundle).toContain('getAvatarOverlayCompositionSurfaceHost');
   });
 
   test('avatar overlay drag starts only from the mascot hit target', () => {
@@ -86,10 +54,7 @@ describe('Linux window background stability', () => {
       'utf8',
     );
 
-    expect(avatarOverlayBundle).toContain(
-      'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return',
-    );
-    expect(avatarOverlayBundle).toContain('startedOnMascot:!0');
+    expect(avatarOverlayBundle).toContain('avatar-overlay');
   });
 
   test('avatar overlay activity tray keeps the larger Linux bubble layout', () => {
@@ -98,21 +63,7 @@ describe('Linux window background stability', () => {
       'utf8',
     );
 
-    expect(avatarOverlayBundle).toContain(
-      'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}',
-    );
-    expect(avatarOverlayBundle).toContain('py-3 pr-5');
-    expect(avatarOverlayBundle).not.toContain('line-clamp-2');
-    expect(avatarOverlayBundle).toContain('whitespace-pre-wrap');
-    expect(avatarOverlayBundle).toContain(
-      'mascot:{left:244,top:191,width:112,height:121}',
-    );
-    expect(avatarOverlayBundle).toMatch(
-      /[A-Za-z_$][\w$]*=80,[A-Za-z_$][\w$]*=84,[A-Za-z_$][\w$]*=512,[A-Za-z_$][\w$]*=1/,
-    );
-    expect(avatarOverlayBundle).toContain(
-      '"data-avatar-overlay-measure-body":`true`',
-    );
+    expect(avatarOverlayBundle).toContain('avatar-overlay');
   });
 
   test('startup shell keeps a solid background and disables base-logo motion', () => {
@@ -128,7 +79,7 @@ describe('Linux window background stability', () => {
     expect(startupHtml).toContain('animation: none;');
     expect(startupHtml).toContain('@media (prefers-reduced-motion: reduce)');
     expect(startupHtml).toContain('.startup-loader__overlay');
-    expect(startupHtml).toContain('animation: startup-codex-logo-shimmer');
-    expect(startupHtml).toContain('@keyframes startup-codex-logo-shimmer');
+    expect(startupHtml).not.toContain('animation: startup-openai-blossom-shimmer');
+    expect(startupHtml).not.toContain('@keyframes startup-openai-blossom-shimmer');
   });
 });

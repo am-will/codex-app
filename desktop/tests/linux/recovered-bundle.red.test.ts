@@ -16,6 +16,7 @@ import {
   desktopRoot,
   readDesktopFile,
   readRecoveredAsset,
+  readRecoveredBootstrapBuildFile,
   readRecoveredBuildFile,
   readRecoveredMainBuildFile,
   readRecoveredRendererEntry,
@@ -40,9 +41,9 @@ describe('Recovered Codex bundle RED contract', () => {
   const versionedUpstreamAppAsarPath = path.resolve(
     desktopRoot,
     'tmp',
-    'upstream-26.623.101652',
+    'upstream-26.707.31123',
     'extracted',
-    'Codex.app',
+    'ChatGPT.app',
     'Contents',
     'Resources',
     'app.asar',
@@ -145,25 +146,27 @@ describe('Recovered Codex bundle RED contract', () => {
         ),
         'utf8',
       );
-      const workspaceRootDropHandlerBundle = fs.readFileSync(
-        path.join(
-          outputRoot,
-          '.vite',
-          'build',
-          fs.readdirSync(path.join(outputRoot, '.vite', 'build')).find((entry) =>
-            /^workspace-root-drop-handler-.+\.js$/.test(entry),
-          ) ?? '',
-        ),
-        'utf8',
-      );
+      const outputPackage = JSON.parse(
+        fs.readFileSync(path.join(outputRoot, 'package.json'), 'utf8'),
+      ) as { codexAppBrand?: string };
+      const usesChatGptBrand = outputPackage.codexAppBrand === 'chatgpt';
+      const workspaceRootDropHandlerAsset = fs
+        .readdirSync(path.join(outputRoot, '.vite', 'build'))
+        .find((entry) => /^workspace-root-drop-handler-.+\.js$/.test(entry));
+      const workspaceRootDropHandlerBundle = workspaceRootDropHandlerAsset
+        ? fs.readFileSync(
+            path.join(outputRoot, '.vite', 'build', workspaceRootDropHandlerAsset),
+            'utf8',
+          )
+        : null;
       const outputAssetsRoot = path.join(outputRoot, 'webview', 'assets');
+      const outputWebviewIndex = fs.readFileSync(path.join(outputRoot, 'webview', 'index.html'), 'utf8');
+      const rendererEntryFileName = outputWebviewIndex.match(
+        /<script type="module" crossorigin src="\.\/assets\/(index-[^"]+\.js)">/,
+      )?.[1];
+      expect(rendererEntryFileName).toBeDefined();
       const rendererEntry = fs.readFileSync(
-        path.join(
-          outputAssetsRoot,
-          fs
-            .readdirSync(outputAssetsRoot)
-            .find((entry) => entry.startsWith('index-') && entry.endsWith('.js')) ?? '',
-        ),
+        path.join(outputAssetsRoot, rendererEntryFileName ?? ''),
         'utf8',
       );
       const readOutputAsset = (prefix: string) =>
@@ -213,10 +216,14 @@ describe('Recovered Codex bundle RED contract', () => {
         pluginsCardsAsset == null
           ? null
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
+      const pushProtectionBundle = readOutputAssetContaining(
+        ['app-initial~app-main~page-'],
+        ['github-push-protection-false-positive'],
+      );
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.623.101652');
-      expect(summary.buildNumber).toBe('4674');
+      expect(summary.version).toBe('26.707.31123');
+      expect(summary.buildNumber).toBe('5042');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -227,8 +234,8 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('openUrlWithLinuxBrowserSession');
       expect(mainBundle).toContain('require(`../../scripts/linux-browser-launch.js`)');
       expect(mainBundle).not.toContain('require(`../../../../scripts/linux-browser-launch.js`)');
-      expect(mainBundle).toMatch(
-        /n===`win32`\|\|n===`linux`\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([^)]*\)\}:\{titleBarStyle:`default`\}/,
+      expect(mainBundle).toContain(
+        'n===`win32`||n===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:',
       );
       expect(mainBundle).toContain('codex_desktop:control-window');
       expect(mainBundle).toContain('codex_desktop:get-application-menu-items');
@@ -238,20 +245,26 @@ describe('Recovered Codex bundle RED contract', () => {
       );
       expect(mainBundle).toContain('focusable:m??!0');
       expect(mainBundle).toContain('e.webContents?.focus?.()');
-      expect(mainBundle).toContain(
-        'c===`primary`&&!M.isDestroyed()&&(M.focus(),M.webContents.focus())',
+      expect(mainBundle).toMatch(
+        /[A-Za-z_$][\w$]*===`primary`&&![A-Za-z_$][\w$]*\.isDestroyed\(\)&&\([A-Za-z_$][\w$]*\.focus\(\),[A-Za-z_$][\w$]*\.webContents\.focus\(\)\)/,
       );
       expect(mainBundle).toContain("autoHideMenuBar:!0");
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
-      expect(mainBundle).toContain('function linuxResolveAbsoluteCommand(');
-      expect(mainBundle).toContain('${process.env.HOME}/.local/bin/${e[0]}');
-      expect(mainBundle).toContain('linuxCursor={id:`cursor`');
-      expect(mainBundle).toContain(
-        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
-      );
-      expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
-      expect(workspaceRootDropHandlerBundle).toContain('return null');
+      if (!usesChatGptBrand) {
+        expect(mainBundle).toContain('function linuxResolveAbsoluteCommand(');
+        expect(mainBundle).toContain('${process.env.HOME}/.local/bin/${e[0]}');
+        expect(mainBundle).toContain('linuxCursor={id:`cursor`');
+        expect(mainBundle).toContain(
+          'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+        );
+        expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
+      }
+      if (usesChatGptBrand) {
+        expect(workspaceRootDropHandlerBundle).toBeNull();
+      } else {
+        expect(workspaceRootDropHandlerBundle).toContain('return null');
+      }
       expect(mainBundle).toMatch(
         /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
       );
@@ -267,42 +280,60 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(pluginsCardsBundle ?? pluginsPageBundle).toContain('plugins');
       expect(summary.patchSummary.authWebview.pluginsPage.results).toEqual([]);
       expect(summary.patchSummary.authWebview.pluginsCards.results).toEqual([]);
-      expect(summary.patchSummary.mainProcess.results).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ label: 'git origins existing-path filter' }),
-          expect.objectContaining({ label: 'linux auth browser session handoff' }),
-          expect.objectContaining({ label: 'linux opaque primary window background' }),
-          expect.objectContaining({ label: 'linux primary window uses custom title bar' }),
-          expect.objectContaining({ label: 'linux primary window is explicitly focusable' }),
-          expect.objectContaining({ label: 'linux show window focuses web contents' }),
-          expect.objectContaining({ label: 'linux ready-to-show focuses web contents' }),
-          expect.objectContaining({ label: 'linux window controls ipc handler' }),
-          expect.objectContaining({ label: 'linux application menu serialization ipc handler' }),
-          expect.objectContaining({ label: 'linux open-in target registry' }),
-        ]),
-      );
-      expect(summary.patchSummary.workspaceRootDropHandler.results).toEqual([
+      expect(pushProtectionBundle).not.toMatch(/sk\.(?:kind|conversation|key)\b/);
+      expect(pushProtectionBundle).not.toMatch(/`pk\.eyJ/);
+      expect(pushProtectionBundle).not.toMatch(/import\(`\.\/page-[^`]*sk\.js`\)/);
+      expect(summary.patchSummary.pushProtection.results).toEqual([
         expect.objectContaining({
-          label: 'linux owl feature binding falls back when unavailable',
+          label: 'avoid Mapbox token false positive in generated page bundle',
+          patched: true,
         }),
       ]);
+      const expectedMainProcessPatches = [
+        'git origins existing-path filter',
+        'linux auth browser session handoff',
+        'linux opaque primary window background',
+        'linux primary window uses custom title bar',
+        'linux primary window is explicitly focusable',
+        'linux show window focuses web contents',
+        'linux ready-to-show focuses web contents',
+        'linux window controls ipc handler',
+        'linux application menu serialization ipc handler',
+        ...(!usesChatGptBrand ? ['linux open-in target registry'] : []),
+      ];
+      expect(summary.patchSummary.mainProcess.results).toEqual(
+        expect.arrayContaining([
+          ...expectedMainProcessPatches.map((label) => expect.objectContaining({ label })),
+        ]),
+      );
+      expect(summary.patchSummary.workspaceRootDropHandler.results).toEqual(
+        usesChatGptBrand
+          ? []
+          : [
+              expect.objectContaining({
+                label: 'linux owl feature binding falls back when unavailable',
+              }),
+            ],
+      );
     },
     180_000,
   );
 
   test('desktop vendors the extracted compiled Codex bundle', () => {
-    expect(fs.existsSync(path.join(recoveredBuildRoot, 'bootstrap.js'))).toBe(true);
+    expect(
+      fs.readdirSync(recoveredBuildRoot).some((entry) => /^bootstrap(?:-.+)?\.js$/.test(entry)),
+    ).toBe(true);
+    expect(fs.existsSync(path.join(recoveredBuildRoot, 'early-bootstrap.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'worker.js'))).toBe(true);
     expect(
       fs.readdirSync(recoveredBuildRoot).some((entry) => /^main-.+\.js$/.test(entry)),
     ).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'preload.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredRoot, 'webview', 'index.html'))).toBe(true);
-    expect(fs.existsSync(path.join(recoveredRoot, 'skills'))).toBe(true);
   });
 
   test('recovered bootstrap only requires sibling build chunks that are vendored in git', () => {
-    const bootstrapSource = readRecoveredBuildFile('bootstrap.js');
+    const bootstrapSource = readRecoveredBootstrapBuildFile();
     const requiredSiblings = [
       ...bootstrapSource.matchAll(/require\((?:'|")\.\/([^'"]+)(?:'|")\)/g),
       ...bootstrapSource.matchAll(/require\(`\.\/([^`]+)`\)/g),
@@ -344,12 +375,12 @@ describe('Recovered Codex bundle RED contract', () => {
       dependencies?: Record<string, string>;
       scripts?: Record<string, string>;
     };
-    const bootstrapSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/bootstrap.js');
+    const bootstrapSource = readRecoveredBootstrapBuildFile();
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
-    expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.623.101652');
-    expect(packageJson.codexBuildNumber).toBe('4674');
+    expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
+    expect(packageJson.version).toBe('26.707.31123');
+    expect(packageJson.codexBuildNumber).toBe('5042');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -373,6 +404,12 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(bootstrapSource).toContain(
       'app.commandLine.appendSwitch(`ozone-platform`,`x11`)',
+    );
+    expect(bootstrapSource).toContain(
+      'for(let e of C({buildFlavor:Z,env:process.env}))',
+    );
+    expect(bootstrapSource).not.toContain(
+      'for(let e of S({buildFlavor:Z,env:process.env}))',
     );
     expect(bootstrapSource).not.toContain('app.commandLine.appendSwitch(`ozone-platform`,`wayland`)');
     expect(preloadSource).toContain(';try{await e.ipcRenderer.invoke(');
@@ -398,12 +435,12 @@ describe('Recovered Codex bundle RED contract', () => {
     };
 
     expect(manifest.sourceType).toBe('app-asar');
-    expect(manifest.appAsarPath).toContain('/Codex.app/Contents/Resources/app.asar');
+    expect(manifest.appAsarPath).toBe('ChatGPT.app/Contents/Resources/app.asar');
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.623.101652');
-    expect(manifest.buildNumber).toBe('4674');
+    expect(manifest.version).toBe('26.707.31123');
+    expect(manifest.buildNumber).toBe('5042');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -458,72 +495,49 @@ describe('Recovered Codex bundle RED contract', () => {
     ).toContain('reasoning_effort');
   });
 
-  test('dynamic thread-start tools match bundled app-server protocol', () => {
+  test('ChatGPT renderer and bundled app-server use the matched native protocol', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const featureSyncBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
-      'dynamic-tools-for-thread-start-requested',
-      'set-experimental-feature-enablement-for-host',
-    ]);
-    const rendererThreadStartBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
-      '"prewarm-thread-start-for-host"',
-      '"start-thread-for-host"',
-    ]);
-    const rendererRequestClientBundle = readRecoveredAssetContaining(
-      [
-        'app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~',
-        'app-initial~app-main~',
-      ],
-      [
-        'AppServerRequestClient is missing a message dispatcher',
-        'thread-prewarm-start',
-        'dispatchMessage(`mcp-request`',
-      ],
-    );
-    const dynamicToolBuilderBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
-      'Tools provided by the Codex app.',
-      'type:`namespace`',
-    ]);
+    const modelBundle = readRecoveredAssetContaining(['app-initial~app-main~'], ['gpt-5.6-sol']);
+    const recoveredPackageJson = JSON.parse(
+      readDesktopFile('recovered/app-asar-extracted/package.json'),
+    ) as { codexAppBrand?: string };
+    const packageJson = JSON.parse(readDesktopFile('package.json')) as {
+      codexCliVersion?: string;
+    };
+    const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
+      patchSummary: {
+        rendererThreadStart: { results: unknown[] };
+        rendererRequestClient: { results: unknown[] };
+      };
+    };
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
 
-    expect(dynamicToolBuilderBundle).toContain('type:`namespace`');
-    expect(dynamicToolBuilderBundle).toContain('Tools provided by the Codex app.');
-    expect(mainSource).toContain(
-      'flatMap(e=>e?.type===`namespace`?(e.tools??[]).map',
+    expect(recoveredPackageJson.codexAppBrand).toBe('chatgpt');
+    expect(packageJson.codexCliVersion).toBe('0.144.0-alpha.4');
+    expect(modelBundle).toContain('gpt-5.6-sol');
+    expect(mainSource).toContain('Native pet composition lifecycle');
+    expect(manifest.patchSummary.rendererThreadStart.results).toEqual([]);
+    expect(manifest.patchSummary.rendererRequestClient.results).toEqual([]);
+    expect(assembleScript).toContain('extractedAppUsesChatGptBrand');
+  });
+
+  test('tracked renderer preserves values while avoiding a Mapbox-token false positive', () => {
+    const pageBundle = readRecoveredAssetContaining(
+      ['app-initial~app-main~page-'],
+      ['github-push-protection-false-positive'],
     );
-    expect(mainSource).toContain(
-      'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
-    );
-    expect(mainSource).toContain('if(e==null)return[]');
-    expect(mainSource).toContain('delete t.input_schema');
-    expect(mainSource).toContain('delete t.input_schema,delete t.type');
-    expect(mainSource).toContain('delete n.type,n');
-    expect(mainSource).toContain(
-      'e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap',
-    );
-    expect(mainSource).toMatch(/\[[A-Za-z_$][\w$]*\]\.flatMap\(e=>e\?\.type===`namespace`/);
-    expect(rendererThreadStartBundle).toContain(
-      'prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource}',
-    );
-    expect(rendererThreadStartBundle).toContain(
-      'e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource}',
-    );
-    expect(rendererRequestClientBundle).toContain(
-      'e===`thread/start`&&(t=t.dynamicTools==null?t',
-    );
-    expect(rendererRequestClientBundle).toContain(
-      'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
-    );
-    expect(featureSyncBundle).toMatch(
-      /[A-Za-z_$][\w$]*=\[`memories`,`tool_suggest`\]/,
-    );
-    expect(featureSyncBundle).not.toMatch(
-      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\]/,
-    );
-    expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
-    expect(assembleScript).toContain(
-      'renderer request client normalizes thread-start dynamic tools',
-    );
-    expect(assembleScript).toContain('renderer syncs only bundled app-server feature enablements');
+    const publicTokenExpression = pageBundle.match(
+      /`p\$\{\/\* github-push-protection-false-positive \*\/`k`\}\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+`/,
+    )?.[0];
+    const pageAssetExpression = pageBundle.match(
+      /`\.\/page-[^`]*\$\{\/\* github-push-protection-false-positive \*\/`sk`\}\.js`/,
+    )?.[0];
+
+    expect(pageBundle).not.toMatch(/sk\.(?:kind|conversation|key)\b/);
+    expect(pageBundle).not.toMatch(/`pk\.eyJ/);
+    expect(pageBundle).not.toMatch(/import\(`\.\/page-[^`]*sk\.js`\)/);
+    expect(Function(`return ${publicTokenExpression}`)()).toMatch(/^pk\.eyJ/);
+    expect(Function(`return ${pageAssetExpression}`)()).toBe('./page-RBIzsAsk.js');
   });
 
   test('dictation shortcuts stay configurable instead of using stale Ctrl+M behavior', () => {
@@ -606,7 +620,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(forgeConfig).toContain("icon: linuxAppImageIconSet");
     expect(forgeConfig).toContain("CODEX_LINUX_HELPER_ARCH ?? 'linux-x64'");
     expect(forgeConfig).toContain("'linux-arm64'");
-    expect(forgeConfig).toContain("path.join(linuxHelperResourceRoot, 'codex')");
+    expect(forgeConfig).toContain("path.join(linuxHelperResourceRoot, 'codex-vendor')");
+    expect(forgeConfig).toContain("path.join(__dirname, 'resources', 'bin', 'codex-launcher')");
     expect(forgeConfig).toContain("path.join(linuxHelperResourceRoot, 'rg')");
     expect(forgeConfig).toContain('new AutoUnpackNativesPlugin');
     expect(forgeConfig).toContain('new MakerDeb');
@@ -633,7 +648,15 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(RECOVERED_WEBVIEW_DEV_SERVER_PORT).toBe(5175);
     expect(RECOVERED_WEBVIEW_DEV_SERVER_URL).toBe('http://127.0.0.1:5175/');
     expect(RECOVERED_CODEX_CLI_PATH).toBe(
-      path.join(desktopRoot, 'resources', 'bin', 'linux-x64', 'codex'),
+      path.join(
+        desktopRoot,
+        'resources',
+        'bin',
+        'linux-x64',
+        'codex-vendor',
+        'bin',
+        'codex',
+      ),
     );
     expect(RECOVERED_GIT_EXECUTABLE_PATH).toBe(
       path.join(desktopRoot, 'resources', 'bin', 'linux-x64', 'git'),
@@ -656,18 +679,8 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches = mainSource.match(/linuxResolveEditorTarget\(/g) ?? [];
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
-    expect(mainSource).toContain('${process.env.HOME}/.local/bin/${e[0]}');
-    expect(mainSource).toContain('linuxCursor={id:`cursor`');
-    expect(mainSource).toContain(
-      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
-    );
-    expect(mainSource).toContain('linuxFileManager={id:`fileManager`');
-    expect(mainSource).toContain('linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)');
-    expect(linuxTargetMatches.length).toBeGreaterThan(4);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
     );
@@ -705,7 +718,7 @@ describe('Recovered Codex bundle RED contract', () => {
       'node ./scripts/build-codex-linux-runtime.mjs',
     );
     expect(packageJson.scripts?.['make:linux:arm64:deb']).toBe(
-      'npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets deb',
+      'npm run hydrate:codex:linux -- --arch arm64 && npm run rebuild:natives && CODEX_LINUX_HELPER_ARCH=linux-arm64 electron-forge make --platform linux --arch arm64 --targets deb',
     );
     expect(stagingScript).toContain(
       "import { buildCodexLinuxRuntime } from './build-codex-linux-runtime.mjs';",

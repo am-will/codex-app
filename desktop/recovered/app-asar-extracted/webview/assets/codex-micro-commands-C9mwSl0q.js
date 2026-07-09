@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{Ih as t,Xh as n,Yh as r}from"./app-initial~app-main~new-thread-panel-page~appgen-library-page~hotkey-window-thread-page~ho~iufn7mg3-MXsOJYYa.js";function i(e){let t=e===`newThread`?`newTask`:e;return a.find(e=>e.id===t)??null}var a,o=e((()=>{t(),a=n.filter(e=>e.kind===`webview`&&r(e,`electron`))}));export{i as n,o as r,a as t};
+//# sourceMappingURL=codex-micro-commands-C9mwSl0q.js.map

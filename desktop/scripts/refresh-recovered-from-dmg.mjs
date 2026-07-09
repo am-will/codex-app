@@ -64,6 +64,21 @@ function sha256(filePath) {
   return crypto.createHash('sha256').update(fs.readFileSync(filePath)).digest('hex');
 }
 
+function toRepositoryPath(filePath) {
+  if (filePath == null) return null;
+  const relativePath = path.relative(repoRoot, filePath);
+  if (relativePath && !relativePath.startsWith(`..${path.sep}`) && !path.isAbsolute(relativePath)) {
+    return relativePath.split(path.sep).join('/');
+  }
+
+  const appResourceSuffix = path.join('Contents', 'Resources', 'app.asar');
+  if (filePath.endsWith(appResourceSuffix)) {
+    const appRoot = filePath.slice(0, -appResourceSuffix.length).replace(/[\\/]$/, '');
+    return path.posix.join(path.basename(appRoot), 'Contents', 'Resources', 'app.asar');
+  }
+  return path.basename(filePath);
+}
+
 async function extractDmgToTemp(dmgPath, tempRoot) {
   childProcess.execFileSync('7z', ['x', '-y', dmgPath, `-o${tempRoot}`], {
     cwd: repoRoot,
@@ -164,8 +179,22 @@ async function main() {
       tempRoot: keepTemp ? tempRoot : null,
     };
 
+    const persistedSummary = {
+      ...summary,
+      dmgPath: toRepositoryPath(summary.dmgPath),
+      appAsarPath: toRepositoryPath(summary.appAsarPath),
+      outputRoot: toRepositoryPath(summary.outputRoot),
+      nativeModuleSummary: {
+        ...summary.nativeModuleSummary,
+        sourceNodeModulesRoot: toRepositoryPath(
+          summary.nativeModuleSummary.sourceNodeModulesRoot,
+        ),
+      },
+      tempRoot: toRepositoryPath(summary.tempRoot),
+    };
+
     const manifestPath = path.join(path.dirname(outputRoot), 'refresh-manifest.json');
-    fs.writeFileSync(manifestPath, `${JSON.stringify(summary, null, 2)}\n`, 'utf8');
+    fs.writeFileSync(manifestPath, `${JSON.stringify(persistedSummary, null, 2)}\n`, 'utf8');
     process.stdout.write(`${JSON.stringify({ ...summary, manifestPath }, null, 2)}\n`);
 
     if (!keepTemp) {

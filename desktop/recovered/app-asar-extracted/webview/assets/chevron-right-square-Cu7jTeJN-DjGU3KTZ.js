@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./square-chevron-right-DEOUVgih-DgKy9It8.js";e((()=>{n()}))();export{t as default};
+//# sourceMappingURL=chevron-right-square-Cu7jTeJN-DjGU3KTZ.js.map

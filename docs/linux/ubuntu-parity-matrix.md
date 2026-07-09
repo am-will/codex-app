@@ -1,44 +1,35 @@
 # Ubuntu Parity Matrix
 
-## Scope
-
-This matrix tracks Linux parity against the packaged `codex` upstream bundle that now powers `desktop/`.
-
-## Reference Evidence
-
-- Canonical current upstream payload root: `codex/`
-- Recovered runtime bundle: `desktop/recovered/app-asar-extracted/`
-- Current Linux wrapper: `desktop/`
-- Verified package output: `desktop/out/Codex-linux-x64/`
-
 ## Current Baseline
 
-- `desktop/package.json` now boots `recovered/app-asar-extracted/.vite/build/bootstrap.js`
-- `desktop` carries embedded app version `26.325.21211`
-- `desktop` carries build number `1255`
-- imported Windows package manifest version remains `26.325.2171.0`
-- Linux regression tests pass against the refreshed recovered bundle
-- unpacked and `.deb` packaging both succeed on Linux
+- Recovered payload: ChatGPT/Codex `26.707.31123`, build `5042`
+- Electron: `42.1.0`
+- Entry point: `.vite/build/early-bootstrap.js`
+- App-server helper: `0.144.0-alpha.4`
+- Linux regression suite: passing
+- Linux package contract: passing
 
 ## Release-Critical Areas
 
-| Area | Current Linux status | Evidence |
+| Area | Status | Evidence |
 |---|---|---|
-| recovered bundle import | complete | `desktop/recovered/app-asar-extracted/` refreshed from the current `codex/` payload |
-| Electron bootstrap wiring | complete | `desktop/package.json` main points at `recovered/app-asar-extracted/.vite/build/bootstrap.js` |
-| renderer/dev server wiring | complete | `desktop/dev/recovered-webview-dev-server.ts` plus passing Linux tests |
-| Linux helper resources | complete | packaged `resources/codex` and `resources/rg` are executable Linux ELF binaries |
-| native module rebuilds | complete | packaged `better_sqlite3.node` and `node-pty` payloads are Linux ELF shared objects |
-| cross-platform baggage exclusion | complete | packaged output excludes `.exe` helper files and `node-pty` `prebuilds/(win32|darwin)` |
-| review/default-branch bundle contract | complete | passing `desktop/tests/linux/review-default-branch.red.test.ts` |
-| automation/worktree bundle contract | complete | passing `desktop/tests/linux/automation-archive-without-execution.red.test.ts` |
-| packaged runtime smoke | complete | Electron CDP reached the built app, and the plugins, skills, and settings surfaces rendered successfully |
-| sandbox packaging | complete | the `.deb` packages `chrome-sandbox` with mode `4755`, even though plain unpacked local launches still need preserved permissions or `--no-sandbox` |
+| recovered payload | complete | tracked `desktop/recovered/app-asar-extracted` matches version `26.707.31123` |
+| bootstrap wiring | complete | package main points to `early-bootstrap.js`; hashed bootstrap discovery is tested |
+| ChatGPT brand transition | complete | brand-gated patching skips removed standalone-only chunks |
+| GPT-5.6 UI assets | complete | package verifier requires `gpt-5.6-sol`; payload also contains `gpt-5.6-terra` |
+| app-server protocol | complete | matched helper `0.144.0-alpha.4` initializes and answers `model/list` |
+| helper packaging | complete | launcher plus full `codex-vendor` package are verified executable |
+| native modules | complete | Electron 42 Linux `better_sqlite3.node` and `node-pty` builds are packaged |
+| Linux window chrome | complete | title-bar controls, application submenus, focus, and X11 launch patches are tested |
+| browser handoff | complete | native external-browser session helper remains packaged and covered |
+| package outputs | complete locally | x64 packaged output and package contract pass |
+| release artifacts | CI validation | x64 AppImage/deb/rpm and arm64 deb are built by the release workflow |
 
-## Remaining Work Outside This Refresh
+## Follow-Up Coverage
 
 | Area | Status |
 |---|---|
-| deeper manual UX sweep across Linux settings and flows | follow-up expansion |
-| protocol handler registration on target desktop environments | open follow-up |
-| broader distro validation beyond the current Ubuntu packaging flow | open follow-up |
+| Ubuntu 22.04 release workflow | required CI check |
+| Ubuntu arm64 release workflow | required CI check |
+| protocol registration across desktop environments | package-level follow-up |
+| non-Ubuntu distro sweep | follow-up expansion |
