@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`Touchpad`,[[`rect`,{width:`20`,height:`16`,x:`2`,y:`4`,rx:`2`,key:`18n3k1`}],[`path`,{d:`M2 14h20`,key:`myj16y`}],[`path`,{d:`M12 20v-6`,key:`1rm09r`}]])}));export{i as n,r as t};
+//# sourceMappingURL=touchpad-BSzzhqK4-8rL386Hw.js.map

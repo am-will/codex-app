@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`BatteryLow`,[[`rect`,{width:`16`,height:`10`,x:`2`,y:`7`,rx:`2`,ry:`2`,key:`1w10f2`}],[`line`,{x1:`22`,x2:`22`,y1:`11`,y2:`13`,key:`4dh1rd`}],[`line`,{x1:`6`,x2:`6`,y1:`11`,y2:`13`,key:`1wd6dw`}]])}));export{r as n,i as t};
+//# sourceMappingURL=battery-low-DiKgcxb_-o1-zqC6-.js.map

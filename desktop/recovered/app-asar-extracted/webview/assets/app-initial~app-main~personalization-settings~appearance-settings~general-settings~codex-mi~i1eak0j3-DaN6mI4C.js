@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{A2 as t,B$ as n,D4 as r,E4 as i,V$ as a,_et as o,j2 as s,k9 as c}from"./app-initial~app-main~pull-request-code-review~onboarding-page~hotkey-window-thread-page~cha~b76hmflu-y0KJWbm3.js";var l,u=e((()=>{c(),a(),r(),s(),l=o(i,()=>({queryKey:[`app-info`],queryFn:()=>n.appInfo.get(),staleTime:t.INFINITE}))}));export{u as n,l as t};
+//# sourceMappingURL=app-initial~app-main~personalization-settings~appearance-settings~general-settings~codex-mi~i1eak0j3-DaN6mI4C.js.map

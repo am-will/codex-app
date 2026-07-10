@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{A2 as t,D4 as n,E4 as r,S2 as i,j2 as a,w2 as o}from"./app-initial~app-main~pull-request-code-review~onboarding-page~hotkey-window-thread-page~cha~b76hmflu-y0KJWbm3.js";var s,c=e((()=>{n(),a(),o(),s=i(r,`open-in-targets`,()=>({staleTime:t.ONE_MINUTE}))}));export{s as n,c as t};
+//# sourceMappingURL=open-in-targets-query-C6HDki_j.js.map

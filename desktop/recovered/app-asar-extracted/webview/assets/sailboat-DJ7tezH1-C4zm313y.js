@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`Sailboat`,[[`path`,{d:`M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z`,key:`1404fh`}],[`path`,{d:`M21 14 10 2 3 14h18Z`,key:`1nzg7v`}],[`path`,{d:`M10 2v16`,key:`1labyt`}]])}));export{i as n,r as t};
+//# sourceMappingURL=sailboat-DJ7tezH1-C4zm313y.js.map

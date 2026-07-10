@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`Tally3`,[[`path`,{d:`M4 4v16`,key:`6qkkli`}],[`path`,{d:`M9 4v16`,key:`81ygyz`}],[`path`,{d:`M14 4v16`,key:`12vmem`}]])}));export{r as n,i as t};
+//# sourceMappingURL=tally-3-DNIOQTNm-Me3W74I5.js.map

@@ -16,6 +16,11 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
 - Refresh `desktop/recovered/app-asar-extracted` from the downloaded artifact's
   `Contents/Resources/app.asar` using `--app-asar`, or from a DMG using
   `--dmg` when the feed/source provides one.
+- Match the Linux `codex` helper to the CLI version bundled by that exact
+  upstream desktop artifact. Replace `desktop/resources/bin/linux-x64/codex`
+  from OpenAI's matching `@openai/codex@<version>-linux-x64` npm artifact and
+  keep `desktop/package.json` `codexCliVersion` equal to the executable's
+  reported version. Never update only the metadata or only the binary.
 - Preserve Linux behavior patches in `desktop/scripts/assemble-codex-runtime.mjs`, especially:
   - Linux hidden titlebar/titlebar overlay path.
   - Linux native menu hide/remove behavior.
@@ -54,6 +59,13 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
      and run `desktop/scripts/refresh-recovered-from-dmg.mjs --app-asar <path-to-app.asar> --output ./recovered/app-asar-extracted` from `desktop`.
    - For DMG artifacts, run `desktop/scripts/refresh-recovered-from-dmg.mjs --dmg ../Codex.dmg --output ./recovered/app-asar-extracted` from `desktop`.
    - Update `desktop/package.json`, `desktop/package-lock.json`, and tests that pin version/build metadata.
+   - Determine the upstream bundled CLI version, fetch the exact official
+     `@openai/codex@<version>-linux-x64` npm artifact, replace
+     `desktop/resources/bin/linux-x64/codex`, preserve executable mode, and
+     confirm it prints `codex-cli <version>`.
+   - Set `desktop/package.json` `codexCliVersion` to that verified version and
+     refresh the lockfile. Do not infer the CLI version from the desktop app
+     version.
    - If minified bundle shapes drift, add new patch alternatives without removing older supported shapes.
 
 3. Verify patch preservation:
@@ -61,9 +73,15 @@ Use this skill only from `/home/amwill/Applications/codex-app`.
    - `npm test -- --runInBand tests/linux/recovered-bundle.red.test.ts`
    - `npm run test:linux`
    - `npm run test:linux:codex-package`
+   - `desktop/resources/bin/linux-x64/codex --version` must exactly match
+     `desktop/package.json` `codexCliVersion`.
 
 4. Build and install:
    - Build with `desktop/scripts/build-codex-linux-runtime.mjs` into `desktop/out/Codex-linux-x64-codex-<version>-<build>`.
+   - Run `desktop/scripts/verify-linux-package-contract.mjs --package-root
+     desktop/out/Codex-linux-x64-codex-<version>-<build>` before installing;
+     this must execute the packaged helper and validate the app-server protocol
+     markers.
    - Copy that staged runtime to `~/.local/opt/codex-desktop/<version>-<build>`.
    - Update `~/.local/opt/codex-desktop/current`.
    - Validate desktop entries and refresh the desktop database.

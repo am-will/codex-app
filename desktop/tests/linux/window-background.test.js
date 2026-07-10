@@ -69,7 +69,7 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toMatch(
       /[A-Za-z_$][\w$]*\.avatarOverlayManager\.raiseWindow\?\.\(\)/,
     );
-    expect(mainBundle).toContain('avatarOverlay:!0');
+    expect(mainBundle).toContain('avatarOverlayManager:R.avatarOverlayManager');
     expect(mainBundle).toContain(
       'startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||',
     );
@@ -105,7 +105,7 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).not.toContain('line-clamp-2');
     expect(avatarOverlayBundle).toContain('whitespace-pre-wrap');
     expect(avatarOverlayBundle).toContain(
-      'mascot:{left:244,top:191,width:112,height:121}',
+      'mascot:{left:216,top:191,width:tt,height:121}',
     );
     expect(avatarOverlayBundle).toMatch(
       /[A-Za-z_$][\w$]*=80,[A-Za-z_$][\w$]*=84,[A-Za-z_$][\w$]*=512,[A-Za-z_$][\w$]*=1/,
@@ -128,7 +128,12 @@ describe('Linux window background stability', () => {
     expect(startupHtml).toContain('animation: none;');
     expect(startupHtml).toContain('@media (prefers-reduced-motion: reduce)');
     expect(startupHtml).toContain('.startup-loader__overlay');
-    expect(startupHtml).toContain('animation: startup-codex-logo-shimmer');
-    expect(startupHtml).toContain('@keyframes startup-codex-logo-shimmer');
+    expect(startupHtml).toContain('--startup-logo-shimmer-base: #666;');
+    expect(startupHtml).toContain('Linux startup shimmer disabled.');
+    expect(startupHtml).toContain('Linux startup logo keyframes removed.');
+    expect(startupHtml).not.toContain('animation: startup-codex-logo-shimmer');
+    expect(startupHtml).not.toContain('animation: startup-openai-blossom-shimmer');
+    expect(startupHtml).not.toContain('@keyframes startup-codex-logo-shimmer');
+    expect(startupHtml).not.toContain('@keyframes startup-openai-blossom-shimmer');
   });
 });

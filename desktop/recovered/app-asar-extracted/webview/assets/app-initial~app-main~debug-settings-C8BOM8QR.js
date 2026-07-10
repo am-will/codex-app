@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{D4 as t,E4 as n,k9 as r,yet as i}from"./app-initial~app-main~pull-request-code-review~onboarding-page~hotkey-window-thread-page~cha~b76hmflu-y0KJWbm3.js";function a(e,t,n){e.set(s,e=>({...e,[t]:n}))}var o,s,c=e((()=>{r(),t(),o={disableBackdropBlur:!1,disableCssMotion:!1,disableScrollFadeMask:!1,disableScrollFadeMaskAnimation:!1,disableSquircles:!1,forceOpaqueRendererBackground:!1},s=i(n,o)}));export{c as n,a as r,s as t};
+//# sourceMappingURL=app-initial~app-main~debug-settings-C8BOM8QR.js.map

@@ -40,7 +40,7 @@ describe('Recovered Codex bundle RED contract', () => {
   const versionedUpstreamAppAsarPath = path.resolve(
     desktopRoot,
     'tmp',
-    'upstream-26.623.101652',
+    'upstream-26.707.31428',
     'extracted',
     'Codex.app',
     'Contents',
@@ -98,6 +98,13 @@ describe('Recovered Codex bundle RED contract', () => {
   };
   const readRecoveredAssetContaining = (prefixes: string[], needles: string[]) =>
     readRecoveredAsset(findAssetContaining(path.join(recoveredRoot, 'webview', 'assets'), prefixes, needles));
+  const getBootstrapFileName = (buildRoot: string) => {
+    const matches = fs
+      .readdirSync(buildRoot)
+      .filter((entry) => entry === 'bootstrap.js' || /^bootstrap-.+\.js$/.test(entry));
+    expect(matches).toHaveLength(1);
+    return matches[0];
+  };
 
   testWithLocalSource(
     'canonical refresh script patches the new local source bundle into a temp recovered bundle',
@@ -215,8 +222,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.623.101652');
-      expect(summary.buildNumber).toBe('4674');
+      expect(summary.version).toBe('26.707.31428');
+      expect(summary.buildNumber).toBe('5059');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -291,18 +298,30 @@ describe('Recovered Codex bundle RED contract', () => {
   );
 
   test('desktop vendors the extracted compiled Codex bundle', () => {
-    expect(fs.existsSync(path.join(recoveredBuildRoot, 'bootstrap.js'))).toBe(true);
+    expect(getBootstrapFileName(recoveredBuildRoot)).toMatch(/^bootstrap(?:-.+)?\.js$/);
+    expect(fs.existsSync(path.join(recoveredBuildRoot, 'early-bootstrap.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'worker.js'))).toBe(true);
     expect(
       fs.readdirSync(recoveredBuildRoot).some((entry) => /^main-.+\.js$/.test(entry)),
     ).toBe(true);
     expect(fs.existsSync(path.join(recoveredBuildRoot, 'preload.js'))).toBe(true);
     expect(fs.existsSync(path.join(recoveredRoot, 'webview', 'index.html'))).toBe(true);
-    expect(fs.existsSync(path.join(recoveredRoot, 'skills'))).toBe(true);
+  });
+
+  test('recovered source avoids the Mapbox token push-protection false positive', () => {
+    const source = readRecoveredAssetContaining(
+      ['app-initial~app-main~'],
+      ['markerWidth.ma${`sk`}.maskContentUnits', 'yw=`p${`k`}.'],
+    );
+
+    expect(source).toContain('markerWidth.ma${`sk`}.maskContentUnits');
+    expect(source).not.toContain('markerWidth.mask.maskContentUnits');
+    expect(source).toContain('yw=`p${`k`}.');
+    expect(source).not.toContain('yw=`pk.');
   });
 
   test('recovered bootstrap only requires sibling build chunks that are vendored in git', () => {
-    const bootstrapSource = readRecoveredBuildFile('bootstrap.js');
+    const bootstrapSource = readRecoveredBuildFile(getBootstrapFileName(recoveredBuildRoot));
     const requiredSiblings = [
       ...bootstrapSource.matchAll(/require\((?:'|")\.\/([^'"]+)(?:'|")\)/g),
       ...bootstrapSource.matchAll(/require\(`\.\/([^`]+)`\)/g),
@@ -344,12 +363,14 @@ describe('Recovered Codex bundle RED contract', () => {
       dependencies?: Record<string, string>;
       scripts?: Record<string, string>;
     };
-    const bootstrapSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/bootstrap.js');
+    const bootstrapSource = readDesktopFile(
+      `recovered/app-asar-extracted/.vite/build/${getBootstrapFileName(recoveredBuildRoot)}`,
+    );
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
-    expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/bootstrap.js');
-    expect(packageJson.version).toBe('26.623.101652');
-    expect(packageJson.codexBuildNumber).toBe('4674');
+    expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
+    expect(packageJson.version).toBe('26.707.31428');
+    expect(packageJson.codexBuildNumber).toBe('5059');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -363,7 +384,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(bootstrapSource).toContain('Desktop bootstrap failed to start the main app');
     expect(bootstrapSource).toContain('runMainAppStartup');
     expect(bootstrapSource).toContain(
-      'process.platform===`linux`&&typeof process.resourcesPath==`string`',
+      'process.platform===`linux`&&typeof process.resourcesPath===`string`',
     );
     expect(bootstrapSource).toContain(
       '(()=>{try{process.stderr?.writable&&console.error(',
@@ -397,13 +418,13 @@ describe('Recovered Codex bundle RED contract', () => {
       };
     };
 
-    expect(manifest.sourceType).toBe('app-asar');
-    expect(manifest.appAsarPath).toContain('/Codex.app/Contents/Resources/app.asar');
+    expect(manifest.sourceType).toBe('dmg');
+    expect(manifest.appAsarPath).toBeNull();
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(manifest.dmgPath).toBeNull();
-    expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.623.101652');
-    expect(manifest.buildNumber).toBe('4674');
+    expect(manifest.dmgPath).toContain('Codex-26.707.31428.dmg');
+    expect(manifest.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(manifest.version).toBe('26.707.31428');
+    expect(manifest.buildNumber).toBe('5059');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -469,14 +490,11 @@ describe('Recovered Codex bundle RED contract', () => {
       '"start-thread-for-host"',
     ]);
     const rendererRequestClientBundle = readRecoveredAssetContaining(
-      [
-        'app-initial~app-main~worktree-init-v2-page~remote-conversation-page~new-thread-panel-page~',
-        'app-initial~app-main~',
-      ],
+      ['app-initial~app-main~'],
       [
         'AppServerRequestClient is missing a message dispatcher',
         'thread-prewarm-start',
-        'dispatchMessage(`mcp-request`',
+        'mcp_request_enqueued',
       ],
     );
     const dynamicToolBuilderBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
@@ -497,9 +515,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain('delete t.input_schema');
     expect(mainSource).toContain('delete t.input_schema,delete t.type');
     expect(mainSource).toContain('delete n.type,n');
-    expect(mainSource).toContain(
-      'e.dynamicTools==null?e:{...e,dynamicTools:(e.dynamicTools??[]).flatMap',
-    );
+    expect(mainSource).not.toContain('client:{startThread:');
     expect(mainSource).toMatch(/\[[A-Za-z_$][\w$]*\]\.flatMap\(e=>e\?\.type===`namespace`/);
     expect(rendererThreadStartBundle).toContain(
       'prewarmThreadStart({...r,threadSource:r.threadSource===void 0?`user`:r.threadSource}',

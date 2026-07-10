@@ -65,10 +65,31 @@ function sha256(filePath) {
 }
 
 async function extractDmgToTemp(dmgPath, tempRoot) {
-  childProcess.execFileSync('7z', ['x', '-y', dmgPath, `-o${tempRoot}`], {
-    cwd: repoRoot,
-    stdio: 'pipe',
-  });
+  try {
+    childProcess.execFileSync('7z', ['x', '-y', dmgPath, `-o${tempRoot}`], {
+      cwd: repoRoot,
+      stdio: 'pipe',
+    });
+  } catch (error) {
+    const stderr = error?.stderr?.toString() ?? '';
+    const extractionErrors = [...stderr.matchAll(/^ERROR: (.+)$/gm)].map((match) => match[1]);
+    const ignoredLinks = extractionErrors
+      .map((message) => message.match(/^Dangerous link path was ignored : (.+)$/)?.[1])
+      .filter(Boolean);
+    const onlyBundledNodeModuleLinks =
+      error?.status === 2 &&
+      extractionErrors.length === ignoredLinks.length &&
+      ignoredLinks.length > 0 &&
+      ignoredLinks.every((link) =>
+        link.startsWith(
+          'ChatGPT Installer/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/',
+        ),
+      );
+
+    if (!onlyBundledNodeModuleLinks) {
+      throw error;
+    }
+  }
 }
 
 function assertExists(targetPath, label) {
@@ -152,7 +173,7 @@ async function main() {
       sourceType: dmgPath ? 'dmg' : 'app-asar',
       dmgPath,
       dmgSha256: dmgPath ? sha256(dmgPath) : null,
-      appAsarPath: resolvedAppAsarPath,
+      appAsarPath: appAsarPath ? resolvedAppAsarPath : null,
       appAsarSha256: sha256(resolvedAppAsarPath),
       outputRoot,
       version: upstreamPackage.version,

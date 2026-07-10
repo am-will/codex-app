@@ -1,0 +1,1 @@
+import{n as e,t}from"./badge-russian-ruble-BmmFmx63-BXD3nFUO.js";t();export{e as default};

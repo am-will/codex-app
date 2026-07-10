@@ -1,0 +1,1 @@
+import{n as e,t}from"./html-derivative-GaLEHoV8.js";e();export{t as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{A2 as t,C2 as n,D4 as r,E4 as i,j2 as a,w2 as o}from"./app-initial~app-main~pull-request-code-review~onboarding-page~hotkey-window-thread-page~cha~b76hmflu-y0KJWbm3.js";var s,c=e((()=>{r(),a(),o(),s=n(i,`list-pinned-threads`,{refetchOnWindowFocus:!0,staleTime:t.FIVE_SECONDS})}));export{s as n,c as t};
+//# sourceMappingURL=app-initial~app-main~new-thread-panel-page~onboarding-page~projects-index-page~appgen-libra~pnvgctnp-CMTd_D9y.js.map

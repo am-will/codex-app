@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`Smile`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`M8 14s1.5 2 4 2 4-2 4-2`,key:`1y1vjs`}],[`line`,{x1:`9`,x2:`9.01`,y1:`9`,y2:`9`,key:`yxxnd0`}],[`line`,{x1:`15`,x2:`15.01`,y1:`9`,y2:`9`,key:`1p4y9e`}]])}));export{i as n,r as t};
+//# sourceMappingURL=smile-0ulXM4jt-BjHw2F31.js.map

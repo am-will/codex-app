@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`MoveUpLeft`,[[`path`,{d:`M5 11V5H11`,key:`3q78g9`}],[`path`,{d:`M5 5L19 19`,key:`5zm2fv`}]])}));export{r as n,i as t};
+//# sourceMappingURL=move-up-left-DXP0UH_V-DjREBGfX.js.map
