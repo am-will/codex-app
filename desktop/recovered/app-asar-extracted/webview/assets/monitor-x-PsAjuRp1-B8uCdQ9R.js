@@ -1,1 +1,0 @@
-import{n as e,t}from"./monitor-x-PsAjuRp1-C1y6TS58.js";e();export{t as default};

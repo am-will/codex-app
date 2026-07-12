@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DJc8yfTu.js";var r,i=e((()=>{t(),r=n(`UserRoundMinus`,[[`path`,{d:`M2 21a8 8 0 0 1 13.292-6`,key:`bjp14o`}],[`circle`,{cx:`10`,cy:`8`,r:`5`,key:`o932ke`}],[`path`,{d:`M22 19h-6`,key:`vcuq98`}]])}));export{r as n,i as t};
+//# sourceMappingURL=user-round-minus-CLMBB6w8-fGqYJQ57.js.map

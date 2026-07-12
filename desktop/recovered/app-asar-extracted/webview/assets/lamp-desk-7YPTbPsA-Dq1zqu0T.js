@@ -1,0 +1,1 @@
+import{n as e,t}from"./lamp-desk-7YPTbPsA-B8-tbJ83.js";t();export{e as default};

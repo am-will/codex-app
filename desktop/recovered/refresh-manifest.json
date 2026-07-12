@@ -1,12 +1,12 @@
 {
-  "sourceType": "dmg",
-  "dmgPath": "/tmp/Codex-26.707.31428.dmg",
-  "dmgSha256": "6f67af7e2f934093ab8afebcec11374d40c8db8f9100fb6620f24155401d8319",
-  "appAsarPath": null,
-  "appAsarSha256": "cc1bebbd77b827bc9f96f89216c8e101cdfc6d8ddd886d22b7e9507167be94b8",
-  "outputRoot": "/tmp/codex-app-update-2670731428/desktop/recovered/app-asar-extracted",
-  "version": "26.707.31428",
-  "buildNumber": "5059",
+  "sourceType": "app-asar",
+  "dmgPath": null,
+  "dmgSha256": null,
+  "appAsarPath": "/tmp/codex-app-refresh-26.707.51957/full-tree/ChatGPT.app/Contents/Resources/app.asar",
+  "appAsarSha256": "26708d5be316b43786ba00ea8581317426e44ff508e0d5cce40f53181582e027",
+  "outputRoot": "/tmp/codex-app-refresh-26.707.51957/desktop/recovered/app-asar-extracted",
+  "version": "26.707.51957",
+  "buildNumber": "5175",
   "electronVersion": "42.1.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -222,9 +222,9 @@
         },
         {
           "label": "dynamic tool thread starts normalize for bundled app-server",
-          "patched": false,
-          "skipped": true,
-          "reason": "dynamic tool thread starts normalize for bundled app-server replacement already present"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         },
         {
           "label": "automation dynamic tools normalize for bundled app-server",
@@ -280,9 +280,9 @@
         },
         {
           "label": "app shell renders linux codex application sub-menus",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell renders linux codex application sub-menus replacement already present"
         },
         {
           "label": "app shell upgrades linux codex application sub-menus",
@@ -292,9 +292,9 @@
         },
         {
           "label": "app shell hides floating sidebar nav when title bar owns chrome",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell hides floating sidebar nav when title bar owns chrome target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell raises floating sidebar above main header chrome",
@@ -316,15 +316,15 @@
         },
         {
           "label": "app shell shifts main header left when floating sidebar is open",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell shifts main header left when floating sidebar is open target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell applies floating sidebar main header left style offset",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell applies floating sidebar main header left style offset target not applicable to the current app-shell renderer"
         }
       ]
     },
@@ -332,13 +332,13 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled CSS property list avoids Mapbox token false positive",
+          "label": "compiled Mapbox public token redacted from app-initial~app-main~quick-chat-window-page~chatgpt-conversation-page-B0shAhmV.js",
           "patched": true,
           "skipped": false,
           "reason": null
         },
         {
-          "label": "compiled Mapbox public token avoids push-protection literal",
+          "label": "compiled Mapbox public token redacted from remote-connections-page-DRUiVXpk.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -468,13 +468,13 @@
     },
     "authWebview": {
       "login": {
-        "patched": true,
+        "patched": false,
         "results": [
           {
             "label": "renderer syncs only bundled app-server feature enablements",
-            "patched": true,
-            "skipped": false,
-            "reason": null
+            "patched": false,
+            "skipped": true,
+            "reason": "renderer syncs only bundled app-server feature enablements target not applicable to the current app-shell renderer"
           }
         ]
       },
@@ -497,7 +497,7 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/tmp/codex-app-update-2670731428/desktop/node_modules",
+    "sourceNodeModulesRoot": "/tmp/codex-app-refresh-26.707.51957/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
       "node-pty/build/Release/pty.node",

@@ -30,7 +30,8 @@ const requiredAppAsarMarkers = [
   },
   {
     label: 'bundled app-server feature allowlist',
-    markerPattern: /[A-Za-z_$][\w$]*=\[`memories`,`tool_suggest`\]/,
+    markerPattern:
+      /[A-Za-z_$][\w$]*=\[(?:`memories`,`tool_suggest`|`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`)\]/,
   },
 ];
 
@@ -38,7 +39,7 @@ const forbiddenAppAsarMarkers = [
   {
     label: 'unsupported bundled app-server feature sync',
     markerPattern:
-      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\]/,
+      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`\]/,
   },
 ];
 

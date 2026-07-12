@@ -1,0 +1,1 @@
+import{n as e,t}from"./bone-C5-K-lhS-C32YV-OU.js";e();export{t as default};

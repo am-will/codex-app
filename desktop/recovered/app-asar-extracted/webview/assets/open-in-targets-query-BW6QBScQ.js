@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{d as t,u as n}from"./app-initial~app-main~projects-index-page~hotkey-window-thread-page~local-environments-setti~jjjs6eag-De99_ILj.js";import{bst as r,dst as i,pst as a,yst as o}from"./app-initial~app-main~new-thread-panel-page~appgen-library-page~hotkey-window-thread-page~ho~iufn7mg3-k1satKyX.js";var s,c=e((()=>{t(),r(),a(),s=i(n,`open-in-targets`,()=>({staleTime:o.ONE_MINUTE}))}));export{s as n,c as t};
+//# sourceMappingURL=open-in-targets-query-BW6QBScQ.js.map

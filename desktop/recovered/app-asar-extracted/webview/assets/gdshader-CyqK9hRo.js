@@ -1,0 +1,1 @@
+import{n as e,t}from"./gdshader-DXy-Cyq5.js";e();export{t as default};

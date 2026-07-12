@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{m0 as t,p0 as n}from"./app-initial~app-main~pull-request-code-review~onboarding-page~hotkey-window-thread-page~cha~b76hmflu-y0KJWbm3.js";var r,i,a,o=e((()=>{n(),r=t(`avatar-overlay-resize-button-hidden`,!1),i=t(`avatar-overlay-debug-window-border-visible`,!1),a=t(`avatar-overlay-force-non-native-rendering`,!1)}));export{o as i,a as n,r,i as t};
-//# sourceMappingURL=avatar-overlay-debug-state-BvN7JlP6.js.map

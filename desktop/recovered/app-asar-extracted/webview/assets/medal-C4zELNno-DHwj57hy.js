@@ -1,0 +1,1 @@
+import{n as e,t}from"./medal-C4zELNno-a5iA6A8L.js";e();export{t as default};

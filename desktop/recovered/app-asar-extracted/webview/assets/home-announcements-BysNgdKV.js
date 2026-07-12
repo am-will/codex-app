@@ -1,0 +1,1 @@
+import{n as e,t}from"./home-announcements-RG1WebzT.js";e();export{t as HomeAnnouncements};

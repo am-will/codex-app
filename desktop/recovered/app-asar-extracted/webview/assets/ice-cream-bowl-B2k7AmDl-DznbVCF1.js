@@ -1,1 +1,0 @@
-import{n as e,t}from"./ice-cream-bowl-B2k7AmDl-Dd2XTIK3.js";e();export{t as default};

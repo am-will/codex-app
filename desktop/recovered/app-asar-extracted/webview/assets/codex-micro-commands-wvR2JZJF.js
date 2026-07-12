@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{A as t,g as n,k as r}from"./app-initial~artifact-tab-content.electron~app-main~appgen-settings-page~page~pull-request-r~kizgv5xr-DCzCsPH_.js";function i(e){let t=e===`newThread`?`newTask`:e;return a.find(e=>e.id===t)??null}var a,o=e((()=>{n(),a=t.filter(e=>e.kind===`webview`&&r(e,`electron`))}));export{i as n,o as r,a as t};
-//# sourceMappingURL=codex-micro-commands-wvR2JZJF.js.map

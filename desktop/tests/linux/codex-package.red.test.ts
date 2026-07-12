@@ -298,10 +298,10 @@ describe('Codex package staging RED contract', () => {
       'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
     );
     expect(verifyScript).toContain(
-      '[A-Za-z_$][\\w$]*=\\[`memories`,`tool_suggest`\\]',
+      '[A-Za-z_$][\\w$]*=\\[(?:`memories`,`tool_suggest`|`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`)\\]',
     );
     expect(verifyScript).toContain(
-      '[A-Za-z_$][\\w$]*=\\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\\]',
+      '[A-Za-z_$][\\w$]*=\\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`\\]',
     );
   });
 

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DJc8yfTu.js";var r,i=e((()=>{t(),r=n(`PaintbrushVertical`,[[`path`,{d:`M10 2v2`,key:`7u0qdc`}],[`path`,{d:`M14 2v4`,key:`qmzblu`}],[`path`,{d:`M17 2a1 1 0 0 1 1 1v9H6V3a1 1 0 0 1 1-1z`,key:`ycvu00`}],[`path`,{d:`M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1`,key:`iw4wnp`}]])}));export{i as n,r as t};
+//# sourceMappingURL=paintbrush-vertical-Ew0WkYGr-2oaWjZke.js.map

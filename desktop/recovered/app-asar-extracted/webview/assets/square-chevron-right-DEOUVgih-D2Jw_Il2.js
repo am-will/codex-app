@@ -1,0 +1,1 @@
+import{n as e,t}from"./square-chevron-right-DEOUVgih-C3_xnYSA.js";t();export{e as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DJc8yfTu.js";var r,i=e((()=>{t(),r=n(`LaptopMinimal`,[[`rect`,{width:`18`,height:`12`,x:`3`,y:`4`,rx:`2`,ry:`2`,key:`1qhy41`}],[`line`,{x1:`2`,x2:`22`,y1:`20`,y2:`20`,key:`ni3hll`}]])}));export{r as n,i as t};
+//# sourceMappingURL=laptop-minimal-By8RL11k-CpIRxyof.js.map

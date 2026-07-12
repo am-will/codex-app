@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BdCJUSBO.js";var r,i=e((()=>{t(),r=n(`EthernetPort`,[[`path`,{d:`m15 20 3-3h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2l3 3z`,key:`rbahqx`}],[`path`,{d:`M6 8v1`,key:`1636ez`}],[`path`,{d:`M10 8v1`,key:`1talb4`}],[`path`,{d:`M14 8v1`,key:`1rsfgr`}],[`path`,{d:`M18 8v1`,key:`gnkwox`}]])}));export{i as n,r as t};
-//# sourceMappingURL=ethernet-port-CRhOZ8AF-D02GfjRR.js.map

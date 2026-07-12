@@ -40,7 +40,7 @@ describe('Recovered Codex bundle RED contract', () => {
   const versionedUpstreamAppAsarPath = path.resolve(
     desktopRoot,
     'tmp',
-    'upstream-26.707.31428',
+    'upstream-26.707.51957',
     'extracted',
     'Codex.app',
     'Contents',
@@ -222,8 +222,8 @@ describe('Recovered Codex bundle RED contract', () => {
           : fs.readFileSync(path.join(outputAssetsRoot, pluginsCardsAsset), 'utf8');
 
       expect(summary.outputRoot).toBe(outputRoot);
-      expect(summary.version).toBe('26.707.31428');
-      expect(summary.buildNumber).toBe('5059');
+      expect(summary.version).toBe('26.707.51957');
+      expect(summary.buildNumber).toBe('5175');
       expect(summary.electronVersion).toBe('42.1.0');
       expect(summary.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
       if (summary.sourceType === 'dmg') {
@@ -251,11 +251,10 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain("autoHideMenuBar:!0");
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
-      expect(mainBundle).toContain('function linuxResolveAbsoluteCommand(');
-      expect(mainBundle).toContain('${process.env.HOME}/.local/bin/${e[0]}');
+      expect(mainBundle).toContain('function linuxDetectCommand(');
       expect(mainBundle).toContain('linuxCursor={id:`cursor`');
       expect(mainBundle).toContain(
-        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxDetectCommand(`zed`,[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
       );
       expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
       expect(workspaceRootDropHandlerBundle).toContain('return null');
@@ -309,15 +308,27 @@ describe('Recovered Codex bundle RED contract', () => {
   });
 
   test('recovered source avoids the Mapbox token push-protection false positive', () => {
-    const source = readRecoveredAssetContaining(
-      ['app-initial~app-main~'],
-      ['markerWidth.ma${`sk`}.maskContentUnits', 'yw=`p${`k`}.'],
-    );
+    const assetsRoot = path.join(recoveredRoot, 'webview', 'assets');
+    const sources = fs
+      .readdirSync(assetsRoot)
+      .filter((entry) => entry.startsWith('app-initial~app-main~') && entry.endsWith('.js'))
+      .map((entry) => fs.readFileSync(path.join(assetsRoot, entry), 'utf8'));
 
-    expect(source).toContain('markerWidth.ma${`sk`}.maskContentUnits');
-    expect(source).not.toContain('markerWidth.mask.maskContentUnits');
-    expect(source).toContain('yw=`p${`k`}.');
-    expect(source).not.toContain('yw=`pk.');
+    expect(sources.length).toBeGreaterThan(0);
+    expect(
+      sources.every((source) => !/pk\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/.test(source)),
+    ).toBe(true);
+    const obfuscatedMapboxSource = sources.find(
+      (source) =>
+        source.includes('markerWidth.ma${`sk`}.maskContentUnits') &&
+        source.includes('yw=`p${`k`}.'),
+    );
+    if (obfuscatedMapboxSource != null) {
+      expect(obfuscatedMapboxSource).toContain('markerWidth.ma${`sk`}.maskContentUnits');
+      expect(obfuscatedMapboxSource).toContain('yw=`p${`k`}.');
+      expect(obfuscatedMapboxSource).not.toContain('markerWidth.mask.maskContentUnits');
+      expect(obfuscatedMapboxSource).not.toContain('yw=`pk.');
+    }
   });
 
   test('recovered bootstrap only requires sibling build chunks that are vendored in git', () => {
@@ -369,8 +380,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.707.31428');
-    expect(packageJson.codexBuildNumber).toBe('5059');
+    expect(packageJson.version).toBe('26.707.51957');
+    expect(packageJson.codexBuildNumber).toBe('5175');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -418,13 +429,13 @@ describe('Recovered Codex bundle RED contract', () => {
       };
     };
 
-    expect(manifest.sourceType).toBe('dmg');
-    expect(manifest.appAsarPath).toBeNull();
+    expect(manifest.sourceType).toBe('app-asar');
+    expect(manifest.appAsarPath).toContain('app.asar');
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(manifest.dmgPath).toContain('Codex-26.707.31428.dmg');
-    expect(manifest.dmgSha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(manifest.version).toBe('26.707.31428');
-    expect(manifest.buildNumber).toBe('5059');
+    expect(manifest.dmgPath).toBeNull();
+    expect(manifest.dmgSha256).toBeNull();
+    expect(manifest.version).toBe('26.707.51957');
+    expect(manifest.buildNumber).toBe('5175');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -530,10 +541,10 @@ describe('Recovered Codex bundle RED contract', () => {
       'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
     );
     expect(featureSyncBundle).toMatch(
-      /[A-Za-z_$][\w$]*=\[`memories`,`tool_suggest`\]/,
+      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`\]/,
     );
     expect(featureSyncBundle).not.toMatch(
-      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`(?:,`goals`)?\]/,
+      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`\]/,
     );
     expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
     expect(assembleScript).toContain(
@@ -672,17 +683,16 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches = mainSource.match(/linuxResolveEditorTarget\(/g) ?? [];
+    const linuxTargetMatches = mainSource.match(/linuxDetectCommand\(/g) ?? [];
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
-    expect(mainSource).toContain('${process.env.HOME}/.local/bin/${e[0]}');
+    expect(mainSource).toContain('function linuxDetectCommand(');
     expect(mainSource).toContain('linuxCursor={id:`cursor`');
     expect(mainSource).toContain(
-      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxDetectCommand(`zed`,[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
     );
     expect(mainSource).toContain('linuxFileManager={id:`fileManager`');
-    expect(mainSource).toContain('linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)');
+    expect(mainSource).toContain('linuxDetectCommand(`xdg-open`,[`/usr/bin/xdg-open`])');
     expect(linuxTargetMatches.length).toBeGreaterThan(4);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
