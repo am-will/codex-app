@@ -1,0 +1,1 @@
+import{n as e,t}from"./square-user-CkOrkXKK-BUVe4QtE.js";e();export{t as default};

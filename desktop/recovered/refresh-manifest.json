@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/tmp/codex-app-refresh-26.707.51957/full-tree/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "26708d5be316b43786ba00ea8581317426e44ff508e0d5cce40f53181582e027",
-  "outputRoot": "/tmp/codex-app-refresh-26.707.51957/desktop/recovered/app-asar-extracted",
-  "version": "26.707.51957",
-  "buildNumber": "5175",
+  "appAsarPath": "/tmp/codex-app-refresh-cache-26.707.62119/upstream/ChatGPT.app/Contents/Resources/app.asar",
+  "appAsarSha256": "165db3a1d32009724fcb91427a73926fe8de2a1e24141d5f1e24951d120424f7",
+  "outputRoot": "/tmp/codex-app-refresh-26.707.62119/desktop/recovered/app-asar-extracted",
+  "version": "26.707.62119",
+  "buildNumber": "5211",
   "electronVersion": "42.1.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -279,6 +279,12 @@
           "reason": null
         },
         {
+          "label": "app shell adds linux application menu compatibility for current bundle",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
           "label": "app shell renders linux codex application sub-menus",
           "patched": false,
           "skipped": true,
@@ -332,13 +338,13 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from app-initial~app-main~quick-chat-window-page~chatgpt-conversation-page-B0shAhmV.js",
+          "label": "compiled Mapbox public token redacted from app-initial~app-main~quick-chat-window-page~chatgpt-conversation-page-CccGCzeZ.js",
           "patched": true,
           "skipped": false,
           "reason": null
         },
         {
-          "label": "compiled Mapbox public token redacted from remote-connections-page-DRUiVXpk.js",
+          "label": "compiled Mapbox public token redacted from list-plus-DY0S9r_g-BmeIxNpk.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -349,27 +355,27 @@
       "patched": false,
       "results": [
         {
-          "label": "linux window controls safe area uses inline title bar controls",
+          "label": "linux window controls safe area uses upstream artifact layout",
           "patched": false,
           "skipped": true,
-          "reason": "linux window controls safe area uses inline title bar controls replacement already present"
+          "reason": "current upstream app shell computes safe area through its window-controls overlay layout"
         }
       ]
     },
     "rendererThreadStart": {
-      "patched": true,
+      "patched": false,
       "results": [
         {
           "label": "renderer prewarm thread start normalizes dynamic tools",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "renderer prewarm thread start normalizes dynamic tools target not applicable to the current app-shell renderer"
         },
         {
           "label": "renderer thread start normalizes dynamic tools",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "renderer thread start normalizes dynamic tools target not applicable to the current app-shell renderer"
         }
       ]
     },
@@ -497,12 +503,10 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/tmp/codex-app-refresh-26.707.51957/desktop/node_modules",
+    "sourceNodeModulesRoot": "/tmp/codex-app-refresh-26.707.62119/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
-      "node-pty/build/Release/pty.node",
-      "node-pty/build/Release/obj.target/pty.node",
-      "node-pty/bin/linux-x64-146/node-pty.node"
+      "node-pty/build/Release/pty.node"
     ]
   },
   "tempRoot": null

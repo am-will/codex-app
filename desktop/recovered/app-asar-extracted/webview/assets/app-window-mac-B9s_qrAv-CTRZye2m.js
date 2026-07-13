@@ -1,0 +1,1 @@
+import{n as e,t}from"./app-window-mac-B9s_qrAv-4FeO-d2t.js";t();export{e as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BcTGodXu.js";var r,i=e((()=>{t(),r=n(`PanelBottomClose`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M3 15h18`,key:`5xshup`}],[`path`,{d:`m15 8-3 3-3-3`,key:`1oxy1z`}]])}));export{r as n,i as t};
+//# sourceMappingURL=panel-bottom-close-Dm_qQt9y-BwnnuQyK.js.map

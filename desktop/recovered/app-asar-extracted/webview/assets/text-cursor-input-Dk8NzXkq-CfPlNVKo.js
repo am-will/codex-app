@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DJc8yfTu.js";var r,i=e((()=>{t(),r=n(`TextCursorInput`,[[`path`,{d:`M5 4h1a3 3 0 0 1 3 3 3 3 0 0 1 3-3h1`,key:`18xjzo`}],[`path`,{d:`M13 20h-1a3 3 0 0 1-3-3 3 3 0 0 1-3 3H5`,key:`fj48gi`}],[`path`,{d:`M5 16H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1`,key:`1n9rhb`}],[`path`,{d:`M13 8h7a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-7`,key:`13ksps`}],[`path`,{d:`M9 7v10`,key:`1vc8ob`}]])}));export{i as n,r as t};
-//# sourceMappingURL=text-cursor-input-Dk8NzXkq-CfPlNVKo.js.map

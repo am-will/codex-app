@@ -1,0 +1,1 @@
+import{n as e,t}from"./star-half-ukA5DynK-DUq8Dm9O.js";e();export{t as default};

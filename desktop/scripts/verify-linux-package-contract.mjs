@@ -25,8 +25,8 @@ const requiredAppAsarMarkers = [
   },
   {
     label: 'renderer thread start host normalization',
-    marker:
-      'e.sendRequest(`thread/start`,{...n,threadSource:n.threadSource===void 0?`user`:n.threadSource}',
+    markerPattern:
+      /e\.sendRequest\(`thread\/start`,\{\.\.\.n,threadSource:n\.threadSource===void 0\?`user`:n\.threadSource\}|start-thread-for-host`,\{ephemeral:!0,hostId:e,permissions:`:read-only`,threadSource:`system`\}/,
   },
   {
     label: 'bundled app-server feature allowlist',

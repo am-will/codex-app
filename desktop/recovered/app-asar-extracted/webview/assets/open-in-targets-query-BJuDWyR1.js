@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{GJ as t,IJ as n,RJ as r,RY as i,WJ as a,zY as o}from"./app-initial~app-main~quick-chat-window-page~work-home-page~chatgpt-conversation-page-BqLP6EDd.js";var s,c=e((()=>{o(),t(),r(),s=n(i,`open-in-targets`,()=>({staleTime:a.ONE_MINUTE}))}));export{s as n,c as t};
+//# sourceMappingURL=open-in-targets-query-BJuDWyR1.js.map

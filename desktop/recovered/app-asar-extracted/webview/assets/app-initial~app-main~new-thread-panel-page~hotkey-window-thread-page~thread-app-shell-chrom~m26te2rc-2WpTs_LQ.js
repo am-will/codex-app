@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{Ast as t,jst as n}from"./app-initial~app-main~new-thread-panel-page~appgen-library-page~hotkey-window-thread-page~ho~iufn7mg3-k1satKyX.js";var r,i,a=e((()=>{t(),r=n(`has-seen-gift-credits-home-banner`,!1),i=n(`gift-credits-profile-coachmark-pending`,!1)}));export{r as n,a as r,i as t};
-//# sourceMappingURL=app-initial~app-main~new-thread-panel-page~hotkey-window-thread-page~thread-app-shell-chrom~m26te2rc-2WpTs_LQ.js.map

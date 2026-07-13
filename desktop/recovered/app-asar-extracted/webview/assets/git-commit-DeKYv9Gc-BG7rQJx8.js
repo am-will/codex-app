@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./git-commit-horizontal-CQFhAIEY-DR-_sV7y.js";e((()=>{t()}))();export{n as default};
+//# sourceMappingURL=git-commit-DeKYv9Gc-BG7rQJx8.js.map

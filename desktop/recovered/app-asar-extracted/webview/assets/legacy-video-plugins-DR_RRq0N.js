@@ -1,0 +1,3 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./index.umd-xEO7rTug.js","./rolldown-runtime-Czos8NxU.js"])))=>i.map(i=>d[i]);
+import{n as e,s as t}from"./rolldown-runtime-Czos8NxU.js";import{Gi as n,Qt as r,Wi as i,en as a,rn as o}from"./app-initial~app-main~new-thread-panel-page~onboarding-page~appgen-library-page~hotkey-windo~d4kxte0o-BsjKAgmz.js";function s(e){return r(this,void 0,void 0,function(){var n;return a(this,function(r){switch(r.label){case 0:return[4,i(()=>import(`./index.umd-xEO7rTug.js`).then(e=>t(e.default)),__vite__mapDeps([0,1]),import.meta.url)];case 1:return n=r.sent(),e._plugins=n,[2]}})})}e((()=>{o(),n()}))();export{s as loadLegacyVideoPlugins};
+//# sourceMappingURL=legacy-video-plugins-DR_RRq0N.js.map

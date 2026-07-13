@@ -104,8 +104,8 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain('py-3 pr-5');
     expect(avatarOverlayBundle).not.toContain('line-clamp-2');
     expect(avatarOverlayBundle).toContain('whitespace-pre-wrap');
-    expect(avatarOverlayBundle).toContain(
-      'mascot:{left:216,top:191,width:nt,height:121}',
+    expect(avatarOverlayBundle).toMatch(
+      /mascot:\{left:216,top:191,width:[A-Za-z_$][\w$]*,height:121\}/,
     );
     expect(avatarOverlayBundle).toMatch(
       /[A-Za-z_$][\w$]*=80,[A-Za-z_$][\w$]*=84,[A-Za-z_$][\w$]*=512,[A-Za-z_$][\w$]*=1/,

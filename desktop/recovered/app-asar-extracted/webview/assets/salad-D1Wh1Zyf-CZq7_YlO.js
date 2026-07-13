@@ -1,0 +1,1 @@
+import{n as e,t}from"./salad-D1Wh1Zyf-BKj2Xr4h.js";e();export{t as default};

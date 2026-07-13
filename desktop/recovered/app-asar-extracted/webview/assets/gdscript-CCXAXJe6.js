@@ -1,0 +1,1 @@
+import{n as e,t}from"./gdscript-CLUICISH.js";e();export{t as default};
