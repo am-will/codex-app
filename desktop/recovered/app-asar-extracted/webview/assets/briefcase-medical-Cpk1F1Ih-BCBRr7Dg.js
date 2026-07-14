@@ -1,0 +1,1 @@
+import{n as e,t}from"./briefcase-medical-Cpk1F1Ih-kzHJZ5wd.js";t();export{e as default};

@@ -1,0 +1,1 @@
+import{n as e,t}from"./panels-right-bottom-DA34oZGo-D9hU7W7E.js";e();export{t as default};

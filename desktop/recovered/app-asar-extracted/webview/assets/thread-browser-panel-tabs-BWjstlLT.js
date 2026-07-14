@@ -1,1 +1,0 @@
-import{Bu as e,Ju as t,zu as n}from"./app-initial~app-main~onboarding-page~hotkey-window-thread-page~quick-chat-window-page~chatg~c1urrgy0-6NYGzta_.js";t();export{n as getConversationBrowserTabIdsForTransfer,e as getLastFocusedBrowserTabId};

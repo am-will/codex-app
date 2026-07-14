@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BcTGodXu.js";var r,i=e((()=>{t(),r=n(`SquareArrowOutUpLeft`,[[`path`,{d:`M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6`,key:`14mv1t`}],[`path`,{d:`m3 3 9 9`,key:`rks13r`}],[`path`,{d:`M3 9V3h6`,key:`ira0h2`}]])}));export{r as n,i as t};
-//# sourceMappingURL=square-arrow-out-up-left-CwetD-0B-6JeeV-sx.js.map

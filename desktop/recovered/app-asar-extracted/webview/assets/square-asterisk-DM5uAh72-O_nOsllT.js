@@ -1,1 +1,0 @@
-import{n as e,t}from"./square-asterisk-DM5uAh72-C3x9vEJe.js";e();export{t as default};

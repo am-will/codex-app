@@ -1,1 +1,0 @@
-import{n as e,t}from"./mailbox-CkG-b-RO-CW8HO-kh.js";e();export{t as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`SquareCheck`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`m9 12 2 2 4-4`,key:`dzmm74`}]])}));export{i as n,r as t};
+//# sourceMappingURL=square-check-DskOGYso-Cj0OdTPx.js.map

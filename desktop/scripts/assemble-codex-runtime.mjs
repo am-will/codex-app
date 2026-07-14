@@ -92,6 +92,12 @@ const bootstrapLinuxGitWrapperAlternatives = [
     replacement:
       'require(`node:crypto`);let c=require(`node:fs`);c=e.o(c);let l=require(`node:child_process`),u=require(`node:timers/promises`);if(process.platform===`linux`&&typeof process.resourcesPath===`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var d=`desktop.intelLaunchWarning.message`,',
   },
+  {
+    target:
+      'require(`node:crypto`);let c=require(`node:fs`);c=e.o(c);let l=require(`node:fs/promises`),u=require(`node:child_process`),d=require(`node:timers/promises`);var f=`desktop.intelLaunchWarning.message`,',
+    replacement:
+      'require(`node:crypto`);let c=require(`node:fs`);c=e.o(c);let l=require(`node:fs/promises`),u=require(`node:child_process`),d=require(`node:timers/promises`);if(process.platform===`linux`&&typeof process.resourcesPath==`string`){let e=process.env.PATH??``,t=process.resourcesPath;e.split(`:`).includes(t)||(process.env.PATH=e?`${t}:${e}`:t)}var f=`desktop.intelLaunchWarning.message`,',
+  },
 ];
 const bootstrapLinuxGitWrapperMarker =
   'process.platform===`linux`&&typeof process.resourcesPath==`string`';
@@ -793,6 +799,11 @@ const appShellLinuxWindowsMenuPatchAlternatives = [
     target: 'function cO(){return ST()&&window.electronBridge?.showApplicationMenu!=null}',
     replacement: 'function cO(){return ST()&&window.electronBridge?.showApplicationMenu!=null}',
   },
+  {
+    target: 'function yQe(){return Lc()&&window.electronBridge?.showApplicationMenu!=null}',
+    replacement:
+      'function yQe(){return(Lc()||navigator.userAgent.includes(`Linux`))&&window.electronBridge?.showApplicationMenu!=null}',
+  },
 ];
 const appShellLinuxWindowsMenuPatchMarker =
   'return(e===`windows`||e===`linux`)&&window.electronBridge?.showApplicationMenu!=null';
@@ -817,6 +828,12 @@ const appShellLinuxApplicationMenuPatchAlternatives = [
       'function Zgi(){let e=Ea(),[t,n]=(0,Qgi.useState)(null),r=(0,Qgi.useRef)(0);',
     replacement:
       'function Zgi(){let e=Ea(),[t,n]=(0,Qgi.useState)(null),r=(0,Qgi.useRef)(0);',
+  },
+  {
+    target:
+      'function xQe(){let e=vs(),[t,n]=(0,SQe.useState)(null),r=(0,SQe.useRef)(0);if(!yQe())return null;let i=async(e,t)=>{let i=window.electronBridge?.showApplicationMenu;if(!i)return;let a=r.current+1;r.current=a,n(e);let o=t.currentTarget.getBoundingClientRect();try{await i(e,Math.round(o.left),Math.round(o.bottom))}finally{r.current===a&&n(null)}};return(0,EA.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:CQe.map(({id:n,message:r})=>(0,EA.jsx)(`button`,{type:`button`,"aria-expanded":t===n,"aria-haspopup":`menu`,"aria-label":e.formatMessage(r),className:Q(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,t===n?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{i(n,e)},children:(0,EA.jsx)($,{...r})},n))})}',
+    replacement:
+      'function xQe(){let e=vs(),t=yQe(),h=navigator.userAgent.includes(`Linux`)&&typeof window.electronBridge?.getApplicationMenuItems==`function`,[n,r]=(0,SQe.useState)(null),[i,a]=(0,SQe.useState)([]),[o,s]=(0,SQe.useState)(null),c=(0,SQe.useRef)(0);if((0,SQe.useEffect)(()=>{if(!h||!n)return;let e=e=>{e.key===`Escape`&&r(null)},t=e=>{let t=document.getElementById(`linux-application-menu-panel`);t&&!t.contains(e.target)&&!e.target.closest(`[data-linux-menu-trigger=true]`)&&r(null)};return document.addEventListener(`keydown`,e),document.addEventListener(`mousedown`,t),()=>{document.removeEventListener(`keydown`,e),document.removeEventListener(`mousedown`,t)}},[h,n]),!t)return null;let l=e=>e?e.replace(/CommandOrControl|CmdOrCtrl/g,`Ctrl`).replace(/Command/g,`Ctrl`).replace(/Control/g,`Ctrl`):``,u=async(e,t)=>{if(h){if(n===e){r(null);return}let i=t.currentTarget.getBoundingClientRect(),o=c.current+1;c.current=o,r(e),a([]);let l=await window.electronBridge.getApplicationMenuItems(e);c.current===o&&(s({left:Math.round(i.left),top:Math.round(i.bottom)}),a(l?.items??[]))}else{let n=window.electronBridge?.showApplicationMenu;if(!n)return;let i=c.current+1;c.current=i,r(e);let a=t.currentTarget.getBoundingClientRect();try{await n(e,Math.round(a.left),Math.round(a.bottom))}finally{c.current===i&&r(null)}}},d=async e=>{e.enabled!==!1&&!e.submenu&&n&&(await window.electronBridge?.clickApplicationMenuItem?.(n,e.path),r(null))},f=(e,t=0)=>e.flatMap(e=>e.type===`separator`?[(0,EA.jsx)(`div`,{className:`mx-1 my-1 border-t border-token-border/60`,role:`separator`},e.path)]:[(0,EA.jsx)(`button`,{type:`button`,"aria-haspopup":e.submenu?`menu`:void 0,className:Q(`flex w-full items-center gap-3 rounded-lg p-1.5 text-left text-sm outline-none transition-colors`,e.enabled===!1?`cursor-default opacity-50`:e.submenu?`cursor-default text-token-text-tertiary`:`cursor-interaction hover:bg-token-list-hover-background focus:bg-token-list-hover-background`),disabled:e.enabled===!1,onClick:()=>{e.submenu?null:d(e)},children:(0,EA.jsxs)(`span`,{className:`flex w-full items-center gap-3`,style:{paddingLeft:t*14},children:[(0,EA.jsx)(`span`,{className:`min-w-0 flex-1 truncate`,children:e.label}),e.submenu?(0,EA.jsx)(`span`,{className:`shrink-0 text-xs text-token-text-tertiary`,children:`>`}):e.accelerator?(0,EA.jsx)(`span`,{className:`shrink-0 pl-4 text-xs text-token-text-tertiary tabular-nums`,children:l(e.accelerator)}):null]})},e.path),...(e.submenu?f(e.submenu,t+1):[])]);return(0,EA.jsxs)(EA.Fragment,{children:[(0,EA.jsx)(`div`,{className:`flex items-center gap-0.5 pr-2 pl-1`,children:CQe.map(({id:t,message:i})=>(0,EA.jsx)(`button`,{type:`button`,"data-linux-menu-trigger":h?`true`:void 0,"aria-expanded":n===t,"aria-haspopup":`menu`,"aria-label":e.formatMessage(i),className:Q(`no-drag rounded-md border border-transparent px-2.5 py-1 text-base font-normal leading-none outline-none transition-colors`,n===t?`bg-[var(--color-token-menubar-selection-background)] text-[var(--color-token-menubar-selection-foreground)]`:`text-token-text-tertiary hover:bg-token-foreground/5 hover:text-token-description-foreground focus-visible:bg-token-foreground/5 focus-visible:text-token-description-foreground`),onClick:e=>{u(t,e)},children:(0,EA.jsx)($,{...i})},t))}),h&&n&&o&&(0,EA.jsx)(`div`,{id:`linux-application-menu-panel`,className:`no-drag fixed z-50 m-px flex min-w-[220px] flex-col rounded-xl bg-token-dropdown-background/90 p-1 text-token-foreground shadow-lg ring-[0.5px] ring-token-border backdrop-blur-sm select-none`,style:{left:o.left,top:o.top},children:f(i)})]})}',
   },
   {
     target:
@@ -898,6 +915,12 @@ const appShellLinuxWindowControlsPatchAlternatives = [
     replacement:
       'function VGe(){let e=(0,VF.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,UF.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,UF.jsx)(pF,{}),(0,UF.jsx)(hWe,{}),(0,UF.jsx)(LinuxWindowControls,{})]}),e[0]=t):t=e[0],t}function LinuxWindowControls(){let e=window.electronBridge?.controlWindow;if(typeof e!=`function`)return null;let t=t=>()=>{void e(t)},[n,r]=(0,HF.useState)(!1),i=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,a=$(i,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),o=$(i,n?`text-token-charts-red`:`text-token-text-tertiary`);return(0,UF.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,UF.jsx)(`button`,{type:`button`,className:a,onClick:t(`minimize`),"aria-label":`Minimize`,children:(0,UF.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,UF.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,UF.jsx)(`button`,{type:`button`,className:a,onClick:t(`maximize`),"aria-label":`Maximize`,children:(0,UF.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,UF.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,UF.jsx)(`button`,{type:`button`,className:o,onMouseEnter:()=>r(!0),onMouseLeave:()=>r(!1),onFocus:()=>r(!0),onBlur:()=>r(!1),onClick:t(`close`),"aria-label":`Close`,children:(0,UF.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,UF.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}var VF',
   },
+  {
+    target:
+      'function y1e(){let e=(0,QA.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,ej.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,ej.jsx)(WQe,{}),(0,ej.jsx)(xQe,{})]}),e[0]=t):t=e[0],t}var QA',
+    replacement:
+      'function y1e(){let e=(0,QA.c)(1),t;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(t=(0,ej.jsxs)(`div`,{className:`app-header-tint draggable group/application-menu-top-bar z-40 flex h-toolbar-sm items-center ps-(--spacing-token-safe-header-left) pe-(--spacing-token-safe-header-right)`,children:[(0,ej.jsx)(WQe,{}),(0,ej.jsx)(xQe,{}),(0,ej.jsx)(LinuxWindowControls,{})]}),e[0]=t):t=e[0],t}function LinuxWindowControls(){let e=window.electronBridge?.controlWindow;if(!navigator.userAgent.includes(`Linux`)||typeof e!=`function`)return null;let t=t=>()=>{void e(t)},[n,r]=(0,$A.useState)(!1),i=`no-drag cursor-interaction inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-transparent bg-transparent p-0 outline-none transition-colors hover:bg-token-foreground/5 focus-visible:bg-token-foreground/5`,a=Q(i,`text-token-text-tertiary hover:text-token-description-foreground focus-visible:text-token-description-foreground`),o=Q(i,n?`text-token-charts-red`:`text-token-text-tertiary`);return(0,ej.jsxs)(`div`,{"data-linux-codex-window-controls":`true`,className:`no-drag ml-auto flex shrink-0 items-center gap-0.5 pe-2`,children:[(0,ej.jsx)(`button`,{type:`button`,className:a,onClick:t(`minimize`),"aria-label":`Minimize`,children:(0,ej.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,ej.jsx)(`path`,{d:`M0 5h10`,stroke:`currentColor`,strokeWidth:1})})}),(0,ej.jsx)(`button`,{type:`button`,className:a,onClick:t(`maximize`),"aria-label":`Maximize`,children:(0,ej.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,ej.jsx)(`rect`,{x:.5,y:.5,width:9,height:9,stroke:`currentColor`,strokeWidth:1})})}),(0,ej.jsx)(`button`,{type:`button`,className:o,onMouseEnter:()=>r(!0),onMouseLeave:()=>r(!1),onFocus:()=>r(!0),onBlur:()=>r(!1),onClick:t(`close`),"aria-label":`Close`,children:(0,ej.jsx)(`svg`,{className:`h-2.5 w-2.5`,viewBox:`0 0 10 10`,fill:`none`,"aria-hidden":`true`,children:(0,ej.jsx)(`path`,{d:`M1 1l8 8M9 1L1 9`,stroke:`currentColor`,strokeWidth:1})})})]})}var QA',
+  },
 ];
 const appShellLinuxWindowControlsUpgradePatchPattern =
   /function LinuxWindowControls\(\)\{[\s\S]*?\}(?=function \$r\(e\)\{return null\})/;
@@ -940,6 +963,12 @@ const appShellLinuxFloatingSidebarHideNavHeaderPatchAlternatives = [
       'children:[(0,$.jsx)(tt.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,$.jsx)(VO,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,$.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
     replacement:
       'children:[r?null:(0,$.jsx)(tt.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,$.jsx)(VO,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,$.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
+  },
+  {
+    target:
+      'children:[(0,ej.jsx)(ye.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,ej.jsx)(WQe,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,ej.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
+    replacement:
+      'children:[r?null:(0,ej.jsx)(ye.div,{initial:s?!1:{x:8},animate:{x:0},exit:{x:s?0:8},transition:m,className:`app-header-tint flex h-toolbar shrink-0 items-center ps-[max(var(--spacing-token-safe-header-left),0.5rem)] pe-2`,children:(0,ej.jsx)(WQe,{hideUnreadBadge:!0,onToggleSidebar:c})}),(0,ej.jsx)(`div`,{className:`min-h-0 flex-1 overflow-hidden`,children:a})]',
   },
 ];
 const appShellLinuxFloatingSidebarHideNavHeaderPatchMarker =
@@ -1002,6 +1031,12 @@ const appShellLinuxFloatingSidebarMainHeaderLeftPatchAlternatives = [
     replacement:
       'function Nk({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a,leftPanelWidth:lp}=Sn(),flw=H(BA),fls=H(wt),o=ln(0),s=Jt`${i}px`,c=Jt`${a}px`,l=H(V)',
   },
+  {
+    target:
+      'function j$e({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a}=Mp(),o=Ni(0),s=md`${i}px`,c=md`${a}px`,l=I(Vae)',
+    replacement:
+      'function j$e({isHeaderEdgeScroll:e,isApplicationMenuBarEnabled:t}){let{headerLeftWidth:n,headerRightWidth:r,leftPanelAnimatedWidth:i,rightPanelAnimatedWidth:a,leftPanelWidth:lp}=Mp(),flw=I(gQe),fls=I(_Qe),o=Ni(0),s=md`${i}px`,c=md`${a}px`,l=I(Vae)',
+  },
 ];
 const appShellLinuxFloatingSidebarMainHeaderLeftStylePatchTarget =
   'style:t?{left:s}:{},children:[(0,Q.jsx)(_r,{entries:p,fitWidth:n,slotWidth:t?o:i,side:`start`})';
@@ -1035,6 +1070,12 @@ const appShellLinuxFloatingSidebarMainHeaderLeftStylePatchAlternatives = [
       'style:t?{left:s}:{},children:[(0,Uk.jsx)(Pk,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
     replacement:
       'style:t?{left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s}:{},children:[(0,Uk.jsx)(Pk,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
+  },
+  {
+    target:
+      'style:t?{left:s}:{},children:[(0,GA.jsx)(M$e,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
+    replacement:
+      'style:t?{left:flw&&!fls?`${Math.max(lp.get(),i.get())}px`:s}:{},children:[(0,GA.jsx)(M$e,{entries:f,fitWidth:n,slotWidth:t?o:i,side:`start`})',
   },
 ];
 const appShellLinuxFloatingSidebarMainHeaderLeftPatchMarker =
@@ -1486,6 +1527,10 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
     target: 'Ue=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),we.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[xt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:C},G.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:C}),M(!0),O(null))}',
     replacement: 'Ue=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),we.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[xt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:C},G.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:C}),M(!0),O(null))}',
   },
+  {
+    target: 'Ge=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Se.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[xt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:ee},k.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:ee}),A(!0),T(null))}',
+    replacement: 'Ge=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Se.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[xt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:ee},k.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:ee}),A(!0),T(null)}',
+  },
 
 
   {
@@ -1568,6 +1613,10 @@ const avatarOverlayLargeActivityTrayLayoutPatchAlternatives = [
     target: 'Pn={mascot:{left:216,top:191,width:et,height:121},placement:`top-end`,tray:{left:11,top:56,width:345,height:131},viewport:{width:356,height:320}}',
     replacement: 'Pn={mascot:{left:216,top:191,width:et,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}',
   },
+  {
+    target: 'Pn={mascot:{left:216,top:191,width:it,height:121},placement:`top-end`,tray:{left:11,top:56,width:345,height:131},viewport:{width:356,height:320}}',
+    replacement: 'Pn={mascot:{left:216,top:191,width:it,height:121},placement:`top-end`,tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}}',
+  },
 
   {
     target:
@@ -1636,6 +1685,12 @@ const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
       'pe?`whitespace-pre-wrap`:b==null?`line-clamp-2`:void 0',
     replacement:
       'pe?`whitespace-pre-wrap`:b==null?`whitespace-pre-wrap`:void 0',
+  },
+  {
+    target:
+      'ue?`whitespace-pre-wrap`:b==null?`line-clamp-2`:void 0',
+    replacement:
+      'ue?`whitespace-pre-wrap`:b==null?`whitespace-pre-wrap`:void 0',
   },
   {
     target: avatarOverlayLargeActivityTrayWrapPatchTarget,
@@ -2459,7 +2514,7 @@ export function applyStringPatch(source, target, replacement, label, sourcePath,
   }
 
   if (!source.includes(target)) {
-    if (source.includes('function Zgi') || source.includes('startedOnMascot') || source.includes('start-thread-for-host') || (sourcePath.includes('app-initial~artifact-tab-content.electron~app-main~') && source.includes('function cL(){'))) {
+    if (source.includes('function Zgi') || source.includes('startedOnMascot') || source.includes('start-thread-for-host') || (sourcePath.includes('app-initial~artifact-tab-content.electron~app-main~') && source.includes('function cL(){')) || (label === 'app shell adds linux application menu compatibility for current bundle' && source.includes('function xQe(){'))) {
       return {
         patched: false,
         skipped: true,
@@ -2501,7 +2556,7 @@ export function applyAlternativeStringPatch(
 
   const match = alternatives.find(({ target }) => source.includes(target));
   if (!match) {
-    if (source.includes('function Zgi') || source.includes('startedOnMascot') || source.includes('start-thread-for-host') || (sourcePath.includes('app-initial~artifact-tab-content.electron~app-main~') && source.includes('function cL(){'))) {
+    if (source.includes('function Zgi') || source.includes('startedOnMascot') || source.includes('start-thread-for-host') || (sourcePath.includes('app-initial~artifact-tab-content.electron~app-main~') && source.includes('function cL(){')) || (label === 'app shell adds linux application menu compatibility for current bundle' && source.includes('function xQe(){'))) {
       return {
         patched: false,
         skipped: true,
@@ -2529,7 +2584,7 @@ export function applyRegexPatch(source, pattern, replacement, label, sourcePath,
 
   pattern.lastIndex = 0;
   if (!pattern.test(source)) {
-    if (source.includes('function Zgi') || source.includes('startedOnMascot') || source.includes('start-thread-for-host') || (sourcePath.includes('app-initial~artifact-tab-content.electron~app-main~') && source.includes('function cL(){'))) {
+    if (source.includes('function Zgi') || source.includes('startedOnMascot') || source.includes('start-thread-for-host') || (sourcePath.includes('app-initial~artifact-tab-content.electron~app-main~') && source.includes('function cL(){')) || (label === 'app shell adds linux application menu compatibility for current bundle' && source.includes('function xQe(){'))) {
       return {
         patched: false,
         skipped: true,

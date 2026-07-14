@@ -1,0 +1,1 @@
+import{n as e,t}from"./rectangle-vertical-C5CvkXVV-BhD4pJIR.js";e();export{t as default};

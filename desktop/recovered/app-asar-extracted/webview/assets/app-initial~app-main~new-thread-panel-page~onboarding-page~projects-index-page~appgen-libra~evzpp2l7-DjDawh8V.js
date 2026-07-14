@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";var t,n=e((()=>{t=6e4}));export{n,t};
-//# sourceMappingURL=app-initial~app-main~new-thread-panel-page~onboarding-page~projects-index-page~appgen-libra~evzpp2l7-DjDawh8V.js.map

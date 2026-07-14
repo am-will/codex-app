@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{GJ as t,MG as n,RY as r,VY as i,WJ as a,jG as o,tX as s,zY as c}from"./app-initial~app-main~quick-chat-window-page~work-home-page~chatgpt-conversation-page-BqLP6EDd.js";var l,u=e((()=>{i(),n(),c(),t(),l=s(r,()=>({queryKey:[`app-info`],queryFn:()=>o.appInfo.get(),staleTime:a.INFINITE}))}));export{u as n,l as t};
-//# sourceMappingURL=app-initial~app-main~personalization-settings~appearance-settings~general-settings~codex-mi~i1eak0j3-rzCWdM34.js.map

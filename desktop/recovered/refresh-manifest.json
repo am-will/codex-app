@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/tmp/codex-app-refresh-cache-26.707.62119/upstream/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "165db3a1d32009724fcb91427a73926fe8de2a1e24141d5f1e24951d120424f7",
-  "outputRoot": "/tmp/codex-app-refresh-26.707.62119/desktop/recovered/app-asar-extracted",
-  "version": "26.707.62119",
-  "buildNumber": "5211",
+  "appAsarPath": "/home/amwill/tmp/codex-upstream-cache/ChatGPT-26.707.72221-extract.YuCve1/ChatGPT.app/Contents/Resources/app.asar",
+  "appAsarSha256": "b5da51e5df6e996076e4cb19045cec46dd4c08cf61c19cdbc5cb426b8413b73c",
+  "outputRoot": "/home/amwill/tmp/codex-app-release-26.707.72221-20260714030350/desktop/recovered/app-asar-extracted",
+  "version": "26.707.72221",
+  "buildNumber": "5307",
   "electronVersion": "42.1.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -280,15 +280,15 @@
         },
         {
           "label": "app shell adds linux application menu compatibility for current bundle",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell adds linux application menu compatibility for current bundle target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell renders linux codex application sub-menus",
-          "patched": false,
-          "skipped": true,
-          "reason": "app shell renders linux codex application sub-menus replacement already present"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         },
         {
           "label": "app shell upgrades linux codex application sub-menus",
@@ -298,9 +298,9 @@
         },
         {
           "label": "app shell hides floating sidebar nav when title bar owns chrome",
-          "patched": false,
-          "skipped": true,
-          "reason": "app shell hides floating sidebar nav when title bar owns chrome target not applicable to the current app-shell renderer"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         },
         {
           "label": "app shell raises floating sidebar above main header chrome",
@@ -322,15 +322,15 @@
         },
         {
           "label": "app shell shifts main header left when floating sidebar is open",
-          "patched": false,
-          "skipped": true,
-          "reason": "app shell shifts main header left when floating sidebar is open target not applicable to the current app-shell renderer"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         },
         {
           "label": "app shell applies floating sidebar main header left style offset",
-          "patched": false,
-          "skipped": true,
-          "reason": "app shell applies floating sidebar main header left style offset target not applicable to the current app-shell renderer"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         }
       ]
     },
@@ -338,13 +338,13 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from app-initial~app-main~quick-chat-window-page~chatgpt-conversation-page-CccGCzeZ.js",
+          "label": "compiled Mapbox public token redacted from app-initial~app-main~page-Cmd9LUYY.js",
           "patched": true,
           "skipped": false,
           "reason": null
         },
         {
-          "label": "compiled Mapbox public token redacted from list-plus-DY0S9r_g-BmeIxNpk.js",
+          "label": "compiled Mapbox public token redacted from cake-Cr9PYkj3-eDFn_Tpk.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -355,10 +355,10 @@
       "patched": false,
       "results": [
         {
-          "label": "linux window controls safe area uses upstream artifact layout",
+          "label": "linux window controls safe area uses inline title bar controls",
           "patched": false,
           "skipped": true,
-          "reason": "current upstream app shell computes safe area through its window-controls overlay layout"
+          "reason": "linux window controls safe area uses inline title bar controls replacement already present"
         }
       ]
     },
@@ -503,7 +503,7 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/tmp/codex-app-refresh-26.707.62119/desktop/node_modules",
+    "sourceNodeModulesRoot": "/home/amwill/tmp/codex-app-release-26.707.72221-20260714030350/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
       "node-pty/build/Release/pty.node"

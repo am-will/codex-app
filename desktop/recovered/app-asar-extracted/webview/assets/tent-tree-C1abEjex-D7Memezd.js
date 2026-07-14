@@ -1,0 +1,1 @@
+import{n as e,t}from"./tent-tree-C1abEjex-BfeB4A7Q.js";e();export{t as default};

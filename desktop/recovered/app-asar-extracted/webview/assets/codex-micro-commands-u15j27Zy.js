@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{$n as t,fr as n,pr as r}from"./app-initial~app-main~quick-chat-window-page~work-home-page~chatgpt-conversation-page-BqLP6EDd.js";function i(e){let t=e===`newThread`?`newTask`:e;return a.find(e=>e.id===t)??null}var a,o=e((()=>{t(),a=r.filter(e=>e.kind===`webview`&&n(e,`electron`))}));export{i as n,o as r,a as t};
-//# sourceMappingURL=codex-micro-commands-u15j27Zy.js.map

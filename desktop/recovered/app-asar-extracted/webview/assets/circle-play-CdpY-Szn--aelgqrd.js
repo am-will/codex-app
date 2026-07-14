@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BcTGodXu.js";var r,i=e((()=>{t(),r=n(`CirclePlay`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`polygon`,{points:`10 8 16 12 10 16 10 8`,key:`1cimsy`}]])}));export{r as n,i as t};
-//# sourceMappingURL=circle-play-CdpY-Szn--aelgqrd.js.map

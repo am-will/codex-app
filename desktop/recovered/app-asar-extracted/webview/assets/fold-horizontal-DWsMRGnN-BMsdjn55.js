@@ -1,1 +1,0 @@
-import{n as e,t}from"./fold-horizontal-DWsMRGnN-CaqZNHoS.js";e();export{t as default};

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BcTGodXu.js";var r,i=e((()=>{t(),r=n(`CircleStop`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`rect`,{x:`9`,y:`9`,width:`6`,height:`6`,rx:`1`,key:`1ssd4o`}]])}));export{r as n,i as t};
-//# sourceMappingURL=circle-stop-Cd9MCROH-BKJArcPu.js.map

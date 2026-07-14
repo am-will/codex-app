@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BcTGodXu.js";var r,i=e((()=>{t(),r=n(`SquareDot`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`circle`,{cx:`12`,cy:`12`,r:`1`,key:`41hilf`}]])}));export{i as n,r as t};
-//# sourceMappingURL=square-dot-CJMi1Ft_-Itkax1Nd.js.map

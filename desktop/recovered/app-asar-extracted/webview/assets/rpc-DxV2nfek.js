@@ -1,0 +1,1 @@
+import{JO as e,XO as t,YO as n,qO as r}from"./app-initial~app-main~hotkey-window-new-thread-page~hotkey-window-home-page~composer-utility-bar-D9zyQF1n.js";n();export{r as appHost,e as appServices,t as initializeAppHostServices};

@@ -380,8 +380,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.707.62119');
-    expect(packageJson.codexBuildNumber).toBe('5211');
+    expect(packageJson.version).toBe('26.707.72221');
+    expect(packageJson.codexBuildNumber).toBe('5307');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -394,8 +394,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(packageJson.scripts?.['make:linux']).toContain('electron-forge make --platform linux');
     expect(bootstrapSource).toContain('Desktop bootstrap failed to start the main app');
     expect(bootstrapSource).toContain('runMainAppStartup');
-    expect(bootstrapSource).toContain(
-      'process.platform===`linux`&&typeof process.resourcesPath===`string`',
+    expect(bootstrapSource).toMatch(
+      /process\.platform===`linux`&&typeof process\.resourcesPath={2,3}`string`/,
     );
     expect(bootstrapSource).toContain(
       '(()=>{try{process.stderr?.writable&&console.error(',
@@ -434,8 +434,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.707.62119');
-    expect(manifest.buildNumber).toBe('5211');
+    expect(manifest.version).toBe('26.707.72221');
+    expect(manifest.buildNumber).toBe('5307');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -496,8 +496,10 @@ describe('Recovered Codex bundle RED contract', () => {
       'dynamic-tools-for-thread-start-requested',
       'set-experimental-feature-enablement-for-host',
     ]);
-    const rendererPrewarmBundle = readRecoveredAsset(findRecoveredAsset('app-initial~app-main~quick-chat-window-page~work-home-page~chatgpt-conversation-page'));
-    const rendererStartBundle = rendererPrewarmBundle;
+    const rendererStartBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+      'start-thread-for-host',
+      'threadSource:`system`',
+    ]);
     const rendererRequestClientBundle = readRecoveredAssetContaining(
       ['app-initial~app-main~'],
       [
@@ -526,9 +528,6 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(mainSource).toContain('delete n.type,n');
     expect(mainSource).not.toContain('client:{startThread:');
     expect(mainSource).toMatch(/\[[A-Za-z_$][\w$]*\]\.flatMap\(e=>e\?\.type===`namespace`/);
-    expect(rendererPrewarmBundle).toContain(
-      'prewarmThreadStart:(e,t)=>FC(`prewarm-thread-start-for-host`,{hostId:this.hostId,params:e,...t})',
-    );
     expect(rendererStartBundle).toContain(
       'start-thread-for-host`,{ephemeral:!0,hostId:e,permissions:`:read-only`,threadSource:`system`}',
     );
@@ -537,6 +536,9 @@ describe('Recovered Codex bundle RED contract', () => {
     );
     expect(rendererRequestClientBundle).toContain(
       'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
+    );
+    expect(rendererRequestClientBundle).toContain(
+      'this.dispatchMessage?.(`thread-prewarm-start`,{request:e,hostId:this.hostId})',
     );
     expect(featureSyncBundle).toMatch(
       /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`\]/,
@@ -577,7 +579,7 @@ describe('Recovered Codex bundle RED contract', () => {
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
-    const appShell = readRecoveredAssetContaining(['app-initial~artifact-tab-content.electron~app-main~'], [
+    const appShell = readRecoveredAssetContaining(['app-initial~app-main~'], [
       'linux-application-menu-panel',
     ]);
     const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {

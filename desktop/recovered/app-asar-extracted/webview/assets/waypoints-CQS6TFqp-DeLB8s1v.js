@@ -1,1 +1,0 @@
-import{n as e,t}from"./waypoints-CQS6TFqp-1030T8we.js";t();export{e as default};

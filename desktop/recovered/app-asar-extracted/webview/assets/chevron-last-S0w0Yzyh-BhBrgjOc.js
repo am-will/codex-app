@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`ChevronLast`,[[`path`,{d:`m7 18 6-6-6-6`,key:`lwmzdw`}],[`path`,{d:`M17 6v12`,key:`1o0aio`}]])}));export{r as n,i as t};
+//# sourceMappingURL=chevron-last-S0w0Yzyh-BhBrgjOc.js.map

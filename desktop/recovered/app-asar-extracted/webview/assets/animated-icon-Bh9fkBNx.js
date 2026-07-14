@@ -1,1 +1,0 @@
-import{n as e,t}from"./animated-icon-2WkEkOS6.js";e();export{t as AnimatedIcon};

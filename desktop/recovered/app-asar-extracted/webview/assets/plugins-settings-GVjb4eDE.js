@@ -1,1 +1,0 @@
-import{n as e,t}from"./plugins-settings-CvX7seQi.js";e();export{t as PluginsSettings};

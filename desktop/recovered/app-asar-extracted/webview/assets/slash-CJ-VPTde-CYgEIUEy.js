@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BcTGodXu.js";var r,i=e((()=>{t(),r=n(`Slash`,[[`path`,{d:`M22 2 2 22`,key:`y4kqgn`}]])}));export{r as n,i as t};
-//# sourceMappingURL=slash-CJ-VPTde-CYgEIUEy.js.map

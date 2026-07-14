@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`Pocket`,[[`path`,{d:`M4 3h16a2 2 0 0 1 2 2v6a10 10 0 0 1-10 10A10 10 0 0 1 2 11V5a2 2 0 0 1 2-2z`,key:`1mz881`}],[`polyline`,{points:`8 10 12 14 16 10`,key:`w4mbv5`}]])}));export{r as n,i as t};
+//# sourceMappingURL=pocket-DMk30j9p-BGDzppxA.js.map
