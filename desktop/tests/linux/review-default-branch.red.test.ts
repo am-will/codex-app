@@ -59,7 +59,7 @@ describe('Review base branch regression gate (RED)', () => {
       'use-git-recent-branches-',
     ]);
     const branchSwitcherSource = readRecoveredWebAssetContaining(
-      ['composer-footer-branch-switcher-', 'app-initial~app-main~'],
+      ['composer-footer-branch-switcher-', 'worktree-environment-dropdown-', 'app-initial~app-main~'],
       ['default_branch??`main`'],
     );
 

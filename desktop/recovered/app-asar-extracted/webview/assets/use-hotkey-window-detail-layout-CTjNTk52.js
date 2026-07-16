@@ -1,2 +1,0 @@
-import{n as e,s as t}from"./rolldown-runtime-Czos8NxU.js";import{GB as n,KB as r}from"./app-initial~app-main~hotkey-window-new-thread-page~hotkey-window-home-page~composer-utility-bar-D9zyQF1n.js";function i(e){let t=(0,a.c)(4),n=(0,o.useContext)(s),r,i;t[0]!==e||t[1]!==n?(r=()=>{if(n!=null)return n(e),()=>{n(null)}},i=[e,n],t[0]=e,t[1]=n,t[2]=r,t[3]=i):(r=t[2],i=t[3]),(0,o.useLayoutEffect)(r,i)}var a,o,s,c=e((()=>{a=n(),o=t(r(),1),s=(0,o.createContext)(null)}));export{c as n,i as r,s as t};
-//# sourceMappingURL=use-hotkey-window-detail-layout-CTjNTk52.js.map

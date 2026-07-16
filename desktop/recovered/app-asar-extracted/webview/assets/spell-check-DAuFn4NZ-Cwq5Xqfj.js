@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`SpellCheck`,[[`path`,{d:`m6 16 6-12 6 12`,key:`1b4byz`}],[`path`,{d:`M8 12h8`,key:`1wcyev`}],[`path`,{d:`m16 20 2 2 4-4`,key:`13tcca`}]])}));export{r as n,i as t};
-//# sourceMappingURL=spell-check-DAuFn4NZ-Cwq5Xqfj.js.map

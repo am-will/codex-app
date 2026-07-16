@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`NotepadText`,[[`path`,{d:`M8 2v4`,key:`1cmpym`}],[`path`,{d:`M12 2v4`,key:`3427ic`}],[`path`,{d:`M16 2v4`,key:`4m81vk`}],[`rect`,{width:`16`,height:`18`,x:`4`,y:`4`,rx:`2`,key:`1u9h20`}],[`path`,{d:`M8 10h6`,key:`3oa6kw`}],[`path`,{d:`M8 14h8`,key:`1fgep2`}],[`path`,{d:`M8 18h5`,key:`17enja`}]])}));export{i as n,r as t};
+//# sourceMappingURL=notepad-text-C0709YMz-C4lBNEVd.js.map

@@ -1,0 +1,1 @@
+import{n as e,t}from"./car-taxi-front-BTU-sCcc-H0Icd3L5.js";e();export{t as default};

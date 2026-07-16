@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`SquareM`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M8 16V8l4 4 4-4v8`,key:`141u4e`}]])}));export{i as n,r as t};
-//# sourceMappingURL=square-m-BYqnjsoM-DC4ogyye.js.map

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`SquareParking`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M9 17V7h4a3 3 0 0 1 0 6H9`,key:`1dfk2c`}]])}));export{r as n,i as t};
+//# sourceMappingURL=square-parking-CC_zNDOn-dBClfM-g.js.map

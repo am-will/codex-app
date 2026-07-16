@@ -1,0 +1,1 @@
+import{n as e,t}from"./newspaper-CmS081-W-BpzCqHgT.js";t();export{e as default};

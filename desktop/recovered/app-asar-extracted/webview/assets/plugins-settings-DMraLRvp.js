@@ -1,1 +1,0 @@
-import{n as e,t}from"./plugins-settings-otZwpLMd.js";e();export{t as PluginsSettings};

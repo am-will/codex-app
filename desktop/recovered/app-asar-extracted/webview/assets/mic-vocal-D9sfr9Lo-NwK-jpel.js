@@ -1,0 +1,1 @@
+import{n as e,t}from"./mic-vocal-D9sfr9Lo-BsnQr9qj.js";e();export{t as default};

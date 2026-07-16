@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`Ampersand`,[[`path`,{d:`M17.5 12c0 4.4-3.6 8-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-4 8-8.5a3 3 0 1 0-6 0c0 3 2.5 8.5 12 13`,key:`1o9ehi`}],[`path`,{d:`M16 12h3`,key:`4uvgyw`}]])}));export{i as n,r as t};
-//# sourceMappingURL=ampersand-8CtGfZQB-DlA3sMrQ.js.map

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`GalleryHorizontalEnd`,[[`path`,{d:`M2 7v10`,key:`a2pl2d`}],[`path`,{d:`M6 5v14`,key:`1kq3d7`}],[`rect`,{width:`12`,height:`18`,x:`10`,y:`3`,rx:`2`,key:`13i7bc`}]])}));export{i as n,r as t};
-//# sourceMappingURL=gallery-horizontal-end-YlSlNnJd-BnLakEVy.js.map

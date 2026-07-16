@@ -1,0 +1,1 @@
+import{n as e,t}from"./columns-2-B6_tPU0s-U0kXcFJp.js";t();export{e as default};

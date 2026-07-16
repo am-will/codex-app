@@ -380,8 +380,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.707.72221');
-    expect(packageJson.codexBuildNumber).toBe('5307');
+    expect(packageJson.version).toBe('26.707.91948');
+    expect(packageJson.codexBuildNumber).toBe('5440');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -434,8 +434,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.707.72221');
-    expect(manifest.buildNumber).toBe('5307');
+    expect(manifest.version).toBe('26.707.91948');
+    expect(manifest.buildNumber).toBe('5440');
     expect(manifest.electronVersion).toBe('42.1.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -579,11 +579,9 @@ describe('Recovered Codex bundle RED contract', () => {
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {
-    const appShell = readRecoveredAssetContaining(['app-initial~app-main~'], [
-      'linux-application-menu-panel',
-    ]);
     const manifest = JSON.parse(readDesktopFile('recovered/refresh-manifest.json')) as {
       patchSummary?: {
+        appShellRenderer?: { results: Array<{ label: string; skipped: boolean }> };
         authWebview?: {
           pluginsPage?: { results: unknown[] };
           pluginsCards?: { results: unknown[] };
@@ -591,7 +589,14 @@ describe('Recovered Codex bundle RED contract', () => {
       };
     };
 
-    expect(appShell).toContain('app-shell-shortcut-state-changed');
+    expect(manifest.patchSummary?.appShellRenderer?.results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          label: 'app shell adds linux application menu compatibility for current bundle',
+          skipped: true,
+        }),
+      ]),
+    );
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
   });

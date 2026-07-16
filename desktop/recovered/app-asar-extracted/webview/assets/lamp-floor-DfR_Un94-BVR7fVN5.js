@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`LampFloor`,[[`path`,{d:`M9 2h6l3 7H6l3-7Z`,key:`wcx6mj`}],[`path`,{d:`M12 9v13`,key:`3n1su1`}],[`path`,{d:`M9 22h6`,key:`1rlq3v`}]])}));export{i as n,r as t};
+//# sourceMappingURL=lamp-floor-DfR_Un94-BVR7fVN5.js.map

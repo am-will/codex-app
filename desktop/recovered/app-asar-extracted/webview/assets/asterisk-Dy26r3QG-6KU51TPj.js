@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`Asterisk`,[[`path`,{d:`M12 6v12`,key:`1vza4d`}],[`path`,{d:`M17.196 9 6.804 15`,key:`1ah31z`}],[`path`,{d:`m6.804 9 10.392 6`,key:`1b6pxd`}]])}));export{i as n,r as t};
+//# sourceMappingURL=asterisk-Dy26r3QG-6KU51TPj.js.map

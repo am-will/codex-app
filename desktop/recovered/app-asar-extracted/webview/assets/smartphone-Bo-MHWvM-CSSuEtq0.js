@@ -1,0 +1,1 @@
+import{n as e,t}from"./smartphone-Bo-MHWvM-iyZjo8b1.js";t();export{e as default};

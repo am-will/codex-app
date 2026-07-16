@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{DD as t,Ot as n,bt as r,kj as i,kt as a,yt as o}from"./app-initial~app-main~pull-request-route~new-thread-panel-page~onboarding-page~settings-page~i2dgsl27-Cg6hAhRO.js";function s(){let{data:e,isLoading:t}=a(i.NUX_2025_09_15),{authMethod:n}=r();return`none`}var c=e((()=>{t(),o(),n()}));export{s as n,c as t};
+//# sourceMappingURL=app-initial~app-main~first-run~new-thread-panel-page-DFPIrpie.js.map

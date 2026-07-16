@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";var t,n=e((()=>{t=`ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace`}));export{n,t};
-//# sourceMappingURL=app-initial~artifact-tab-content.electron~app-main~pull-request-code-review~new-thread-pane~b8am3atz-ajGSKDS0.js.map

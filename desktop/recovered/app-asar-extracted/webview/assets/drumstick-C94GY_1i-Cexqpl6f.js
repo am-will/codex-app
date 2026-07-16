@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`Drumstick`,[[`path`,{d:`M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.5 3.43 135 0 0-6.23 6.23`,key:`1dtqwm`}],[`path`,{d:`m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59`,key:`1oq1fw`}]])}));export{i as n,r as t};
+//# sourceMappingURL=drumstick-C94GY_1i-Cexqpl6f.js.map

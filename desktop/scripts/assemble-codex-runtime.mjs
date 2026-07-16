@@ -1553,6 +1553,12 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
   },
   {
     target:
+      'Ue=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Se.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[bt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:b},E.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:b}),O(!0),T(null))}',
+    replacement:
+      'Ue=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Se.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[bt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:b},E.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:b}),O(!0),T(null)}',
+  },
+  {
+    target:
       'ft=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Se.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[Be(e)],screenX:e.screenX,screenY:e.screenY},h.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),j(!0),ie(null))}',
     replacement:
       'ft=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),Se.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[Be(e)],screenX:e.screenX,screenY:e.screenY},h.dispatchMessage(`avatar-overlay-drag-start`,{pointerWindowX:e.clientX,pointerWindowY:e.clientY}),j(!0),ie(null)}',
@@ -1675,6 +1681,10 @@ const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
   {
     target: 'V?`whitespace-pre-wrap`:S==null?`line-clamp-2`:void 0',
     replacement: 'V?`whitespace-pre-wrap`:S==null?`whitespace-pre-wrap`:void 0',
+  },
+  {
+    target: 'W?`whitespace-pre-wrap`:S==null?`line-clamp-2`:void 0',
+    replacement: 'W?`whitespace-pre-wrap`:S==null?`whitespace-pre-wrap`:void 0',
   },
   {
     target: 'ce?`whitespace-pre-wrap`:v==null?`line-clamp-2`:void 0',

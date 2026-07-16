@@ -1,13 +1,13 @@
 {
   "name": "codex-desktop",
   "productName": "Codex",
-  "version": "26.707.72221",
+  "version": "26.707.91948",
   "description": "Codex",
   "main": "recovered/app-asar-extracted/.vite/build/early-bootstrap.js",
   "private": true,
   "author": "OpenAI",
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "5307",
+  "codexBuildNumber": "5440",
   "codexCliVersion": "0.144.0-alpha.4",
   "scripts": {
     "rebuild:natives": "electron-rebuild -f -w better-sqlite3,node-pty",

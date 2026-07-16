@@ -1,1 +1,0 @@
-import{n as e,t}from"./table-Cqf7ulao-BE93tQ1w.js";e();export{t as default};

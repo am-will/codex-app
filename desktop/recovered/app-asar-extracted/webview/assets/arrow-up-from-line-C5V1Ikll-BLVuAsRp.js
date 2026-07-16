@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`ArrowUpFromLine`,[[`path`,{d:`m18 9-6-6-6 6`,key:`kcunyi`}],[`path`,{d:`M12 3v14`,key:`7cf3v8`}],[`path`,{d:`M5 21h14`,key:`11awu3`}]])}));export{r as n,i as t};
+//# sourceMappingURL=arrow-up-from-line-C5V1Ikll-BLVuAsRp.js.map

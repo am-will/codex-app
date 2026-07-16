@@ -1,0 +1,1 @@
+import{n as e,t}from"./kanban-C47Eyihy-CA2LbW_n.js";t();export{e as default};

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3P1QvGT.js";var r,i=e((()=>{t(),r=n(`Clock11`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`polyline`,{points:`12 6 12 12 9.5 8`,key:`l5bg6f`}]])}));export{r as n,i as t};
-//# sourceMappingURL=clock-11-CtnR3E2t-B0ezT4Y5.js.map
