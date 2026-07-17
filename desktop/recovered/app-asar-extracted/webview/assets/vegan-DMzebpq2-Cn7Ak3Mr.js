@@ -1,0 +1,1 @@
+import{n as e,t}from"./vegan-DMzebpq2-OGRuZIel.js";t();export{e as default};

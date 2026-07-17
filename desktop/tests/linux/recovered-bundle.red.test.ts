@@ -254,7 +254,7 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('function linuxDetectCommand(');
       expect(mainBundle).toContain('linuxCursor={id:`cursor`');
       expect(mainBundle).toContain(
-        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxDetectCommand(`zed`,[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
       );
       expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
       expect(workspaceRootDropHandlerBundle).toContain('return null');
@@ -380,8 +380,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.707.91948');
-    expect(packageJson.codexBuildNumber).toBe('5440');
+    expect(packageJson.version).toBe('26.715.21425');
+    expect(packageJson.codexBuildNumber).toBe('5488');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -434,9 +434,9 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.707.91948');
-    expect(manifest.buildNumber).toBe('5440');
-    expect(manifest.electronVersion).toBe('42.1.0');
+    expect(manifest.version).toBe('26.715.21425');
+    expect(manifest.buildNumber).toBe('5488');
+    expect(manifest.electronVersion).toBe('42.3.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
   });
@@ -496,12 +496,15 @@ describe('Recovered Codex bundle RED contract', () => {
       'dynamic-tools-for-thread-start-requested',
       'set-experimental-feature-enablement-for-host',
     ]);
-    const rendererStartBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
-      'start-thread-for-host',
-      'threadSource:`system`',
-    ]);
+    const rendererStartBundle = readRecoveredAssetContaining(
+      ['app-initial~artifact-tab-content.electron~app-main~'],
+      [
+        'start-thread-for-host',
+        'threadSource:`system`',
+      ],
+    );
     const rendererRequestClientBundle = readRecoveredAssetContaining(
-      ['app-initial~app-main~'],
+      ['app-initial~artifact-tab-content.electron~notebook-preview-panel~app-main~'],
       [
         'AppServerRequestClient is missing a message dispatcher',
         'thread-prewarm-start',
@@ -541,11 +544,10 @@ describe('Recovered Codex bundle RED contract', () => {
       'this.dispatchMessage?.(`thread-prewarm-start`,{request:e,hostId:this.hostId})',
     );
     expect(featureSyncBundle).toMatch(
-      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`\]/,
+      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`tool_suggest`\]/,
     );
-    expect(featureSyncBundle).not.toMatch(
-      /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`,`goals`\]/,
-    );
+    expect(featureSyncBundle).toContain('let n={memories:!1}');
+    expect(featureSyncBundle).not.toContain('`goals`');
     expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
     expect(assembleScript).toContain(
       'renderer request client normalizes thread-start dynamic tools',
@@ -688,16 +690,17 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches = mainSource.match(/linuxDetectCommand\(/g) ?? [];
+    const linuxTargetMatches =
+      mainSource.match(/linux(?:ResolveEditorTarget|ResolveAbsoluteCommand)\(/g) ?? [];
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainSource).toContain('function linuxDetectCommand(');
+    expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
     expect(mainSource).toContain('linuxCursor={id:`cursor`');
     expect(mainSource).toContain(
-      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxDetectCommand(`zed`,[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`])',
+      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
     );
     expect(mainSource).toContain('linuxFileManager={id:`fileManager`');
-    expect(mainSource).toContain('linuxDetectCommand(`xdg-open`,[`/usr/bin/xdg-open`])');
+    expect(mainSource).toContain('linuxFileManagerDetect(){return Os(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}');
     expect(linuxTargetMatches.length).toBeGreaterThan(4);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
@@ -709,10 +712,10 @@ describe('Recovered Codex bundle RED contract', () => {
 
     expect(workerSource).toContain('`stable-metadata`');
     expect(workerSource).toContain('watchForGitInit');
-    expect(workerSource).toContain('`codex-home`');
-    expect(workerSource).toContain('`platform-family`');
-    expect(workerSource).toContain('`fs-watch`');
-    expect(workerSource).toContain('`worker-exit`');
+    expect(workerSource).toContain('codexHome');
+    expect(workerSource).toContain('CODEX_HOME');
+    expect(workerSource).toContain('extensionHostPath');
+    expect(workerSource).toContain('resourcesPath');
 
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
     expect(assembleScript).toContain('git worker normalize absolute patch headers');

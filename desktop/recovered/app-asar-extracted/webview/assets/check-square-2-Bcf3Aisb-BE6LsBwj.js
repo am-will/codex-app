@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./square-check-DskOGYso-sfp-R9AX.js";e((()=>{t()}))();export{n as default};
-//# sourceMappingURL=check-square-2-Bcf3Aisb-BE6LsBwj.js.map

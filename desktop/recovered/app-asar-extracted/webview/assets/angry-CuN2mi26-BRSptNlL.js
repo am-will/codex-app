@@ -1,0 +1,1 @@
+import{n as e,t}from"./angry-CuN2mi26-8gaV2wfP.js";e();export{t as default};

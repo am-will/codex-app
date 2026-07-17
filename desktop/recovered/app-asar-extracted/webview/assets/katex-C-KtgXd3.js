@@ -1,1 +1,0 @@
-import{iy as e,ry as t}from"./app-initial~artifact-tab-content.electron~app-main~pull-request-route~pull-request-code-rev~jgoqfqy2-gdph-otp.js";t();export{e as default};

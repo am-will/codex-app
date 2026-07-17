@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{Cr as t,er as n,tr as r,xi as i}from"./app-initial~app-main~select-workspace-page~projects-index-page-BQog70xl.js";var a,o=e((()=>{t(),r(),a=i(n,!1)}));export{o as n,a as t};
-//# sourceMappingURL=app-initial~app-main~hotkey-window-thread-page~pets-settings~thread-app-shell-chrome~header~jqrqdyh7-B07NlDcJ.js.map

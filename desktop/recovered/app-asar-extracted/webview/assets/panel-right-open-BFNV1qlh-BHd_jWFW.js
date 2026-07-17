@@ -1,1 +1,0 @@
-import{n as e,t}from"./panel-right-open-BFNV1qlh-DWpLm15S.js";e();export{t as default};

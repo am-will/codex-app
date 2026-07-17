@@ -1,1 +1,0 @@
-import{n as e,t}from"./pound-sterling-C3aYcJJA-BsxIzkKb.js";e();export{t as default};

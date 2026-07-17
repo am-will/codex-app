@@ -1,0 +1,3 @@
+import{i as e,r as t}from"./src-um_cji9Z.js";import{t as n}from"./mermaid-parser.core-BxjrOzTG.js";import{c as r}from"./chunk-ICPOFSXX-1OOAzBgb.js";import{t as i}from"./chunk-426QAEUC-BXD6HH1S.js";var a={parse:t(async t=>{let r=await n(`info`,t);e.debug(r)},`parse`)},o={version:`11.14.0`},s={parser:a,db:{getVersion:t(()=>o.version,`getVersion`)},renderer:{draw:t((t,n,a)=>{e.debug(`rendering info diagram
+`+t);let o=i(n);r(o,100,400,!0),o.append(`g`).append(`text`).attr(`x`,100).attr(`y`,40).attr(`class`,`version`).attr(`font-size`,32).style(`text-anchor`,`middle`).text(`v${a}`)},`draw`)}};export{s as diagram};
+//# sourceMappingURL=infoDiagram-42DDH7IO-Cr0jwjEL.js.map

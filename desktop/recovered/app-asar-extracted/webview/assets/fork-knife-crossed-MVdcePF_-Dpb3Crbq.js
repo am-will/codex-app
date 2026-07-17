@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./utensils-crossed-B-8Wkxb6-BnvXSHBg.js";e((()=>{n()}))();export{t as default};
-//# sourceMappingURL=fork-knife-crossed-MVdcePF_-Dpb3Crbq.js.map

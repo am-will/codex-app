@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`DiscAlbum`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`circle`,{cx:`12`,cy:`12`,r:`5`,key:`nd82uf`}],[`path`,{d:`M12 12h.01`,key:`1mp3jc`}]])}));export{r as n,i as t};
-//# sourceMappingURL=disc-album-xS_yY8DZ-BgCMPVp-.js.map

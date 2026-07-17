@@ -2,7 +2,7 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.707.91948",
+  "version": "26.715.21425",
   "description": "Codex",
   "main": ".vite/build/early-bootstrap.js",
   "scripts": {
@@ -54,7 +54,7 @@
     "@types/ws": "^8.18.0",
     "cross-env": "^7.0.3",
     "debug": "^4.4.1",
-    "electron": "42.1.0",
+    "electron": "42.3.0",
     "electron-windows-msix": "2.0.4",
     "fb-dotslash": "^0.5.8",
     "fs-extra": "11.3.2",
@@ -62,7 +62,7 @@
     "node-gyp": "^12.4.0",
     "playwright": "^1.58.2",
     "typescript": "^5.9.3",
-    "vite": "8.0.3",
+    "vite": "8.1.3",
     "vitest": "4.1.5"
   },
   "dependencies": {
@@ -77,7 +77,7 @@
     "browser-backend-common": "link:../../../lib/browser_use/browser-backend-common",
     "browser-common": "link:../../../lib/browser_use/browser-common",
     "bufferutil": "^4.0.1",
-    "capnweb": "^0.7.0",
+    "capnweb": "^0.8.0",
     "commands": "workspace:*",
     "electron-context-menu": "^4.1.1",
     "external-agent-migration": "workspace:*",
@@ -99,7 +99,7 @@
     "zod": "^4.1.13"
   },
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "5440",
+  "codexBuildNumber": "5488",
   "codexAppBrand": "chatgpt",
   "codexSparkleFeedUrl": "https://persistent.oaistatic.com/codex-app-prod/appcast.xml",
   "codexSparklePublicKey": "mNfr1v9t63BfgDtlw4C8lRvSY6uMggIXABDOCi3tS6k="

@@ -1,0 +1,1 @@
+import{n as e,t}from"./school-CTgxhnv--C_Fy6ZbP.js";e();export{t as default};

@@ -69,7 +69,7 @@ describe('Linux window background stability', () => {
     expect(mainBundle).toMatch(
       /[A-Za-z_$][\w$]*\.avatarOverlayManager\.raiseWindow\?\.\(\)/,
     );
-    expect(mainBundle).toContain('avatarOverlayManager:R.avatarOverlayManager');
+    expect(mainBundle).toMatch(/avatarOverlayManager:[A-Za-z_$][\w$]*\.avatarOverlayManager/);
     expect(mainBundle).toContain(
       'startLinuxTopEnforcement(){process.platform!==`linux`||this.topEnforcementTimer!=null||',
     );

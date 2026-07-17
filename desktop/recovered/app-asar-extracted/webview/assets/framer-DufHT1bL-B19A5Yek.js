@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`Framer`,[[`path`,{d:`M5 16V9h14V2H5l14 14h-7m-7 0 7 7v-7m-7 0h7`,key:`1a2nng`}]])}));export{r as n,i as t};
-//# sourceMappingURL=framer-DufHT1bL-B19A5Yek.js.map

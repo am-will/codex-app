@@ -1,0 +1,1 @@
+import{n as e,t}from"./gallery-horizontal-CgCznroR-B9w-3yha.js";t();export{e as default};

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BVehYoW1.js";var r,i=e((()=>{t(),r=n(`Forward`,[[`polyline`,{points:`15 17 20 12 15 7`,key:`1w3sku`}],[`path`,{d:`M4 18v-2a4 4 0 0 1 4-4h12`,key:`jmiej9`}]])}));export{i as n,r as t};
-//# sourceMappingURL=forward-CGH4o-vB-CUGEb2PP.js.map

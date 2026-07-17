@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-Czos8NxU.js";import{er as t,tr as n}from"./app-initial~app-main~select-workspace-page~projects-index-page-BQog70xl.js";import{SD as r,hD as i,pD as a,xD as o}from"./app-initial~app-main~pull-request-route~new-thread-panel-page~onboarding-page~settings-page~i2dgsl27-Cg6hAhRO.js";var s,c=e((()=>{n(),r(),i(),s=a(t,`open-in-targets`,()=>({staleTime:o.ONE_MINUTE}))}));export{s as n,c as t};
-//# sourceMappingURL=open-in-targets-query-FLc9qzPX.js.map

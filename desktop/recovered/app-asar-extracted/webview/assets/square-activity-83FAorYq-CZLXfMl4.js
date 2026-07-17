@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`SquareActivity`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M17 12h-2l-2 5-2-10-2 5H7`,key:`15hlnc`}]])}));export{i as n,r as t};
+//# sourceMappingURL=square-activity-83FAorYq-CZLXfMl4.js.map

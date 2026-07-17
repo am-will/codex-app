@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`Diameter`,[[`circle`,{cx:`19`,cy:`19`,r:`2`,key:`17f5cg`}],[`circle`,{cx:`5`,cy:`5`,r:`2`,key:`1gwv83`}],[`path`,{d:`M6.48 3.66a10 10 0 0 1 13.86 13.86`,key:`xr8kdq`}],[`path`,{d:`m6.41 6.41 11.18 11.18`,key:`uhpjw7`}],[`path`,{d:`M3.66 6.48a10 10 0 0 0 13.86 13.86`,key:`cldpwv`}]])}));export{i as n,r as t};
+//# sourceMappingURL=diameter-NfyJz2vb-fRUfIAFH.js.map

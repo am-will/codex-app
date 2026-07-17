@@ -1,0 +1,1 @@
+import{n as e,t}from"./clipboard-copy-DA4nIrUM-CMSP0msQ.js";e();export{t as default};

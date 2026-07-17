@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`Dot`,[[`circle`,{cx:`12.1`,cy:`12.1`,r:`1`,key:`18d7e5`}]])}));export{r as n,i as t};
+//# sourceMappingURL=dot-doJTctYY-Cuuag5DP.js.map
