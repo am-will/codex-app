@@ -31,7 +31,7 @@ const requiredAppAsarMarkers = [
   {
     label: 'bundled app-server feature allowlist',
     markerPattern:
-      /[A-Za-z_$][\w$]*=\[(?:`memories`,`tool_suggest`|`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`)\]/,
+      /[A-Za-z_$][\w$]*=\[(?:`memories`,`tool_suggest`|`apps_mcp_path_override`,`auth_elicitation`,`memories`,`tool_suggest`|`apps_mcp_path_override`,`auth_elicitation`,`tool_suggest`)\]/,
   },
 ];
 

@@ -73,10 +73,22 @@ jobs:
           node desktop/scripts/verify-linux-package-contract.mjs \
             --package-root "${VERIFY_ROOT}/root/usr/lib/codex-desktop"
 
+      - name: Resolve release version
+        id: release-version
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          else
+            CURRENT_VERSION="$(node -p "require('./desktop/package.json').version")"
+          fi
+          test -n "${CURRENT_VERSION}"
+          echo "current_version=${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "release_tag=v${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
       - name: Normalize public artifact names and include release note
         run: |
           set -euo pipefail
-          CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          CURRENT_VERSION="${{ steps.release-version.outputs.current_version }}"
           CURRENT_APPIMAGE_NAME="codex-app-linux-x64-v${CURRENT_VERSION}.AppImage"
           CURRENT_DEB_NAME="codex-app-linux-x64-v${CURRENT_VERSION}.deb"
           CURRENT_RPM_NAME="codex-app-linux-x64-v${CURRENT_VERSION}.rpm"
@@ -102,11 +114,12 @@ jobs:
             desktop/out/release-assets/*
           if-no-files-found: error
 
-      - name: Publish GitHub release assets (tags only)
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish GitHub release assets
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v2
         with:
-          name: codex-app-linux ${{ github.ref_name }}
+          tag_name: ${{ steps.release-version.outputs.release_tag }}
+          name: codex-app-linux ${{ steps.release-version.outputs.release_tag }}
           files: |
             desktop/out/release-assets/*
 
@@ -186,10 +199,22 @@ jobs:
           CODEX_LINUX_HELPER_ARCH: linux-arm64
         run: npx electron-forge make --platform linux --arch arm64 --targets deb --skip-package
 
+      - name: Resolve release version
+        id: release-version
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          else
+            CURRENT_VERSION="$(node -p "require('./desktop/package.json').version")"
+          fi
+          test -n "${CURRENT_VERSION}"
+          echo "current_version=${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "release_tag=v${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
       - name: Normalize Linux arm64 deb name
         run: |
           set -euo pipefail
-          CURRENT_VERSION="${GITHUB_REF_NAME#v}"
+          CURRENT_VERSION="${{ steps.release-version.outputs.current_version }}"
           CURRENT_ARM64_DEB_NAME="codex-app-linux-arm64-v${CURRENT_VERSION}.deb"
           mkdir -p desktop/out/release-assets-arm64
           CURRENT_ARM64_DEB_SOURCE="$(find desktop/out/make -type f -name '*.deb' | head -n 1)"
@@ -207,10 +232,11 @@ jobs:
             desktop/out/release-assets-arm64/*
           if-no-files-found: error
 
-      - name: Publish GitHub release arm64 deb asset (tags only)
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish GitHub release arm64 deb asset
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v2
         with:
-          name: codex-app-linux ${{ github.ref_name }}
+          tag_name: ${{ steps.release-version.outputs.release_tag }}
+          name: codex-app-linux ${{ steps.release-version.outputs.release_tag }}
           files: |
             desktop/out/release-assets-arm64/*
