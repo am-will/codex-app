@@ -92,6 +92,15 @@ function assertBundledCliVersion({ packageRoot, expectedCliVersion }) {
   }
 }
 
+function assertCodeModeHost(packageRoot) {
+  const hostPath = path.join(packageRoot, 'resources', 'codex-code-mode-host');
+  assertFile(hostPath, 'Bundled code mode host');
+  fs.accessSync(hostPath, fs.constants.X_OK);
+  childProcess.execFileSync(hostPath, ['--version'], {
+    stdio: 'ignore',
+  });
+}
+
 function readAsarJavaScriptSources(appAsarPath) {
   return asar
     .listPackage(appAsarPath)
@@ -126,6 +135,7 @@ function assertAppAsarMarkers(packageRoot) {
 export function verifyLinuxPackageContract({ packageRoot, expectedCliVersion }) {
   assertFile(packageRoot, 'Linux package root');
   assertBundledCliVersion({ packageRoot, expectedCliVersion });
+  assertCodeModeHost(packageRoot);
   assertAppAsarMarkers(packageRoot);
 }
 

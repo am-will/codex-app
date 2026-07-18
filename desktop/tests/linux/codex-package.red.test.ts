@@ -241,8 +241,10 @@ describe('Codex package staging RED contract', () => {
     expect(workflowSource).not.toMatch(/@openai\/codex@0\.\d+\.\d+/);
     expect(workflowSource).toContain('Verify Linux codex helpers');
     expect(workflowSource).toContain("*/vendor/*/bin/codex");
+    expect(workflowSource).toContain("*/vendor/*/bin/codex-code-mode-host");
     expect(workflowSource).toContain("*/vendor/*/codex-path/rg");
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex-code-mode-host');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/codex --version');
     expect(workflowSource).toContain('desktop/resources/bin/linux-x64/rg --version');
@@ -255,6 +257,7 @@ describe('Codex package staging RED contract', () => {
       '--os=linux --cpu=arm64 "@openai/codex@${CODEX_CLI_VERSION}"',
     );
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/codex');
+    expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/codex-code-mode-host');
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/rg');
     expect(workflowSource).toContain('desktop/resources/bin/linux-arm64/git');
     expect(workflowSource).toContain('CODEX_LINUX_HELPER_ARCH: linux-arm64');
@@ -289,6 +292,8 @@ describe('Codex package staging RED contract', () => {
     expect(packageJson.codexCliVersion).toBe('0.144.0-alpha.4');
     expect(packageJson.codexCliVersion).not.toBe('0.136.0');
     expect(verifyScript).toContain('codexPath, [\'--version\']');
+    expect(verifyScript).toContain("path.join(packageRoot, 'resources', 'codex-code-mode-host')");
+    expect(verifyScript).toContain("hostPath, ['--version']");
     expect(verifyScript).toContain('codex-cli ${expectedCliVersion}');
     expect(verifyScript).toContain(
       'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}',
