@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`DiamondMinus`,[[`path`,{d:`M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L13.7 2.71a2.41 2.41 0 0 0-3.41 0z`,key:`1ey20j`}],[`path`,{d:`M8 12h8`,key:`1wcyev`}]])}));export{r as n,i as t};
-//# sourceMappingURL=diamond-minus-DLDQyJsg-KlR0I01d.js.map

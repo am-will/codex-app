@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-C1ezy-Wt.js";var r,i=e((()=>{t(),r=n(`MessageSquareWarning`,[[`path`,{d:`M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z`,key:`1lielz`}],[`path`,{d:`M12 7v2`,key:`stiyo7`}],[`path`,{d:`M12 13h.01`,key:`y0uutt`}]])}));export{r as n,i as t};
+//# sourceMappingURL=message-square-warning-fGk0Dx4j-Frj_IlOF.js.map

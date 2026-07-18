@@ -1,0 +1,1 @@
+import{n as e,t}from"./rectangle-ellipsis-CDrFdzFd-DcXCF3Zx.js";e();export{t as default};

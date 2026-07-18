@@ -120,24 +120,20 @@ const config: ForgeConfig = {
     new MakerDeb(
       {
         mimeType: [CODEX_PROTOCOL_MIME_TYPE],
-        options: {
-          bin: 'Codex',
-          categories: ['Development'],
-          desktopTemplate: linuxDebDesktopTemplate,
-          icon: linuxPackagerIcon,
-        },
+        bin: 'Codex',
+        categories: ['Development'],
+        desktopTemplate: linuxDebDesktopTemplate,
+        icon: linuxPackagerIcon,
       },
       ['linux'],
     ),
     new MakerRpm(
       {
         mimeType: [CODEX_PROTOCOL_MIME_TYPE],
-        options: {
-          bin: 'Codex',
-          categories: ['Development'],
-          desktopTemplate: linuxRpmDesktopTemplate,
-          icon: linuxPackagerIcon,
-        },
+        bin: 'Codex',
+        categories: ['Development'],
+        desktopTemplate: linuxRpmDesktopTemplate,
+        icon: linuxPackagerIcon,
       } as ConstructorParameters<typeof MakerRpm>[0],
       ['linux'],
     ),

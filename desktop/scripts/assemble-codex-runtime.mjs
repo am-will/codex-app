@@ -228,6 +228,12 @@ const mainGitOriginsPatchAlternatives = [
     replacement:
       'let r=this.getRequestAppServerClient(t).hostConfig,i=n.bi(r),a=ce(e??[],i).map(e=>n.So(e)),o=z((0,u.homedir)(),i),s=lt(this.globalState).roots,c=st(this.globalState),l=s.length>0?s:c??[],d=(a&&a.length>0?a:l.filter(e=>e!==`~`).map(e=>n.So(e))).filter(e=>{try{return!!e&&i.existsSync(e)}catch{return!1}}),f=n.bt(),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:r,operationSource:f.source}});',
   },
+  {
+    target:
+      'let r=this.getRequestAppServerClient(t).hostConfig,i=n.xi(r),a=le(e??[],i).map(e=>n.Co(e)),o=R((0,u.homedir)(),i),s=lt(this.globalState).roots,c=st(this.globalState),l=s.length>0?s:c??[],d=a&&a.length>0?a:l.filter(e=>e!==`~`).map(e=>n.Co(e)),f=n.xt(),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:r,operationSource:f.source}});',
+    replacement:
+      'let r=this.getRequestAppServerClient(t).hostConfig,i=n.xi(r),a=le(e??[],i).map(e=>n.Co(e)),o=R((0,u.homedir)(),i),s=lt(this.globalState).roots,c=st(this.globalState),l=s.length>0?s:c??[],d=(a&&a.length>0?a:l.filter(e=>e!==`~`).map(e=>n.Co(e))).filter(e=>{try{return!!e&&i.existsSync(e)}catch{return!1}}),f=n.xt(),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:d,hostConfig:r,operationSource:f.source}});',
+  },
 ];
 const mainGitOriginsPatchMarker =
   '.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}';
@@ -698,6 +704,12 @@ const mainLinuxWindowControlPatchAlternatives = [
     replacement:
       't5({buildFlavor:o,getContextForWebContents:L.getContextForWebContents,isTrustedIpcEvent:ae}),c.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!ae(e))return;let n=c.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}}),c.ipcMain.on(a.Q,',
   },
+  {
+    target:
+      't5({buildFlavor:o,getContextForWebContents:L.getContextForWebContents,isTrustedIpcEvent:R}),c.ipcMain.on(a.Q,',
+    replacement:
+      't5({buildFlavor:o,getContextForWebContents:L.getContextForWebContents,isTrustedIpcEvent:R}),c.ipcMain.handle(`codex_desktop:control-window`,async(e,t)=>{if(!R(e))return;let n=c.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}}),c.ipcMain.on(a.Q,',
+  },
 ];
 const mainLinuxWindowControlPatchMarker = 'codex_desktop:control-window';
 const mainLinuxApplicationMenuPatchTarget =
@@ -750,6 +762,12 @@ const mainLinuxApplicationMenuPatchAlternatives = [
       'codex_desktop:control-window`,async(e,t)=>{if(!ae(e))return;let n=c.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}}),c.ipcMain.on(a.Q,',
     replacement:
       'codex_desktop:control-window`,async(e,t)=>{if(!ae(e))return;let n=c.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let a=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:a});continue}let o={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:a};i.submenu&&i.submenu.items.length>0&&(o.submenu=linuxSerializeMenuItems(i.submenu,a)),n.push(o)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}c.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!ae(e))return{items:[]};let n=c.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),c.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!ae(e))return;let n=c.BrowserWindow.fromWebContents(e.sender),r=c.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)}),c.ipcMain.on(a.Q,',
+  },
+  {
+    target:
+      'codex_desktop:control-window`,async(e,t)=>{if(!R(e))return;let n=c.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}}),c.ipcMain.on(a.Q,',
+    replacement:
+      'codex_desktop:control-window`,async(e,t)=>{if(!R(e))return;let n=c.BrowserWindow.fromWebContents(e.sender);if(!n||n.isDestroyed())return;switch(t?.action){case`minimize`:n.minimize();return;case`maximize`:n.isMaximized()?n.unmaximize():n.maximize();return;case`close`:n.close();return}});function linuxSerializeMenuItems(e,t){let n=[];if(!e)return n;for(let r=0;r<e.items.length;r++){let i=e.items[r];if(i.visible===!1)continue;let a=t===``?String(r):t+`.`+r;if(i.type===`separator`){n.push({type:`separator`,path:a});continue}let o={type:i.type||`normal`,label:i.label||``,accelerator:i.accelerator||null,enabled:i.enabled!==!1,path:a};i.submenu&&i.submenu.items.length>0&&(o.submenu=linuxSerializeMenuItems(i.submenu,a)),n.push(o)}return n}function linuxMenuItemAtPath(e,t){let n=t.split(`.`).map(Number),r=e;for(let e=0;e<n.length;e++){let t=r.items[n[e]];if(!t)return null;if(e===n.length-1)return t;if(!t.submenu)return null;r=t.submenu}return null}c.ipcMain.handle(`codex_desktop:get-application-menu-items`,async(e,t)=>{if(!R(e))return{items:[]};let n=c.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu;return{items:n?linuxSerializeMenuItems(n,``):[]}}),c.ipcMain.handle(`codex_desktop:click-application-menu-item`,async(e,t)=>{if(!R(e))return;let n=c.BrowserWindow.fromWebContents(e.sender),r=c.Menu.getApplicationMenu()?.getMenuItemById(t?.menuId)?.submenu,i=linuxMenuItemAtPath(r,t?.path);i&&i.enabled!==!1&&typeof i.click==`function`&&i.click(void 0,n??void 0,n?.webContents)}),c.ipcMain.on(a.Q,',
   },
 ];
 const mainLinuxApplicationMenuPatchMarker = 'codex_desktop:get-application-menu-items';

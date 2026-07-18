@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`SquareUserRound`,[[`path`,{d:`M18 21a6 6 0 0 0-12 0`,key:`kaz2du`}],[`circle`,{cx:`12`,cy:`11`,r:`4`,key:`1gt34v`}],[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}]])}));export{r as n,i as t};
-//# sourceMappingURL=square-user-round-CO9Ea-gH-CsD5FP2r.js.map

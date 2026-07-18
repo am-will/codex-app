@@ -1,0 +1,1 @@
+import{n as e,t}from"./building-CgkEq0kw-BB36uRSz.js";e();export{t as default};

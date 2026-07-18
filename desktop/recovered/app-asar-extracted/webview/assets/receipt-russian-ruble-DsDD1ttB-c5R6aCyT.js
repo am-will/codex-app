@@ -1,1 +1,0 @@
-import{n as e,t}from"./receipt-russian-ruble-DsDD1ttB-G4Dvf9G7.js";t();export{e as default};

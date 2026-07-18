@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-C1ezy-Wt.js";var r,i=e((()=>{t(),r=n(`Mailbox`,[[`path`,{d:`M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v8Z`,key:`1lbycx`}],[`polyline`,{points:`15,9 18,9 18,11`,key:`1pm9c0`}],[`path`,{d:`M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2`,key:`15i455`}],[`line`,{x1:`6`,x2:`7`,y1:`10`,y2:`10`,key:`1e2scm`}]])}));export{i as n,r as t};
+//# sourceMappingURL=mailbox-CkG-b-RO-C2PucWeP.js.map

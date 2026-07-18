@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`ChartBarDecreasing`,[[`path`,{d:`M3 3v16a2 2 0 0 0 2 2h16`,key:`c24i48`}],[`path`,{d:`M7 11h8`,key:`1feolt`}],[`path`,{d:`M7 16h3`,key:`ur6vzw`}],[`path`,{d:`M7 6h12`,key:`sz5b0d`}]])}));export{r as n,i as t};
-//# sourceMappingURL=chart-bar-decreasing-BUYk0Vpy-_n5Da0Jb.js.map

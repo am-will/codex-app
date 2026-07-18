@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BfZ3yRsq.js";var r,i=e((()=>{t(),r=n(`GitCompare`,[[`circle`,{cx:`18`,cy:`18`,r:`3`,key:`1xkwt0`}],[`circle`,{cx:`6`,cy:`6`,r:`3`,key:`1lh9wr`}],[`path`,{d:`M13 6h3a2 2 0 0 1 2 2v7`,key:`1yeb86`}],[`path`,{d:`M11 18H8a2 2 0 0 1-2-2V9`,key:`19pyzm`}]])}));export{r as n,i as t};
-//# sourceMappingURL=git-compare-DZ2GHXsm-CWWXe6H9.js.map

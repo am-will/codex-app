@@ -1,1 +1,0 @@
-import{n as e,t}from"./gallery-vertical-VvC5P9Oq-CpBjux9o.js";t();export{e as default};

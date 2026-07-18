@@ -1,0 +1,1 @@
+import{o as e,s as t}from"./app-initial~app-main~new-thread-panel-page~appgen-library-page~hotkey-window-thread-page~ho~oblsrohm-BWcsIfxl.js";t();export{e as PermissionsModeDropdown};

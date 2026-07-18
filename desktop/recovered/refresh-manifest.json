@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/tmp/codex-app-cache-26.715.21425-5488/extract-20260717090510/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "5db4c67090c0521fa717e83e46cb0a6175cb6c16fb89064223753bdf05cff0aa",
-  "outputRoot": "/home/amwill/tmp/codex-app-release-26.715.21425-20260717090429/desktop/recovered/app-asar-extracted",
-  "version": "26.715.21425",
-  "buildNumber": "5488",
+  "appAsarPath": "/home/amwill/tmp/codex-upstream-26.715.31925-20260718030310/resource-20260718030527/app.asar",
+  "appAsarSha256": "0c9dd677134340cb944e7642b8bc2504c7b73c7dc334d9d756547858171eea41",
+  "outputRoot": "/home/amwill/tmp/codex-app-release-26.715.31925-20260718030325/desktop/recovered/app-asar-extracted",
+  "version": "26.715.31925",
+  "buildNumber": "5551",
   "electronVersion": "42.3.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -344,13 +344,7 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from app-initial~avatarOverlayCompositionSurface~app-main~pet-install-modal-host~quick-chat-wind~oieh6gbs-Da3yyyXX.js",
-          "patched": true,
-          "skipped": false,
-          "reason": null
-        },
-        {
-          "label": "compiled Mapbox public token redacted from file-box-DDXaNwnv-DT_8sgpk.js",
+          "label": "compiled Mapbox public token redacted from app-initial~avatarOverlayCompositionSurface~app-main~pet-install-modal-host~quick-chat-wind~oieh6gbs-Cqdhv7ms.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -509,7 +503,7 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/home/amwill/tmp/codex-app-release-26.715.21425-20260717090429/desktop/node_modules",
+    "sourceNodeModulesRoot": "/home/amwill/tmp/codex-app-release-26.715.31925-20260718030325/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
       "node-pty/build/Release/pty.node"

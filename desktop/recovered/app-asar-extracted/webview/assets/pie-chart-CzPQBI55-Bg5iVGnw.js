@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./chart-pie-CtIsxw3k-jH2Scs4d.js";e((()=>{n()}))();export{t as default};
-//# sourceMappingURL=pie-chart-CzPQBI55-Bg5iVGnw.js.map

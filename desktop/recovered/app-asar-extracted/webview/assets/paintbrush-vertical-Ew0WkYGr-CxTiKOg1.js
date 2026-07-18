@@ -1,1 +1,0 @@
-import{n as e,t}from"./paintbrush-vertical-Ew0WkYGr-CVNNKgR9.js";e();export{t as default};

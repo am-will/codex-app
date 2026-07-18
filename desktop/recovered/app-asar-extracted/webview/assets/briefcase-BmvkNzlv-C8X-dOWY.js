@@ -1,0 +1,1 @@
+import{n as e,t}from"./briefcase-BmvkNzlv-Zwi4wD-6.js";e();export{t as default};

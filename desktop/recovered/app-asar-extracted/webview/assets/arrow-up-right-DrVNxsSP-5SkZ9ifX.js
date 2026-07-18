@@ -1,0 +1,1 @@
+import{n as e,t}from"./arrow-up-right-DrVNxsSP-BiaTYCoL.js";e();export{t as default};
