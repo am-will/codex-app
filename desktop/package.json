@@ -1,7 +1,7 @@
 {
   "name": "codex-desktop",
   "productName": "Codex",
-  "version": "26.715.31925",
+  "version": "26.715.31926",
   "description": "Codex",
   "main": "recovered/app-asar-extracted/.vite/build/early-bootstrap.js",
   "private": true,

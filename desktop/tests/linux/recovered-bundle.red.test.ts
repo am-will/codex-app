@@ -380,7 +380,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.715.31925');
+    expect(packageJson.version).toBe('26.715.31926');
     expect(packageJson.codexBuildNumber).toBe('5551');
     expect(packageJson.devDependencies?.electron).toBe('42.1.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
@@ -578,6 +578,13 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(dictationSources).not.toMatch(
       /(?:dictation|Dictation|globalDictation|push-to-talk|micro)[\s\S]{0,240}KeyM/,
     );
+  });
+
+  test('window focus tolerates an unavailable avatar overlay manager', () => {
+    const mainSource = readRecoveredMainBuildFile();
+
+    expect(mainSource).toContain('avatarOverlayManager?.raiseWindow?.()');
+    expect(mainSource).not.toContain('avatarOverlayManager.raiseWindow?.()');
   });
 
   test('plugin page menu patch is skipped when the upstream shell no longer needs it', () => {

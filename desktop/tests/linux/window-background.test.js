@@ -67,6 +67,9 @@ describe('Linux window background stability', () => {
       /\(process\.platform===`darwin`\|\|process\.platform===`linux`\)&&[A-Za-z_$][\w$]*\.app\.focus\(\{steal:!0\}\)/,
     );
     expect(mainBundle).toMatch(
+      /[A-Za-z_$][\w$]*\.avatarOverlayManager\?\.raiseWindow\?\.\(\)/,
+    );
+    expect(mainBundle).not.toMatch(
       /[A-Za-z_$][\w$]*\.avatarOverlayManager\.raiseWindow\?\.\(\)/,
     );
     expect(mainBundle).toMatch(/avatarOverlayManager:[A-Za-z_$][\w$]*\.avatarOverlayManager/);

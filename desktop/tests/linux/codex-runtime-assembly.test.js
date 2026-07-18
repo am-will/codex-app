@@ -117,6 +117,39 @@ describe('codex runtime assembly guards', () => {
     ]);
   });
 
+  test.each([
+    [
+      'already-patched unsafe handler',
+      'let be=()=>{ye.refreshApplicationMenu(),R.avatarOverlayManager.raiseWindow?.()};',
+    ],
+    ['fresh upstream handler', 'let be=()=>{ye.refreshApplicationMenu()};'],
+  ])('guards the avatar overlay manager in the %s', (_label, source) => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-avatar-focus-'));
+    const result = runAssemblySnippet(
+      `
+      const patchResult = runtime.applyAlternativeStringPatch(
+        ${JSON.stringify(source)},
+        runtime.mainLinuxAvatarOverlayFocusRaisePatchAlternatives,
+        'linux avatar overlay re-raises after app window focus',
+        'main.js',
+        runtime.mainLinuxAvatarOverlayFocusRaisePatchMarker,
+      );
+      process.stdout.write(JSON.stringify(patchResult));
+      `,
+      tempRoot,
+    );
+
+    expect(result.status).toBe(0);
+    const patchResult = JSON.parse(result.stdout);
+    expect(patchResult.patched).toBe(true);
+    expect(patchResult.source).toContain(
+      'R.avatarOverlayManager?.raiseWindow?.()',
+    );
+    expect(patchResult.source).not.toContain(
+      'R.avatarOverlayManager.raiseWindow?.()',
+    );
+  });
+
   test('hydrates lfs pointer files before copying required runtime helpers', () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-lfs-'));
     const filePath = path.join(tempRoot, 'codex');

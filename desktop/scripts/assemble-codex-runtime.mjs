@@ -1462,51 +1462,30 @@ const mainLinuxAvatarOverlayStopTopTimerPatchAlternatives = [
   },
 ];
 const mainLinuxAvatarOverlayStopTopTimerPatchMarker = 'this.stopLinuxTopEnforcement()';
-const mainLinuxAvatarOverlayFocusRaisePatchAlternatives = [
-  {
-    target: 'let be=()=>{ye.refreshApplicationMenu()};',
-    replacement:
-      'let be=()=>{ye.refreshApplicationMenu(),R.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target: 'let ie=()=>{z.refreshApplicationMenu()};',
-    replacement:
-      'let ie=()=>{z.refreshApplicationMenu(),M.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target: 'let se=()=>{oe.refreshApplicationMenu()};',
-    replacement:
-      'let se=()=>{oe.refreshApplicationMenu(),M.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target: 'let de=()=>{ue.refreshApplicationMenu()};',
-    replacement:
-      'let de=()=>{ue.refreshApplicationMenu(),M.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target: 'let pe=()=>{fe.refreshApplicationMenu()};',
-    replacement:
-      'let pe=()=>{fe.refreshApplicationMenu(),N.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target: 'let me=()=>{pe.refreshApplicationMenu()};',
-    replacement:
-      'let me=()=>{pe.refreshApplicationMenu(),j.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target: 'let he=()=>{me.refreshApplicationMenu()};',
-    replacement:
-      'let he=()=>{me.refreshApplicationMenu(),N.avatarOverlayManager.raiseWindow?.()};',
-  },
-  {
-    target:
-      'let ye=()=>{ve.refreshApplicationMenu()};',
-    replacement:
-      'let ye=()=>{ve.refreshApplicationMenu(),L.avatarOverlayManager.raiseWindow?.()};',
-  },
+const mainLinuxAvatarOverlayFocusRaisePatchVariants = [
+  ['be', 'ye', 'R'],
+  ['ie', 'z', 'M'],
+  ['se', 'oe', 'M'],
+  ['de', 'ue', 'M'],
+  ['pe', 'fe', 'N'],
+  ['me', 'pe', 'j'],
+  ['he', 'me', 'N'],
+  ['ye', 've', 'L'],
 ];
-const mainLinuxAvatarOverlayFocusRaisePatchMarker =
-  'M.avatarOverlayManager.raiseWindow?.()';
+export const mainLinuxAvatarOverlayFocusRaisePatchAlternatives =
+  mainLinuxAvatarOverlayFocusRaisePatchVariants.flatMap(
+    ([handler, menuManager, windowServices]) => {
+      const unpatched = `let ${handler}=()=>{${menuManager}.refreshApplicationMenu()};`;
+      const unsafe = `let ${handler}=()=>{${menuManager}.refreshApplicationMenu(),${windowServices}.avatarOverlayManager.raiseWindow?.()};`;
+      const safe = `let ${handler}=()=>{${menuManager}.refreshApplicationMenu(),${windowServices}.avatarOverlayManager?.raiseWindow?.()};`;
+      return [
+        { target: unsafe, replacement: safe },
+        { target: unpatched, replacement: safe },
+      ];
+    },
+  );
+export const mainLinuxAvatarOverlayFocusRaisePatchMarker =
+  '.avatarOverlayManager?.raiseWindow?.()';
 const mainLinuxAvatarOverlayFocusableWindowPatchAlternatives = [
   {
     target:
