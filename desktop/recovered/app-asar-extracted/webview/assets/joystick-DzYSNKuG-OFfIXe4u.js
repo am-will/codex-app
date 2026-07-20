@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-C1ezy-Wt.js";var r,i=e((()=>{t(),r=n(`Joystick`,[[`path`,{d:`M21 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2Z`,key:`jg2n2t`}],[`path`,{d:`M6 15v-2`,key:`gd6mvg`}],[`path`,{d:`M12 15V9`,key:`8c7uyn`}],[`circle`,{cx:`12`,cy:`6`,r:`3`,key:`1gm2ql`}]])}));export{r as n,i as t};
-//# sourceMappingURL=joystick-DzYSNKuG-OFfIXe4u.js.map

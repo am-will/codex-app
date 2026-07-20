@@ -2,14 +2,14 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.715.31925",
+  "version": "26.715.52143",
   "description": "Codex",
   "main": ".vite/build/early-bootstrap.js",
   "scripts": {
     "compile": "node ./scripts/ensure-owl-electron-types.mjs && pnpm exec tsgo -b",
     "tsc": "node ./scripts/ensure-owl-electron-types.mjs && pnpm exec tsgo --noEmit",
     "dev": "pnpm exec node ./scripts/prepare-dev.mjs --native-modules && cross-env NODE_ENV=development electron-forge start",
-    "prepare:owl": "pnpm exec node ./scripts/prepare-dev.mjs && cross-env NODE_ENV=development pnpm run build:dev-vite",
+    "prepare:owl": "pnpm exec node ./scripts/prepare-dev.mjs --owl && cross-env NODE_ENV=development pnpm run build:dev-vite",
     "owl": "pnpm run prepare:owl && cross-env NODE_ENV=development node ./scripts/owl-shell.mjs run -- --use-mock-keychain",
     "build": "node -e \"require('node:fs').rmSync('out',{force:true,recursive:true})\" && cross-env PNPM_YES=true pnpm run forge:make",
     "build:ci": "node ./scripts/build-ci.mjs",
@@ -99,7 +99,7 @@
     "zod": "^4.1.13"
   },
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "5551",
+  "codexBuildNumber": "5591",
   "codexAppBrand": "chatgpt",
   "codexSparkleFeedUrl": "https://persistent.oaistatic.com/codex-app-prod/appcast.xml",
   "codexSparklePublicKey": "mNfr1v9t63BfgDtlw4C8lRvSY6uMggIXABDOCi3tS6k="

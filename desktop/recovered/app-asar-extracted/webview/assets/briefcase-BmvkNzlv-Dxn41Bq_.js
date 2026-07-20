@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-B9y3I8VP.js";var r,i=e((()=>{t(),r=n(`Briefcase`,[[`path`,{d:`M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16`,key:`jecpp`}],[`rect`,{width:`20`,height:`14`,x:`2`,y:`6`,rx:`2`,key:`i6l2r4`}]])}));export{i as n,r as t};
+//# sourceMappingURL=briefcase-BmvkNzlv-Dxn41Bq_.js.map

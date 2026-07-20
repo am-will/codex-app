@@ -1,0 +1,1 @@
+import{n as e,t}from"./align-right-apihaT4N-DAr4PiTO.js";e();export{t as default};

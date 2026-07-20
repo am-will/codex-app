@@ -1,0 +1,2 @@
+function e({env:e,resourcesPath:t}){return e.CODEX_ELECTRON_RESOURCES_PATH?.trim()||t}Object.defineProperty(exports,"t",{enumerable:!0,get:function(){return e}});
+//# sourceMappingURL=electron-resources-path-BDLw2lp0.js.map

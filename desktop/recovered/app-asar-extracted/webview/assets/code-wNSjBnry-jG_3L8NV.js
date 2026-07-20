@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-C1ezy-Wt.js";var r,i=e((()=>{t(),r=n(`Code`,[[`polyline`,{points:`16 18 22 12 16 6`,key:`z7tu5w`}],[`polyline`,{points:`8 6 2 12 8 18`,key:`1eg1df`}]])}));export{r as n,i as t};
-//# sourceMappingURL=code-wNSjBnry-jG_3L8NV.js.map

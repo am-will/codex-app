@@ -1,0 +1,1 @@
+import{n as e,t}from"./header-C2pNw-gy.js";e();export{t as Header};

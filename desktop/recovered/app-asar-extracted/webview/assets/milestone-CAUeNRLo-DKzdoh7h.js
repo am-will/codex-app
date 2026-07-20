@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-C1ezy-Wt.js";var r,i=e((()=>{t(),r=n(`Milestone`,[[`path`,{d:`M12 13v8`,key:`1l5pq0`}],[`path`,{d:`M12 3v3`,key:`1n5kay`}],[`path`,{d:`M4 6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h13a2 2 0 0 0 1.152-.365l3.424-2.317a1 1 0 0 0 0-1.635l-3.424-2.318A2 2 0 0 0 17 6z`,key:`1btarq`}]])}));export{r as n,i as t};
-//# sourceMappingURL=milestone-CAUeNRLo-DKzdoh7h.js.map

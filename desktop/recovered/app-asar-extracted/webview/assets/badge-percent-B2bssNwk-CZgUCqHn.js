@@ -1,1 +1,0 @@
-import{n as e,t}from"./badge-percent-B2bssNwk-BoSe8V7C.js";t();export{e as default};

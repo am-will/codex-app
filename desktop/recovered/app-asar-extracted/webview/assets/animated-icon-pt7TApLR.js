@@ -1,1 +1,0 @@
-import{n as e,t}from"./animated-icon-CfrstHPE.js";e();export{t as AnimatedIcon};

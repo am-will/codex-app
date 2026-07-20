@@ -254,7 +254,7 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain('function linuxDetectCommand(');
       expect(mainBundle).toContain('linuxCursor={id:`cursor`');
       expect(mainBundle).toContain(
-        'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
+        'linuxZed=A$({id:`zed`,label:`Zed`,icon:`apps/zed.png`,kind:`editor`,linux:{detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
       );
       expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
       expect(workspaceRootDropHandlerBundle).toContain('return null');
@@ -380,9 +380,9 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.715.31927');
-    expect(packageJson.codexBuildNumber).toBe('5551');
-    expect(packageJson.devDependencies?.electron).toBe('42.1.0');
+    expect(packageJson.version).toBe('26.715.52143');
+    expect(packageJson.codexBuildNumber).toBe('5591');
+    expect(packageJson.devDependencies?.electron).toBe('42.3.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
     expect(packageJson.dependencies?.['node-pty']).toBeDefined();
@@ -434,8 +434,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.715.31925');
-    expect(manifest.buildNumber).toBe('5551');
+    expect(manifest.version).toBe('26.715.52143');
+    expect(manifest.buildNumber).toBe('5591');
     expect(manifest.electronVersion).toBe('42.3.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -702,12 +702,12 @@ describe('Recovered Codex bundle RED contract', () => {
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
     expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
-    expect(mainSource).toContain('linuxCursor={id:`cursor`');
+    expect(mainSource).toContain('linuxCursor=A$({id:`cursor`');
     expect(mainSource).toContain(
-      'linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
+      'linuxZed=A$({id:`zed`,label:`Zed`,icon:`apps/zed.png`,kind:`editor`,linux:{detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
     );
-    expect(mainSource).toContain('linuxFileManager={id:`fileManager`');
-    expect(mainSource).toContain('linuxFileManagerDetect(){return Os(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}');
+    expect(mainSource).toContain('linuxFileManager=A$({id:`fileManager`');
+    expect(mainSource).toMatch(/linuxFileManagerDetect\(\)\{return [A-Za-z_$][\w$]*\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)\}/);
     expect(linuxTargetMatches.length).toBeGreaterThan(4);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
