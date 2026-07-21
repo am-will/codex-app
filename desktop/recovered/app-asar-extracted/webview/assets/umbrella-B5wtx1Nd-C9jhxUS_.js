@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-B9y3I8VP.js";var r,i=e((()=>{t(),r=n(`Umbrella`,[[`path`,{d:`M22 12a10.06 10.06 1 0 0-20 0Z`,key:`1teyop`}],[`path`,{d:`M12 12v8a2 2 0 0 0 4 0`,key:`ulpmoc`}],[`path`,{d:`M12 2v1`,key:`11qlp1`}]])}));export{r as n,i as t};
-//# sourceMappingURL=umbrella-B5wtx1Nd-C9jhxUS_.js.map

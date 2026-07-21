@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./tram-front-C_q-I4xr-DsaAKT_g.js";e((()=>{t()}))();export{n as default};
+//# sourceMappingURL=train-BdblMYPq-tsTdwhvW.js.map

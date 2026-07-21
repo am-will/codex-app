@@ -96,9 +96,14 @@ function assertCodeModeHost(packageRoot) {
   const hostPath = path.join(packageRoot, 'resources', 'codex-code-mode-host');
   assertFile(hostPath, 'Bundled code mode host');
   fs.accessSync(hostPath, fs.constants.X_OK);
-  childProcess.execFileSync(hostPath, ['--version'], {
-    stdio: 'ignore',
+
+  const fileDescription = childProcess.execFileSync('file', [hostPath], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
   });
+  if (!/ELF|Mach-O|executable|x86-64|aarch64|ARM64/.test(fileDescription)) {
+    throw new Error('Bundled code mode host does not look like a native executable: ' + fileDescription);
+  }
 }
 
 function readAsarJavaScriptSources(appAsarPath) {

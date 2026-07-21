@@ -1,1 +1,0 @@
-import{n as e,t}from"./tickets-Bir11CUm-BTyQH5FF.js";e();export{t as default};

@@ -1,1 +1,0 @@
-import{n as e,t}from"./square-chevron-right-DEOUVgih-C-fgrx_8.js";t();export{e as default};

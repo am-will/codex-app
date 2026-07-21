@@ -1,0 +1,1 @@
+import{n as e,t}from"./mouse-pointer-DWEFpgO7-5PtGFnl8.js";t();export{e as default};

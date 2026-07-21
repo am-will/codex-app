@@ -1,0 +1,1 @@
+import{n as e,t}from"./tram-front-C_q-I4xr-DsaAKT_g.js";e();export{t as default};

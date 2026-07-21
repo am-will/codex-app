@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-B9y3I8VP.js";var r,i=e((()=>{t(),r=n(`ChartNoAxesColumnDecreasing`,[[`path`,{d:`M12 20V10`,key:`g8npz5`}],[`path`,{d:`M18 20v-4`,key:`8uic4z`}],[`path`,{d:`M6 20V4`,key:`1w1bmo`}]])}));export{r as n,i as t};
-//# sourceMappingURL=chart-no-axes-column-decreasing-FWUtv9oq-4PlqSkd2.js.map

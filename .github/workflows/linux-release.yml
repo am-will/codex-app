@@ -47,7 +47,7 @@ jobs:
           test -x desktop/resources/bin/linux-x64/codex-code-mode-host
           test -x desktop/resources/bin/linux-x64/rg
           desktop/resources/bin/linux-x64/codex --version
-          desktop/resources/bin/linux-x64/codex-code-mode-host --version
+          file desktop/resources/bin/linux-x64/codex-code-mode-host | grep -Eq 'x86-64|ELF 64-bit'
           desktop/resources/bin/linux-x64/rg --version | head -n 1
 
       - name: Install Linux packaging dependencies
@@ -185,7 +185,7 @@ jobs:
           file desktop/resources/bin/linux-arm64/codex-code-mode-host | grep -Eq 'aarch64|ARM aarch64|ARM64'
           file desktop/resources/bin/linux-arm64/rg | grep -Eq 'aarch64|ARM aarch64|ARM64'
           desktop/resources/bin/linux-arm64/codex --version
-          desktop/resources/bin/linux-arm64/codex-code-mode-host --version
+          file desktop/resources/bin/linux-x64/codex-code-mode-host | grep -Eq 'x86-64|ELF 64-bit'
           desktop/resources/bin/linux-arm64/rg --version | head -n 1
 
       - name: Install dependencies

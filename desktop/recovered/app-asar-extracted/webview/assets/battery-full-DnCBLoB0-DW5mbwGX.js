@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-B9y3I8VP.js";var r,i=e((()=>{t(),r=n(`BatteryFull`,[[`rect`,{width:`16`,height:`10`,x:`2`,y:`7`,rx:`2`,ry:`2`,key:`1w10f2`}],[`line`,{x1:`22`,x2:`22`,y1:`11`,y2:`13`,key:`4dh1rd`}],[`line`,{x1:`6`,x2:`6`,y1:`11`,y2:`13`,key:`1wd6dw`}],[`line`,{x1:`10`,x2:`10`,y1:`11`,y2:`13`,key:`haxvl5`}],[`line`,{x1:`14`,x2:`14`,y1:`11`,y2:`13`,key:`c6fn6x`}]])}));export{r as n,i as t};
-//# sourceMappingURL=battery-full-DnCBLoB0-DW5mbwGX.js.map

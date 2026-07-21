@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-B9y3I8VP.js";var r,i=e((()=>{t(),r=n(`SquareChartGantt`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M9 8h7`,key:`kbo1nt`}],[`path`,{d:`M8 12h6`,key:`ikassy`}],[`path`,{d:`M11 16h5`,key:`oq65wt`}]])}));export{i as n,r as t};
-//# sourceMappingURL=square-chart-gantt-BUfw2DKq-Bi4f6D6y.js.map

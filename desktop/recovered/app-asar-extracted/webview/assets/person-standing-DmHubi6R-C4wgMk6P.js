@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-4DkWkt_h.js";var r,i=e((()=>{t(),r=n(`PersonStanding`,[[`circle`,{cx:`12`,cy:`5`,r:`1`,key:`gxeob9`}],[`path`,{d:`m9 20 3-6 3 6`,key:`se2kox`}],[`path`,{d:`m6 8 6 2 6-2`,key:`4o3us4`}],[`path`,{d:`M12 10v4`,key:`1kjpxc`}]])}));export{r as n,i as t};
+//# sourceMappingURL=person-standing-DmHubi6R-C4wgMk6P.js.map

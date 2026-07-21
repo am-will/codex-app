@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-4DkWkt_h.js";var r,i=e((()=>{t(),r=n(`CircleArrowOutDownLeft`,[[`path`,{d:`M2 12a10 10 0 1 1 10 10`,key:`1yn6ov`}],[`path`,{d:`m2 22 10-10`,key:`28ilpk`}],[`path`,{d:`M8 22H2v-6`,key:`sulq54`}]])}));export{r as n,i as t};
+//# sourceMappingURL=circle-arrow-out-down-left-DycsRC7C-CaR5RWHC.js.map

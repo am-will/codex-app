@@ -1,0 +1,1 @@
+import{n as e,t}from"./list-collapse-BUaLsGsV-ChY_wt2J.js";t();export{e as default};

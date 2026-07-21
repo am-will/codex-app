@@ -293,7 +293,7 @@ describe('Codex package staging RED contract', () => {
     expect(packageJson.codexCliVersion).not.toBe('0.136.0');
     expect(verifyScript).toContain('codexPath, [\'--version\']');
     expect(verifyScript).toContain("path.join(packageRoot, 'resources', 'codex-code-mode-host')");
-    expect(verifyScript).toContain("hostPath, ['--version']");
+    expect(verifyScript).toContain("childProcess.execFileSync('file', [hostPath]");
     expect(verifyScript).toContain('codex-cli ${expectedCliVersion}');
     expect(verifyScript).toContain(
       'inputSchema:e.inputSchema??e.input_schema??{type:`object`,properties:{},additionalProperties:!1}',

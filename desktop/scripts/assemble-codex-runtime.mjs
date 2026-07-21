@@ -4331,7 +4331,7 @@ export async function assembleCodexRuntime({ outputRoot }) {
     unpack: '*.node',
   });
 
-  const requiredResources = ['codex', 'git', 'rg'];
+  const requiredResources = ['codex', 'codex-code-mode-host', 'git', 'rg'];
   for (const resourceName of requiredResources) {
     copyRequired(
       path.join(linuxHelperResourcesRoot, resourceName),

@@ -1,1 +1,0 @@
-import{n as e,t}from"./paint-bucket-DTzBFiPx-Ba5z0vim.js";e();export{t as default};

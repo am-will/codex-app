@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-B9y3I8VP.js";var r,i=e((()=>{t(),r=n(`Twitch`,[[`path`,{d:`M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7`,key:`c0yzno`}]])}));export{i as n,r as t};
-//# sourceMappingURL=twitch-DF6XMo9o--VbKL15s.js.map
