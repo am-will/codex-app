@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BxelU02h.js";var r,i=e((()=>{t(),r=n(`PoundSterling`,[[`path`,{d:`M18 7c0-5.333-8-5.333-8 0`,key:`1prm2n`}],[`path`,{d:`M10 7v14`,key:`18tmcs`}],[`path`,{d:`M6 21h12`,key:`4dkmi1`}],[`path`,{d:`M6 13h10`,key:`ybwr4a`}]])}));export{i as n,r as t};
+//# sourceMappingURL=pound-sterling-C3aYcJJA-DgUHxIkq.js.map

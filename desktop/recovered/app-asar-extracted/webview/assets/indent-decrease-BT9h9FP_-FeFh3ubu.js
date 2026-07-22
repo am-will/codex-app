@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-4DkWkt_h.js";var r,i=e((()=>{t(),r=n(`IndentDecrease`,[[`path`,{d:`M21 12H11`,key:`wd7e0v`}],[`path`,{d:`M21 18H11`,key:`4wu86t`}],[`path`,{d:`M21 6H11`,key:`6dy1d6`}],[`path`,{d:`m7 8-4 4 4 4`,key:`o5hrat`}]])}));export{i as n,r as t};
-//# sourceMappingURL=indent-decrease-BT9h9FP_-FeFh3ubu.js.map

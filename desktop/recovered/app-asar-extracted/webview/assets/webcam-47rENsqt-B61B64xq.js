@@ -1,0 +1,1 @@
+import{n as e,t}from"./webcam-47rENsqt-DhtMy2pr.js";t();export{e as default};

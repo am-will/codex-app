@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-4DkWkt_h.js";var r,i=e((()=>{t(),r=n(`TicketX`,[[`path`,{d:`M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z`,key:`qn84l0`}],[`path`,{d:`m9.5 14.5 5-5`,key:`qviqfa`}],[`path`,{d:`m9.5 9.5 5 5`,key:`18nt4w`}]])}));export{i as n,r as t};
-//# sourceMappingURL=ticket-x-DCvPp2Hh-DwoS-f7Q.js.map

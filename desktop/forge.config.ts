@@ -120,6 +120,7 @@ const config: ForgeConfig = {
     new MakerZIP({}, ['darwin']),
     new MakerDeb(
       {
+        options: { bin: 'Codex' },
         mimeType: [CODEX_PROTOCOL_MIME_TYPE],
         bin: 'Codex',
         categories: ['Development'],
@@ -130,6 +131,7 @@ const config: ForgeConfig = {
     ),
     new MakerRpm(
       {
+        options: { bin: 'Codex' },
         mimeType: [CODEX_PROTOCOL_MIME_TYPE],
         bin: 'Codex',
         categories: ['Development'],

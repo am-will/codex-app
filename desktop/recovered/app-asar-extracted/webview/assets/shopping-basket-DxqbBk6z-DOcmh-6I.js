@@ -1,0 +1,1 @@
+import{n as e,t}from"./shopping-basket-DxqbBk6z-BC2AVOB5.js";t();export{e as default};

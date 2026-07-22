@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-4DkWkt_h.js";var r,i=e((()=>{t(),r=n(`Currency`,[[`circle`,{cx:`12`,cy:`12`,r:`8`,key:`46899m`}],[`line`,{x1:`3`,x2:`6`,y1:`3`,y2:`6`,key:`1jkytn`}],[`line`,{x1:`21`,x2:`18`,y1:`3`,y2:`6`,key:`14zfjt`}],[`line`,{x1:`3`,x2:`6`,y1:`21`,y2:`18`,key:`iusuec`}],[`line`,{x1:`21`,x2:`18`,y1:`21`,y2:`18`,key:`yj2dd7`}]])}));export{i as n,r as t};
-//# sourceMappingURL=currency-CH_64zD9-CGjsobtk.js.map

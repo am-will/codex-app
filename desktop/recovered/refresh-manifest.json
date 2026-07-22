@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/.cache/codex-linux-refresh/26.715.61943/extracted/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "7501dd25c22e090bb131fe3fe6423e5c3b21b7f275c7e45b86ebe00a68052c80",
-  "outputRoot": "/home/amwill/Applications/codex-release-26.715.61943-20260721-030307/desktop/recovered/app-asar-extracted",
-  "version": "26.715.61943",
-  "buildNumber": "5628",
+  "appAsarPath": "/home/amwill/tmp/codex-release-26.715.72028-20260722-030208/desktop/tmp/upstream-26.715.72028-input2/app.asar",
+  "appAsarSha256": "8271e8b537b1f3a87c8453812bac580d9eec05674f05a1faae8f76e56499ffad",
+  "outputRoot": "/home/amwill/tmp/codex-release-26.715.72028-20260722-030208/desktop/recovered/app-asar-extracted",
+  "version": "26.715.72028",
+  "buildNumber": "5706",
   "electronVersion": "42.3.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -344,7 +344,7 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from app-initial~avatarOverlayCompositionSurface~app-main~pet-install-modal-host~quick-chat-wind~oieh6gbs-BBmjGS-p.js",
+          "label": "compiled Mapbox public token redacted from app-initial~avatarOverlayCompositionSurface~app-main~pet-install-modal-host~quick-chat-wind~oieh6gbs-BTf_nn6j.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -503,7 +503,7 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/home/amwill/Applications/codex-release-26.715.61943-20260721-030307/desktop/node_modules",
+    "sourceNodeModulesRoot": "/home/amwill/tmp/codex-release-26.715.72028-20260722-030208/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
       "node-pty/build/Release/pty.node",

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BxelU02h.js";var r,i=e((()=>{t(),r=n(`Pyramid`,[[`path`,{d:`M2.5 16.88a1 1 0 0 1-.32-1.43l9-13.02a1 1 0 0 1 1.64 0l9 13.01a1 1 0 0 1-.32 1.44l-8.51 4.86a2 2 0 0 1-1.98 0Z`,key:`aenxs0`}],[`path`,{d:`M12 2v20`,key:`t6zp3m`}]])}));export{r as n,i as t};
+//# sourceMappingURL=pyramid-LuTLPZ5h-BG78GdkS.js.map

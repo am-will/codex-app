@@ -1,0 +1,1 @@
+import{n as e,t}from"./sticker-BU4cXjFC-Cw3IxRmR.js";e();export{t as default};

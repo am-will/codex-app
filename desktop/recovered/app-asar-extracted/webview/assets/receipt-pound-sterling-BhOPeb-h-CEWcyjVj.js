@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-4DkWkt_h.js";var r,i=e((()=>{t(),r=n(`ReceiptPoundSterling`,[[`path`,{d:`M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z`,key:`q3az6g`}],[`path`,{d:`M8 13h5`,key:`1k9z8w`}],[`path`,{d:`M10 17V9.5a2.5 2.5 0 0 1 5 0`,key:`1dzgp0`}],[`path`,{d:`M8 17h7`,key:`8mjdqu`}]])}));export{i as n,r as t};
-//# sourceMappingURL=receipt-pound-sterling-BhOPeb-h-CEWcyjVj.js.map
