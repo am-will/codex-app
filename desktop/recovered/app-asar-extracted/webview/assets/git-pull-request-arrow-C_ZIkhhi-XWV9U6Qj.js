@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`GitPullRequestArrow`,[[`circle`,{cx:`5`,cy:`6`,r:`3`,key:`1qnov2`}],[`path`,{d:`M5 9v12`,key:`ih889a`}],[`circle`,{cx:`19`,cy:`18`,r:`3`,key:`1qljk2`}],[`path`,{d:`m15 9-3-3 3-3`,key:`1lwv8l`}],[`path`,{d:`M12 6h5a2 2 0 0 1 2 2v7`,key:`1yj91y`}]])}));export{r as n,i as t};
+//# sourceMappingURL=git-pull-request-arrow-C_ZIkhhi-XWV9U6Qj.js.map

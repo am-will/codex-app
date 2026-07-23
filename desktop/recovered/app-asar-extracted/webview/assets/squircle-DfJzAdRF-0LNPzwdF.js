@@ -1,1 +1,0 @@
-import{n as e,t}from"./squircle-DfJzAdRF-i62KrP2o.js";t();export{e as default};

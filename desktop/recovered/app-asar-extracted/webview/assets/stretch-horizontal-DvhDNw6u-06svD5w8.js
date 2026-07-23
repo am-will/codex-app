@@ -1,0 +1,1 @@
+import{n as e,t}from"./stretch-horizontal-DvhDNw6u-D8Be2l80.js";t();export{e as default};

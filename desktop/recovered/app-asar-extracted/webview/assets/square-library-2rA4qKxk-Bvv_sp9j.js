@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`SquareLibrary`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M7 7v10`,key:`d5nglc`}],[`path`,{d:`M11 7v10`,key:`pptsnr`}],[`path`,{d:`m15 7 2 10`,key:`1m7qm5`}]])}));export{r as n,i as t};
+//# sourceMappingURL=square-library-2rA4qKxk-Bvv_sp9j.js.map

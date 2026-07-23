@@ -1,0 +1,1 @@
+import{n as e,t}from"./move-diagonal-imzv22ZC-3iF9K7F6.js";t();export{e as default};

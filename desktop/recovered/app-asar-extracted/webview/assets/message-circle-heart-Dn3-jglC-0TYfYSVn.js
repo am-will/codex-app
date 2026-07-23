@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BxelU02h.js";var r,i=e((()=>{t(),r=n(`MessageCircleHeart`,[[`path`,{d:`M7.9 20A9 9 0 1 0 4 16.1L2 22Z`,key:`vv11sd`}],[`path`,{d:`M15.8 9.2a2.5 2.5 0 0 0-3.5 0l-.3.4-.35-.3a2.42 2.42 0 1 0-3.2 3.6l3.6 3.5 3.6-3.5c1.2-1.2 1.1-2.7.2-3.7`,key:`43lnbm`}]])}));export{r as n,i as t};
-//# sourceMappingURL=message-circle-heart-Dn3-jglC-0TYfYSVn.js.map

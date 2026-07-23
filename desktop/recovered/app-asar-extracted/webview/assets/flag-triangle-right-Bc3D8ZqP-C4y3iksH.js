@@ -1,0 +1,1 @@
+import{n as e,t}from"./flag-triangle-right-Bc3D8ZqP-DyD8U7vl.js";t();export{e as default};

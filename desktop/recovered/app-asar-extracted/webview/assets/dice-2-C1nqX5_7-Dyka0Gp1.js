@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`Dice2`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,ry:`2`,key:`1m3agn`}],[`path`,{d:`M15 9h.01`,key:`x1ddxp`}],[`path`,{d:`M9 15h.01`,key:`fzyn71`}]])}));export{i as n,r as t};
+//# sourceMappingURL=dice-2-C1nqX5_7-Dyka0Gp1.js.map

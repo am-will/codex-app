@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`FolderGit2`,[[`path`,{d:`M9 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v5`,key:`1w6njk`}],[`circle`,{cx:`13`,cy:`12`,r:`2`,key:`1j92g6`}],[`path`,{d:`M18 19c-2.8 0-5-2.2-5-5v8`,key:`pkpw2h`}],[`circle`,{cx:`20`,cy:`19`,r:`2`,key:`1obnsp`}]])}));export{i as n,r as t};
+//# sourceMappingURL=folder-git-2-DYzjtlcR-BzrjUXhl.js.map

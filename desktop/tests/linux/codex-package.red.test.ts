@@ -229,6 +229,16 @@ describe('Codex package staging RED contract', () => {
     ).toBe(true);
   });
 
+  test('linux package output keeps Debian maker binary compatibility', () => {
+    const forgeConfig = readDesktopFile('forge.config.ts');
+
+    expect(forgeConfig).toContain("postPackage: async (_forgeConfig, packageResult) => {");
+    expect(forgeConfig).toContain("packageResult.platform !== 'linux'");
+    expect(forgeConfig).toContain("path.join(outputPath, 'Codex')");
+    expect(forgeConfig).toContain("path.join(outputPath, 'codex-desktop')");
+    expect(forgeConfig).toContain("fs.symlinkSync('Codex', packageBinPath)");
+  });
+
   test('linux release workflow hydrates helpers and writes concrete release note filenames', () => {
     const workflowSource = readDesktopFile('../.github/workflows/linux-release.yml');
 

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`SwissFranc`,[[`path`,{d:`M10 21V3h8`,key:`br2l0g`}],[`path`,{d:`M6 16h9`,key:`2py0wn`}],[`path`,{d:`M10 9.5h7`,key:`13dmhz`}]])}));export{r as n,i as t};
+//# sourceMappingURL=swiss-franc-5fSIwOFB-B7acMwwl.js.map

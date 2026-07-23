@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`Space`,[[`path`,{d:`M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1`,key:`lt2kga`}]])}));export{i as n,r as t};
+//# sourceMappingURL=space-BvsuNnwg-rE0O-a0y.js.map

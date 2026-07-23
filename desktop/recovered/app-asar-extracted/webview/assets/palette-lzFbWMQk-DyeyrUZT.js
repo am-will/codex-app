@@ -1,1 +1,0 @@
-import{n as e,t}from"./palette-lzFbWMQk-Br-I2Lis.js";e();export{t as default};

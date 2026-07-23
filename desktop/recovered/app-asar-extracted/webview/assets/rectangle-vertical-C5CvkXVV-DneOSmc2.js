@@ -1,1 +1,0 @@
-import{n as e,t}from"./rectangle-vertical-C5CvkXVV-86SCDefc.js";e();export{t as default};

@@ -1,4 +1,5 @@
 import type { ForgeConfig } from '@electron-forge/shared-types';
+import fs from 'node:fs';
 import path from 'node:path';
 
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
@@ -113,6 +114,21 @@ const config: ForgeConfig = {
       appProcess.once('exit', () => {
         void closeRecoveredWebviewDevServer();
       });
+    },
+    postPackage: async (_forgeConfig, packageResult) => {
+      if (packageResult.platform !== 'linux') {
+        return;
+      }
+
+      for (const outputPath of packageResult.outputPaths) {
+        const codexBinaryPath = path.join(outputPath, 'Codex');
+        const packageBinPath = path.join(outputPath, 'codex-desktop');
+        if (!fs.existsSync(codexBinaryPath) || fs.existsSync(packageBinPath)) {
+          continue;
+        }
+
+        fs.symlinkSync('Codex', packageBinPath);
+      }
     },
   },
   makers: [

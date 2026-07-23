@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`Album`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,ry:`2`,key:`1m3agn`}],[`polyline`,{points:`11 3 11 11 14 8 17 11 17 3`,key:`1wcwz3`}]])}));export{i as n,r as t};
+//# sourceMappingURL=album-BaGzxpj3-zUbBTtPb.js.map
