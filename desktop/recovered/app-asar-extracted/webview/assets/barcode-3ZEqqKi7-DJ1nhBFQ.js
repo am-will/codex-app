@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BolBxm4H.js";var r,i=e((()=>{t(),r=n(`Barcode`,[[`path`,{d:`M3 5v14`,key:`1nt18q`}],[`path`,{d:`M8 5v14`,key:`1ybrkv`}],[`path`,{d:`M12 5v14`,key:`s699le`}],[`path`,{d:`M17 5v14`,key:`ycjyhj`}],[`path`,{d:`M21 5v14`,key:`nzette`}]])}));export{i as n,r as t};
+//# sourceMappingURL=barcode-3ZEqqKi7-DJ1nhBFQ.js.map

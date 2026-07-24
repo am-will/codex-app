@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`Strikethrough`,[[`path`,{d:`M16 4H9a3 3 0 0 0-2.83 4`,key:`43sutm`}],[`path`,{d:`M14 12a4 4 0 0 1 0 8H6`,key:`nlfj13`}],[`line`,{x1:`4`,x2:`20`,y1:`12`,y2:`12`,key:`1e0a9i`}]])}));export{i as n,r as t};
-//# sourceMappingURL=strikethrough-nXG0rfOl-Bp3fF44B.js.map

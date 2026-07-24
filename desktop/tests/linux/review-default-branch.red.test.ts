@@ -47,19 +47,21 @@ describe('Review base branch regression gate (RED)', () => {
 
     expect(workerSource).toContain('async getDefaultBranch');
     expect(workerSource).toContain('getWorktreeRepositoryForRoot(e.root,t)');
-    expect(workerSource).toContain('?.branch??null;return i||=');
+    expect(workerSource).toMatch(
+      /\(await [A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)\)\?\.branch\?\?null;return [A-Za-z_$][\w$]*\|\|=/,
+    );
     expect(workerSource).toMatch(
       /\.find\([A-Za-z_$][\w$]*=>[A-Za-z_$][\w$]*===`main`\|\|[A-Za-z_$][\w$]*===`master`\)\?\?null,\{branch:[A-Za-z_$][\w$]*\}/,
     );
   });
 
   test('renderer branch defaults still fall back to main and seed branch starting state', () => {
-    const rendererSource = readRecoveredWebAssetContaining(['app-initial~app-main~'], [
+    const rendererSource = readRecoveredWebAssetContaining(['app-initial-'], [
       'asyncThreadStartingState',
       'use-git-recent-branches-',
     ]);
     const branchSwitcherSource = readRecoveredWebAssetContaining(
-      ['composer-footer-branch-switcher-', 'worktree-environment-dropdown-', 'app-initial~app-main~'],
+      ['composer-footer-branch-switcher-', 'worktree-environment-dropdown-', 'app-initial-'],
       ['default_branch??`main`'],
     );
 

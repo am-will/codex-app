@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`TouchpadOff`,[[`path`,{d:`M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16`,key:`lnt0bk`}],[`path`,{d:`M2 14h12`,key:`d8icqz`}],[`path`,{d:`M22 14h-2`,key:`jrx26d`}],[`path`,{d:`M12 20v-6`,key:`1rm09r`}],[`path`,{d:`m2 2 20 20`,key:`1ooewy`}],[`path`,{d:`M22 16V6a2 2 0 0 0-2-2H10`,key:`11y8e4`}]])}));export{i as n,r as t};
-//# sourceMappingURL=touchpad-off-VWXv85MF-DH0eYLML.js.map

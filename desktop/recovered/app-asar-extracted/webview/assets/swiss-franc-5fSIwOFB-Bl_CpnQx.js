@@ -1,1 +1,0 @@
-import{n as e,t}from"./swiss-franc-5fSIwOFB-B7acMwwl.js";t();export{e as default};

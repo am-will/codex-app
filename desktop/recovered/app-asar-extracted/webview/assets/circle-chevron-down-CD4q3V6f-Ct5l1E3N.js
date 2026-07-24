@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`CircleChevronDown`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`m16 10-4 4-4-4`,key:`894hmk`}]])}));export{r as n,i as t};
-//# sourceMappingURL=circle-chevron-down-CD4q3V6f-Ct5l1E3N.js.map

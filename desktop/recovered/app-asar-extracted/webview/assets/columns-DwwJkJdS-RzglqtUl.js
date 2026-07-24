@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./columns-2-B6_tPU0s-C0N2L0G4.js";e((()=>{n()}))();export{t as default};
-//# sourceMappingURL=columns-DwwJkJdS-RzglqtUl.js.map

@@ -104,7 +104,7 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toContain(
       'tray:{left:16,top:24,width:560,height:320},viewport:{width:600,height:460}',
     );
-    expect(avatarOverlayBundle).toContain('py-3 pr-5');
+    expect(avatarOverlayBundle).toContain('px-5 py-3');
     expect(avatarOverlayBundle).not.toContain('line-clamp-2');
     expect(avatarOverlayBundle).toContain('whitespace-pre-wrap');
     expect(avatarOverlayBundle).toMatch(

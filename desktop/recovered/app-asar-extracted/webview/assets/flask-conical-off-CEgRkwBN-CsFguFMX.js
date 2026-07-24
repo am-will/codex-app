@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BolBxm4H.js";var r,i=e((()=>{t(),r=n(`FlaskConicalOff`,[[`path`,{d:`M10 10 4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-1.272-2.542`,key:`59ek9y`}],[`path`,{d:`M10 2v2.343`,key:`15t272`}],[`path`,{d:`M14 2v6.343`,key:`sxr80q`}],[`path`,{d:`M8.5 2h7`,key:`csnxdl`}],[`path`,{d:`M7 16h9`,key:`t5njau`}],[`line`,{x1:`2`,x2:`22`,y1:`2`,y2:`22`,key:`a6p6uj`}]])}));export{r as n,i as t};
+//# sourceMappingURL=flask-conical-off-CEgRkwBN-CsFguFMX.js.map

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BolBxm4H.js";var r,i=e((()=>{t(),r=n(`Copyleft`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`M9.17 14.83a4 4 0 1 0 0-5.66`,key:`1sveal`}]])}));export{i as n,r as t};
+//# sourceMappingURL=copyleft-F8Yl9gL_-DfC1uE0M.js.map

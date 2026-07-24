@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BXFOui7d.js";var r,i=e((()=>{t(),r=n(`CalendarSearch`,[[`path`,{d:`M16 2v4`,key:`4m81vk`}],[`path`,{d:`M21 11.75V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.25`,key:`1jrsq6`}],[`path`,{d:`m22 22-1.875-1.875`,key:`13zax7`}],[`path`,{d:`M3 10h18`,key:`8toen8`}],[`path`,{d:`M8 2v4`,key:`1cmpym`}],[`circle`,{cx:`18`,cy:`18`,r:`3`,key:`1xkwt0`}]])}));export{i as n,r as t};
-//# sourceMappingURL=calendar-search-DPY32kMJ-DA8lqIxS.js.map

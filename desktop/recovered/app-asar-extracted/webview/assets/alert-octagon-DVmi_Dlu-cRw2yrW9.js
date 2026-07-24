@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./octagon-alert-DEL6niv7-6LRuc4FM.js";e((()=>{t()}))();export{n as default};
-//# sourceMappingURL=alert-octagon-DVmi_Dlu-cRw2yrW9.js.map

@@ -150,6 +150,52 @@ describe('codex runtime assembly guards', () => {
     );
   });
 
+  test('rejects malformed patched main-process JavaScript before packaging', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-syntax-'));
+    const buildRoot = path.join(tempRoot, '.vite', 'build');
+    fs.mkdirSync(buildRoot, { recursive: true });
+    fs.writeFileSync(path.join(buildRoot, 'main-test.js'), 'const broken = {;\n', 'utf8');
+
+    const result = runAssemblySnippet(
+      `
+      try {
+        runtime.validateMainProcessJavaScript(${JSON.stringify(tempRoot)});
+        process.stdout.write('NO_ERROR');
+      } catch (error) {
+        process.stderr.write(String(error?.message ?? error));
+        process.exit(1);
+      }
+      `,
+      tempRoot,
+    );
+
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('Patched main-process bundle failed syntax validation');
+    expect(result.stderr).toContain('SyntaxError');
+  });
+
+  test('accepts syntactically valid patched main-process JavaScript', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-syntax-'));
+    const buildRoot = path.join(tempRoot, '.vite', 'build');
+    fs.mkdirSync(buildRoot, { recursive: true });
+    fs.writeFileSync(path.join(buildRoot, 'main-test.js'), 'const valid = {};\n', 'utf8');
+
+    const result = runAssemblySnippet(
+      `
+      process.stdout.write(
+        JSON.stringify(runtime.validateMainProcessJavaScript(${JSON.stringify(tempRoot)})),
+      );
+      `,
+      tempRoot,
+    );
+
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toEqual({
+      mainBundlePath: path.join(buildRoot, 'main-test.js'),
+      syntaxValid: true,
+    });
+  });
+
   test('hydrates lfs pointer files before copying required runtime helpers', () => {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-runtime-lfs-'));
     const filePath = path.join(tempRoot, 'codex');

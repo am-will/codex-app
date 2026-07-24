@@ -299,7 +299,7 @@ describe('Codex package staging RED contract', () => {
     const packageJson = JSON.parse(readDesktopFile('package.json')) as PackageJson;
     const verifyScript = readDesktopFile('scripts/verify-linux-package-contract.mjs');
 
-    expect(packageJson.codexCliVersion).toBe('0.144.0-alpha.4');
+    expect(packageJson.codexCliVersion).toBe('0.145.0');
     expect(packageJson.codexCliVersion).not.toBe('0.136.0');
     expect(verifyScript).toContain('codexPath, [\'--version\']');
     expect(verifyScript).toContain("path.join(packageRoot, 'resources', 'codex-code-mode-host')");

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./captions-D_OD8bnC-Bhqka9_M.js";e((()=>{t()}))();export{n as default};
-//# sourceMappingURL=subtitles-MQbmbHLm-CnQkACbJ.js.map

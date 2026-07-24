@@ -311,7 +311,11 @@ describe('Recovered Codex bundle RED contract', () => {
     const assetsRoot = path.join(recoveredRoot, 'webview', 'assets');
     const sources = fs
       .readdirSync(assetsRoot)
-      .filter((entry) => entry.startsWith('app-initial~app-main~') && entry.endsWith('.js'))
+      .filter(
+        (entry) =>
+          (entry.startsWith('app-initial-') || entry.startsWith('app-initial~app-main~')) &&
+          entry.endsWith('.js'),
+      )
       .map((entry) => fs.readFileSync(path.join(assetsRoot, entry), 'utf8'));
 
     expect(sources.length).toBeGreaterThan(0);
@@ -380,8 +384,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.715.72359');
-    expect(packageJson.codexBuildNumber).toBe('5718');
+    expect(packageJson.version).toBe('26.721.30844');
+    expect(packageJson.codexBuildNumber).toBe('5813');
     expect(packageJson.devDependencies?.electron).toBe('42.3.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -434,8 +438,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.715.72359');
-    expect(manifest.buildNumber).toBe('5718');
+    expect(manifest.version).toBe('26.721.30844');
+    expect(manifest.buildNumber).toBe('5813');
     expect(manifest.electronVersion).toBe('42.3.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -464,11 +468,11 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('renderer entry keeps the browser pane enabled for Linux desktop flows', () => {
     const rendererEntry = readRecoveredRendererEntry();
-    const appMainBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+    const appMainBundle = readRecoveredAssetContaining(['app-initial-', 'app-initial~app-main~'], [
       'electron-desktop-features-changed',
       'tool_suggest',
     ]);
-    const composerBundle = readRecoveredAssetContaining(['app-initial~app-main~', 'composer-'], [
+    const composerBundle = readRecoveredAssetContaining(['app-initial-', 'app-initial~app-main~', 'composer-'], [
       'threadGoalDraft',
     ]);
 
@@ -480,6 +484,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(
       readRecoveredAssetContaining(
         [
+          'app-initial-',
           'app-initial~app-main~',
           'hotkey-window-home-page-',
           'local-remote-dropdown-',
@@ -492,26 +497,26 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('dynamic thread-start tools match bundled app-server protocol', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const featureSyncBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+    const featureSyncBundle = readRecoveredAssetContaining(['app-initial-', 'app-initial~app-main~'], [
       'dynamic-tools-for-thread-start-requested',
       'set-experimental-feature-enablement-for-host',
     ]);
     const rendererStartBundle = readRecoveredAssetContaining(
-      ['app-initial~artifact-tab-content.electron~app-main~'],
+      ['app-initial-', 'app-initial~artifact-tab-content.electron~app-main~'],
       [
         'start-thread-for-host',
         'threadSource:`system`',
       ],
     );
     const rendererRequestClientBundle = readRecoveredAssetContaining(
-      ['app-initial~artifact-tab-content.electron~notebook-preview-panel~app-main~'],
+      ['app-initial-', 'app-initial~artifact-tab-content.electron~notebook-preview-panel~app-main~'],
       [
         'AppServerRequestClient is missing a message dispatcher',
         'thread-prewarm-start',
         'mcp_request_enqueued',
       ],
     );
-    const dynamicToolBuilderBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+    const dynamicToolBuilderBundle = readRecoveredAssetContaining(['app-initial-', 'app-initial~app-main~'], [
       'Tools provided by the Codex app.',
       'type:`namespace`',
     ]);
@@ -541,7 +546,7 @@ describe('Recovered Codex bundle RED contract', () => {
       'async prewarmThreadStart(e,t){if(this.dispatchMessage==null)throw Error(`AppServerRequestClient is missing a message dispatcher`);e=e.dynamicTools==null?e',
     );
     expect(rendererRequestClientBundle).toContain(
-      'this.dispatchMessage?.(`thread-prewarm-start`,{request:e,hostId:this.hostId})',
+      'this.dispatchMessage?.(`thread-prewarm-start`,{request:e,hostId:this.hostId,priority:n',
     );
     expect(featureSyncBundle).toMatch(
       /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`tool_suggest`\]/,
@@ -557,10 +562,10 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('dictation shortcuts stay configurable instead of using stale Ctrl+M behavior', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const appMainBundle = readRecoveredAssetContaining(['app-initial~app-main~'], [
+    const appMainBundle = readRecoveredAssetContaining(['app-initial-', 'app-initial~app-main~'], [
       'electron-desktop-features-changed',
     ]);
-    const composerBundle = readRecoveredAssetContaining(['app-initial~app-main~', 'composer-'], [
+    const composerBundle = readRecoveredAssetContaining(['app-initial-', 'app-initial~app-main~', 'composer-'], [
       'codex-micro-push-to-talk-start',
     ]);
     const dictationSources = [mainSource, appMainBundle, composerBundle].join('\n');
@@ -614,7 +619,7 @@ describe('Recovered Codex bundle RED contract', () => {
     const modelSettingsSource =
       readOptionalRecoveredAsset('use-model-settings-') ??
       readRecoveredAssetContaining(
-        ['app-initial~app-main~', 'use-collaboration-mode-', 'local-remote-dropdown-'],
+        ['app-initial-', 'app-initial~app-main~', 'use-collaboration-mode-', 'local-remote-dropdown-'],
         ['model_reasoning_effort', 'config_query_diverged', 'set-default-model-config-for-host'],
       );
     const assembleScript = readDesktopFile('scripts/assemble-codex-runtime.mjs');
@@ -702,12 +707,10 @@ describe('Recovered Codex bundle RED contract', () => {
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
     expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
-    expect(mainSource).toContain('linuxCursor=A$({id:`cursor`');
-    expect(mainSource).toContain(
-      'linuxZed=A$({id:`zed`,label:`Zed`,icon:`apps/zed.png`,kind:`editor`,linux:{detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
-    );
-    expect(mainSource).toContain('linuxFileManager=A$({id:`fileManager`');
-    expect(mainSource).toMatch(/linuxFileManagerDetect\(\)\{return [A-Za-z_$][\w$]*\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)\}/);
+    expect(mainSource).toMatch(/linuxCursor=\{id:`cursor`,platforms:\{linux:/);
+    expect(mainSource).toMatch(/linuxZed=\{id:`zed`,platforms:\{linux:\{label:`Zed`,icon:`apps\/zed\.png`/);
+    expect(mainSource).toMatch(/linuxFileManager=\{id:`fileManager`,platforms:\{linux:/);
+    expect(mainSource).toMatch(/detect:\(\)=>[A-Za-z_$][\w$]*\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)/);
     expect(linuxTargetMatches.length).toBeGreaterThan(4);
     expect(mainSource).toMatch(
       /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,

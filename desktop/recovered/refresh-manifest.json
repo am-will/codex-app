@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/tmp/codex-release-26.715.72359.nVuA6w/repo/desktop/tmp/upstream-26.715.72359/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "6c6528eb1e8450cdc506a59586f8caffe87576e200977e2a11bdea0cecf1c718",
-  "outputRoot": "/tmp/codex-release-26.715.72359.nVuA6w/repo/desktop/recovered/app-asar-extracted",
-  "version": "26.715.72359",
-  "buildNumber": "5718",
+  "appAsarPath": "/home/amwill/.cache/codex-upstream-26.721.30844-5813/extract.cTY8ri/ChatGPT.app/Contents/Resources/app.asar",
+  "appAsarSha256": "29dac6cff7bc1aa39c64b4f12c0e47b07bccd0db11767ebc94c1196389b90619",
+  "outputRoot": "/home/amwill/.cache/codex-release-26.721.30844-5813/desktop/recovered/app-asar-extracted",
+  "version": "26.721.30844",
+  "buildNumber": "5813",
   "electronVersion": "42.3.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -256,21 +256,21 @@
       "results": [
         {
           "label": "app shell custom title menu is enabled on linux",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell custom title menu is enabled on linux target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell renders linux window controls in title bar",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell renders linux window controls in title bar target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell upgrades linux window controls in title bar",
           "patched": false,
           "skipped": true,
-          "reason": "app shell upgrades linux window controls in title bar replacement already present"
+          "reason": "app shell upgrades linux window controls in title bar target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell title bar reserves space for inline window controls",
@@ -280,33 +280,33 @@
         },
         {
           "label": "app shell adds linux application menu compatibility for current app-initial bundle",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell adds linux application menu compatibility for current app-initial bundle target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell adds linux application menu compatibility for current bundle",
           "patched": false,
           "skipped": true,
-          "reason": "app shell adds linux application menu compatibility for current bundle replacement already present"
+          "reason": "app shell adds linux application menu compatibility for current bundle target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell renders linux codex application sub-menus",
           "patched": false,
           "skipped": true,
-          "reason": "app shell renders linux codex application sub-menus replacement already present"
+          "reason": "app shell renders linux codex application sub-menus target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell upgrades linux codex application sub-menus",
           "patched": false,
           "skipped": true,
-          "reason": "app shell upgrades linux codex application sub-menus replacement already present"
+          "reason": "app shell upgrades linux codex application sub-menus target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell hides floating sidebar nav when title bar owns chrome",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell hides floating sidebar nav when title bar owns chrome target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell raises floating sidebar above main header chrome",
@@ -330,13 +330,13 @@
           "label": "app shell shifts main header left when floating sidebar is open",
           "patched": false,
           "skipped": true,
-          "reason": "app shell shifts main header left when floating sidebar is open replacement already present"
+          "reason": "app shell shifts main header left when floating sidebar is open target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell applies floating sidebar main header left style offset",
           "patched": false,
           "skipped": true,
-          "reason": "app shell applies floating sidebar main header left style offset replacement already present"
+          "reason": "app shell applies floating sidebar main header left style offset target not applicable to the current app-shell renderer"
         }
       ]
     },
@@ -344,7 +344,7 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from app-initial~avatarOverlayCompositionSurface~app-main~pet-install-modal-host~quick-chat-wind~oieh6gbs-7op9FAJ2.js",
+          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-DHznltzG.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -503,7 +503,7 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/tmp/codex-release-26.715.72359.nVuA6w/repo/desktop/node_modules",
+    "sourceNodeModulesRoot": "/home/amwill/.cache/codex-release-26.721.30844-5813/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
       "node-pty/build/Release/pty.node",
