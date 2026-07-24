@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{Ivt as t,jvt as n,mC as r,pC as i}from"./app-initial-BTphDPeq.js";function a(e){let t=(0,o.c)(7),{children:n,content:r,contentId:a,expanded:c}=e,l;t[0]!==r||t[1]!==a||t[2]!==c?(l=c?(0,s.jsx)(`div`,{id:a,className:i,children:r}):null,t[0]=r,t[1]=a,t[2]=c,t[3]=l):l=t[3];let u;return t[4]!==n||t[5]!==l?(u=(0,s.jsxs)(`div`,{className:i,children:[n,l]}),t[4]=n,t[5]=l,t[6]=u):u=t[6],u}var o,s,c=e((()=>{o=t(),r(),s=n()}));export{c as n,a as t};
-//# sourceMappingURL=settings-row-disclosure-i3qjTVS1.js.map

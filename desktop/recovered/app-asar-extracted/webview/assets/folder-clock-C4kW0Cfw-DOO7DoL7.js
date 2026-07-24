@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BolBxm4H.js";var r,i=e((()=>{t(),r=n(`FolderClock`,[[`circle`,{cx:`16`,cy:`16`,r:`6`,key:`qoo3c4`}],[`path`,{d:`M7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2`,key:`1urifu`}],[`path`,{d:`M16 14v2l1 1`,key:`xth2jh`}]])}));export{i as n,r as t};
-//# sourceMappingURL=folder-clock-C4kW0Cfw-DOO7DoL7.js.map

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`SquarePlay`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`m9 8 6 4-6 4Z`,key:`f1r3lt`}]])}));export{i as n,r as t};
+//# sourceMappingURL=square-play-P_-hP7hX-CBmgEuWT.js.map

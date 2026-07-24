@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/home/amwill/.cache/codex-upstream-26.721.30844-5813/extract.cTY8ri/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "29dac6cff7bc1aa39c64b4f12c0e47b07bccd0db11767ebc94c1196389b90619",
-  "outputRoot": "/home/amwill/.cache/codex-release-26.721.30844-5813/desktop/recovered/app-asar-extracted",
-  "version": "26.721.30844",
-  "buildNumber": "5813",
+  "appAsarPath": "/tmp/codex-linux-refresh-20260724T090234Z/codex-app/desktop/tmp/upstream-26.721.31836/app.asar",
+  "appAsarSha256": "674dab67fe39f9912493f640c1dd80f222f6062ad0f50b182a6cc87eebd0d3dc",
+  "outputRoot": "/tmp/codex-linux-refresh-20260724T090234Z/codex-app/desktop/recovered/app-asar-extracted",
+  "version": "26.721.31836",
+  "buildNumber": "5828",
   "electronVersion": "42.3.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -344,7 +344,13 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-DHznltzG.js",
+          "label": "compiled Mapbox public token redacted from layout-panel-top-ByVYquQ6-CrCTG2pk.js",
+          "patched": true,
+          "skipped": false,
+          "reason": null
+        },
+        {
+          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-CXc9FuAU.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -503,12 +509,10 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/home/amwill/.cache/codex-release-26.721.30844-5813/desktop/node_modules",
+    "sourceNodeModulesRoot": "/tmp/codex-linux-refresh-20260724T090234Z/codex-app/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
-      "node-pty/build/Release/pty.node",
-      "node-pty/build/Release/obj.target/pty.node",
-      "node-pty/bin/linux-x64-146/node-pty.node"
+      "node-pty/build/Release/pty.node"
     ]
   },
   "tempRoot": null

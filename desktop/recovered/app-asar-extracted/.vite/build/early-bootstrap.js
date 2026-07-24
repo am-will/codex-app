@@ -1,2 +1,2 @@
-require("./src-C7E6KJ89.js"),require("./desktop-open-path-queue-DVi5tft2.js").r(process.platform===`darwin`),Promise.resolve().then(()=>require("./bootstrap-DlB0LCkD.js"));
+require("./src-C7E6KJ89.js"),require("./desktop-open-path-queue-DVi5tft2.js").r(process.platform===`darwin`),Promise.resolve().then(()=>require("./bootstrap-Cf0sQ-em.js"));
 //# sourceMappingURL=early-bootstrap.js.map

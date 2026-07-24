@@ -1,1 +1,0 @@
-import{n as e,t}from"./animated-icon-L4WAaunx.js";e();export{t as AnimatedIcon};

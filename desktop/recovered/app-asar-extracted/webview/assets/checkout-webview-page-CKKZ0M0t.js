@@ -1,0 +1,1 @@
+import{Sr as e,xr as t}from"./app-initial-C-fROkKo.js";e();export{t as CheckoutWebviewPage};

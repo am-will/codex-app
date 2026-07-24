@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`CakeSlice`,[[`circle`,{cx:`9`,cy:`7`,r:`2`,key:`1305pl`}],[`path`,{d:`M7.2 7.9 3 11v9c0 .6.4 1 1 1h16c.6 0 1-.4 1-1v-9c0-2-3-6-7-8l-3.6 2.6`,key:`xle13f`}],[`path`,{d:`M16 13H3`,key:`1wpj08`}],[`path`,{d:`M16 17H3`,key:`3lvfcd`}]])}));export{i as n,r as t};
+//# sourceMappingURL=cake-slice-DPqX1GKZ-9uQPEPu5.js.map

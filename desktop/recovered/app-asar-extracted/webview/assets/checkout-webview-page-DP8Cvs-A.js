@@ -1,1 +1,0 @@
-import{Sr as e,xr as t}from"./app-initial-BTphDPeq.js";e();export{t as CheckoutWebviewPage};

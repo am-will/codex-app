@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BolBxm4H.js";var r,i=e((()=>{t(),r=n(`WifiZero`,[[`path`,{d:`M12 20h.01`,key:`zekei9`}]])}));export{r as n,i as t};
-//# sourceMappingURL=wifi-zero-DryK4EaV-BVUWfITm.js.map

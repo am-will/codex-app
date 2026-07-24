@@ -1,1 +1,0 @@
-import{n as e,t}from"./receipt-swiss-franc-BldoLP3b-B1PrFYBK.js";t();export{e as default};

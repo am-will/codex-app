@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`Popcorn`,[[`path`,{d:`M18 8a2 2 0 0 0 0-4 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0 0 4`,key:`10td1f`}],[`path`,{d:`M10 22 9 8`,key:`yjptiv`}],[`path`,{d:`m14 22 1-14`,key:`8jwc8b`}],[`path`,{d:`M20 8c.5 0 .9.4.8 1l-2.6 12c-.1.5-.7 1-1.2 1H7c-.6 0-1.1-.4-1.2-1L3.2 9c-.1-.6.3-1 .8-1Z`,key:`1qo33t`}]])}));export{r as n,i as t};
+//# sourceMappingURL=popcorn-dtlfvnSB-Mio6F3yb.js.map

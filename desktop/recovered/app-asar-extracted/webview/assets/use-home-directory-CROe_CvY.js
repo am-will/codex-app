@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{I_t as t,Ivt as n,M_t as r,Q4 as i,e3 as a}from"./app-initial-C-fROkKo.js";function o(e){let n=(0,c.c)(2),r;return n[0]===e?r=n[1]:(r=e==null?void 0:{hostId:e},n[0]=e,n[1]=r),t(i,r)}function s(e){return o(e).data?.homeDirectory}var c,l=e((()=>{c=n(),r(),a()}));export{s as n,o as r,l as t};
+//# sourceMappingURL=use-home-directory-CROe_CvY.js.map

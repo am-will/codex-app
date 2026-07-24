@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`Signpost`,[[`path`,{d:`M12 13v8`,key:`1l5pq0`}],[`path`,{d:`M12 3v3`,key:`1n5kay`}],[`path`,{d:`M18 6a2 2 0 0 1 1.387.56l2.307 2.22a1 1 0 0 1 0 1.44l-2.307 2.22A2 2 0 0 1 18 13H6a2 2 0 0 1-1.387-.56l-2.306-2.22a1 1 0 0 1 0-1.44l2.306-2.22A2 2 0 0 1 6 6z`,key:`gqqp9m`}]])}));export{r as n,i as t};
+//# sourceMappingURL=signpost-C1hi0v8E-BCmuGnJp.js.map
