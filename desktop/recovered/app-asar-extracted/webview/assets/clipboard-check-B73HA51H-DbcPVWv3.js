@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`ClipboardCheck`,[[`rect`,{width:`8`,height:`4`,x:`8`,y:`2`,rx:`1`,ry:`1`,key:`tgr4d6`}],[`path`,{d:`M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2`,key:`116196`}],[`path`,{d:`m9 14 2 2 4-4`,key:`df797q`}]])}));export{r as n,i as t};
+//# sourceMappingURL=clipboard-check-B73HA51H-DbcPVWv3.js.map

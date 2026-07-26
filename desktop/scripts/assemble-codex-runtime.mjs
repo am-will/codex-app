@@ -246,6 +246,12 @@ const mainGitOriginsPatchAlternatives = [
     replacement:
       'let r=this.getRequestAppServerClient(t).hostConfig,i=n.xi(r),a=de(e??[],i).map(e=>n.Fo(e)),o=B((0,d.homedir)(),i),s=this.localProjectsManager.getAllRootPaths(),c=this.localProjectsManager.getSelectedRootPaths(),l=s.length>0?s:c??[],u=(a&&a.length>0?a:l.filter(e=>e!==`~`).map(e=>n.Fo(e))).filter(e=>{try{return!!e&&i.existsSync(e)}catch{return!1}}),f=n.X(),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:u,hostConfig:r,operationSource:f.source}});',
   },
+  {
+    target:
+      'let r=this.getRequestAppServerClient(t).hostConfig,i=n.xi(r),a=de(e??[],i).map(e=>n.Fo(e)),o=B((0,d.homedir)(),i),s=this.localProjectsManager.getAllRootPaths(),c=this.localProjectsManager.getSelectedRootPaths(),l=s.length>0?s:c??[],u=a&&a.length>0?a:l.filter(e=>e!==`~`).map(e=>n.Fo(e)),f=n.Z(),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:u,hostConfig:r,operationSource:f.source}});',
+    replacement:
+      'let r=this.getRequestAppServerClient(t).hostConfig,i=n.xi(r),a=de(e??[],i).map(e=>n.Fo(e)),o=B((0,d.homedir)(),i),s=this.localProjectsManager.getAllRootPaths(),c=this.localProjectsManager.getSelectedRootPaths(),l=s.length>0?s:c??[],u=(a&&a.length>0?a:l.filter(e=>e!==`~`).map(e=>n.Fo(e))).filter(e=>{try{return!!e&&i.existsSync(e)}catch{return!1}}),f=n.Z(),{origins:p}=await this.requestGitWorker({method:`git-origins`,params:{dirs:u,hostConfig:r,operationSource:f.source}});',
+  },
 ];
 const mainGitOriginsPatchMarker =
   '.filter(t=>{try{return!!t&&a.existsSync(t)}catch{return!1}}),{origins:f}';
@@ -1895,6 +1901,12 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
     replacement:
       'Bt=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),at.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[Qt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:oe},De.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:oe}),me(!0),le(null)}',
   },
+  {
+    target:
+      'Bt=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),it.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[Qt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:se},W.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:se}),H(!0),de(null))}',
+    replacement:
+      'Bt=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),it.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[Qt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:se},W.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:se}),H(!0),de(null)}',
+  },
 ];
 const avatarOverlayDirectMascotDragPatchMarker =
   'if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return';
@@ -2043,6 +2055,12 @@ const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
   {
     target: 'V?`whitespace-pre-wrap`:b==null?`line-clamp-2`:void 0',
     replacement: 'V?`whitespace-pre-wrap`:b==null?`whitespace-pre-wrap`:void 0',
+  },
+  {
+    target:
+      'V&&`whitespace-pre-wrap`,!V&&S==null&&t.isLoading&&`truncate`,!V&&S==null&&!t.isLoading&&`line-clamp-2`',
+    replacement:
+      'V&&`whitespace-pre-wrap`,!V&&S==null&&t.isLoading&&`truncate`,!V&&S==null&&!t.isLoading&&`whitespace-pre-wrap`',
   },
 ];
 const avatarOverlayReadableActivityBodyHeightPatchTarget =

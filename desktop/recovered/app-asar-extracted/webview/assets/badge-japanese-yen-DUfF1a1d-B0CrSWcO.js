@@ -1,0 +1,1 @@
+import{n as e,t}from"./badge-japanese-yen-DUfF1a1d-DUZf6DxK.js";t();export{e as default};

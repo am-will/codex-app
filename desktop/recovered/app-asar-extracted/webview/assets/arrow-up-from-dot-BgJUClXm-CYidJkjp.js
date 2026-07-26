@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`ArrowUpFromDot`,[[`path`,{d:`m5 9 7-7 7 7`,key:`1hw5ic`}],[`path`,{d:`M12 16V2`,key:`ywoabb`}],[`circle`,{cx:`12`,cy:`21`,r:`1`,key:`o0uj5v`}]])}));export{i as n,r as t};
+//# sourceMappingURL=arrow-up-from-dot-BgJUClXm-CYidJkjp.js.map

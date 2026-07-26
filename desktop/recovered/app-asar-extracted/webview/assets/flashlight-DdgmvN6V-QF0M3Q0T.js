@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`Flashlight`,[[`path`,{d:`M18 6c0 2-2 2-2 4v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V10c0-2-2-2-2-4V2h12z`,key:`1orkel`}],[`line`,{x1:`6`,x2:`18`,y1:`6`,y2:`6`,key:`1z11jq`}],[`line`,{x1:`12`,x2:`12`,y1:`12`,y2:`12`,key:`1f4yc1`}]])}));export{i as n,r as t};
-//# sourceMappingURL=flashlight-DdgmvN6V-QF0M3Q0T.js.map

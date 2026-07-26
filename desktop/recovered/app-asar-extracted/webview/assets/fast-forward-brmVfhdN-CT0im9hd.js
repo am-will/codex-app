@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`FastForward`,[[`polygon`,{points:`13 19 22 12 13 5 13 19`,key:`587y9g`}],[`polygon`,{points:`2 19 11 12 2 5 2 19`,key:`3pweh0`}]])}));export{i as n,r as t};
-//# sourceMappingURL=fast-forward-brmVfhdN-CT0im9hd.js.map

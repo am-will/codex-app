@@ -1,0 +1,1 @@
+import{n as e,t}from"./heading-5-No-vxGGl-BLZ83Zfc.js";e();export{t as default};

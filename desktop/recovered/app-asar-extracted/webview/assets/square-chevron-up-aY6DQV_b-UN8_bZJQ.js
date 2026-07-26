@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`SquareChevronUp`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`m8 14 4-4 4 4`,key:`fy2ptz`}]])}));export{r as n,i as t};
+//# sourceMappingURL=square-chevron-up-aY6DQV_b-UN8_bZJQ.js.map

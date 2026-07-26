@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`PowerOff`,[[`path`,{d:`M18.36 6.64A9 9 0 0 1 20.77 15`,key:`dxknvb`}],[`path`,{d:`M6.16 6.16a9 9 0 1 0 12.68 12.68`,key:`1x7qb5`}],[`path`,{d:`M12 2v4`,key:`3427ic`}],[`path`,{d:`m2 2 20 20`,key:`1ooewy`}]])}));export{r as n,i as t};
+//# sourceMappingURL=power-off-CTG0Q7U0-BqPt_b8e.js.map

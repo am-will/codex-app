@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./contact-round-Du80tZ9B-DgOOuA1B.js";e((()=>{t()}))();export{n as default};
+//# sourceMappingURL=contact-2-BEqE5nKH-PJrxKa1X.js.map

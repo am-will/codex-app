@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{Dvt as t,Mvt as n,bft as r,xft as i}from"./app-initial-BHB6SClA.js";function a(e){let t=(0,o.c)(5),{children:n,className:i}=e,a;t[0]===i?a=t[1]:(a=r(`flex items-center gap-2`,i),t[0]=i,t[1]=a);let c;return t[2]!==n||t[3]!==a?(c=(0,s.jsx)(`div`,{className:a,children:n}),t[2]=n,t[3]=a,t[4]=c):c=t[4],c}var o,s,c=e((()=>{o=n(),i(),s=t()}));export{c as n,a as t};
+//# sourceMappingURL=control-group-BUQ6z2CV.js.map

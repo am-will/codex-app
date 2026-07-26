@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{J4 as t,M_t as n,Mvt as r,O_t as i,X4 as a}from"./app-initial-BHB6SClA.js";function o(e){let r=(0,c.c)(2),i;return r[0]===e?i=r[1]:(i=e==null?void 0:{hostId:e},r[0]=e,r[1]=i),n(t,i)}function s(e){return o(e).data?.homeDirectory}var c,l=e((()=>{c=r(),i(),a()}));export{s as n,o as r,l as t};
+//# sourceMappingURL=use-home-directory-Ca_CpGeT.js.map

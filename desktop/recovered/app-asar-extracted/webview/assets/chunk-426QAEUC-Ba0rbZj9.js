@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{r as t,t as n}from"./src-aUHGwSbR.js";import{n as r,r as i}from"./chunk-AGHRB4JF-COxpu2PX.js";import{A as a,b as o}from"./chunk-ICPOFSXX-CvbMQlkM.js";var s,c=e((()=>{a(),i(),n(),s=r(e=>{let{securityLevel:n}=o(),r=t(`body`);return n===`sandbox`&&(r=t((t(`#i${e}`).node()?.contentDocument??document).body)),r.select(`#${e}`)},`selectSvgElement`)}));export{s as n,c as t};
-//# sourceMappingURL=chunk-426QAEUC-Ba0rbZj9.js.map

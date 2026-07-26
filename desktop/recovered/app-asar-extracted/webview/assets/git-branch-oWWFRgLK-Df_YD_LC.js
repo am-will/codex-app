@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`GitBranch`,[[`line`,{x1:`6`,x2:`6`,y1:`3`,y2:`15`,key:`17qcm7`}],[`circle`,{cx:`18`,cy:`6`,r:`3`,key:`1h7g24`}],[`circle`,{cx:`6`,cy:`18`,r:`3`,key:`fqmcym`}],[`path`,{d:`M18 9a9 9 0 0 1-9 9`,key:`n2h4wq`}]])}));export{r as n,i as t};
+//# sourceMappingURL=git-branch-oWWFRgLK-Df_YD_LC.js.map

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DKm8WMeb.js";var r,i=e((()=>{t(),r=n(`SignalLow`,[[`path`,{d:`M2 20h.01`,key:`4haj6o`}],[`path`,{d:`M7 20v-4`,key:`j294jx`}]])}));export{i as n,r as t};
-//# sourceMappingURL=signal-low-D2gVm_h2-DFVpRATa.js.map

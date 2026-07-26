@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`ReceiptCent`,[[`path`,{d:`M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z`,key:`q3az6g`}],[`path`,{d:`M12 6.5v11`,key:`ecfhkf`}],[`path`,{d:`M15 9.4a4 4 0 1 0 0 5.2`,key:`1makmb`}]])}));export{i as n,r as t};
+//# sourceMappingURL=receipt-cent-VJLKIcDj-Bwp5RpUS.js.map

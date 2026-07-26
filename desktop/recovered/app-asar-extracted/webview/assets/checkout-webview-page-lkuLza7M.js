@@ -1,0 +1,1 @@
+import{Sr as e,xr as t}from"./app-initial-BHB6SClA.js";e();export{t as CheckoutWebviewPage};
