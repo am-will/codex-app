@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`MoveHorizontal`,[[`path`,{d:`m18 8 4 4-4 4`,key:`1ak13k`}],[`path`,{d:`M2 12h20`,key:`9i4pu4`}],[`path`,{d:`m6 8-4 4 4 4`,key:`15zrgr`}]])}));export{i as n,r as t};
-//# sourceMappingURL=move-horizontal-C5H-kwNN-BwZZ9q9U.js.map

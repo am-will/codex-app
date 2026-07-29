@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`MousePointer`,[[`path`,{d:`M12.586 12.586 19 19`,key:`ea5xo7`}],[`path`,{d:`M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z`,key:`277e5u`}]])}));export{r as n,i as t};
+//# sourceMappingURL=mouse-pointer-DWEFpgO7-B7ain3TW.js.map

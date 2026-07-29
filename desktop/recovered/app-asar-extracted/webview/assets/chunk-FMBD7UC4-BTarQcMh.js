@@ -6,7 +6,7 @@ import{r as e}from"./src-zTh6it5j.js";var t=e(()=>`
     overflow: visible;
     vertical-align: -0.125em;
   }
-  
+
   .node .label-icon path {
     fill: currentColor;
     stroke: revert;

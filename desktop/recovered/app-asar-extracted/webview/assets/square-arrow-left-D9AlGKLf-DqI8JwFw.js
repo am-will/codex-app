@@ -1,1 +1,0 @@
-import{n as e,t}from"./square-arrow-left-D9AlGKLf-D0LnJL_h.js";t();export{e as default};

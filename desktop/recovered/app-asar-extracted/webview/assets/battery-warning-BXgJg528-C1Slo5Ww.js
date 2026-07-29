@@ -1,1 +1,0 @@
-import{n as e,t}from"./battery-warning-BXgJg528-ytLc_dMR.js";e();export{t as default};

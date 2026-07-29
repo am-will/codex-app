@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`CircleSlash2`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`M22 2 2 22`,key:`y4kqgn`}]])}));export{i as n,r as t};
-//# sourceMappingURL=circle-slash-2-DfXV7NL8-DNuw98qL.js.map

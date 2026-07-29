@@ -6,7 +6,7 @@ import{r as e}from"./src-DbaHYgEA.js";var t=e(()=>`
     overflow: visible;
     vertical-align: -0.125em;
   }
-  
+
   .node .label-icon path {
     fill: currentColor;
     stroke: revert;

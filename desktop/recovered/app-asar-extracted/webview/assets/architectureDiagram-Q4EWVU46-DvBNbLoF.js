@@ -16,10 +16,10 @@ import{i as e,r as t,t as n}from"./src-BDl8sfw0.js";import{r,s as i}from"./chunk
     stroke-dasharray: 8;
   }
   .node-icon-text {
-    display: flex; 
+    display: flex;
     align-items: center;
   }
-  
+
   .node-icon-text > div {
     color: #fff;
     margin: 1px;

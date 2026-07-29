@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BUiG3gT8.js";var r,i=e((()=>{t(),r=n(`CalendarMinus`,[[`path`,{d:`M16 19h6`,key:`xwg31i`}],[`path`,{d:`M16 2v4`,key:`4m81vk`}],[`path`,{d:`M21 15V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5`,key:`1scpom`}],[`path`,{d:`M3 10h18`,key:`8toen8`}],[`path`,{d:`M8 2v4`,key:`1cmpym`}]])}));export{r as n,i as t};
-//# sourceMappingURL=calendar-minus-BaWAY2xN-B_5sARRY.js.map

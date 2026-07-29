@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./utensils-CgfesbJI-j0gGn3ww.js";e((()=>{n()}))();export{t as default};
-//# sourceMappingURL=fork-knife-BC0VtkLl-B6Oiowi0.js.map

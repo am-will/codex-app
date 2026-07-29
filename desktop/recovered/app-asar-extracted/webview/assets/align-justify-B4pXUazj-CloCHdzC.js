@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`AlignJustify`,[[`path`,{d:`M3 12h18`,key:`1i2n21`}],[`path`,{d:`M3 18h18`,key:`1h113x`}],[`path`,{d:`M3 6h18`,key:`d0wm0j`}]])}));export{i as n,r as t};
+//# sourceMappingURL=align-justify-B4pXUazj-CloCHdzC.js.map

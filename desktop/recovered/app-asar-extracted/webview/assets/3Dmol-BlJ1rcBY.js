@@ -24,8 +24,8 @@ var ProteinSurface = `+$3Dmol.ProteinSurface.toString()+`;
 `+t),e===`fragment`?n=this._gl.createShader(this._gl.FRAGMENT_SHADER):e===`vertex`&&(n=this._gl.createShader(this._gl.VERTEX_SHADER)),n==null?null:(this._gl.shaderSource(n,t),this._gl.compileShader(n),this._gl.getShaderParameter(n,this._gl.COMPILE_STATUS)?n:(console.error(this._gl.getShaderInfoLog(n)),console.error(`could not initialize shader`),null))}buildProgram(e,t,n,r){var i,a,o,s,c=[];for(i in c.push(e),c.push(t),r)c.push(i),c.push(r[i]);for(s=c.join(),i=0,a=this._programs.length;i<a;i++){var l=this._programs[i];if(l.code===s)return l.usedTimes++,l.program}if(this.isWebGL1()&&r.volumetric)throw Error(`Volumetric rendering requires webgl2 which is not supported by your hardware.`);if(o=this._gl.createProgram(),o==null)return null;var u=`precision `+this._precision+` float;`,d=[r.volumetric?`#version 300 es`:``,u].join(`
 `),f=[r.volumetric?`#version 300 es`:``,r.fragdepth&&this.isWebGL1()?`#extension GL_EXT_frag_depth: enable`:``,r.shaded?`#define SHADED 1`:``,r.wireframe?`#define WIREFRAME 1`:``,u].join(`
 `),p=this.getShader(`fragment`,f+e),m=this.getShader(`vertex`,d+t);m!=null&&this._gl.attachShader(o,m),p!=null&&this._gl.attachShader(o,p),this._gl.linkProgram(o),this._gl.getProgramParameter(o,this._gl.LINK_STATUS)||console.error(`Could not initialize shader`),o.uniforms={},o.attributes={};var h=[`viewMatrix`,`modelViewMatrix`,`projectionMatrix`,`normalMatrix`,`vWidth`,`vHeight`],g,_;for(g in n)h.push(g);for(_=0;_<h.length;_++){var v=h[_];o.uniforms[v]=this._gl.getUniformLocation(o,v)}for(h=[`position`,`normal`,`color`,`lineDistance`,`offset`,`radius`],_=0;_<h.length;_++){var y=h[_];o.attributes[y]=this._gl.getAttribLocation(o,y)}return o.id=this._programs_counter++,this._programs.push({program:o,code:s,usedTimes:1}),this.info.memory.programs=this._programs.length,o}setProgram(e,t,n,r,i,a){if(r.needsUpdate&&=(r.program&&this.deallocateMaterial(r),this.initMaterial(r,t,n,i),!1),r.program==null)return null;var o=!1,s=r.program,c=s.uniforms,l=r.uniforms;if(s!=this._currentProgram&&(this._gl.useProgram(s),this._currentProgram=s,o=!0),r.id!=this._currentMaterialId&&(this._currentMaterialId=r.id,o=!0),e!=this._currentCamera&&(this._currentCamera=e,o=!0),c.projectionMatrix&&this._gl.uniformMatrix4fv(c.projectionMatrix,!1,e.projectionMatrix.elements),c.modelViewMatrix&&this._gl.uniformMatrix4fv(c.modelViewMatrix,!1,i._modelViewMatrix.elements),c.normalMatrix&&this._gl.uniformMatrix3fv(c.normalMatrix,!1,i._normalMatrix.elements),c.projinv&&(this._projInverse.getInverse(e.projectionMatrix),this._gl.uniformMatrix4fv(c.projinv,!1,this._projInverse.elements)),c.viewMatrix&&this._gl.uniformMatrix4fv(c.viewMatrix,!1,e.matrixWorldInverse.elements),c.vWidth&&this._gl.uniform1f(c.vWidth,this._viewportWidth),c.vHeight&&this._gl.uniform1f(c.vHeight,this._viewportHeight),o){if(l.fogColor.value=n.color,l.fogNear.value=n.near,l.fogFar.value=n.far,r.shaderID.startsWith(`lambert`)||r.shaderID===`instanced`||r.shaderID.endsWith(`imposter`))this._lightsNeedUpdate&&=(this.setupLights(s,t),!1),l.directionalLightColor.value=this._lights.directional.colors,l.directionalLightDirection.value=this._lights.directional.positions;else if(r.shaderID.endsWith(`outline`))l.outlineColor.value=r.outlineColor,l.outlineWidth.value=r.outlineWidth,l.outlinePushback.value=r.outlinePushback,l.outlineMaxPixels.value=r.outlineMaxPixels*this.devicePixelRatio;else if(r.shaderID===`volumetric`){i._modelViewMatrix.getScale(this._direction),this._worldInverse.getInverse(i._modelViewMatrix),this._projInverse.getInverse(e.projectionMatrix),this._textureMatrix.multiplyMatrices(i.material.texmatrix,this._worldInverse),this._gl.uniformMatrix4fv(c.textmat,!1,this._textureMatrix.elements),this._gl.uniformMatrix4fv(c.projinv,!1,this._projInverse.elements);let t=Math.min(Math.min(this._direction.x,this._direction.y),this._direction.z);l.step.value=i.material.unit*t,l.maxdepth.value=i.material.maxdepth*t,l.transfermax.value=i.material.transfermax,l.transfermin.value=i.material.transfermin,l.subsamples.value=i.material.subsamples,a.setTexture(i.material.transferfn,4,!1),a.setTexture(i.material.map,3,!0),this._gl.activeTexture(this._gl.TEXTURE5),this._gl.bindTexture(this._gl.TEXTURE_2D,this._depthTexture)}l.opacity.value=r.opacity,this.loadMaterialUniforms(c,l)}return l.shading&&(l.shading.value==3?(this._gl.activeTexture(this._gl.TEXTURE0+this.SHADE_TEXTURE),this._gl.bindTexture(this._gl.TEXTURE_2D,this._shadingTexture)):console.error(`Invalid shading textures.`)),s}loadMaterialUniforms(e,t){var n,r,i,a;for(n in t)e[n]&&(r=t[n].type,i=t[n].value,a=e[n],r===`f`?this._gl.uniform1f(a,i):r===`i`?this._gl.uniform1i(a,i):r===`fv`?this._gl.uniform3fv(a,i):r===`c`?this._gl.uniform3f(a,i.r,i.g,i.b):r===`f4`&&this._gl.uniform4f(a,i[0],i[1],i[2],i[3]))}addObject(e,t){var n,r,i,a;if(!e.__webglInit&&(e.__webglInit=!0,e._modelViewMatrix=new l.Matrix4,e._normalMatrix=new l.Matrix3,e.geometry!==void 0&&e.geometry.__webglInit===void 0&&(e.geometry.__webglInit=!0,e.geometry.addEventListener(`dispose`,this.onGeometryDispose.bind(this))),e instanceof u.Mesh||e instanceof u.Line))for(i=e.geometry,n=0,r=i.geometryGroups.length;n<r;n++)a=i.geometryGroups[n],a.id=this._geometryGroupCounter++,a.__webglVertexBuffer||(e instanceof u.Mesh?(this.createMeshBuffers(a),i.elementsNeedUpdate=!0,i.normalsNeedUpdate=!0):e instanceof u.Line&&this.createLineBuffers(a),i.verticesNeedUpdate=!0,i.colorsNeedUpdate=!0);if(!e.__webglActive){if(e instanceof u.Mesh||e instanceof u.Line)for(i=e.geometry,n=0,r=i.geometryGroups.length;n<r;n++)a=i.geometryGroups[n],this.addBuffer(t.__webglObjects,a,e);else e instanceof u.Sprite&&t.__webglSprites.push(e);e.__webglActive=!0}}updateObject(e){var t=e.geometry,n;if(e instanceof u.Mesh||e instanceof u.Line){for(var r=0,i=t.geometryGroups.length;r<i;r++)n=t.geometryGroups[r],(t.verticesNeedUpdate||t.elementsNeedUpdate||t.colorsNeedUpdate||t.normalsNeedUpdate)&&this.setBuffers(n,this._gl.STATIC_DRAW);t.verticesNeedUpdate=!1,t.elementsNeedUpdate=!1,t.normalsNeedUpdate=!1,t.colorsNeedUpdate=!1,t.buffersNeedUpdate=!1}}removeObject(e,t){e instanceof u.Mesh||e instanceof u.Line?this.removeInstances(t.__webglObjects,e):e instanceof u.Sprite&&this.removeInstancesDirect(t.__webglSprites,e),e.__webglActive=!1}removeInstances(e,t){for(var n=e.length-1;n>=0;--n)e[n].object===t&&e.splice(n,1)}removeInstancesDirect(e,t){for(var n=e.length-1;n>=0;--n)e[n]===t&&e.splice(n,1)}unrollBufferMaterial(e){var t=e.object.material;if(t.volumetric)e.opaque=null,e.transparent=null,e.volumetric=t;else if(t.transparent){if(e.opaque=null,e.volumetric=null,e.transparent=t,!t.wireframe){let n=t.clone();n.opacity=0,e.transparentDepth=n}}else{if(e.opaque=t,e.transparent=null,e.volumetric=null,!t.wireframe){let n=t.clone();n.opacity=0,e.opaqueDepth=n}t.hasAO&&(e.hasAO=!0),(this._AOEnabled||e.hasAO)&&(e.opaqueShaded=t.clone(),e.opaqueShaded.shaded=!0)}}setBuffers(e,t){var n=e.vertexArray,r=e.colorArray;if(e.__webglOffsetBuffer===void 0?(this._gl.bindBuffer(this._gl.ARRAY_BUFFER,e.__webglVertexBuffer),this._gl.bufferData(this._gl.ARRAY_BUFFER,n,t)):(this._gl.bindBuffer(this._gl.ARRAY_BUFFER,e.__webglOffsetBuffer),this._gl.bufferData(this._gl.ARRAY_BUFFER,n,t)),this._gl.bindBuffer(this._gl.ARRAY_BUFFER,e.__webglColorBuffer),this._gl.bufferData(this._gl.ARRAY_BUFFER,r,t),e.normalArray&&e.__webglNormalBuffer!==void 0){var i=e.normalArray;this._gl.bindBuffer(this._gl.ARRAY_BUFFER,e.__webglNormalBuffer),this._gl.bufferData(this._gl.ARRAY_BUFFER,i,t)}if(e.radiusArray&&e.__webglRadiusBuffer!==void 0&&(this._gl.bindBuffer(this._gl.ARRAY_BUFFER,e.__webglRadiusBuffer),this._gl.bufferData(this._gl.ARRAY_BUFFER,e.radiusArray,t)),e.faceArray&&e.__webglFaceBuffer!==void 0){var a=e.faceArray;this._gl.bindBuffer(this._gl.ELEMENT_ARRAY_BUFFER,e.__webglFaceBuffer),this._gl.bufferData(this._gl.ELEMENT_ARRAY_BUFFER,a,t)}if(e.lineArray&&e.__webglLineBuffer!==void 0){var o=e.lineArray;this._gl.bindBuffer(this._gl.ELEMENT_ARRAY_BUFFER,e.__webglLineBuffer),this._gl.bufferData(this._gl.ELEMENT_ARRAY_BUFFER,o,t)}}createMeshBuffers(e){e.radiusArray&&(e.__webglRadiusBuffer=this._gl.createBuffer()),e.useOffset&&(e.__webglOffsetBuffer=this._gl.createBuffer()),e.__webglVertexBuffer=this._gl.createBuffer(),e.__webglNormalBuffer=this._gl.createBuffer(),e.__webglColorBuffer=this._gl.createBuffer(),e.__webglFaceBuffer=this._gl.createBuffer(),e.__webglLineBuffer=this._gl.createBuffer(),this.info.memory.geometries++}createLineBuffers(e){e.__webglVertexBuffer=this._gl.createBuffer(),e.__webglColorBuffer=this._gl.createBuffer(),this.info.memory.geometries++}addBuffer(e,t,n){e.push({buffer:t,object:n,opaque:null,transparent:null})}setupMatrices(e,t){e._modelViewMatrix.multiplyMatrices(t.matrixWorldInverse,e.matrixWorld),e._normalMatrix.getInverse(e._modelViewMatrix),e._normalMatrix.transpose()}filterFallback(e){return this._gl.LINEAR}setTextureParameters(e,t){e==this._gl.TEXTURE_2D?(this._gl.texParameteri(e,this._gl.TEXTURE_WRAP_S,this._gl.CLAMP_TO_EDGE),this._gl.texParameteri(e,this._gl.TEXTURE_WRAP_T,this._gl.CLAMP_TO_EDGE),this._gl.texParameteri(e,this._gl.TEXTURE_MAG_FILTER,this.filterFallback(t.magFilter)),this._gl.texParameteri(e,this._gl.TEXTURE_MIN_FILTER,this.filterFallback(t.minFilter))):(this._gl.texParameteri(e,this._gl.TEXTURE_WRAP_S,this._gl.CLAMP_TO_EDGE),this._gl.texParameteri(e,this._gl.TEXTURE_WRAP_T,this._gl.CLAMP_TO_EDGE),this._gl.texParameteri(e,this._gl.TEXTURE_WRAP_R,this._gl.CLAMP_TO_EDGE),this._extColorBufferFloat&&this._extFloatLinear?(this._gl.texParameteri(e,this._gl.TEXTURE_MAG_FILTER,this._gl.LINEAR),this._gl.texParameteri(e,this._gl.TEXTURE_MIN_FILTER,this._gl.LINEAR)):(this._gl.texParameteri(e,this._gl.TEXTURE_MAG_FILTER,this._gl.NEAREST),this._gl.texParameteri(e,this._gl.TEXTURE_MIN_FILTER,this._gl.NEAREST)))}paramToGL(e){return e===a.UnsignedByteType?this._gl.UNSIGNED_BYTE:e===a.RGBAFormat?this._gl.RGBA:e===a.NearestFilter?this._gl.NEAREST:0}setupLights(e,t){var n,r,i,a=0,s=0,c=0,l,u,d=this._lights,f=d.directional.colors,p=d.directional.positions,m=0,h=0;for(n=0,r=t.length;n<r;n++)if(i=t[n],l=i.color,u=i.intensity,i instanceof o.Light){if(this._direction.getPositionFromMatrix(i.matrixWorld),this._vector3.getPositionFromMatrix(i.target.matrixWorld),this._direction.sub(this._vector3),this._direction.normalize(),this._direction.x===0&&this._direction.y===0&&this._direction.z===0)continue;p[h]=this._direction.x,p[h+1]=this._direction.y,p[h+2]=this._direction.z,f[h]=l.r*u,f[h+1]=l.g*u,f[h+2]=l.b*u,h+=3,m++}d.ambient[0]=a,d.ambient[1]=s,d.ambient[2]=c,d.directional.length=m}initGL(){try{if(OffscreenCanvas&&!(this.rows!=null&&this.cols!=null&&this.row!=null&&this.col!=null))(m==null||m.isContextLost())&&(p=new OffscreenCanvas(this._canvas.width,this._canvas.height),m=p.getContext(`webgl2`,{alpha:!0,premultipliedAlpha:this._premultipliedAlpha,antialias:this._antialias,preserveDrawingBuffer:this._preserveDrawingBuffer})),this._offscreen=p,this._gl=m,this._bitmap=this._canvas.getContext(`bitmaprenderer`,{alpha:!0});else if(!(this._gl=this._canvas.getContext(`webgl2`,{alpha:this._alpha,premultipliedAlpha:this._premultipliedAlpha,antialias:this._antialias,preserveDrawingBuffer:this._preserveDrawingBuffer}))&&!(this._gl=this._canvas.getContext(`experimental-webgl`,{alpha:this._alpha,premultipliedAlpha:this._premultipliedAlpha,antialias:this._antialias,preserveDrawingBuffer:this._preserveDrawingBuffer}))&&!(this._gl=this._canvas.getContext(`webgl`,{alpha:this._alpha,premultipliedAlpha:this._premultipliedAlpha,antialias:this._antialias,preserveDrawingBuffer:this._preserveDrawingBuffer})))throw`Error creating WebGL context.`;var e=this._gl.getParameter(this._gl.VERSION);this._webglversion=parseInt(e[6])}catch(e){console.error(e)}}isWebGL1(){return this._webglversion==1}setDefaultGLState(){this._gl.clearDepth(1),this._gl.clearStencil(0),this._gl.enable(this._gl.DEPTH_TEST),this._gl.depthFunc(this._gl.LEQUAL),this._gl.frontFace(this._gl.CCW),this._gl.cullFace(this._gl.BACK),this._gl.enable(this._gl.CULL_FACE),this._gl.enable(this._gl.BLEND),this._gl.blendEquation(this._gl.FUNC_ADD),this._gl.blendFunc(this._gl.SRC_ALPHA,this._gl.ONE_MINUS_SRC_ALPHA),this._gl.clearColor(this._clearColor.r,this._clearColor.g,this._clearColor.b,this._clearAlpha)}renderObjects(e,t,n,r,i,a,o){var s,c,l,u,d,f,p;t?(d=e.length-1,f=-1,p=-1):(d=0,f=e.length,p=1);for(var m=d;m!==f;m+=p)if(s=e[m],s.render){if(c=s.object,l=s.buffer,u=s[n],(s.hasAO||this._AOEnabled)&&s[n+`Shaded`]&&(u=s[n+`Shaded`]),!u)continue;this.setBlending(o),this.setDepthTest(u.depthTest),this.setDepthWrite(u.depthWrite),this.setPolygonOffset(u.polygonOffset,u.polygonOffsetFactor,u.polygonOffsetUnits);var h=c._modelViewMatrix.isReflected();if(this.setMaterialFaces(u,h),this.renderBuffer(r,i,a,u,l,c),(this._outlineEnabled||u.outline)&&!u.wireframe&&u.shaderID!==`basic`&&u.opacity!==0){let e=this._outlineMaterial;u.shaderID==`sphereimposter`?e=this._outlineSphereImposterMaterial:u.shaderID==`stickimposter`&&(e=this._outlineStickImposterMaterial),this.renderBuffer(r,i,a,e,l,c)}}}renderSprites(e,t,n){this._currentGeometryGroupHash=-1,this._currentProgram=null,this._currentCamera=null,this._oldDepthWrite=-1,this._oldDepthTest=-1,this._oldDoubleSided=-1,this._currentMaterialId=-1,this._oldFlipSided=-1,this._lightsNeedUpdate=!0,this.sprites.render(e,t,this._currentWidth,this._currentHeight,n),this._currentGeometryGroupHash=-1,this._currentProgram=null,this._currentCamera=null,this._oldDepthWrite=-1,this._oldDepthTest=-1,this._oldDoubleSided=-1,this._currentMaterialId=-1,this._oldFlipSided=-1}}},"./src/WebGL/SpritePlugin.ts"(e,t,n){n.r(t),n.d(t,{SpritePlugin:()=>i});var r=n(`./src/WebGL/shaders/index.ts`);class i{constructor(){this.sprite={vertices:null,faces:null,vertexBuffer:null,elementBuffer:null,program:null,attributes:{},uniforms:null}}init(e){this.gl=e.context,this.renderer=e,this.precision=e.getPrecision(),this.sprite.vertices=new Float32Array(16),this.sprite.faces=new Uint16Array(6);var t=0;this.sprite.vertices[t++]=-1,this.sprite.vertices[t++]=-1,this.sprite.vertices[t++]=0,this.sprite.vertices[t++]=0,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=-1,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=0,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=-1,this.sprite.vertices[t++]=1,this.sprite.vertices[t++]=0,this.sprite.vertices[t++]=1,t=0,this.sprite.faces[t++]=0,this.sprite.faces[t++]=1,this.sprite.faces[t++]=2,this.sprite.faces[t++]=0,this.sprite.faces[t++]=2,this.sprite.faces[t++]=3,this.sprite.vertexBuffer=this.gl.createBuffer(),this.sprite.elementBuffer=this.gl.createBuffer(),this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.sprite.vertexBuffer),this.gl.bufferData(this.gl.ARRAY_BUFFER,this.sprite.vertices,this.gl.STATIC_DRAW),this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER,this.sprite.elementBuffer),this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER,this.sprite.faces,this.gl.STATIC_DRAW),this.sprite.program=this.createProgram(r.ShaderLib.sprite,this.precision||1),this.sprite.attributes={};let n={};this.sprite.attributes.position=this.gl.getAttribLocation(this.sprite.program,`position`),this.sprite.attributes.uv=this.gl.getAttribLocation(this.sprite.program,`uv`),n.uvOffset=this.gl.getUniformLocation(this.sprite.program,`uvOffset`),n.uvScale=this.gl.getUniformLocation(this.sprite.program,`uvScale`),n.rotation=this.gl.getUniformLocation(this.sprite.program,`rotation`),n.scale=this.gl.getUniformLocation(this.sprite.program,`scale`),n.alignment=this.gl.getUniformLocation(this.sprite.program,`alignment`),n.color=this.gl.getUniformLocation(this.sprite.program,`color`),n.map=this.gl.getUniformLocation(this.sprite.program,`map`),n.opacity=this.gl.getUniformLocation(this.sprite.program,`opacity`),n.useScreenCoordinates=this.gl.getUniformLocation(this.sprite.program,`useScreenCoordinates`),n.screenPosition=this.gl.getUniformLocation(this.sprite.program,`screenPosition`),n.modelViewMatrix=this.gl.getUniformLocation(this.sprite.program,`modelViewMatrix`),n.projectionMatrix=this.gl.getUniformLocation(this.sprite.program,`projectionMatrix`),n.fogNear=this.gl.getUniformLocation(this.sprite.program,`fogNear`),n.fogFar=this.gl.getUniformLocation(this.sprite.program,`fogFar`),n.fogColor=this.gl.getUniformLocation(this.sprite.program,`fogColor`),n.alphaTest=this.gl.getUniformLocation(this.sprite.program,`alphaTest`),this.sprite.uniforms=n}render(e,t,n,r,i){var o,s,c,l,u,d,f,p,m,h;if(!this.gl)throw Error(`WebGLRenderer not initialized`);let g=[];(o=e?.__webglSprites)==null||o.forEach(e=>{(i&&e.material.depthTest==0||!i&&e.material.depthTest)&&g.push(e)});let _=g.length;if(!_)return;let v=this.sprite.attributes,y=this.sprite.uniforms;if(!y)throw Error(`Uniforms not defined`);var b=n*.5,x=r*.5;this.gl.useProgram(this.sprite.program),this.gl.enableVertexAttribArray(v.position),this.gl.enableVertexAttribArray(v.uv),this.gl.disable(this.gl.CULL_FACE),this.gl.enable(this.gl.BLEND),this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.sprite.vertexBuffer),this.gl.vertexAttribPointer(v.position,2,this.gl.FLOAT,!1,16,0),this.gl.vertexAttribPointer(v.uv,2,this.gl.FLOAT,!1,16,8),this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER,this.sprite.elementBuffer),this.gl.uniformMatrix4fv(y.projectionMatrix,!1,t.projectionMatrix.elements),this.gl.activeTexture(this.gl.TEXTURE0),this.gl.uniform1i(y.map,0);var S=e.fog;S?(this.gl.uniform3f(y.fogColor,S.color.r,S.color.g,S.color.b),this.gl.uniform1f(y.fogNear,S.near),this.gl.uniform1f(y.fogFar,S.far)):(this.gl.uniform1f(y.fogNear,0),this.gl.uniform1f(y.fogFar,0));var C;let w,T,E,D=[];for(C=0;C<_;C++)w=g[C],T=w.material,T&&(T.depthTest==0&&!i||!w.visible||T.opacity===0||(T.useScreenCoordinates?w.z=-w.position.z:(w._modelViewMatrix.multiplyMatrices(t.matrixWorldInverse,w.matrixWorld),w.z=-w._modelViewMatrix.elements[14])));for(g.sort(a),C=0;C<_;C++)if(w=g[C],T=w.material,T&&!(!w.visible||T.opacity===0)&&T.map&&T.map.image&&T.map.image.width){this.gl.uniform1f(y?.alphaTest||null,T.alphaTest);var O=T.map.image.width,k=T.map.image.height;D[0]=O*this.renderer.devicePixelRatio/n,D[1]=k*this.renderer.devicePixelRatio/r,T.useScreenCoordinates===!0?(this.gl.uniform1i(y.useScreenCoordinates,1),this.gl.uniform3f(y.screenPosition,(w.position.x*this.renderer.devicePixelRatio-b)/b,(x-w.position.y*this.renderer.devicePixelRatio)/x,Math.max(0,Math.min(1,w.position.z)))):(this.gl.uniform1i(y.useScreenCoordinates,0),this.gl.uniformMatrix4fv(y.modelViewMatrix,!1,w._modelViewMatrix.elements)),E=1/(T.scaleByViewport?r:1),D[0]*=E*w.scale.x,D[1]*=E*w.scale.y;let e=T?.alignment?.x,t=T?.alignment?.y;T.screenOffset&&(e=(e||0)+2*T.screenOffset.x/O,t=(t||0)+2*T.screenOffset.y/k),this.gl.uniform2f(y.uvScale,T?.uvScale?.x||1,T?.uvScale?.y||1),this.gl.uniform2f(y.uvOffset,T?.uvOffset?.x||0,T?.uvOffset?.y||0),this.gl.uniform2f(y.alignment,e||0,t||0),this.gl.uniform1f(y.opacity,T.opacity),this.gl.uniform3f(y.color,T?.color?.r||0,T?.color?.g||0,T?.color?.b||0),this.gl.uniform1f(y.rotation,w.rotation),this.gl.uniform2fv(y.scale,D),this.renderer.setDepthTest(T.depthTest),this.renderer.setDepthWrite(T.depthWrite),this.renderer.setTexture(T.map,0),this.gl.drawElements(this.gl.TRIANGLES,6,this.gl.UNSIGNED_SHORT,0)}this.gl.enable(this.gl.CULL_FACE)}createProgram(e,t){if(!this.gl)throw Error(`WebGL Rendering context not found`);var n=this.gl.createProgram();if(!n)throw Error(`Error creating webgl program`);var r=this.gl.createShader(this.gl.FRAGMENT_SHADER),i=this.gl.createShader(this.gl.VERTEX_SHADER);if(!r)throw Error(`Unable to create fragment shader SpritePlugin.createProgram`);if(!i)throw Error(`Unable to create vertex shader SpritePlugin.createProgram`);var a=`precision `+t+` float;
-`;if(this.gl.shaderSource(r,a+e.fragmentShader),this.gl.shaderSource(i,a+e.vertexShader),this.gl.compileShader(r),this.gl.compileShader(i),!this.gl.getShaderParameter(r,this.gl.COMPILE_STATUS)||!this.gl.getShaderParameter(i,this.gl.COMPILE_STATUS))throw Error(`Error compiling shader: 
-      ${this.gl.getShaderInfoLog(r)} 
+`;if(this.gl.shaderSource(r,a+e.fragmentShader),this.gl.shaderSource(i,a+e.vertexShader),this.gl.compileShader(r),this.gl.compileShader(i),!this.gl.getShaderParameter(r,this.gl.COMPILE_STATUS)||!this.gl.getShaderParameter(i,this.gl.COMPILE_STATUS))throw Error(`Error compiling shader:
+      ${this.gl.getShaderInfoLog(r)}
       ${this.gl.getShaderInfoLog(i)}`);return this.gl.attachShader(n,r),this.gl.attachShader(n,i),this.gl.linkProgram(n),this.gl.getProgramParameter(n,this.gl.LINK_STATUS)||console.error(`Could not initialize shader`),n}}function a(e,t){return e.z===t.z?t.id-e.id:t.z-e.z}},"./src/WebGL/constants/Coloring.ts"(e,t,n){n.r(t),n.d(t,{Coloring:()=>r});var r;(function(e){e[e.NoColors=0]=`NoColors`,e[e.FaceColors=1]=`FaceColors`,e[e.VertexColors=2]=`VertexColors`})(r||={})},"./src/WebGL/constants/Shading.ts"(e,t,n){n.r(t),n.d(t,{Shading:()=>r});var r;(function(e){e[e.NoShading=0]=`NoShading`,e[e.FlatShading=1]=`FlatShading`,e[e.SmoothShading=2]=`SmoothShading`})(r||={})},"./src/WebGL/constants/Sides.ts"(e,t,n){n.r(t),n.d(t,{BackSide:()=>i,DoubleSide:()=>a,FrontSide:()=>r});let r=0,i=1,a=2},"./src/WebGL/constants/SpriteAlignment.ts"(e,t,n){n.r(t),n.d(t,{SpriteAlignment:()=>i});var r=n(`./src/WebGL/math/index.ts`);let i={topLeft:new r.Vector2(1,-1),topCenter:new r.Vector2(0,-1),topRight:new r.Vector2(-1,-1),centerLeft:new r.Vector2(1,0),center:new r.Vector2(0,0),centerRight:new r.Vector2(-1,0),bottomLeft:new r.Vector2(1,1),bottomCenter:new r.Vector2(0,1),bottomRight:new r.Vector2(-1,1)}},"./src/WebGL/constants/TextureConstants.ts"(e,t,n){n.r(t),n.d(t,{ClampToEdgeWrapping:()=>r,FloatType:()=>c,LinearFilter:()=>i,LinearMipMapLinearFilter:()=>o,NearestFilter:()=>a,R32Format:()=>d,RFormat:()=>u,RGBAFormat:()=>l,UnsignedByteType:()=>s});let r=1001,i=1006,a=1007,o=1008,s=1009,c=1010,l=1021,u=1022,d=1023},"./src/WebGL/constants/TextureOperations.ts"(e,t,n){n.r(t),n.d(t,{TextureOperations:()=>r});var r;(function(e){e[e.MultiplyOperation=0]=`MultiplyOperation`,e[e.MixOperation=1]=`MixOperation`,e[e.AddOperation=2]=`AddOperation`})(r||={})},"./src/WebGL/constants/index.ts"(e,t,n){n.r(t),n.d(t,{BackSide:()=>i.BackSide,ClampToEdgeWrapping:()=>s.ClampToEdgeWrapping,Coloring:()=>r.Coloring,DoubleSide:()=>i.DoubleSide,FloatType:()=>s.FloatType,FrontSide:()=>i.FrontSide,LinearFilter:()=>s.LinearFilter,LinearMipMapLinearFilter:()=>s.LinearMipMapLinearFilter,NearestFilter:()=>s.NearestFilter,R32Format:()=>s.R32Format,RFormat:()=>s.RFormat,RGBAFormat:()=>s.RGBAFormat,Shading:()=>a.Shading,SpriteAlignment:()=>o.SpriteAlignment,TextureOperations:()=>c.TextureOperations,UnsignedByteType:()=>s.UnsignedByteType});var r=n(`./src/WebGL/constants/Coloring.ts`),i=n(`./src/WebGL/constants/Sides.ts`),a=n(`./src/WebGL/constants/Shading.ts`),o=n(`./src/WebGL/constants/SpriteAlignment.ts`),s=n(`./src/WebGL/constants/TextureConstants.ts`),c=n(`./src/WebGL/constants/TextureOperations.ts`)},"./src/WebGL/core/EventDispatcher.ts"(e,t,n){n.r(t),n.d(t,{EventDispatcher:()=>r});class r{constructor(){this.listeners={}}dispatchEvent(e){var t=this.listeners[e.type];if(t!==void 0){e.target=this;for(var n=0,r=t.length;n<r;n++)t[n].call(this,e)}}removeEventListener(e,t){if(!t)this.listeners[e]=[];else{var n=this.listeners[e].indexOf(t);n!==-1&&this.listeners[e].splice(n,1)}}addEventListener(e,t){this.listeners[e]===void 0&&(this.listeners[e]=[]),this.listeners[e].indexOf(t)===-1&&this.listeners[e].push(t)}}},"./src/WebGL/core/Geometry.ts"(e,t,n){n.r(t),n.d(t,{Geometry:()=>l,GeometryGroup:()=>c,GeometryIDCount:()=>u});var r=n(`./src/WebGL/materials/LineBasicMaterial.ts`),i=n(`./src/WebGL/core/EventDispatcher.ts`),a=n(`./src/WebGL/math/index.ts`),o=n(`./src/colors.ts`);let s=65535;class c{constructor(e=0){this.vertexArray=null,this.colorArray=null,this.normalArray=null,this.radiusArray=null,this.faceArray=null,this.lineArray=null,this.atomArray=[],this.vertices=0,this.faceidx=0,this.lineidx=0,this.__inittedArrays=!1,this.id=e}setColor(e){var t=this.vertexArray,n=this.colorArray;if(!t)throw Error(`vertex array not initialized`);if(!n)throw Error(`color array not initialized`);let r=o.CC.color(e);for(var i=0;i<t.length;i+=3)n[i]=r.r,n[i+1]=r.g,n[i+2]=r.b}setColors(e){var t=this.vertexArray,n=this.colorArray;if(!t)throw Error(`vertex array not initialized`);if(!n)throw Error(`color array not initialized`);if(t.length!=n.length){console.log(`Cannot re-color geometry group due to mismatched lengths.`);return}for(var r=0;r<t.length;r+=3){var i=e(t[r],t[r+1],t[r+2]);i instanceof o.Color||(i=o.CC.color(i)),n[r]=i.r,n[r+1]=i.g,n[r+2]=i.b}}getNumVertices(){return this.vertices}getVertices(){return this.vertexArray}getCentroid(){if(!this.vertexArray)throw Error(`vertex array not initialized`);for(var e=new a.Vector3,t,n,r,i,o=0;o<this.vertices;++o)t=o*3,n=this.vertexArray[t],r=this.vertexArray[t+1],i=this.vertexArray[t+2],e.x+=n,e.y+=r,e.z+=i;return e.divideScalar(this.vertices),e}setNormals(){var e=this.faceArray,t=this.vertexArray,n=this.normalArray;if(!(!this.vertices||!this.faceidx)){if(!e)throw Error(`face array not initialized`);if(!t)throw Error(`vertex array not initialized`);if(!n)throw Error(`normal array not initialized`);for(var r,i,o,s,c,l,u,d=0;d<e.length/3;++d)r=e[d*3]*3,i=e[d*3+1]*3,o=e[d*3+2]*3,s=new a.Vector3(t[r],t[r+1],t[r+2]),c=new a.Vector3(t[i],t[i+1],t[i+2]),l=new a.Vector3(t[o],t[o+1],t[o+2]),s.subVectors(s,c),l.subVectors(l,c),l.cross(s),u=l,u.normalize(),n[r]+=u.x,n[i]+=u.x,n[o]+=u.x,n[r+1]+=u.y,n[i+1]+=u.y,n[o+1]+=u.y,n[r+2]+=u.z,n[i+2]+=u.z,n[o+2]+=u.z}}setLineIndices(){if(this.faceidx&&!(this.lineArray&&this.lineArray.length==this.faceidx*2&&this.lineidx==this.faceidx*2)){var e=this.faceArray,t=this.lineArray=new Uint16Array(this.faceidx*2);if(this.lineidx=this.faceidx*2,!e)throw Error(`face array not initialized`);for(var n=0;n<this.faceidx/3;++n){var r=n*3,i=r*2,a=e[r],o=e[r+1],s=e[r+2];t[i]=a,t[i+1]=o,t[i+2]=a,t[i+3]=s,t[i+4]=o,t[i+5]=s}}}vrml(e,t){var n,i,a,o,s,c,l,u,d,f,p,m,h,g,_,v,y,b,x=``;if(x+=e+`Shape {
 `+e+` appearance Appearance {
 `+e+`  material Material {
@@ -117,9 +117,9 @@ void main() {
 }`},"./src/WebGL/shaders/lib/basic/index.ts"(e,t,n){n.r(t),n.d(t,{basic:()=>a});var r=n(`./src/WebGL/shaders/lib/basic/uniforms.ts`),i=n(`./src/WebGL/shaders/lib/basic/basic.frag`);let a={vertexShader:n(`./src/WebGL/shaders/lib/basic/basic.vert`).default.replace(`#define GLSLIFY 1`,``),fragmentShader:i.default.replace(`#define GLSLIFY 1`,``),uniforms:r.uniforms}},"./src/WebGL/shaders/lib/basic/uniforms.ts"(e,t,n){n.r(t),n.d(t,{uniforms:()=>r});let r={opacity:{type:`f`,value:1},fogColor:{type:`c`,value:new(n(`./src/colors.ts`)).Color(1,1,1)},fogNear:{type:`f`,value:1},fogFar:{type:`f`,value:2e3}}},"./src/WebGL/shaders/lib/blur/blur.frag"(e,t,n){n.r(t),n.d(t,{default:()=>r});let r=`const float INV_TOTAL_SAMPLES_FACTOR = 1.0 / 9.0;
 uniform highp sampler2D inTex;
 varying highp vec2 vTexCoords;
-    
+
 void main() {
- 
+
  vec2 texelSize = 1.0 / vec2(textureSize(inTex,0));
  float blurred_visibility_factor = 0.0f;
  for (int t = -1; t <= 1; ++t) {
@@ -128,9 +128,9 @@ void main() {
    blurred_visibility_factor += texture2D(inTex, vTexCoords + offset).r;
   }
  }
-    
+
  gl_FragDepthEXT = blurred_visibility_factor * INV_TOTAL_SAMPLES_FACTOR;
- 
+
 }`},"./src/WebGL/shaders/lib/blur/blur.vert"(e,t,n){n.r(t),n.d(t,{default:()=>r});let r=`attribute vec2 vertexPosition;
 varying highp vec2 vTexCoords;
 const vec2 scale = vec2(0.5, 0.5);
@@ -455,7 +455,7 @@ uniform vec2 dimensions;
 void main (void) {
    gl_FragColor = texture2D(colormap, vTexCoords);
 
-   //gl_FragColor.g = gl_FragColor.b =  gl_FragColor.r; //debug shading 
+   //gl_FragColor.g = gl_FragColor.b =  gl_FragColor.r; //debug shading
 }
         `},"./src/WebGL/shaders/lib/screen/screen.vert"(e,t,n){n.r(t),n.d(t,{default:()=>r});let r=`attribute vec2 vertexPosition;
 varying highp vec2 vTexCoords;
@@ -466,7 +466,7 @@ void main() {
    gl_Position = vec4(vertexPosition, 0.0, 1.0);
 }
         `},"./src/WebGL/shaders/lib/screen/uniforms.ts"(e,t,n){n.r(t),n.d(t,{uniforms:()=>r});let r={}},"./src/WebGL/shaders/lib/screenaa/index.ts"(e,t,n){n.r(t),n.d(t,{screenaa:()=>o});var r=n(`./src/WebGL/shaders/lib/screenaa/uniforms.ts`),i=n(`./src/WebGL/shaders/lib/screenaa/screenaa.frag`),a=n(`./src/WebGL/shaders/lib/screenaa/screenaa.vert`);let o={fragmentShader:i.default.replace(`#define GLSLIFY 1`,``),vertexShader:a.default.replace(`#define GLSLIFY 1`,``),uniforms:r.uniforms}},"./src/WebGL/shaders/lib/screenaa/screenaa.frag"(e,t,n){n.r(t),n.d(t,{default:()=>r});let r=`
-        
+
 precision highp float;
 precision highp int;
 precision highp sampler2D;
@@ -701,14 +701,14 @@ void main(void) {
 
     // Read the color at the new UV coordinates, and use it.
     gl_FragColor = texture2D(tColor, finalUv);
-}        
+}
 
 /* old fxaa implementation
 uniform highp sampler2D colormap;
 varying highp vec2 vTexCoords;
 
 
-// Basic FXAA implementation based on the code on geeks3d.com 
+// Basic FXAA implementation based on the code on geeks3d.com
 #define FXAA_REDUCE_MIN (1.0/ 128.0)
 #define FXAA_REDUCE_MUL (1.0 / 8.0)
 #define FXAA_SPAN_MAX 8.0
@@ -769,7 +769,7 @@ void main (void) {
 
   gl_FragColor = applyFXAA(vTexCoords, colormap);
 }
-        
+
 */`},"./src/WebGL/shaders/lib/screenaa/screenaa.vert"(e,t,n){n.r(t),n.d(t,{default:()=>r});let r=`attribute vec2 vertexPosition;
 varying highp vec2 vTexCoords;
 const vec2 scale = vec2(0.5, 0.5);
@@ -820,7 +820,7 @@ void main() {
     ivec2 dim = textureSize(shading,0);
     float shadowFactor = texture2D(shading,vec2(gl_FragCoord.x/float(dim.x),gl_FragCoord.y/float(dim.y))).r;
     color *= shadowFactor;
-#endif    
+#endif
     gl_FragColor = vec4(color, opacity*opacity );
 
     if(fogNear != fogFar) {
@@ -828,7 +828,7 @@ void main() {
         float fogFactor = smoothstep( fogNear, fogFar, depth );
         gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
     }
-     
+
 }
 
 `},"./src/WebGL/shaders/lib/sphereimposter/sphereimposter.vert"(e,t,n){n.r(t),n.d(t,{default:()=>r});let r=`uniform mat4 modelViewMatrix;
@@ -923,16 +923,16 @@ void main() {
     vec4 projPosition = projectionMatrix * mvPosition;
     vec2 norm = normal.xy + vec2(sign(normal.x)*outlineWidth,sign(normal.y)*outlineWidth);
 
-    vec4 adjust = projectionMatrix* vec4(norm,normal.z,1.0); 
+    vec4 adjust = projectionMatrix* vec4(norm,normal.z,1.0);
     mapping = norm.xy;
     rval = abs(norm.x);
     gl_Position = projPosition+vec4(adjust.xy,0.0,0.0);
 
     if(outlineMaxPixels > 0.0) {
-        vec4 unadjusted = projectionMatrix*vec4(center.x+normal.x, center.y,center.z,1.0); 
+        vec4 unadjusted = projectionMatrix*vec4(center.x+normal.x, center.y,center.z,1.0);
         vec4 ccoord = projectionMatrix*vec4(center.xyz,1.0);
-        adjust = projectionMatrix* vec4(center.x+norm.x,center.y,center.z,1.0); 
-        //subtract center 
+        adjust = projectionMatrix* vec4(center.x+norm.x,center.y,center.z,1.0);
+        //subtract center
         unadjusted.xyz -= ccoord.xyz;
         adjust.xyz -= ccoord.xyz;
         unadjusted /= unadjusted.w;
@@ -940,7 +940,7 @@ void main() {
         float diff = abs(adjust.x-unadjusted.x);
         diff *= vWidth;
         if(diff > outlineMaxPixels) {
-            
+
             float fixlen = abs(unadjusted.x) + outlineMaxPixels/vWidth;
             //adjsut reval by ratio of lengths
             rval *= fixlen/abs(adjust.x);
@@ -974,7 +974,7 @@ void main() {
     if (fogNear != fogFar) {
 
         float depth = gl_FragCoord.z / gl_FragCoord.w; //probably wrong
-        float fogFactor = smoothstep(fogNear, fogFar, depth);        
+        float fogFactor = smoothstep(fogNear, fogFar, depth);
         gl_FragColor = mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), fogFactor);
     }
 }
@@ -1014,7 +1014,7 @@ void main() {
 
     else {
         finalPosition = projectionMatrix * modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0); finalPosition /= finalPosition.w;
-        finalPosition.xy += rotatedPosition; 
+        finalPosition.xy += rotatedPosition;
     }
 
     gl_Position = finalPosition;
@@ -1047,7 +1047,7 @@ vec3 pseudorandomVec3(vec3 seed) {
 }
 
 void main(void)
-{   
+{
    const float base = 0.2;
    const float area = 0.75;
    const int cycles = 1;
@@ -1139,7 +1139,7 @@ void main(void)
    vec2 offset2 = vec2(1.0/float(dim.x),0.0);
    float depth1 = texture2D(depthmap, vTexCoords + offset1).r;
    float depth2 = texture2D(depthmap, vTexCoords + offset2).r;
-   
+
    vec3 p1 = vec3(screen_position.xy+offset1, depth1 - depth);
    vec3 p2 = vec3(screen_position.xy+offset2, depth2 - depth);
 
@@ -1162,10 +1162,10 @@ void main(void)
       vec3 hemi_ray = position + sign(dot(ray,normal)) * ray; //model space
       vec4 hemi_screen = projectionMatrix*vec4(hemi_ray,1.0);
       hemi_screen /= hemi_screen.w;
-      
+
       float occ_depth = texture2D(depthmap, clamp(hemi_screen.xy,0.0,1.0)).r;
       float difference = hemi_screen.z - occ_depth;
-      
+
       occlusion += step(0.0, difference) * (1.0-smoothstep(0.0, area, difference));
    }
    }
@@ -1188,7 +1188,7 @@ void main() {
     ivec2 dim = textureSize(shading,0);
     float shadowFactor = texture2D(shading,vec2(gl_FragCoord.x/float(dim.x),gl_FragCoord.y/float(dim.y))).r;
     color *= shadowFactor;
-#endif    
+#endif
     gl_FragColor = vec4(color, opacity*opacity );
     if(fogNear != fogFar) {
         float depth = -qi.z;
@@ -1236,7 +1236,7 @@ void main() {
        if(isperspective) { //perspective
          vec3 pnorm = normalize(p1);
          float t = dot(mvPosition.xyz-p1,n)/dot(pnorm,n);
-         mvPosition.xyz = p1+t*pnorm; 
+         mvPosition.xyz = p1+t*pnorm;
        } else { //orthographic
          mvPosition.xyz = p1;
        }
@@ -1247,7 +1247,7 @@ void main() {
          mvPosition.xyz = p2+t*pnorm;
        } else { //orthographic
          mvPosition.xyz = p2;
-       } 
+       }
        mult *= -1.0;
     }
 
@@ -1258,7 +1258,7 @@ void main() {
     } else {
       vec3 cr = normalize(cross(vec3(0.0,0.0,-1.0),norm))*radius;
       vec3 doublecr = normalize(cross(vec3(0.0,0.0,-1.0),cr))*radius;
-      mvPosition.xyz +=  mult*(cr + doublecr).xyz;     
+      mvPosition.xyz +=  mult*(cr + doublecr).xyz;
     }
 
     cposition = mvPosition.xyz;
@@ -1318,7 +1318,7 @@ void main() {
     vec3 norm;
     if( dotp1 < 0.0 || dotp2 > 0.0) { //(p-c)^2 + 2(p-c)vt +v^2+t^2 - r^2 = 0
        vec3 cp;
-       if( dotp1 < 0.0) {  
+       if( dotp1 < 0.0) {
 //        if(vColor.x < 0.0 ) discard; //color sign bit indicates if we should cap or not
         cp = p1;
        } else {
@@ -1335,8 +1335,8 @@ void main() {
        posT = (-B+sqrtDet)/(2.0);
        negT = (-B-sqrtDet)/(2.0);
        float t = min(posT,negT);
-       qi = p+v*t; 
-       norm = normalize(qi-cp); 
+       qi = p+v*t;
+       norm = normalize(qi-cp);
     } else {
        norm = normalize(qi-(dotp1*va + p1));
     }
@@ -1441,9 +1441,9 @@ void main() {
 
     if(outlineMaxPixels > 0.0) {
         vec4 cpos = mvPosition;
-        vec4 unadjusted = projectionMatrix*vec4(cpos.x+abs(scale*radius), cpos.y,cpos.z,cpos.w); 
+        vec4 unadjusted = projectionMatrix*vec4(cpos.x+abs(scale*radius), cpos.y,cpos.z,cpos.w);
         vec4 ccoord = projectionMatrix*cpos;
-        vec4 adjust = projectionMatrix*vec4(cpos.x+r,cpos.y,cpos.z,cpos.w); 
+        vec4 adjust = projectionMatrix*vec4(cpos.x+r,cpos.y,cpos.z,cpos.w);
         unadjusted /= unadjusted.w;
         adjust /= adjust.w;
         unadjusted.xyz -= ccoord.xyz/ccoord.w;
@@ -1451,7 +1451,7 @@ void main() {
         float diff = abs(adjust.x-unadjusted.x);
         diff *= vWidth; //this should now be in pixels
         if(diff > outlineMaxPixels) {
-            float fixlen = abs(unadjusted.x) + outlineMaxPixels/vWidth; 
+            float fixlen = abs(unadjusted.x) + outlineMaxPixels/vWidth;
             vec4 pcoord = ccoord;
             pcoord.x += fixlen*pcoord.w;
             vec4 altc = projinv*pcoord;
@@ -1536,7 +1536,7 @@ void main(void) {
          float cval = (val-transfermin)/(transfermax-transfermin); //scale to texture 0-1 range
          vec4 val_color = texture(colormap, vec2(cval,0.5));
          color.rgb = color.rgb*color.a + (1.0-color.a)*val_color.a*val_color.rgb;
-         color.a += (1.0 - color.a) * val_color.a; 
+         color.a += (1.0 - color.a) * val_color.a;
          if(color.a > 0.0) color.rgb /= color.a;
 //          color = vec4(pt.x, pt.y, pt.z, 1.0);
       }

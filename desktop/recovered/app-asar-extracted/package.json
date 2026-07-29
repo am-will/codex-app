@@ -2,7 +2,7 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.721.41059",
+  "version": "26.721.81911",
   "description": "Codex",
   "main": ".vite/build/early-bootstrap.js",
   "scripts": {
@@ -102,7 +102,7 @@
     "zod": "^4.1.13"
   },
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "5848",
+  "codexBuildNumber": "5973",
   "codexAppBrand": "chatgpt",
   "codexSparkleFeedUrl": "https://persistent.oaistatic.com/codex-app-prod/appcast.xml",
   "codexSparklePublicKey": "mNfr1v9t63BfgDtlw4C8lRvSY6uMggIXABDOCi3tS6k="

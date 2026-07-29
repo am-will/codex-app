@@ -1,0 +1,1 @@
+import{n as e,t}from"./calendar-minus-2-sKLRlVky-D-G06n24.js";e();export{t as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`Spline`,[[`circle`,{cx:`19`,cy:`5`,r:`2`,key:`mhkx31`}],[`circle`,{cx:`5`,cy:`19`,r:`2`,key:`v8kfzx`}],[`path`,{d:`M5 17A12 12 0 0 1 17 5`,key:`1okkup`}]])}));export{r as n,i as t};
+//# sourceMappingURL=spline-Cz4-NrPI-DWDjb_VJ.js.map

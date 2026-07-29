@@ -36,7 +36,7 @@ Expecting `+A.join(`, `)+`, got '`+(this.terminals_[S]||S)+`'`:`Parse error on l
     stroke: ${e.requirementBorderColor};
     stroke-width: ${e.requirementBorderSize};
   }
-  
+
   .reqTitle, .reqLabel{
     fill:  ${e.requirementTextColor};
   }

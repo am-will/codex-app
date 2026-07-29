@@ -1,1 +1,0 @@
-import{n as e,t}from"./rotate-3d-BrlAX0Nh-CJLG8wih.js";e();export{t as default};

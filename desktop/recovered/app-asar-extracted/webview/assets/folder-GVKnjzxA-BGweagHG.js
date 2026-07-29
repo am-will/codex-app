@@ -1,0 +1,1 @@
+import{n as e,t}from"./folder-GVKnjzxA-D5YpJ2Sb.js";t();export{e as default};

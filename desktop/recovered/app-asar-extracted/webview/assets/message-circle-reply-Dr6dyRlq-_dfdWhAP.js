@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`MessageCircleReply`,[[`path`,{d:`M7.9 20A9 9 0 1 0 4 16.1L2 22Z`,key:`vv11sd`}],[`path`,{d:`m10 15-3-3 3-3`,key:`1pgupc`}],[`path`,{d:`M7 12h7a2 2 0 0 1 2 2v1`,key:`1gheu4`}]])}));export{r as n,i as t};
+//# sourceMappingURL=message-circle-reply-Dr6dyRlq-_dfdWhAP.js.map

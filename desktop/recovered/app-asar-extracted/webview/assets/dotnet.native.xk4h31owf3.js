@@ -1,7 +1,7 @@
 
 var createDotnetRuntime = (() => {
   var _scriptDir = import.meta.url;
-  
+
   return (
 async function(moduleArg = {}) {
 

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./chart-no-axes-gantt-CWk8Itn6-KQrCg-Ny.js";e((()=>{t()}))();export{n as default};
+//# sourceMappingURL=gantt-chart-CISea-92-TSgb8CV-.js.map

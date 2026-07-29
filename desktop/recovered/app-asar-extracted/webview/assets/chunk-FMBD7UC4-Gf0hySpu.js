@@ -6,7 +6,7 @@ import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,r as n}from"./c
     overflow: visible;
     vertical-align: -0.125em;
   }
-  
+
   .node .label-icon path {
     fill: currentColor;
     stroke: revert;

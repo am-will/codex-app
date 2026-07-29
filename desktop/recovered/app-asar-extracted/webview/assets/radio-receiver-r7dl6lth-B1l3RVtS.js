@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`RadioReceiver`,[[`path`,{d:`M5 16v2`,key:`g5qcv5`}],[`path`,{d:`M19 16v2`,key:`1gbaio`}],[`rect`,{width:`20`,height:`8`,x:`2`,y:`8`,rx:`2`,key:`vjsjur`}],[`path`,{d:`M18 12h.01`,key:`yjnet6`}]])}));export{i as n,r as t};
+//# sourceMappingURL=radio-receiver-r7dl6lth-B1l3RVtS.js.map

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./square-bottom-dashed-scissors-DXjuZVKD-DJYdJuMg.js";e((()=>{t()}))();export{n as default};
-//# sourceMappingURL=scissors-square-dashed-bottom--7dCPZ2y-D2g14G9c.js.map
