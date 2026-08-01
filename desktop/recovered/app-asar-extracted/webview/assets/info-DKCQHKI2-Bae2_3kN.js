@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{w as t}from"./chunk-KEIR6QF5-bOHYAbBk.js";import{n,r}from"./chunk-BIQX33UG-COwqf9RQ.js";e((()=>{r(),t()}))();export{n as createInfoServices};
+//# sourceMappingURL=info-DKCQHKI2-Bae2_3kN.js.map

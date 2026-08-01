@@ -1,0 +1,1 @@
+import{n as e,t}from"./move-down-right-iiyFuFEL-DUB2Ljn2.js";t();export{e as default};

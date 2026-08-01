@@ -1,1 +1,0 @@
-import{n as e,t}from"./plugins-settings-BBXzd-T3.js";e();export{t as PluginsSettings};

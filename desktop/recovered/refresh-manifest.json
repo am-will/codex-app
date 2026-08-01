@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/tmp/codex-linux-refresh-20260729T090414Z/codex-app/desktop/tmp/upstream-26.721.81911-090600/extracted/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "3c9a101d9beec3718b0fcfc19e427c644a934045f48b3fe0e16b68b0b3f23e61",
-  "outputRoot": "/tmp/codex-linux-refresh-20260729T090414Z/codex-app/desktop/recovered/app-asar-extracted",
-  "version": "26.721.81911",
-  "buildNumber": "5973",
+  "appAsarPath": "/tmp/codex-linux-refresh-20260801T090457Z/extract/ChatGPT.app/Contents/Resources/app.asar",
+  "appAsarSha256": "a529edd72e10b08931c0d695b5e3e6a0be7f51874610dafc04f578436ab7d74d",
+  "outputRoot": "/tmp/codex-linux-refresh-20260801T090457Z/codex-app/desktop/recovered/app-asar-extracted",
+  "version": "26.727.51351",
+  "buildNumber": "6119",
   "electronVersion": "42.3.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -234,9 +234,9 @@
         },
         {
           "label": "linux open-in target registry",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "linux open-in target registry replacement already present"
         }
       ]
     },
@@ -274,9 +274,9 @@
         },
         {
           "label": "app shell title bar reserves space for inline window controls",
-          "patched": true,
-          "skipped": false,
-          "reason": null
+          "patched": false,
+          "skipped": true,
+          "reason": "app shell title bar reserves space for inline window controls target not applicable to the current app-shell renderer"
         },
         {
           "label": "app shell adds linux application menu compatibility for current app-initial bundle",
@@ -322,9 +322,9 @@
         },
         {
           "label": "app shell uses compiled top offset for floating sidebar",
-          "patched": false,
-          "skipped": true,
-          "reason": "app shell uses compiled top offset for floating sidebar replacement already present"
+          "patched": true,
+          "skipped": false,
+          "reason": null
         },
         {
           "label": "app shell shifts main header left when floating sidebar is open",
@@ -344,7 +344,7 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-CfmG6hMr.js",
+          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-DtHc3bqT.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -503,11 +503,13 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/tmp/codex-linux-refresh-20260729T090414Z/codex-app/desktop/node_modules",
+    "sourceNodeModulesRoot": "/tmp/codex-linux-refresh-20260801T090457Z/codex-app/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
-      "node-pty/build/Release/pty.node"
+      "node-pty/build/Release/pty.node",
+      "node-pty/build/Release/obj.target/pty.node",
+      "node-pty/bin/linux-x64-146/node-pty.node"
     ]
   },
-  "tempRoot": null
+  "tempRoot": "/tmp/codex-dmg-refresh-H89wvt"
 }

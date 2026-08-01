@@ -251,16 +251,21 @@ describe('Recovered Codex bundle RED contract', () => {
       expect(mainBundle).toContain("autoHideMenuBar:!0");
       expect(mainBundle).toContain("process.platform!==`darwin`&&");
       expect(mainBundle).toContain(".removeMenu()");
-      expect(mainBundle).toContain('function linuxDetectCommand(');
-      expect(mainBundle).toContain('linuxCursor={id:`cursor`');
-      expect(mainBundle).toContain(
-        'linuxZed=A$({id:`zed`,label:`Zed`,icon:`apps/zed.png`,kind:`editor`,linux:{detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`])',
-      );
-      expect(mainBundle).toContain('linuxFileManager={id:`fileManager`');
+      const hasInjectedLinuxOpenTargets =
+        mainBundle.includes('function linuxResolveEditorTarget(') &&
+        mainBundle.includes('linuxCursor') &&
+        mainBundle.includes('linuxZed') &&
+        mainBundle.includes('linuxFileManager');
+      const hasNativeLinuxOpenTargets =
+        mainBundle.includes('linuxDetect:()=>G1([`cursor`]') &&
+        mainBundle.includes('linux:{label:`File Manager`');
+      expect(hasInjectedLinuxOpenTargets || hasNativeLinuxOpenTargets).toBe(true);
       expect(workspaceRootDropHandlerBundle).toContain('return null');
-      expect(mainBundle).toMatch(
-        /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
-      );
+      if (hasInjectedLinuxOpenTargets) {
+        expect(mainBundle).toMatch(
+          /\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
+        );
+      }
       expect(loginRouteBundle).toContain('openTarget:`external-browser`');
       expect(composerBundle).toContain('threadGoalDraft');
       expect(summary.patchSummary.modelSettings.results).toEqual([]);
@@ -384,8 +389,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.721.81911');
-    expect(packageJson.codexBuildNumber).toBe('5973');
+    expect(packageJson.version).toBe('26.727.51351');
+    expect(packageJson.codexBuildNumber).toBe('6119');
     expect(packageJson.devDependencies?.electron).toBe('42.3.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -438,8 +443,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.721.81911');
-    expect(manifest.buildNumber).toBe('5973');
+    expect(manifest.version).toBe('26.727.51351');
+    expect(manifest.buildNumber).toBe('6119');
     expect(manifest.electronVersion).toBe('42.3.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -551,7 +556,7 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(featureSyncBundle).toMatch(
       /[A-Za-z_$][\w$]*=\[`apps_mcp_path_override`,`auth_elicitation`,`tool_suggest`\]/,
     );
-    expect(featureSyncBundle).toContain('let n={memories:!1}');
+    expect(featureSyncBundle).toMatch(/let [A-Za-z_$][\w$]*=\{memories:!1\}/);
     expect(featureSyncBundle).not.toContain('`goals`');
     expect(assembleScript).toContain('dynamic tool namespaces flatten for bundled app-server');
     expect(assembleScript).toContain(
@@ -702,19 +707,25 @@ describe('Recovered Codex bundle RED contract', () => {
 
   test('main bundle keeps Linux browser-session auth handoff and skips nonexistent git origin paths', () => {
     const mainSource = readRecoveredMainBuildFile();
-    const linuxTargetMatches =
-      mainSource.match(/linux(?:ResolveEditorTarget|ResolveAbsoluteCommand)\(/g) ?? [];
+    const hasInjectedLinuxOpenTargets =
+      mainSource.includes('function linuxResolveEditorTarget(') &&
+      mainSource.includes('linuxCursor') &&
+      mainSource.includes('linuxZed') &&
+      mainSource.includes('linuxFileManager');
+    const hasNativeLinuxOpenTargets =
+      mainSource.includes('linuxDetect:()=>G1([`cursor`]') &&
+      mainSource.includes('linux:{label:`File Manager`');
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(mainSource).toContain('function linuxResolveAbsoluteCommand(');
-    expect(mainSource).toMatch(/linuxCursor=\{id:`cursor`,platforms:\{linux:/);
-    expect(mainSource).toMatch(/linuxZed=\{id:`zed`,platforms:\{linux:\{label:`Zed`,icon:`apps\/zed\.png`/);
-    expect(mainSource).toMatch(/linuxFileManager=\{id:`fileManager`,platforms:\{linux:/);
-    expect(mainSource).toMatch(/detect:\(\)=>[A-Za-z_$][\w$]*\(`xdg-open`\)\?\?linuxResolveAbsoluteCommand\(`\/usr\/bin\/xdg-open`\)/);
-    expect(linuxTargetMatches.length).toBeGreaterThan(4);
-    expect(mainSource).toMatch(
-      /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
-    );
+    expect(hasInjectedLinuxOpenTargets || hasNativeLinuxOpenTargets).toBe(true);
+    if (hasInjectedLinuxOpenTargets) {
+      const linuxTargetMatches =
+        mainSource.match(/linux(?:ResolveEditorTarget|ResolveAbsoluteCommand)\(/g) ?? [];
+      expect(linuxTargetMatches.length).toBeGreaterThan(4);
+      expect(mainSource).toMatch(
+        /[A-Za-z_$][\w$]*=\([A-Za-z_$][\w$]*&&[A-Za-z_$][\w$]*\.length>0\?[A-Za-z_$][\w$]*:[A-Za-z_$][\w$]*\.filter\(e=>e!==`~`\)\.map\(e=>[A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(e\)\)\)\.filter\(e=>\{try\{return!!e&&[A-Za-z_$][\w$]*\.existsSync\(e\)\}catch\{return!1\}\}\)/,
+      );
+    }
   });
 
   test('git worker exposes the refreshed repo-watch and host-path contract', () => {

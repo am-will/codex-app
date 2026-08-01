@@ -1,0 +1,1 @@
+import{n as e,t}from"./wallet-minimal-DMOz2YUg-V_EsGvE1.js";t();export{e as default};

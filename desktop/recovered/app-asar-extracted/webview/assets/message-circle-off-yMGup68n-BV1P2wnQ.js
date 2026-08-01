@@ -1,1 +1,0 @@
-import{n as e,t}from"./message-circle-off-yMGup68n-b_J21H_A.js";e();export{t as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";var t,n,r,i=e((()=>{t=Object.defineProperty,n=(e,n)=>t(e,`name`,{value:n,configurable:!0}),r=(e,n)=>{for(var r in n)t(e,r,{get:n[r],enumerable:!0})}}));export{n,i as r,r as t};
+//# sourceMappingURL=chunk-Y2CYZVJY-C9L_9xF4.js.map

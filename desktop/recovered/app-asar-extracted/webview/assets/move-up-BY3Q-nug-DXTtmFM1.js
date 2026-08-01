@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-COwGPC54.js";var r,i=e((()=>{t(),r=n(`MoveUp`,[[`path`,{d:`M8 6L12 2L16 6`,key:`1yvkyx`}],[`path`,{d:`M12 2V22`,key:`r89rzk`}]])}));export{r as n,i as t};
+//# sourceMappingURL=move-up-BY3Q-nug-DXTtmFM1.js.map

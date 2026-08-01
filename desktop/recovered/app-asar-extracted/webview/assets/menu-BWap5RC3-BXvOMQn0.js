@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-COwGPC54.js";var r,i=e((()=>{t(),r=n(`Menu`,[[`line`,{x1:`4`,x2:`20`,y1:`12`,y2:`12`,key:`1e0a9i`}],[`line`,{x1:`4`,x2:`20`,y1:`6`,y2:`6`,key:`1owob3`}],[`line`,{x1:`4`,x2:`20`,y1:`18`,y2:`18`,key:`yk5zj1`}]])}));export{r as n,i as t};
+//# sourceMappingURL=menu-BWap5RC3-BXvOMQn0.js.map

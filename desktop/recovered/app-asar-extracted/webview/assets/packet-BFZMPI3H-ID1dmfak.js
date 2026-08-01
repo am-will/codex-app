@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{p as t}from"./chunk-FPAJGGOC-CN4fXTF-.js";import{n,r}from"./chunk-76Q3JFCE-ZGsz2j1F.js";e((()=>{r(),t()}))();export{n as createPacketServices};
-//# sourceMappingURL=packet-BFZMPI3H-ID1dmfak.js.map

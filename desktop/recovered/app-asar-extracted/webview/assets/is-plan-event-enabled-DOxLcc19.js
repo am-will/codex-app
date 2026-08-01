@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";function t(e,t){return typeof t?.enabled==`boolean`?t.enabled:e?.__default?.enabled??!0}var n=e((()=>{}));export{t as n,n as t};
+//# sourceMappingURL=is-plan-event-enabled-DOxLcc19.js.map

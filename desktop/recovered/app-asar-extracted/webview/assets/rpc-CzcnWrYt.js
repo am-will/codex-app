@@ -1,0 +1,1 @@
+import{Amt as e,Mmt as t,jmt as n,kmt as r}from"./app-initial-iBPGfcXU.js";n();export{r as appHost,e as appServices,t as initializeAppHostServices};

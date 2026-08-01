@@ -1,1 +1,0 @@
-import{n as e,t}from"./figma-D930wxBo-n42MIx_g.js";t();export{e as default};

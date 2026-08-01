@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";function t({intl:e,amount:t,currencyCode:r,currencyFractionDigits:i}){let a=i??n({intl:e,currencyCode:r});return e.formatNumber(t,{style:`currency`,currency:r,minimumFractionDigits:a,maximumFractionDigits:a})}function n({intl:e,currencyCode:t}){return e.formatters.getNumberFormat(e.locale,{style:`currency`,currency:t}).resolvedOptions().maximumFractionDigits??0}var r=e((()=>{}));export{r as n,t};
+//# sourceMappingURL=format-currency-DxreT21o.js.map

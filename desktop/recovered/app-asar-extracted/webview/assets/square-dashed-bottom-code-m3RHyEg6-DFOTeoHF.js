@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`SquareDashedBottomCode`,[[`path`,{d:`M10 9.5 8 12l2 2.5`,key:`3mjy60`}],[`path`,{d:`M14 21h1`,key:`v9vybs`}],[`path`,{d:`m14 9.5 2 2.5-2 2.5`,key:`1bir2l`}],[`path`,{d:`M5 21a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2`,key:`as5y1o`}],[`path`,{d:`M9 21h1`,key:`15o7lz`}]])}));export{r as n,i as t};
-//# sourceMappingURL=square-dashed-bottom-code-m3RHyEg6-DFOTeoHF.js.map

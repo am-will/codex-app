@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,r as n}from"./chunk-AGHRB4JF-D33xM56t.js";var r,i=e((()=>{n(),r=t(({flowchart:e})=>{let t=e?.subGraphTitleMargin?.top??0,n=e?.subGraphTitleMargin?.bottom??0;return{subGraphTitleTopMargin:t,subGraphTitleBottomMargin:n,subGraphTitleTotalMargin:t+n}},`getSubGraphTitleMargins`)}));export{i as n,r as t};
-//# sourceMappingURL=chunk-CVBHYZKI-Ct0iRt9_.js.map

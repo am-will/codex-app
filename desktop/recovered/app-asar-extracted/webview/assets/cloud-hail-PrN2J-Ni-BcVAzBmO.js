@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`CloudHail`,[[`path`,{d:`M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242`,key:`1pljnt`}],[`path`,{d:`M16 14v2`,key:`a1is7l`}],[`path`,{d:`M8 14v2`,key:`1e9m6t`}],[`path`,{d:`M16 20h.01`,key:`xwek51`}],[`path`,{d:`M8 20h.01`,key:`1vjney`}],[`path`,{d:`M12 16v2`,key:`z66u1j`}],[`path`,{d:`M12 22h.01`,key:`1urd7a`}]])}));export{r as n,i as t};
-//# sourceMappingURL=cloud-hail-PrN2J-Ni-BcVAzBmO.js.map

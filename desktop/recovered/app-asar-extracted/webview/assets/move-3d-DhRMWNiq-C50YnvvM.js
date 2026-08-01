@@ -1,0 +1,1 @@
+import{n as e,t}from"./move-3d-DhRMWNiq-DeBbdUq3.js";e();export{t as default};

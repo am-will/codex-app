@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-BG2f4sTM.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-BbUB_Xdr.js";var r,i=e((()=>{t(),r=n(`GitCompareArrows`,[[`circle`,{cx:`5`,cy:`6`,r:`3`,key:`1qnov2`}],[`path`,{d:`M12 6h5a2 2 0 0 1 2 2v7`,key:`1yj91y`}],[`path`,{d:`m15 9-3-3 3-3`,key:`1lwv8l`}],[`circle`,{cx:`19`,cy:`18`,r:`3`,key:`1qljk2`}],[`path`,{d:`M12 18H7a2 2 0 0 1-2-2V9`,key:`16sdep`}],[`path`,{d:`m9 15 3 3-3 3`,key:`1m3kbl`}]])}));export{i as n,r as t};
-//# sourceMappingURL=git-compare-arrows-DArCA7gp-8qfZYEd1.js.map

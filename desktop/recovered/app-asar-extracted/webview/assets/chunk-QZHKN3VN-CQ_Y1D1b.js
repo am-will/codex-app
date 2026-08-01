@@ -1,2 +1,0 @@
-import{r as e}from"./src-DbaHYgEA.js";var t=class{constructor(e){this.init=e,this.records=this.init()}static{e(this,`ImperativeState`)}reset(){this.records=this.init()}};export{t};
-//# sourceMappingURL=chunk-QZHKN3VN-CQ_Y1D1b.js.map

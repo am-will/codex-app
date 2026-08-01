@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-COwGPC54.js";var r,i=e((()=>{t(),r=n(`Baseline`,[[`path`,{d:`M4 20h16`,key:`14thso`}],[`path`,{d:`m6 16 6-12 6 12`,key:`1b4byz`}],[`path`,{d:`M8 12h8`,key:`1wcyev`}]])}));export{r as n,i as t};
+//# sourceMappingURL=baseline-Dd3e1SPy-ExW_fJEw.js.map

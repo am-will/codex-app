@@ -1,0 +1,2 @@
+import{t as e}from"./src-DdjD_HBn.js";import{n as t}from"./chunk-Y2CYZVJY-DsF7k-Jl.js";var n=t((t,n)=>{let r;return n===`sandbox`&&(r=e(`#i`+t)),e(n===`sandbox`?r.nodes()[0].contentDocument.body:`body`).select(`[id="${t}"]`)},`getDiagramElement`);export{n as t};
+//# sourceMappingURL=chunk-XXDRQBXY-CpaPIo7O.js.map

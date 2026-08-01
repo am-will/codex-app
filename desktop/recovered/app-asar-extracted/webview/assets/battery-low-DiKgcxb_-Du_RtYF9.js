@@ -1,0 +1,1 @@
+import{n as e,t}from"./battery-low-DiKgcxb_-DYf6Z0z4.js";t();export{e as default};
