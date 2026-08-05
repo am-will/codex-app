@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-Cnc-zU-Y.js";var r,i=e((()=>{t(),r=n(`CircleChevronUp`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`m8 14 4-4 4 4`,key:`fy2ptz`}]])}));export{r as n,i as t};
+//# sourceMappingURL=circle-chevron-up-CTlHhKS9-6epfHzdE.js.map

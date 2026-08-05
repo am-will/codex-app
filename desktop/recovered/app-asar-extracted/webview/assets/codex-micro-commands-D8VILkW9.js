@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{A4 as t,a4 as n,k4 as r,o4 as i,y4 as a}from"./app-initial-CKNQDTeE.js";function o(e){let t=e===`newThread`?`newTask`:e;return s.find(e=>e.id===t)??null}var s,c=e((()=>{a(),i(),s=t.filter(e=>e.kind===`webview`&&r(e,`electron`)||e.kind===`electron-only`&&n(e.id))}));export{o as n,c as r,s as t};
+//# sourceMappingURL=codex-micro-commands-D8VILkW9.js.map

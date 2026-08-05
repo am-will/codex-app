@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-COwGPC54.js";var r,i=e((()=>{t(),r=n(`MessageSquareText`,[[`path`,{d:`M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z`,key:`1lielz`}],[`path`,{d:`M13 8H7`,key:`14i4kc`}],[`path`,{d:`M17 12H7`,key:`16if0g`}]])}));export{r as n,i as t};
-//# sourceMappingURL=message-square-text-ujHUgZ1R-D-ypVAOD.js.map

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-COwGPC54.js";var r,i=e((()=>{t(),r=n(`ChartColumnIncreasing`,[[`path`,{d:`M13 17V9`,key:`1fwyjl`}],[`path`,{d:`M18 17V5`,key:`sfb6ij`}],[`path`,{d:`M3 3v16a2 2 0 0 0 2 2h16`,key:`c24i48`}],[`path`,{d:`M8 17v-3`,key:`17ska0`}]])}));export{r as n,i as t};
-//# sourceMappingURL=chart-column-increasing-DzMCZszc-CtBGl2tx.js.map

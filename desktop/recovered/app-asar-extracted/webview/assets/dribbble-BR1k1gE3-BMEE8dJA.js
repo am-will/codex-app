@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-Cnc-zU-Y.js";var r,i=e((()=>{t(),r=n(`Dribbble`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94`,key:`hpej1`}],[`path`,{d:`M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32`,key:`1tr44o`}],[`path`,{d:`M8.56 2.75c4.37 6 6 9.42 8 17.72`,key:`kbh691`}]])}));export{r as n,i as t};
+//# sourceMappingURL=dribbble-BR1k1gE3-BMEE8dJA.js.map

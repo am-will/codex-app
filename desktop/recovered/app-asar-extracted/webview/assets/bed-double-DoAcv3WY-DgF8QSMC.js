@@ -1,1 +1,0 @@
-import{n as e,t}from"./bed-double-DoAcv3WY-CWRCo_3F.js";t();export{e as default};

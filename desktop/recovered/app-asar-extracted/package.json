@@ -2,7 +2,7 @@
   "name": "openai-codex-electron",
   "productName": "Codex",
   "author": "OpenAI",
-  "version": "26.727.51351",
+  "version": "26.730.61639",
   "description": "Codex",
   "main": ".vite/build/early-bootstrap.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "lint": "node ./scripts/ensure-owl-electron-types.mjs && node ../scripts/run-package-oxlint.mjs --include-top-level-ts-scripts",
     "lint:fix": "node ./scripts/ensure-owl-electron-types.mjs && node ../scripts/run-package-oxlint.mjs --include-top-level-ts-scripts --fix",
     "metadata-path": "pnpm exec tsx ./scripts/dev-metadata.ts path",
+    "memory:analyze-snapshot": "node ./scripts/analyze-heap-snapshot.mjs",
     "test": "pnpm run rebuild:native-modules && node ./scripts/ensure-electron-binary.mjs && vitest run",
     "test:quiet": "pnpm run rebuild:native-modules && node ./scripts/ensure-electron-binary.mjs && vitest run --silent --reporter=dot",
     "e2e:computer-use-native-pipe": "node --import tsx ./scripts/computer-use-native-pipe-e2e.mjs",
@@ -105,7 +106,7 @@
     "zod": "^4.4.3"
   },
   "codexBuildFlavor": "prod",
-  "codexBuildNumber": "6119",
+  "codexBuildNumber": "6234",
   "codexAppBrand": "chatgpt",
   "codexSparkleFeedUrl": "https://persistent.oaistatic.com/codex-app-prod/appcast.xml",
   "codexSparklePublicKey": "mNfr1v9t63BfgDtlw4C8lRvSY6uMggIXABDOCi3tS6k="

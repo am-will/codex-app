@@ -1,3 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./rpc-CzcnWrYt.js","./app-initial-iBPGfcXU.js","./rolldown-runtime-DAXXjFlN.js","./app-initial-BSHZIbh1.css","./app-main-lzBNOAi-.js","./app-DjBc91tT.js","./app-44wrUC9v.css"])))=>i.map(i=>d[i]);
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{t}from"./modulepreload-polyfill-9rlIWhXt.js";import{Qvt as n,Zvt as r}from"./app-initial-iBPGfcXU.js";var i=e((()=>{})),a=e((async()=>{n(),await r(()=>import(`./rpc-CzcnWrYt.js`),__vite__mapDeps([0,1,2,3]),import.meta.url),await r(()=>import(`./app-main-lzBNOAi-.js`),__vite__mapDeps([4,2,1,3,5,6]),import.meta.url)}));await e((async()=>{t(),i(),await a()}))();
-//# sourceMappingURL=index-C-HF6lxI.js.map

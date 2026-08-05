@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./octagon-pause-BBKd2xNd-CU2BPjbw.js";e((()=>{n()}))();export{t as default};
-//# sourceMappingURL=pause-octagon-CVpt0y6S-5EhIP7YM.js.map

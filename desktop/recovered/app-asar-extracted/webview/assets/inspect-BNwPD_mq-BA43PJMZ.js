@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./square-mouse-pointer-BwInUBE8-UmsLLr45.js";e((()=>{n()}))();export{t as default};
+//# sourceMappingURL=inspect-BNwPD_mq-BA43PJMZ.js.map

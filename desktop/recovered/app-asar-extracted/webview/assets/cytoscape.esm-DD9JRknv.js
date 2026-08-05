@@ -51,10 +51,10 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
       vec2 v = ab*vec2(-cs.y,cs.x);
       w = w + dot(p-u,v)/(dot(p-u,u)+dot(v,v));
     }
-
+    
     // compute final point and distance
     float d = length(p-ab*vec2(cos(w),sin(w)));
-
+    
     // return signed distance
     return (dot(p/ab,p/ab)>1.0) ? d : -d;
   }
@@ -63,16 +63,16 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
 
       uniform mat3 uPanZoomMatrix;
       uniform int  uAtlasSize;
-
+      
       // instanced
       in vec2 aPosition; // a vertex from the unit square
-
+      
       in mat3 aTransform; // used to transform verticies, eg into a bounding box
       in int aVertType; // the type of thing we are rendering
 
       // the z-index that is output when using picking mode
       in vec4 aIndex;
-
+      
       // For textures
       in int aAtlasId; // which shader unit/atlas to use
       in vec4 aTex; // x/y/w/h of texture in atlas
@@ -92,7 +92,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
       out vec4 vColor;
       out vec2 vPosition;
       // flat values are not interpolated
-      flat out int vAtlasId;
+      flat out int vAtlasId; 
       flat out int vVertType;
       flat out vec2 vTopRight;
       flat out vec2 vBotLeft;
@@ -100,7 +100,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
       flat out vec4 vBorderColor;
       flat out vec2 vBorderWidth;
       flat out vec4 vIndex;
-
+      
       void main(void) {
         int vid = gl_VertexID;
         vec2 position = aPosition; // TODO make this a vec3, simplifies some code below
@@ -123,7 +123,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
 
           gl_Position = vec4(uPanZoomMatrix * aTransform * vec3(position, 1.0), 1.0);
         }
-        else if(aVertType == ${th} || aVertType == ${ih}
+        else if(aVertType == ${th} || aVertType == ${ih} 
              || aVertType == ${nh} || aVertType == ${rh}) { // simple shapes
 
           // the bounding box is needed by the fragment shader
@@ -153,7 +153,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
 
           gl_Position = vec4(uPanZoomMatrix * vec3(point, 1.0), 1.0);
           vColor = aColor;
-        }
+        } 
         else if(aVertType == ${$m}) {
           vec2 pointA = aPointAPointB.xy;
           vec2 pointB = aPointAPointB.zw;
@@ -202,7 +202,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
           }
 
           vColor = aColor;
-        }
+        } 
         else if(aVertType == ${eh} && vid < 3) {
           // massage the first triangle into an edge arrow
           if(vid == 0)
@@ -254,16 +254,16 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
       ${Jm}
 
       vec4 blend(vec4 top, vec4 bot) { // blend colors with premultiplied alpha
-        return vec4(
+        return vec4( 
           top.rgb + (bot.rgb * (1.0 - top.a)),
-          top.a   + (bot.a   * (1.0 - top.a))
+          top.a   + (bot.a   * (1.0 - top.a)) 
         );
       }
 
       vec4 distInterp(vec4 cA, vec4 cB, float d) { // interpolate color using Signed Distance
         // scale to the zoom level so that borders don't look blurry when zoomed in
         // note 1.5 is an aribitrary value chosen because it looks good
-        return mix(cA, cB, 1.0 - smoothstep(0.0, 1.5 / uZoom, abs(d)));
+        return mix(cA, cB, 1.0 - smoothstep(0.0, 1.5 / uZoom, abs(d))); 
       }
 
       void main(void) {
@@ -271,7 +271,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
           // look up the texel from the texture unit
           ${r.map(function(e){return`if(vAtlasId == ${e}) outColor = texture(uTexture${e}, vTexCoord);`}).join(`
 	else `)}
-        }
+        } 
         else if(vVertType == ${eh}) {
           // mimics how canvas renderer uses context.globalCompositeOperation = 'destination-out';
           outColor = blend(vColor, uBGColor);
@@ -280,7 +280,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
         else if(vVertType == ${th} && vBorderWidth == vec2(0.0)) { // simple rectangle with no border
           outColor = vColor; // unit square is already transformed to the rectangle, nothing else needs to be done
         }
-        else if(vVertType == ${th} || vVertType == ${ih}
+        else if(vVertType == ${th} || vVertType == ${ih} 
           || vVertType == ${nh} || vVertType == ${rh}) { // use SDF
 
           float outerBorder = vBorderWidth[0];
@@ -315,7 +315,7 @@ var Cu=function(){function e(e){return-e.tension*e.x-e.friction*e.v}function t(t
               vec4 outerColor = outerBorder == 0.0 ? vec4(0) : vBorderColor;
               vec4 innerBorderColor = blend(vBorderColor, vColor);
               outColor = distInterp(innerBorderColor, outerColor, d);
-            }
+            } 
             else {
               vec4 outerColor;
               if(innerBorder == 0.0 && outerBorder == 0.0) {

@@ -1,1 +1,0 @@
-import{n as e,t}from"./square-split-horizontal-DnBHrayW-DRTV68gb.js";e();export{t as default};
