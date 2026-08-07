@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`Bookmark`,[[`path`,{d:`m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z`,key:`1fy3hk`}]])}));export{i as n,r as t};
+//# sourceMappingURL=bookmark-CheewsH6-Di8SmuFt.js.map

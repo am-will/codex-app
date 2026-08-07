@@ -1,0 +1,1 @@
+import{n as e,t}from"./washing-machine-CueOwhh--DcWfc8ie.js";e();export{t as default};

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`AtSign`,[[`circle`,{cx:`12`,cy:`12`,r:`4`,key:`4exip2`}],[`path`,{d:`M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8`,key:`7n84p3`}]])}));export{r as n,i as t};
+//# sourceMappingURL=at-sign-CjxByN47-Cr66Wnyp.js.map

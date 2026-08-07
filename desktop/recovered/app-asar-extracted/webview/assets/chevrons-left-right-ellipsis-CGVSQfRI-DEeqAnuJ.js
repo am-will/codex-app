@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`ChevronsLeftRightEllipsis`,[[`path`,{d:`m18 8 4 4-4 4`,key:`1ak13k`}],[`path`,{d:`m6 8-4 4 4 4`,key:`15zrgr`}],[`path`,{d:`M8 12h.01`,key:`czm47f`}],[`path`,{d:`M12 12h.01`,key:`1mp3jc`}],[`path`,{d:`M16 12h.01`,key:`1l6xoz`}]])}));export{i as n,r as t};
+//# sourceMappingURL=chevrons-left-right-ellipsis-CGVSQfRI-DEeqAnuJ.js.map

@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`ScissorsLineDashed`,[[`path`,{d:`M5.42 9.42 8 12`,key:`12pkuq`}],[`circle`,{cx:`4`,cy:`8`,r:`2`,key:`107mxr`}],[`path`,{d:`m14 6-8.58 8.58`,key:`gvzu5l`}],[`circle`,{cx:`4`,cy:`16`,r:`2`,key:`1ehqvc`}],[`path`,{d:`M10.8 14.8 14 18`,key:`ax7m9r`}],[`path`,{d:`M16 12h-2`,key:`10asgb`}],[`path`,{d:`M22 12h-2`,key:`14jgyd`}]])}));export{i as n,r as t};
+//# sourceMappingURL=scissors-line-dashed-DFwCW4Ua-CN6Fg1K-.js.map

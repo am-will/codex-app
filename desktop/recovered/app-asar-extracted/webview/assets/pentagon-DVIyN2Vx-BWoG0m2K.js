@@ -1,1 +1,0 @@
-import{n as e,t}from"./pentagon-DVIyN2Vx-BTpOyZ0i.js";t();export{e as default};

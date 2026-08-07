@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`AppWindowMac`,[[`rect`,{width:`20`,height:`16`,x:`2`,y:`4`,rx:`2`,key:`18n3k1`}],[`path`,{d:`M6 8h.01`,key:`x9i8wu`}],[`path`,{d:`M10 8h.01`,key:`1r9ogq`}],[`path`,{d:`M14 8h.01`,key:`1primd`}]])}));export{r as n,i as t};
+//# sourceMappingURL=app-window-mac-B9s_qrAv-CGfy0qvZ.js.map

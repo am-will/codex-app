@@ -1,1 +1,0 @@
-import{Sy as e,xy as t}from"./app-initial-CKNQDTeE.js";e();export{t as PermissionsModeDropdown};

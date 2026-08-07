@@ -1,0 +1,1 @@
+import{n as e,t}from"./book-up-C2qm8LvR-D9Uys4p-.js";e();export{t as default};

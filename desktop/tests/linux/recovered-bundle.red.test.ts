@@ -389,8 +389,8 @@ describe('Recovered Codex bundle RED contract', () => {
     const preloadSource = readDesktopFile('recovered/app-asar-extracted/.vite/build/preload.js');
 
     expect(packageJson.main).toBe('recovered/app-asar-extracted/.vite/build/early-bootstrap.js');
-    expect(packageJson.version).toBe('26.730.61639');
-    expect(packageJson.codexBuildNumber).toBe('6234');
+    expect(packageJson.version).toBe('26.803.41515');
+    expect(packageJson.codexBuildNumber).toBe('6321');
     expect(packageJson.devDependencies?.electron).toBe('42.3.0');
     expect(packageJson.devDependencies?.['@electron/rebuild']).toBeDefined();
     expect(packageJson.dependencies?.['better-sqlite3']).toBeDefined();
@@ -443,8 +443,8 @@ describe('Recovered Codex bundle RED contract', () => {
     expect(manifest.appAsarSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(manifest.dmgPath).toBeNull();
     expect(manifest.dmgSha256).toBeNull();
-    expect(manifest.version).toBe('26.730.61639');
-    expect(manifest.buildNumber).toBe('6234');
+    expect(manifest.version).toBe('26.803.41515');
+    expect(manifest.buildNumber).toBe('6321');
     expect(manifest.electronVersion).toBe('42.3.0');
     expect(manifest.patchSummary?.authWebview?.pluginsPage?.results).toEqual([]);
     expect(manifest.patchSummary?.authWebview?.pluginsCards?.results).toEqual([]);
@@ -715,9 +715,15 @@ describe('Recovered Codex bundle RED contract', () => {
     const hasNativeLinuxOpenTargets =
       mainSource.includes('linuxDetect:()=>G1([`cursor`]') &&
       mainSource.includes('linux:{label:`File Manager`');
+    const hasFactoryLinuxOpenTargets =
+      mainSource.includes('function H1({id:e,label:t,icon:n,kind:r,hidden:i,darwin:a,win32:o,linux:s})') &&
+      mainSource.includes('linux:s?V1({label:t,icon:n,kind:r,platform:{hidden:i,...s}}):void 0') &&
+      mainSource.includes('linux:a?{label:t,icon:n,kind:`editor`');
 
     expect(mainSource).toContain('openUrlWithLinuxBrowserSession');
-    expect(hasInjectedLinuxOpenTargets || hasNativeLinuxOpenTargets).toBe(true);
+    expect(hasInjectedLinuxOpenTargets || hasNativeLinuxOpenTargets || hasFactoryLinuxOpenTargets).toBe(
+      true,
+    );
     if (hasInjectedLinuxOpenTargets) {
       const linuxTargetMatches =
         mainSource.match(/linux(?:ResolveEditorTarget|ResolveAbsoluteCommand)\(/g) ?? [];

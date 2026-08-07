@@ -1,0 +1,1 @@
+import{n as e,t}from"./chart-no-axes-column-increasing-D1ctzx__-BoQ7N9m4.js";e();export{t as default};

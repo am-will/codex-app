@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-Cnc-zU-Y.js";var r,i=e((()=>{t(),r=n(`FlagTriangleRight`,[[`path`,{d:`M7 22V2l10 5-10 5`,key:`17n18y`}]])}));export{r as n,i as t};
-//# sourceMappingURL=flag-triangle-right-Bc3D8ZqP-Dee5uXrI.js.map

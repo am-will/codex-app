@@ -1,0 +1,1 @@
+import{n as e,t}from"./square-divide-GNb9aAMR-BbGsLDTL.js";t();export{e as default};

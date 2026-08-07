@@ -110,9 +110,22 @@ describe('Linux window background stability', () => {
     expect(avatarOverlayBundle).toMatch(
       /mascot:\{left:216,top:191,width:[A-Za-z_$][\w$]*,height:121\}/,
     );
-    expect(avatarOverlayBundle).toMatch(
-      /[A-Za-z_$][\w$]*=80,[A-Za-z_$][\w$]*=84,[A-Za-z_$][\w$]*=512,[A-Za-z_$][\w$]*=1/,
-    );
+    const hasFixedLargeActivityBodyMeasurement =
+      /[A-Za-z_$][\w$]*=80,[A-Za-z_$][\w$]*=84,[A-Za-z_$][\w$]*=512,[A-Za-z_$][\w$]*=1/.test(
+        avatarOverlayBundle,
+      );
+    const hasDynamicActivityBodyMeasurement =
+      avatarOverlayBundle.includes(
+        'let n=Math.ceil(e.offsetWidth>0?e.offsetWidth:t.width)',
+      ) &&
+      avatarOverlayBundle.includes(
+        'r=e.querySelector(ui),i=e.querySelector(di),a=e.querySelector(fi),o=e.querySelector(pi)',
+      ) &&
+      avatarOverlayBundle.includes('a?.scrollHeight??0') &&
+      avatarOverlayBundle.includes('Qr(i)');
+    expect(
+      hasFixedLargeActivityBodyMeasurement || hasDynamicActivityBodyMeasurement,
+    ).toBe(true);
     expect(avatarOverlayBundle).toContain(
       '"data-avatar-overlay-measure-body":`true`',
     );

@@ -1,1 +1,0 @@
-import{n as e,t}from"./list-CTMNGLQ4-9FGGe9Dv.js";e();export{t as default};

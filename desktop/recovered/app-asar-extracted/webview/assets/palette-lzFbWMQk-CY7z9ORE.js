@@ -1,0 +1,1 @@
+import{n as e,t}from"./palette-lzFbWMQk-kn_doBgm.js";e();export{t as default};

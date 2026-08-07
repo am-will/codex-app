@@ -1,0 +1,1 @@
+import{n as e,t}from"./send-horizontal-DBFjFLHk-DNcqIuci.js";e();export{t as default};

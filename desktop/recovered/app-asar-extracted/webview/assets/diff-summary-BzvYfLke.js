@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";function t(e){let t=0,n=0;for(let r of e)t+=r.additions,n+=r.deletions;return{fileCount:e.length,linesAdded:t,linesDeleted:n,hasChanges:t>0||n>0}}var n=e((()=>{}));export{n,t};
+//# sourceMappingURL=diff-summary-BzvYfLke.js.map

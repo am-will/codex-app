@@ -1,1 +1,0 @@
-import{_r as e,gr as t}from"./app-initial-CKNQDTeE.js";e();export{t as CheckoutWebviewPage};

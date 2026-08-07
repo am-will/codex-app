@@ -1,0 +1,1 @@
+import{n as e,t}from"./list-minus-2TFGrrGv-ewxkxg1n.js";t();export{e as default};

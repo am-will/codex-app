@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`Ban`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`m4.9 4.9 14.2 14.2`,key:`1m5liu`}]])}));export{i as n,r as t};
+//# sourceMappingURL=ban-vO_L7S2P-BbNo2zR3.js.map

@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-Cnc-zU-Y.js";var r,i=e((()=>{t(),r=n(`GripHorizontal`,[[`circle`,{cx:`12`,cy:`9`,r:`1`,key:`124mty`}],[`circle`,{cx:`19`,cy:`9`,r:`1`,key:`1ruzo2`}],[`circle`,{cx:`5`,cy:`9`,r:`1`,key:`1a8b28`}],[`circle`,{cx:`12`,cy:`15`,r:`1`,key:`1e56xg`}],[`circle`,{cx:`19`,cy:`15`,r:`1`,key:`1a92ep`}],[`circle`,{cx:`5`,cy:`15`,r:`1`,key:`5r1jwy`}]])}));export{i as n,r as t};
-//# sourceMappingURL=grip-horizontal-CIPLR476-BagBWcKc.js.map

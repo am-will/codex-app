@@ -1,1 +1,0 @@
-import{n as e,t}from"./battery-medium-C1MaLWGh-IE9a8eg3.js";t();export{e as default};

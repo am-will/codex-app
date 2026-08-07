@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-Cnc-zU-Y.js";var r,i=e((()=>{t(),r=n(`WalletCards`,[[`rect`,{width:`18`,height:`18`,x:`3`,y:`3`,rx:`2`,key:`afitv7`}],[`path`,{d:`M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2`,key:`4125el`}],[`path`,{d:`M3 11h3c.8 0 1.6.3 2.1.9l1.1.9c1.6 1.6 4.1 1.6 5.7 0l1.1-.9c.5-.5 1.3-.9 2.1-.9H21`,key:`1dpki6`}]])}));export{r as n,i as t};
-//# sourceMappingURL=wallet-cards-ChX4Xagf-DOCS8bug.js.map
