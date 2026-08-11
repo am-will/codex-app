@@ -1,0 +1,1 @@
+import{n as e,t}from"./slice-CLvrgXyq-0ABmnexB.js";e();export{t as default};

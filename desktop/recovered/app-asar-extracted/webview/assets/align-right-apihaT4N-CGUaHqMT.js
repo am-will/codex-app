@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`AlignRight`,[[`path`,{d:`M21 12H9`,key:`dn1m92`}],[`path`,{d:`M21 18H7`,key:`1ygte8`}],[`path`,{d:`M21 6H3`,key:`1jwq7v`}]])}));export{i as n,r as t};
-//# sourceMappingURL=align-right-apihaT4N-CGUaHqMT.js.map

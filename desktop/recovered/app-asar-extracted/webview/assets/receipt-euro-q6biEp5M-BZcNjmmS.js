@@ -1,0 +1,1 @@
+import{n as e,t}from"./receipt-euro-q6biEp5M-C3Hn0x2u.js";e();export{t as default};

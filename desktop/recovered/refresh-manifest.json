@@ -2,11 +2,11 @@
   "sourceType": "app-asar",
   "dmgPath": null,
   "dmgSha256": null,
-  "appAsarPath": "/tmp/codex-upstream-26.803.41515-S4eJqK/ChatGPT.app/Contents/Resources/app.asar",
-  "appAsarSha256": "5f6e773aafd542d3cf09e10b5dca6cabd301d0a155f4b8ce870e3915fc3da25e",
-  "outputRoot": "/tmp/codex-release-26.803.41515-KBuMmd/release/desktop/recovered/app-asar-extracted",
-  "version": "26.803.41515",
-  "buildNumber": "6321",
+  "appAsarPath": "/tmp/codex-release-26.803.81509-rKxmZo/release/desktop/tmp/upstream-26.803.81509/ChatGPT.app/Contents/Resources/app.asar",
+  "appAsarSha256": "01a9c7b0fb822a8bcee829849194b757ce2ea5cf40d1ea05750c504f92314d79",
+  "outputRoot": "/tmp/codex-release-26.803.81509-rKxmZo/release/desktop/recovered/app-asar-extracted",
+  "version": "26.803.81509",
+  "buildNumber": "6415",
   "electronVersion": "42.3.0",
   "main": ".vite/build/early-bootstrap.js",
   "patchSummary": {
@@ -344,7 +344,7 @@
       "patched": true,
       "results": [
         {
-          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-B65V9gHH.js",
+          "label": "compiled Mapbox public token redacted from use-chatgpt-composer-controller-DUpE5cgw.js",
           "patched": true,
           "skipped": false,
           "reason": null
@@ -503,7 +503,7 @@
     }
   },
   "nativeModuleSummary": {
-    "sourceNodeModulesRoot": "/tmp/codex-release-26.803.41515-KBuMmd/release/desktop/node_modules",
+    "sourceNodeModulesRoot": "/tmp/codex-release-26.803.81509-rKxmZo/release/desktop/node_modules",
     "copiedFiles": [
       "better-sqlite3/build/Release/better_sqlite3.node",
       "node-pty/build/Release/pty.node",

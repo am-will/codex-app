@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`PhilippinePeso`,[[`path`,{d:`M20 11H4`,key:`6ut86h`}],[`path`,{d:`M20 7H4`,key:`zbl0bi`}],[`path`,{d:`M7 21V4a1 1 0 0 1 1-1h4a1 1 0 0 1 0 12H7`,key:`1ana5r`}]])}));export{i as n,r as t};
-//# sourceMappingURL=philippine-peso-ZnAxuFkC-DoixQmdJ.js.map

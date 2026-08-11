@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{$lt as t,Q0 as n,Skt as r,X0 as i,Zlt as a,gkt as o}from"./app-initial-Bd3Z1bES.js";function s(){let e=(0,c.c)(2);if(!n()){let n;return e[0]===Symbol.for(`react.memo_cache_sentinel`)?(n=(0,l.jsx)(t,{to:`/`,replace:!0}),e[0]=n):n=e[0],n}let r;return e[1]===Symbol.for(`react.memo_cache_sentinel`)?(r=(0,l.jsx)(t,{to:`/settings/connections`,replace:!0}),e[1]=r):r=e[1],r}var c,l;e((()=>{c=r(),a(),i(),l=o()}))();export{s as RemoteConnectionsPage};
+//# sourceMappingURL=remote-connections-page-ybZ6YM3T.js.map

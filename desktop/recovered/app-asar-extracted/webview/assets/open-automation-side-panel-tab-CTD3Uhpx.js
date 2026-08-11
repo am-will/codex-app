@@ -1,0 +1,1 @@
+import{i as e,t}from"./open-automation-side-panel-tab-HGuPnXI7.js";t();export{e as restoreAutomationSidePanelTab};

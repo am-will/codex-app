@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`CirclePercent`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`path`,{d:`m15 9-6 6`,key:`1uzhvr`}],[`path`,{d:`M9 9h.01`,key:`1q5me6`}],[`path`,{d:`M15 15h.01`,key:`lqbp3k`}]])}));export{r as n,i as t};
-//# sourceMappingURL=circle-percent-BcK2i9sC-C6h7kx_U.js.map

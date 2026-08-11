@@ -1,1 +1,0 @@
-import{n as e,t}from"./amphora-D82p4YiZ-Cto8SF1e.js";e();export{t as default};

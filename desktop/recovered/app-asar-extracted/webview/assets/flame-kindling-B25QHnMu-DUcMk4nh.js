@@ -1,0 +1,1 @@
+import{n as e,t}from"./flame-kindling-B25QHnMu-DXhJX57E.js";t();export{e as default};

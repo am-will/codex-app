@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DObfUrqa.js";var r,i=e((()=>{t(),r=n(`IdCard`,[[`path`,{d:`M16 10h2`,key:`8sgtl7`}],[`path`,{d:`M16 14h2`,key:`epxaof`}],[`path`,{d:`M6.17 15a3 3 0 0 1 5.66 0`,key:`n6f512`}],[`circle`,{cx:`9`,cy:`11`,r:`2`,key:`yxgjnd`}],[`rect`,{x:`2`,y:`5`,width:`20`,height:`14`,rx:`2`,key:`qneu4z`}]])}));export{i as n,r as t};
+//# sourceMappingURL=id-card-F9_4PiTO-Fy8HM9uC.js.map

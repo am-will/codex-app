@@ -1,0 +1,1 @@
+import{n as e,t}from"./slack-DT0_UIBU-Bnlww_B0.js";e();export{t as default};

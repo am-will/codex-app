@@ -1,0 +1,1 @@
+import{n as e,t}from"./corner-right-down-DcCF0Mad-iI3fpXMk.js";t();export{e as default};

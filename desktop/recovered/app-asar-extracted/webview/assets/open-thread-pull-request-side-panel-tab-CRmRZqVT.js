@@ -1,0 +1,1 @@
+import{i as e,t}from"./open-thread-pull-request-side-panel-tab-BXhBzbuu.js";t();export{e as restoreThreadPullRequestSidePanelTab};

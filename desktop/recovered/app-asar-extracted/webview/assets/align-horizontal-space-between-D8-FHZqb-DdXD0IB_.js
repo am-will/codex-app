@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-DObfUrqa.js";var r,i=e((()=>{t(),r=n(`AlignHorizontalSpaceBetween`,[[`rect`,{width:`6`,height:`14`,x:`3`,y:`5`,rx:`2`,key:`j77dae`}],[`rect`,{width:`6`,height:`10`,x:`15`,y:`7`,rx:`2`,key:`bq30hj`}],[`path`,{d:`M3 2v20`,key:`1d2pfg`}],[`path`,{d:`M21 2v20`,key:`p059bm`}]])}));export{i as n,r as t};
+//# sourceMappingURL=align-horizontal-space-between-D8-FHZqb-DdXD0IB_.js.map

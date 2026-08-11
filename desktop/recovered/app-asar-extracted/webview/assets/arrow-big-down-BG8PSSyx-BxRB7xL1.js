@@ -1,0 +1,1 @@
+import{n as e,t}from"./arrow-big-down-BG8PSSyx-qCHVLE3l.js";t();export{e as default};

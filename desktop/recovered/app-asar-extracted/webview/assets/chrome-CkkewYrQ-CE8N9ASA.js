@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./createLucideIcon-BrIFp4GW-D3eTom1-.js";var r,i=e((()=>{t(),r=n(`Chrome`,[[`circle`,{cx:`12`,cy:`12`,r:`10`,key:`1mglay`}],[`circle`,{cx:`12`,cy:`12`,r:`4`,key:`4exip2`}],[`line`,{x1:`21.17`,x2:`12`,y1:`8`,y2:`8`,key:`a0cw5f`}],[`line`,{x1:`3.95`,x2:`8.54`,y1:`6.06`,y2:`14`,key:`1kftof`}],[`line`,{x1:`10.88`,x2:`15.46`,y1:`21.94`,y2:`14`,key:`1ymyh8`}]])}));export{i as n,r as t};
-//# sourceMappingURL=chrome-CkkewYrQ-CE8N9ASA.js.map

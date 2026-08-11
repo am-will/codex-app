@@ -2026,6 +2026,12 @@ const avatarOverlayDirectMascotDragPatchAlternatives = [
       't[52]===ue?$t=t[53]:($t=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag, [data-avatar-overlay-scroll-direction]`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),lt.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[xn(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:ue},U.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:ue}),ye(!0),he(null)},t[52]=ue,t[53]=$t);',
   },
   {
+    target:
+      't[52]===se?$t=t[53]:($t=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag, [data-avatar-overlay-scroll-direction]`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),lt.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[xn(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:se},yt.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:se}),he(!0),fe(null))},t[52]=se,t[53]=$t);',
+    replacement:
+      't[52]===se?$t=t[53]:($t=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag, [data-avatar-overlay-scroll-direction]`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),lt.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[xn(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:se},yt.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:se}),he(!0),fe(null)},t[52]=se,t[53]=$t);',
+  },
+  {
     target: 'Ue=e=>{e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null||(e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),we.current={startedOnMascot:e.target.closest(`[data-avatar-mascot="true"]`)!=null,hasMoved:!1,pointerId:e.pointerId,samples:[xt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:C},G.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:C}),M(!0),O(null))}',
     replacement: 'Ue=e=>{if(e.button!==0||!(e.target instanceof Element)||e.target.closest(`.no-drag`)!=null)return;if(e.target.closest(`[data-avatar-mascot="true"]`)==null)return;e.preventDefault(),e.currentTarget.setPointerCapture?.(e.pointerId),we.current={startedOnMascot:!0,hasMoved:!1,pointerId:e.pointerId,samples:[xt(e)],screenX:e.screenX,screenY:e.screenY,usesOrbPhysics:C},G.dispatchMessage(`avatar-overlay-drag-start`,{pointerScreenX:e.screenX,pointerScreenY:e.screenY,pointerWindowX:e.clientX,pointerWindowY:e.clientY,usesOrbPhysics:C}),M(!0),O(null))}',
   },
@@ -2230,6 +2236,12 @@ const avatarOverlayLargeActivityTrayPaddingPatchAlternatives = [
   },
   {
     target:
+      '_(`block w-full min-w-0 py-1.5 pe-3 text-start focus-visible:outline focus-visible:outline-offset-[-2px]`,A?`ps-5`:`ps-3`,k?`cursor-interaction`:`cursor-default`)',
+    replacement:
+      '_(`block w-full min-w-0 px-5 py-3 text-start focus-visible:outline focus-visible:outline-offset-[-2px]`,k?`cursor-interaction`:`cursor-default`)',
+  },
+  {
+    target:
       '`relative z-[1] overflow-hidden rounded-[18px] px-3 py-2 forced-colors:bg-[Canvas]`',
     replacement:
       '`relative z-[1] overflow-hidden rounded-[18px] px-5 py-3 forced-colors:bg-[Canvas]`',
@@ -2246,6 +2258,12 @@ const avatarOverlayLargeActivityTrayWrapPatchReplacement =
 const avatarOverlayLargeActivityTrayWrapPatchMarker =
   'he?`whitespace-pre-wrap`:x==null?`whitespace-pre-wrap`:void 0';
 const avatarOverlayLargeActivityTrayWrapPatchAlternatives = [
+  {
+    target:
+      'de&&`whitespace-pre-wrap`,!de&&w==null&&t.isLoading&&`truncate`,!de&&w==null&&!t.isLoading&&`line-clamp-2`',
+    replacement:
+      'de&&`whitespace-pre-wrap`,!de&&w==null&&t.isLoading&&`truncate`,!de&&w==null&&!t.isLoading&&`whitespace-pre-wrap`',
+  },
   {
     target:
       'fe&&`whitespace-pre-wrap`,!fe&&S==null&&t.isLoading&&`truncate`,!fe&&S==null&&!t.isLoading&&`line-clamp-2`',

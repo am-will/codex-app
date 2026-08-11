@@ -1,1 +1,0 @@
-import{n as e,t}from"./touchpad-off-VWXv85MF-Dy-rnl3-.js";e();export{t as default};

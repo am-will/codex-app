@@ -1,0 +1,1 @@
+import{r as e,t}from"./open-pull-request-fix-automation-panel-CRZWKZ4q.js";t();export{e as restorePullRequestFixAutomationSidePanelTab};

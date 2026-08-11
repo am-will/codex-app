@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DAXXjFlN.js";import{n as t,t as n}from"./axis-3d-Cv9ha8Ch-BwH0PZ3W.js";e((()=>{t()}))();export{n as default};
+//# sourceMappingURL=axis-3-d-Ba5-Epfy-CYyMGvP8.js.map

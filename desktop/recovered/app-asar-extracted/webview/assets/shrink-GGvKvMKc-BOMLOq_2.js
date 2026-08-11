@@ -1,0 +1,1 @@
+import{n as e,t}from"./shrink-GGvKvMKc-B0Qlj5YP.js";e();export{t as default};

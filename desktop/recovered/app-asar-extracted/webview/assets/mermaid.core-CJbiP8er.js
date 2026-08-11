@@ -1,1 +1,0 @@
-import{n as e,t}from"./mermaid.core-BS2sgx8l.js";t();export{e as default};
